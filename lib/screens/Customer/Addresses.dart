@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/Customer/AddressListModel.dart';
-import 'package:tezal/models/Customer/PaymentInfoModel.dart';
-import 'package:tezal/screens/Customer/NewAddress.dart';
-import 'package:tezal/screens/Customer/widgets/AppBarNew.dart';
-import 'package:tezal/services/AlertService.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
 import 'package:http/http.dart' as http;
+
+import '../../lang/Lang.dart';
+import '../../models/Customer/AddressListModel.dart';
+import '../../services/AlertService.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/FlatColors.dart';
+import 'NewAddress.dart';
+import 'widgets/AppBarNew.dart';
 
 class Addresses extends StatefulWidget {
   @override

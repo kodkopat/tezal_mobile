@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/screens/Customer/widgets/AppBarNew.dart';
+
+import '../../lang/Lang.dart';
+import 'widgets/AppBarNew.dart';
 
 class AboutUsPage extends StatefulWidget {
   @override

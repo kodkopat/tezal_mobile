@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/models/Market/OrderDetailModel.dart';
-import 'package:tezal/screens/Market/MarketMainPage.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
 import 'package:http/http.dart' as http;
-import 'package:tezal/services/RouteBuilderService.dart';
+
+import '../../models/Market/OrderDetailModel.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/RouteBuilderService.dart';
+import 'MarketMainPage.dart';
 
 class MarketOrderDetailPage extends StatefulWidget {
   final String orderId;

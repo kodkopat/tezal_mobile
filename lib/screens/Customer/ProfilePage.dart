@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/screens/Customer/AboutUsPage.dart';
-import 'package:tezal/screens/Customer/Addresses.dart';
-import 'package:tezal/screens/Customer/PreviousOrdersPage.dart';
-import 'package:tezal/screens/Customer/PrivateInfoPage.dart';
-import 'package:tezal/screens/Customer/widgets/AppBarNew.dart';
-import 'package:tezal/services/FlatColors.dart';
+
+import '../../lang/Lang.dart';
+import '../../services/FlatColors.dart';
+import 'AboutUsPage.dart';
+import 'Addresses.dart';
+import 'PreviousOrdersPage.dart';
+import 'PrivateInfoPage.dart';
+import 'widgets/AppBarNew.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

@@ -1,15 +1,16 @@
-import 'package:email_validator/email_validator.dart';
-import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/market/MarketProfileModel.dart';
-import 'package:tezal/screens/Market/widgets/AppBarNew.dart';
-import 'package:tezal/services/AlertService.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:tezal/services/FlatColors.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../../lang/Lang.dart';
+import '../../models/market/MarketProfileModel.dart';
+import '../../services/AlertService.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/FlatColors.dart';
+import 'widgets/AppBarNew.dart';
 
 class MarketInfoPage extends StatefulWidget {
   @override

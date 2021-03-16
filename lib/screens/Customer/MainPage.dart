@@ -1,15 +1,17 @@
 import 'dart:convert';
-import 'package:tezal/lang/Lang.dart';
+
 import 'package:flutter/material.dart';
-import 'package:tezal/screens/AccountPage.dart';
-import 'package:tezal/screens/Customer/BasketPage.dart';
-import 'package:tezal/screens/Customer/SearchPage.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
 import 'package:http/http.dart' as http;
+
+import '../../lang/Lang.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/FlatColors.dart';
+import '../../services/RouteBuilderService.dart';
+import '../AccountPage.dart';
+import 'BasketPage.dart';
 import 'HomePage.dart';
+import 'SearchPage.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);

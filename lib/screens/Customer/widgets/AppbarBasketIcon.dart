@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/services/FlatColors.dart';
+
+import '../../../services/FlatColors.dart';
 
 class AppbarBasketIcon extends StatelessWidget {
   final int count;

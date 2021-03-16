@@ -1,10 +1,11 @@
-import 'package:tezal/models/ProductResponseModel.dart';
 import 'package:flutter/material.dart';
+
+import '../models/ProductResponseModel.dart';
 
 class ProductWidget extends StatelessWidget {
   Product product;
 
-  ProductWidget(this.product) {}
+  ProductWidget(this.product);
   @override
   Widget build(BuildContext context) {
     return InkWell(

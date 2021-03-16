@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/screens/Customer/ProfilePage.dart';
 
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/FlatColors.dart';
+import '../services/AuthService.dart';
+import '../services/FlatColors.dart';
+import 'Customer/ProfilePage.dart';
 import 'LoginPage.dart';
 
 class AccountPage extends StatefulWidget {

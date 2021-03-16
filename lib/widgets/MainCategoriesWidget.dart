@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/screens/Customer/CategoryDetailPage.dart';
 
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
+import '../services/FlatColors.dart';
 
 class MainCategoriesWidget extends StatefulWidget {
   MainCategoriesWidget({Key key}) : super(key: key);

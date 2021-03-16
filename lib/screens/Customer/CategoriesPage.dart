@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/services/LocationService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../services/LocationService.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({

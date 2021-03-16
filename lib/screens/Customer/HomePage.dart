@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/screens/Customer/widgets/NearbyMarketsWidget.dart';
+
+import 'widgets/NearbyMarketsWidget.dart';
 
 class HomePage extends StatelessWidget {
   @override

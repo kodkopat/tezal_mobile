@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/services/FlatColors.dart';
+
+import '../../lang/Lang.dart';
+import '../../services/FlatColors.dart';
 
 class OrderResult extends StatefulWidget {
   final String orderId;

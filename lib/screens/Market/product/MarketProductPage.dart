@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/screens/Market/product/MarketDetailPage.dart';
-import 'package:tezal/screens/Market/widgets/AppBarNew.dart';
-import 'package:tezal/services/FlatColors.dart';
+
+import '../../../lang/Lang.dart';
+import '../../../services/FlatColors.dart';
+import '../widgets/AppBarNew.dart';
+import 'MarketDetailPage.dart';
 
 class MarketProductPage extends StatefulWidget {
   final String marketId;

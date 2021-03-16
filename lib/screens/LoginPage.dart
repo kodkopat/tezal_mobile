@@ -1,17 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/LoginModel.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:progress_dialog/progress_dialog.dart';
+
 import '../app_localizations.dart';
+import '../lang/Lang.dart';
 import '../main.dart';
+import '../models/LoginModel.dart';
 import '../services/AuthService.dart';
 import '../services/DataService.dart';
+import '../services/FlatColors.dart';
+import '../services/RouteBuilderService.dart';
 import 'RegistrationPage.dart';
 
 class LoginPagePage extends StatefulWidget {

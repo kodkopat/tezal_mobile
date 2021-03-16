@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/Customer/ProductItemModel.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
+
+import '../../../lang/Lang.dart';
+import '../../../models/Customer/ProductItemModel.dart';
+import '../../../services/DataService.dart';
+import '../../../services/FlatColors.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final VoidCallback onAdd, onRemove, onlike, onTap;

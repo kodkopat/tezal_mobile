@@ -1,19 +1,18 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:tezal/models/CheckTokenModel.dart';
-import 'package:tezal/models/LoginModel.dart';
-import 'package:tezal/screens/LoginPage.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/LocationService.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
-
+import '../models/CheckTokenModel.dart';
+import '../models/LoginModel.dart';
+import '../screens/LoginPage.dart';
 import 'DataService.dart';
+import 'LocationService.dart';
+import 'RouteBuilderService.dart';
 
 class AuthService {
-  AuthService() {}
+  // AuthService() {}
   static Future<bool> isLoggedIn() async {
     FlutterSecureStorage storage = new FlutterSecureStorage();
     var token = await storage.read(key: 'token');

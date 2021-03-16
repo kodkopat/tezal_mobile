@@ -3,10 +3,11 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/models/CheckSmsModel.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/CheckSmsModel.dart';
+import '../services/DataService.dart';
+import '../services/FlatColors.dart';
 
 class ConfirmRegistration extends StatefulWidget {
   @override

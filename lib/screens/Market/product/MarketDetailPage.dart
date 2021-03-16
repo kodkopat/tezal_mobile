@@ -1,17 +1,19 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/Customer/ProductItemModel.dart';
-import 'package:tezal/models/Market/MarketProductsModel.dart';
-import 'package:tezal/screens/Customer/ProductDetail.dart';
-import 'package:tezal/screens/Customer/widgets/ProductItemWidget.dart';
-import 'package:tezal/screens/LoginPage.dart';
-import 'package:tezal/services/AlertService.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
 import 'package:http/http.dart' as http;
-import 'package:tezal/services/RouteBuilderService.dart';
+
+import '../../../lang/Lang.dart';
+import '../../../models/Customer/ProductItemModel.dart';
+import '../../../models/Market/MarketProductsModel.dart';
+import '../../../services/AlertService.dart';
+import '../../../services/AuthService.dart';
+import '../../../services/DataService.dart';
+import '../../../services/FlatColors.dart';
+import '../../../services/RouteBuilderService.dart';
+import '../../Customer/ProductDetail.dart';
+import '../../Customer/widgets/ProductItemWidget.dart';
+import '../../LoginPage.dart';
 import 'CategoryDetailPage.dart';
 
 class MarketDetailPage extends StatefulWidget {
@@ -31,7 +33,7 @@ class _MarketDetailPageState extends State<MarketDetailPage> {
     var headers = await AuthService.getDefaultHeadersNoLocation();
     var adres =
         DataService.marketBaseaddress + 'Product/GetMarketProduct/?Id=$id';
-         print(adres);
+    print(adres);
     var res = await http.get(Uri.http(DataService.authority, adres),
         headers: headers);
 
@@ -180,54 +182,54 @@ class _MarketDetailPageState extends State<MarketDetailPage> {
                       //           ],
                       //         ),
                       //       ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 5),
-                            //   child: Row(
-                            //     children: [
-                            //       Icon(
-                            //         Icons.delivery_dining,
-                            //         color: FlatColors.green_light,
-                            //       ),
-                            //       Text(
-                            //         res.data.deliveryCost.toString() +
-                            //             " " +
-                            //             Lang(context).moneyUnit,
-                            //         style: TextStyle(
-                            //             color: FlatColors.green_light,
-                            //             fontSize: 12),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(top: 5),
-                            //   child: Row(
-                            //     children: [
-                            //       Icon(
-                            //         Icons.star_border_rounded,
-                            //         color: res.data.score <= 100 &&
-                            //                 res.data.score >= 80
-                            //             ? FlatColors.green_light
-                            //             : (res.data.score < 80 &&
-                            //                     res.data.score >= 60
-                            //                 ? FlatColors.orange_light
-                            //                 : FlatColors.red_light),
-                            //       ),
-                            //       Text(
-                            //         res.data.score.toString() + "/100",
-                            //         style: TextStyle(
-                            //             color: res.data.score <= 100 &&
-                            //                     res.data.score >= 80
-                            //                 ? FlatColors.green_light
-                            //                 : (res.data.score < 80 &&
-                            //                         res.data.score >= 60
-                            //                     ? FlatColors.orange_light
-                            //                     : FlatColors.red_light),
-                            //             fontSize: 12),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(top: 5),
+                      //   child: Row(
+                      //     children: [
+                      //       Icon(
+                      //         Icons.delivery_dining,
+                      //         color: FlatColors.green_light,
+                      //       ),
+                      //       Text(
+                      //         res.data.deliveryCost.toString() +
+                      //             " " +
+                      //             Lang(context).moneyUnit,
+                      //         style: TextStyle(
+                      //             color: FlatColors.green_light,
+                      //             fontSize: 12),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(top: 5),
+                      //   child: Row(
+                      //     children: [
+                      //       Icon(
+                      //         Icons.star_border_rounded,
+                      //         color: res.data.score <= 100 &&
+                      //                 res.data.score >= 80
+                      //             ? FlatColors.green_light
+                      //             : (res.data.score < 80 &&
+                      //                     res.data.score >= 60
+                      //                 ? FlatColors.orange_light
+                      //                 : FlatColors.red_light),
+                      //       ),
+                      //       Text(
+                      //         res.data.score.toString() + "/100",
+                      //         style: TextStyle(
+                      //             color: res.data.score <= 100 &&
+                      //                     res.data.score >= 80
+                      //                 ? FlatColors.green_light
+                      //                 : (res.data.score < 80 &&
+                      //                         res.data.score >= 60
+                      //                     ? FlatColors.orange_light
+                      //                     : FlatColors.red_light),
+                      //             fontSize: 12),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       //     ],
                       //   ),
                       // ),

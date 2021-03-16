@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import 'dart:ui' show Color;
 
-import 'package:flutter/painting.dart';
+import 'package:flutter/material.dart';
 
 class FlatColors {
   static const Color orange_light = Color.fromRGBO(243, 156, 18, 1);
@@ -29,6 +26,7 @@ class FlatColors {
 
   static const Color white_light = Color.fromRGBO(245, 246, 250, 1);
   static const Color background1 = Color.fromRGBO(248, 249, 250, 1);
+
   static MaterialColor toMaterialColor(Color color) {
     Map<int, Color> colorCodes = {
       100: Color.fromRGBO(color.red, color.green, color.blue, 1),

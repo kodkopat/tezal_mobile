@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:tezal/models/ProductResponseModel.dart';
-import 'package:tezal/screens/Customer/ProductDetail.dart';
-
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/dataService.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import '../models/ProductResponseModel.dart';
+import '../screens/Customer/ProductDetail.dart';
+import '../services/FlatColors.dart';
+import '../services/dataService.dart';
 
 class ProductListWidget extends StatefulWidget {
   String tag;

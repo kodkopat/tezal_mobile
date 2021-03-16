@@ -1,12 +1,14 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/screens/ConfirmRegistration.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:http/http.dart' as http;
+import 'package:progress_dialog/progress_dialog.dart';
+
+import '../services/DataService.dart';
+import '../services/FlatColors.dart';
+import '../services/RouteBuilderService.dart';
+import 'ConfirmRegistration.dart';
 
 class RegistrationPage extends StatefulWidget {
   @override
@@ -244,22 +246,26 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 width: double.infinity,
                 height: 50,
                 decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                          color: FlatColors.grey_dark,
-                          blurRadius: 2,
-                          spreadRadius: 1)
-                    ],
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: (nameController.text.isNotEmpty &&
-                                passController.text.isNotEmpty &&
-                                phoneController.text.isNotEmpty &&
-                                contractSigned)
-                            ? [FlatColors.orange_light, FlatColors.orange_dark]
-                            : [FlatColors.grey_dark, FlatColors.grey_light]),
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                  boxShadow: [
+                    BoxShadow(
+                        color: FlatColors.grey_dark,
+                        blurRadius: 2,
+                        spreadRadius: 1)
+                  ],
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: (nameController.text.isNotEmpty &&
+                            passController.text.isNotEmpty &&
+                            phoneController.text.isNotEmpty &&
+                            contractSigned)
+                        ? [FlatColors.orange_light, FlatColors.orange_dark]
+                        : [FlatColors.grey_dark, FlatColors.grey_light],
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5),
+                  ),
+                ),
                 child: Text(
                   "ثبت نام",
                   style: TextStyle(color: FlatColors.white_light),

@@ -1,16 +1,17 @@
 import 'dart:convert';
-import 'package:http/http.dart' as http;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/Customer/PaymentInfoModel.dart';
-import 'package:tezal/screens/Customer/NewAddress.dart';
+import 'package:http/http.dart' as http;
 
-import 'package:tezal/screens/Customer/OrderResult.dart';
-import 'package:tezal/screens/Customer/widgets/AppBarNew.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
+import '../../lang/Lang.dart';
+import '../../models/Customer/PaymentInfoModel.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/FlatColors.dart';
+import 'NewAddress.dart';
+import 'OrderResult.dart';
+import 'widgets/AppBarNew.dart';
 //import 'package:url_launcher/url_launcher.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -364,7 +365,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Future payOnline() async {
-    const url = 'https://flutter.dev';
+    // const url = 'https://flutter.dev';
     // if (await canLaunch(url)) {
     //   await launch(url);
     // } else {

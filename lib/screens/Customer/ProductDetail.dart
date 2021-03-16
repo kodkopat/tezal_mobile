@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/Customer/ProductDetailModel.dart';
-import 'package:tezal/models/Customer/ProductItemModel.dart';
-import 'package:tezal/screens/Customer/BasketPage.dart';
-import 'package:tezal/screens/Customer/widgets/AppBarNew.dart';
-import 'package:tezal/screens/Customer/widgets/AppbarBasketIcon.dart';
-import 'package:tezal/screens/LoginPage.dart';
-import 'package:tezal/services/AlertService.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
+
+import '../../lang/Lang.dart';
+import '../../models/Customer/ProductDetailModel.dart';
+import '../../models/Customer/ProductItemModel.dart';
+import '../../services/AlertService.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/FlatColors.dart';
+import '../../services/RouteBuilderService.dart';
+import '../LoginPage.dart';
+import 'BasketPage.dart';
+import 'widgets/AppBarNew.dart';
+import 'widgets/AppbarBasketIcon.dart';
 
 class ProductDetail extends StatefulWidget {
   String id;

@@ -1,21 +1,26 @@
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/screens/Customer/MainPage.dart';
-import 'package:flutter/material.dart';
-import 'package:tezal/screens/Delivery/DeliveryMainPage.dart';
-import 'package:tezal/screens/Market/MarketMainPage.dart';
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/LocationService.dart';
+
 import 'app_localizations.dart';
+import 'core/page_routes/routes.dart';
 import 'models/LoginModel.dart';
+import 'services/FlatColors.dart';
 
 void main() {
+  Routes.createRoutes();
+  Routes.createCustomerRoutes();
+  Routes.createMarketRoutes();
+  Routes.createDeliveryRoutes();
+
   runApp(App());
 }
 
 class App extends StatefulWidget {
   App({Key key}) : super(key: key);
+
   static void restartApp(BuildContext context) {
     context.findAncestorStateOfType<_AppState>().restartApp();
   }
@@ -26,9 +31,10 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   FlutterSecureStorage storage = FlutterSecureStorage();
+
   @override
   void initState() {
-    LocationService.setSavedLocation();
+    // LocationService.setSavedLocation();
     super.initState();
   }
 
@@ -60,14 +66,9 @@ class _AppState extends State<App> {
     String fontFamily = locale.languageCode == 'fa' ? 'Yekan' : 'Arial';
     var supportedLocales = [Locale("en", "US"), Locale("fa", "IR")];
     var themeData;
-    String initialRoute = "/";
-    var routes;
 
     switch (appType) {
       case "customer":
-        routes = {
-          '/': (context) => MainPage(),
-        };
         themeData = ThemeData(
           fontFamily: fontFamily,
           primaryColor: FlatColors.green_light,
@@ -78,9 +79,6 @@ class _AppState extends State<App> {
         );
         break;
       case "market":
-        routes = {
-          '/': (context) => MarketMainPage(),
-        };
         themeData = ThemeData(
           fontFamily: fontFamily,
           primaryColor: FlatColors.blue_light,
@@ -91,9 +89,6 @@ class _AppState extends State<App> {
         );
         break;
       case "delivery":
-        routes = {
-          '/': (context) => DeliveryMainPage(),
-        };
         themeData = ThemeData(
           fontFamily: fontFamily,
           primaryColor: FlatColors.pink_light,
@@ -106,14 +101,22 @@ class _AppState extends State<App> {
     }
 
     return MaterialApp(
-      initialRoute: initialRoute,
-      routes: routes,
+      title: 'TezAl Market',
+      theme: themeData,
+      debugShowCheckedModeBanner: false,
+      // routing setting
+      navigatorKey: Routes.sailor.navigatorKey,
+      onGenerateRoute: Routes.sailor.generator(),
+      // localization settings
+      supportedLocales: supportedLocales,
       localizationsDelegates: deligates,
       locale: locale,
-      supportedLocales: supportedLocales,
-      title: 'TezAl Market',
-      debugShowCheckedModeBanner: false,
-      theme: themeData,
     );
   }
+}
+
+class AppUserType {
+  static const customer = "customer";
+  static const market = "market";
+  static const delivery = "delivery";
 }

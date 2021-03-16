@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/models/MarkerOrderModel.dart';
-import 'package:tezal/screens/Market/MarketOrderDetailPage.dart';
-import 'package:tezal/screens/Market/MarketOrderPage.dart';
-import 'package:tezal/screens/Market/product/MarketProductPage.dart';
-import 'package:tezal/services/AuthService.dart';
-import 'package:tezal/services/DataService.dart';
 import 'package:http/http.dart' as http;
-import 'package:tezal/services/FlatColors.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
+
+import '../../lang/Lang.dart';
+import '../../models/MarkerOrderModel.dart';
+import '../../services/AuthService.dart';
+import '../../services/DataService.dart';
+import '../../services/FlatColors.dart';
+import '../../services/RouteBuilderService.dart';
 import '../AccountPage.dart';
 import 'MarketInfoPage.dart';
+import 'MarketOrderDetailPage.dart';
+import 'MarketOrderPage.dart';
+import 'product/MarketProductPage.dart';
 
 class MarketMainPage extends StatefulWidget {
   const MarketMainPage({Key key}) : super(key: key);

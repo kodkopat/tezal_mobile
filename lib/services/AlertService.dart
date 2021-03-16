@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/Lang.dart';
-import 'package:tezal/services/FlatColors.dart';
+
+import '../lang/Lang.dart';
+import 'FlatColors.dart';
 
 class AlertService {
   static void showError(BuildContext context, String title, String content,

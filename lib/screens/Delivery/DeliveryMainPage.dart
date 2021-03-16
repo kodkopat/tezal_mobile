@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/lang/lang.dart';
-import 'package:tezal/screens/AccountPage.dart';
-import 'package:tezal/screens/Delivery/DeliveryHomePage.dart';
-import 'package:tezal/services/LocationService.dart';
-import 'package:tezal/services/RouteBuilderService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../lang/lang.dart';
 import '../../main.dart';
+import '../../services/LocationService.dart';
+import '../../services/RouteBuilderService.dart';
+import '../AccountPage.dart';
+import 'DeliveryHomePage.dart';
 
 class DeliveryMainPage extends StatefulWidget {
   DeliveryMainPage({Key key}) : super(key: key);

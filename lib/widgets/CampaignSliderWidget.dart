@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/models/CampaignListModel.dart';
 import 'package:http/http.dart' as http;
-import 'package:tezal/services/DataService.dart';
+
+import '../models/CampaignListModel.dart';
+import '../services/DataService.dart';
 
 class CampaignSliderWidget extends StatefulWidget {
   const CampaignSliderWidget({Key key, @required this.tag}) : super(key: key);
@@ -19,8 +20,8 @@ class _CampaignSliderWidgetState extends State<CampaignSliderWidget> {
   int _current = 0;
   List<String> imgList;
   Future<CampaignListModel> getCampaigns() async {
-    
-    var res = await http.get(Uri.http(DataService.customerBaseaddress + 'Campaign/List',''));
+    var res = await http
+        .get(Uri.http(DataService.customerBaseaddress + 'Campaign/List', ''));
     if (res.statusCode == 200) {
       var data = CampaignListModel.fromJson(json.decode(res.body));
       return data;
