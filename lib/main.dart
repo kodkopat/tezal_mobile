@@ -1,27 +1,48 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'app_localizations.dart';
 import 'core/page_routes/routes.dart';
-import 'models/LoginModel.dart';
-import 'services/FlatColors.dart';
+import 'core/themes/app_theme.dart';
+import 'features/auth/data/repositories/auth_repository.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]); // prevent application rotation
+
   Routes.createRoutes();
   Routes.createCustomerRoutes();
   Routes.createMarketRoutes();
   Routes.createDeliveryRoutes();
 
-  runApp(App());
+  final _authRepository = AuthRepository();
+  _AppUserType userType;
+
+  final value = await _authRepository.userType;
+  if (value != null && value.isNotEmpty) {
+    userType = _AppUserTypeParser.fromString(value);
+  } else {
+    userType = _AppUserType.Customer;
+  }
+
+  runApp(
+    App(userType: userType),
+  );
 }
 
 class App extends StatefulWidget {
-  App({Key key}) : super(key: key);
+  const App({
+    Key key,
+    @required this.userType,
+  }) : super(key: key);
 
-  static void restartApp(BuildContext context) {
+  final _AppUserType userType;
+
+  static void restart(BuildContext context) {
     context.findAncestorStateOfType<_AppState>().restartApp();
   }
 
@@ -30,27 +51,27 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  FlutterSecureStorage storage = FlutterSecureStorage();
-
-  @override
-  void initState() {
-    // LocationService.setSavedLocation();
-    super.initState();
-  }
+  final _authRepository = AuthRepository();
 
   Key key = UniqueKey();
-  String appType = "customer";
-  //String appType = "market";
+  _AppUserType userType;
+
   void restartApp() {
-    storage.read(key: 'userinfo').then((value) {
+    _authRepository.userType.then((value) {
       if (value != null && value.isNotEmpty) {
-        var model = LoginModel.fromJson(json.decode(value));
         setState(() {
           key = UniqueKey();
-          appType = model.data.type.toString();
+          userType = _AppUserTypeParser.fromString(value);
         });
       }
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // LocationService.setSavedLocation();
+    userType = widget.userType;
   }
 
   @override
@@ -61,42 +82,26 @@ class _AppState extends State<App> {
       GlobalMaterialLocalizations.delegate,
       GlobalWidgetsLocalizations.delegate,
     ];
+
     var locale = Locale("fa", "IR");
     // var locale = Locale("en", "US");
-    String fontFamily = locale.languageCode == 'fa' ? 'Yekan' : 'Arial';
-    var supportedLocales = [Locale("en", "US"), Locale("fa", "IR")];
-    var themeData;
 
-    switch (appType) {
-      case "customer":
-        themeData = ThemeData(
-          fontFamily: fontFamily,
-          primaryColor: FlatColors.green_light,
-          primaryColorDark: FlatColors.grey_dark,
-          primaryColorLight: FlatColors.green_light,
-          accentColor: FlatColors.green_light,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        );
+    String fontFamily = locale.languageCode == 'fa' ? 'Yekan' : 'Arial';
+    var supportedLocales = [
+      Locale("en", "US"),
+      Locale("fa", "IR"),
+    ];
+
+    var themeData;
+    switch (userType) {
+      case _AppUserType.Customer:
+        themeData = AppTheme.customerThemeData(fontFamily);
         break;
-      case "market":
-        themeData = ThemeData(
-          fontFamily: fontFamily,
-          primaryColor: FlatColors.blue_light,
-          primaryColorDark: FlatColors.blue_dark,
-          primaryColorLight: FlatColors.blue_light,
-          accentColor: FlatColors.blue_light,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        );
+      case _AppUserType.Market:
+        themeData = AppTheme.marketThemeData(fontFamily);
         break;
-      case "delivery":
-        themeData = ThemeData(
-          fontFamily: fontFamily,
-          primaryColor: FlatColors.pink_light,
-          primaryColorDark: FlatColors.pink_dark,
-          primaryColorLight: FlatColors.pink_light,
-          accentColor: FlatColors.pink_light,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        );
+      case _AppUserType.Delivery:
+        themeData = AppTheme.deliveryThemeData(fontFamily);
         break;
     }
 
@@ -115,8 +120,34 @@ class _AppState extends State<App> {
   }
 }
 
-class AppUserType {
-  static const customer = "customer";
-  static const market = "market";
-  static const delivery = "delivery";
+enum _AppUserType {
+  Customer,
+  Market,
+  Delivery,
+}
+
+class _AppUserTypeParser {
+  static const _customerKey = "customer";
+  static const _marketKey = "market";
+  static const _deliveryKey = "delivery";
+
+  static _AppUserType fromString(String userType) {
+    if (userType == null || userType.trim().isEmpty)
+      return _AppUserType.Customer;
+
+    switch (userType.toLowerCase()) {
+      case _customerKey:
+        return _AppUserType.Customer;
+        break;
+      case _marketKey:
+        return _AppUserType.Market;
+        break;
+      case _deliveryKey:
+        return _AppUserType.Delivery;
+        break;
+      default:
+        return _AppUserType.Customer;
+        break;
+    }
+  }
 }
