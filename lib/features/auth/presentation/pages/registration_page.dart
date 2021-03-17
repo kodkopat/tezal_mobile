@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../controllers/registration_validators.dart';
-import 'confirm_registration_page.dart';
 
 class RegistrationPage extends StatefulWidget {
-  static const route = "/registration_page";
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
@@ -146,7 +143,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           var storage = FlutterSecureStorage();
           storage.write(key: 'userid', value: r);
 
-          Routes.sailor(ConfirmRegistrationPage.route);
+          // Routes.sailor(ConfirmRegistrationPage.route);
         },
       );
     }

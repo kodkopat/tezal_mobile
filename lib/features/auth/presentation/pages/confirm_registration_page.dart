@@ -10,8 +10,6 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../data/repositories/auth_repository.dart';
 
 class ConfirmRegistrationPage extends StatefulWidget {
-  static const route = "/confirm_registration_page";
-
   @override
   _ConfirmRegistrationPageState createState() =>
       _ConfirmRegistrationPageState();
