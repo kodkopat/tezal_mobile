@@ -1,25 +1,24 @@
 import 'package:dartz/dartz.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meta/meta.dart';
 
-import '../../../../core/consts/consts.dart';
 import '../../../../core/exceptions/api_failure.dart';
 import '../../../../core/exceptions/connection_failure.dart';
 import '../../../../core/exceptions/failure.dart';
+import '../data_sources/auth_local_data_source.dart';
 import '../data_sources/auth_remote_data_source.dart';
 
 class AuthRepository {
   AuthRepository()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = AuthRemoteDataSource(Dio()),
-        _secureStorage = FlutterSecureStorage();
+        _localDataSource = AuthLocalDataSource();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final AuthRemoteDataSource _remoteDataSource;
-  final FlutterSecureStorage _secureStorage;
+  final AuthLocalDataSource _localDataSource;
 
   Future<Either<Failure, String>> userRegister({
     @required String name,
@@ -33,10 +32,7 @@ class AuthRepository {
 
       if (result.success) {
         final userId = result.data;
-        await _secureStorage.write(
-          key: storageKeyUserId,
-          value: userId,
-        );
+        await _localDataSource.saveUserId(userId);
 
         return Right(userId);
       } else {
@@ -56,10 +52,7 @@ class AuthRepository {
 
       if (result.success) {
         final userToken = result.data.token;
-        await _secureStorage.write(
-          key: storageKeyUserToken,
-          value: userToken,
-        );
+        await _localDataSource.saveUserToken(userToken);
 
         return Right(userToken);
       } else {
@@ -79,10 +72,10 @@ class AuthRepository {
 
       if (result.success) {
         final userToken = result.data.token;
-        await _secureStorage.write(
-          key: storageKeyUserToken,
-          value: userToken,
-        );
+        await _localDataSource.saveUserToken(userToken);
+
+        final userType = result.data.type;
+        await _localDataSource.saveUserType(userType);
 
         return Right(userToken);
       } else {
@@ -101,15 +94,27 @@ class AuthRepository {
 
       if (result.success) {
         final userToken = result.data.token;
-        await _secureStorage.write(
-          key: storageKeyUserToken,
-          value: userToken,
-        );
+        await _localDataSource.saveUserToken(userToken);
+
+        final userType = result.data.type;
+        await _localDataSource.saveUserType(userType);
 
         return Right(userToken);
       } else {
         return Left(ApiFailure(result.message));
       }
     }
+  }
+
+  Future<String> get userId async {
+    return await _localDataSource.userId;
+  }
+
+  Future<String> get userToken async {
+    return await _localDataSource.userToken;
+  }
+
+  Future<String> get userType async {
+    return await _localDataSource.userType;
   }
 }
