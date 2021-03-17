@@ -196,7 +196,7 @@ class _LoginPagePageState extends State<LoginPagePage> {
                             key: 'userinfo', value: res.body.toString());
                         await pr.hide();
                         Navigator.of(context).pop();
-                        App.restartApp(context);
+                        App.restart(context);
                       }
                     }
                   },

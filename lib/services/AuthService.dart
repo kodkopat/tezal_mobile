@@ -69,14 +69,18 @@ class AuthService {
     var headers = <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'accept': 'text/plain',
-      if (context != null) 'lang': Localizations.localeOf(context).languageCode
+      if (context != null) 'lang': Localizations.localeOf(context).languageCode,
+      'latitude': "35.7480267",
+      'longitude': "51.3057357",
     };
     var userinfo = await AuthService.geuUserInfo();
 
     if (userinfo != null) {
       //if (userinfo.data.type == UserType.customer &&
       if (await AuthService.isLoggedIn()) {
-        headers.addAll({'token': userinfo.data.token});
+        headers.addAll({
+          'token': userinfo.data.token,
+        });
       }
     }
     return headers;

@@ -89,7 +89,7 @@ class _DeliveryMainPageState extends State<DeliveryMainPage> {
               color: Colors.white,
             ),
             onPressed: () {
-              App.restartApp(context);
+              App.restart(context);
             })
       ],
     );
