@@ -1,6 +1,7 @@
 import 'package:sailor/sailor.dart';
 
-import '../../features/auth/presentation/pages/registration_page.dart';
+import '../../features/auth/presentation/pages/splash_page.dart';
+import '../../features/customer_dashboard/presentation/pages/dashboard_page.dart';
 
 class Routes {
   static final sailor = Sailor();
@@ -9,8 +10,12 @@ class Routes {
     sailor.addRoutes(
       [
         SailorRoute(
-          name: RegistrationPage.route,
-          builder: (ctx, args, map) => RegistrationPage(),
+          name: SplashPage.route,
+          builder: (ctx, args, map) => SplashPage(),
+        ),
+        SailorRoute(
+          name: CustomerDashBoardPage.route,
+          builder: (ctx, args, map) => CustomerDashBoardPage(),
         ),
       ],
     );
