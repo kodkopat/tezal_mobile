@@ -4,10 +4,10 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
-import 'subpage_basket.dart';
-import 'subpage_home.dart';
-import 'subpage_profile.dart';
-import 'subpage_search.dart';
+import '../../../customer_basket/presentation/pages/basket_page.dart';
+import '../../../customer_home/presentation/pages/home_page.dart';
+import '../../../customer_profile/presentation/pages/profile_page.dart';
+import '../../../customer_search/presentation/pages/search_page.dart';
 
 class CustomBottomAppBar extends StatefulWidget {
   const CustomBottomAppBar({
@@ -43,7 +43,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
 
         var color = item.index == currentIndex
             ? AppTheme.customerPrimary
-            : AppTheme.black.withOpacity(0.5);
+            : AppTheme.black;
 
         return Expanded(
           flex: 1,
@@ -98,25 +98,25 @@ class _BottomNavigationBarList {
       index: 0,
       label: "خانه",
       iconData: Feather.home,
-      widget: HomeSubPage(),
+      widget: HomePage(),
     ),
     __BottomNavigationBarListItem(
       index: 1,
       label: "جستجو",
       iconData: Feather.search,
-      widget: SearchSubPage(),
+      widget: SearchPage(),
     ),
     __BottomNavigationBarListItem(
       index: 2,
       label: "سبد خرید",
-      iconData: Feather.shopping_bag,
-      widget: BasketSubPage(),
+      iconData: Feather.shopping_cart,
+      widget: BasketPage(),
     ),
     __BottomNavigationBarListItem(
       index: 3,
       label: "پروفایل",
       iconData: Feather.user,
-      widget: ProfileSubPage(),
+      widget: ProfilePage(),
     ),
   ];
 }
