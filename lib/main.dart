@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'app_localizations.dart';
 import 'core/page_routes/routes.dart';
+import 'core/services/location.dart';
 import 'core/themes/app_theme.dart';
 import 'features/auth/data/repositories/auth_repository.dart';
 
@@ -70,7 +71,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    // LocationService.setSavedLocation();
+    LocationService.setSavedLocation();
     userType = widget.userType;
   }
 
