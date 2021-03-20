@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../customer_home/presentation/pages/home_page.dart';
 import '../widgets/bottom_app_bar.dart';
-import '../widgets/subpage_home.dart';
 
 class CustomerDashBoardPage extends StatefulWidget {
   static const route = "/customer_dashboard";
@@ -20,8 +20,8 @@ class _CustomerDashBoardPageState extends State<CustomerDashBoardPage> {
         setState(() => currentWidget = widget);
       },
     );
-    // TODO: must be access this widget from CustomBottomAppBar
-    currentWidget = HomeSubPage();
+    // must be access this widget from CustomBottomAppBar
+    currentWidget = HomePage();
   }
 
   @override
