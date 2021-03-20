@@ -31,7 +31,7 @@ class AuthRepository {
       var result = await _remoteDataSource.register(name, phone, pass);
 
       if (result.success) {
-        final userId = result.data;
+        final userId = result.data.userId;
         await _localDataSource.saveUserId(userId);
 
         return Right(userId);
@@ -42,13 +42,14 @@ class AuthRepository {
   }
 
   Future<Either<Failure, String>> checkUserSms({
-    @required String id,
     @required String sms,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.checkSms(id, sms);
+      var userId = await this.userId;
+
+      var result = await _remoteDataSource.checkSms(userId, sms);
 
       if (result.success) {
         final userToken = result.data.token;
