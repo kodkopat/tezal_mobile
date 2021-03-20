@@ -43,7 +43,7 @@ class CustomTextInput extends StatelessWidget {
             style: TxtStyle()
               ..textAlign.right()
               ..margin(right: 6)
-              ..textColor(Color(0xff4C5264))
+              ..textColor(Colors.black)
               ..fontWeight(FontWeight.normal)
               ..fontSize(14)
               ..bold(),
@@ -56,7 +56,7 @@ class CustomTextInput extends StatelessWidget {
           textDirection: textDirection ?? TextDirection.rtl,
           style: TextStyle(
             height: 2.5,
-            color: Color(0xff4C5264),
+            color: Colors.black,
             fontWeight: FontWeight.normal,
             fontSize: 14,
           ),

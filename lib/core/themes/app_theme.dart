@@ -22,10 +22,10 @@ class AppTheme {
   static final forms = Color(0xffE0E0E0);
   static final separator = Color(0xffF4F4F4);
 
-  static final customerPrimary = Color(0xff16A06F);
-  static final customerPrimaryDark = Color(0xff16A06F);
-  static final customerPrimaryLight = Color(0xff16A06F);
-  static final customerAccent = Color(0xff16A06F);
+  static final customerPrimary = Color(0xff06DE6F);
+  static final customerPrimaryDark = Color(0xff06DE6F);
+  static final customerPrimaryLight = Color(0xff06DE6F);
+  static final customerAccent = Color(0xff06DE6F);
 
   static final marketPrimary = Color(0xff2424DA);
   static final marketPrimaryDark = Color(0xff2424DA);

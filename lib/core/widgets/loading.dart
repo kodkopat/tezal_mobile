@@ -1,17 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../core/themes/app_theme.dart';
+class AppLoading extends StatelessWidget {
+  AppLoading({
+    this.size,
+    this.color,
+  });
 
-class Loading extends StatelessWidget {
+  final double size;
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SpinKitRing(
-        duration: Duration(milliseconds: 1000),
-        color: AppTheme.red,
-        lineWidth: 4,
-        size: 36.0,
+      child: SpinKitFadingGrid(
+        size: size ?? 24,
+        itemBuilder: (BuildContext context, int index) {
+          return DecoratedBox(
+            decoration: BoxDecoration(
+              color: color ?? Colors.white,
+              shape: BoxShape.circle,
+            ),
+          );
+        },
       ),
     );
   }

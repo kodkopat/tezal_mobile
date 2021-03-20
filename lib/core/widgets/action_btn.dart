@@ -8,9 +8,13 @@ class ActionBtn extends StatelessWidget {
   ActionBtn({
     @required this.text,
     @required this.onTap,
+    this.background,
+    this.textColor,
   });
 
   final String text;
+  final Color background;
+  final Color textColor;
   final void Function() onTap;
 
   @override
@@ -21,9 +25,9 @@ class ActionBtn extends StatelessWidget {
       style: AppTxtStyles().body
         ..bold()
         ..height(48)
-        ..textColor(AppTheme.white)
+        ..textColor(textColor ?? AppTheme.white)
         ..alignmentContent.center(true)
-        ..background.color(AppTheme.red)
+        ..background.color(background ?? AppTheme.red)
         ..borderRadius(all: 12)
         ..ripple(true),
     );

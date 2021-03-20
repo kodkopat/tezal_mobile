@@ -1,17 +1,18 @@
 import 'dart:ui';
 
 import 'package:division/division.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:flutter/material.dart';
+// import 'package:flutter/scheduler.dart';
 
 class AppTxtStyles {
   AppTxtStyles() {
-    bool isDarkTheme =
-        SchedulerBinding.instance.window.platformBrightness == Brightness.dark;
+    /* bool isDarkTheme =
+        SchedulerBinding.instance.window.platformBrightness == Brightness.dark; */
 
     title = TxtStyle()
       ..textDirection(TextDirection.rtl)
       ..textAlign.center(true)
-      ..textColor(isDarkTheme ? Color(0xffF4F4F4) : Color(0xff4F4F4F))
+      ..textColor(/* isDarkTheme ? Colors.white : Colors.black */ Colors.black)
       ..letterSpacing(0.25)
       ..fontWeight(FontWeight.normal)
       ..fontSize(32);
@@ -19,7 +20,7 @@ class AppTxtStyles {
     subTitle = TxtStyle()
       ..textDirection(TextDirection.rtl)
       ..textAlign.center(true)
-      ..textColor(isDarkTheme ? Color(0xffF4F4F4) : Color(0xff4F4F4F))
+      ..textColor(/* isDarkTheme ? Colors.white : Colors.black */ Colors.black)
       ..letterSpacing(0.0)
       ..fontWeight(FontWeight.normal)
       ..fontSize(24);
@@ -27,7 +28,7 @@ class AppTxtStyles {
     heading = TxtStyle()
       ..textDirection(TextDirection.rtl)
       ..textAlign.center(true)
-      ..textColor(isDarkTheme ? Color(0xffF4F4F4) : Color(0xff4F4F4F))
+      ..textColor(/* isDarkTheme ? Colors.white : Colors.black */ Colors.black)
       ..letterSpacing(0.15)
       ..fontWeight(FontWeight.normal)
       ..fontSize(20);
@@ -35,7 +36,7 @@ class AppTxtStyles {
     subHeading = TxtStyle()
       ..textDirection(TextDirection.rtl)
       ..textAlign.center(true)
-      ..textColor(isDarkTheme ? Color(0xffF4F4F4) : Color(0xff4F4F4F))
+      ..textColor(/* isDarkTheme ? Colors.white : Colors.black */ Colors.black)
       ..letterSpacing(0.15)
       ..fontWeight(FontWeight.normal)
       ..fontSize(16);
@@ -43,7 +44,7 @@ class AppTxtStyles {
     body = TxtStyle()
       ..textDirection(TextDirection.rtl)
       ..textAlign.center(true)
-      ..textColor(isDarkTheme ? Color(0xffF4F4F4) : Color(0xff4F4F4F))
+      ..textColor(/* isDarkTheme ? Colors.white : Colors.black */ Colors.black)
       ..letterSpacing(0.5)
       ..fontWeight(FontWeight.normal)
       ..fontSize(14);
@@ -51,7 +52,7 @@ class AppTxtStyles {
     footNote = TxtStyle()
       ..textDirection(TextDirection.rtl)
       ..textAlign.center(true)
-      ..textColor(isDarkTheme ? Color(0xffF4F4F4) : Color(0xff4F4F4F))
+      ..textColor(/* isDarkTheme ? Colors.white : Colors.black */ Colors.black)
       ..letterSpacing(0.4)
       ..fontWeight(FontWeight.normal)
       ..fontSize(12);
