@@ -54,6 +54,8 @@ dependencies:
   # used to: premaded icons pack
   flutter_icons: ^1.1.0
   cupertino_icons: ^1.0.0
+  # used to: show svg file
+  flutter_svg: ^0.19.1
   # used to: generate app's launcher icon
   flutter_launcher_icons: ^0.8.1
   # used to: avoiding hide keyboard
@@ -69,6 +71,8 @@ dependencies:
   email_validator: '^1.0.0'
   # used to: carousel slider
   carousel_slider: ^2.3.1
+  # used to: currency format
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
@@ -90,6 +94,8 @@ flutter:
   #  ----------------------
   assets:
     - assets/
+    - assets/images/
+    - assets/vectors/
     - lang/fa.json
     - lang/en.json
 
@@ -98,6 +104,11 @@ flutter:
   fonts:
     - family: Yekan
       fonts:
-        - asset: fonts/Yekan.ttf
+        - asset: fonts/IRANYekanLightMobile(FaNum).ttf
+          weight: 500
+        - asset: fonts/IRANYekanRegularMobile(FaNum).ttf
+          weight: 700
+        - asset: fonts/IRANYekanMobileBold(FaNum).ttf
+          weight: 900
 
 
