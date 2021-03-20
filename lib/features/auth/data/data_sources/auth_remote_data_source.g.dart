@@ -23,14 +23,18 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
     ArgumentError.checkNotNull(pass, 'pass');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'name': name, 'phone': phone, 'pass': pass};
+    final _data = {'Name': name, 'Phone': phone, 'Password': pass};
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.request<Map<String, dynamic>>('User/Register',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
             extra: _extra,
+            contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
     final value = RegisterResultModel.fromJson(_result.data);
@@ -49,8 +53,12 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
             extra: _extra,
+            contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
     final value = CheckSmsResultModel.fromJson(_result.data);
@@ -69,8 +77,12 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
             extra: _extra,
+            contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
     final value = LoginResultModel.fromJson(_result.data);
@@ -88,8 +100,12 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
             extra: _extra,
+            contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
     final value = CheckTokenResultModel.fromJson(_result.data);

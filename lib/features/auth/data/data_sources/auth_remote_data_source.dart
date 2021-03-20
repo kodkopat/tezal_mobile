@@ -14,42 +14,42 @@ abstract class AuthRemoteDataSource {
   factory AuthRemoteDataSource(Dio dio, {String baseUrl}) =
       _AuthRemoteDataSource;
 
+  @POST("User/Register")
   @Headers({
     "Content-Type": "application/json",
     "Accept": "text/plain",
   })
-  @POST("User/Register")
   Future<RegisterResultModel> register(
-    @Field() String name,
-    @Field() String phone,
-    @Field() String pass,
+    @Field("Name") String name,
+    @Field("Phone") String phone,
+    @Field("Password") String pass,
   );
 
+  @POST("User/CheckSms")
   @Headers({
     "Content-Type": "application/json",
     "Accept": "text/plain",
   })
-  @POST("User/CheckSms")
   Future<CheckSmsResultModel> checkSms(
     @Field() String id,
     @Field() String sms,
   );
 
+  @POST("User/Login")
   @Headers({
     "Content-Type": "application/json",
     "Accept": "text/plain",
   })
-  @POST("User/Login")
   Future<LoginResultModel> login(
     @Field() String username,
     @Field() String password,
   );
 
+  @POST("User/CheckToken")
   @Headers({
     "Content-Type": "application/json",
     "Accept": "text/plain",
   })
-  @POST("User/CheckToken")
   Future<CheckTokenResultModel> checkToken(
     @Field() String token,
   );
