@@ -1,24 +1,32 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:typed_data';
+
+import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
+import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
+import '../../../../core/widgets/custom_future_builder.dart';
 import '../../data/models/nearby_markets_result_model.dart';
+import '../../data/repositories/customer_market_repository.dart';
 
 class NearByMarketsListItem extends StatelessWidget {
   const NearByMarketsListItem({
     Key key,
     @required this.market,
     @required this.onTap,
+    @required this.repository,
   }) : super(key: key);
 
   final Market market;
   final void Function() onTap;
+  final CustomerMarketRepository repository;
 
   @override
   Widget build(BuildContext context) {
     return Parent(
+      gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..margin(vertical: 8)
         ..padding(horizontal: 8, top: 8, bottom: 16)
@@ -53,10 +61,7 @@ class NearByMarketsListItem extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
                   ),
-                  child: CachedNetworkImage(
-                    imageUrl: "",
-                    fit: BoxFit.fill,
-                  ),
+                  child: _futureImgFile,
                 ),
               ),
               SizedBox(width: 8),
@@ -96,6 +101,21 @@ class NearByMarketsListItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget get _futureImgFile {
+    return CustomFutureBuilder<Either<Failure, List<int>>>(
+      future: repository.photo(marketId: market.id),
+      successBuilder: (context, data) {
+        return data.fold(
+          (l) => SizedBox(),
+          (r) => Image.memory(Uint8List.fromList(r)),
+        );
+      },
+      errorBuilder: (context, data) {
+        return SizedBox();
+      },
     );
   }
 
