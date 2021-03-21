@@ -29,6 +29,12 @@ class ActionBtn extends StatelessWidget {
         ..alignmentContent.center(true)
         ..background.color(background ?? AppTheme.red)
         ..borderRadius(all: 12)
+        ..boxShadow(
+          color: Colors.black.withOpacity(0.2),
+          offset: Offset(0, 4.0),
+          blur: 8,
+          spread: 0,
+        )
         ..ripple(true),
     );
   }
