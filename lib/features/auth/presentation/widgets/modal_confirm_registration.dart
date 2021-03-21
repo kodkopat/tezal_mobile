@@ -4,12 +4,13 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:sailor/sailor.dart';
 
+import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/simple_app_bar.dart';
-import '../../../../main.dart';
 import '../../data/repositories/auth_repository.dart';
 
 class ConfirmRegistrationModal extends StatefulWidget {
@@ -143,7 +144,7 @@ class _ConfirmRegistrationModalState extends State<ConfirmRegistrationModal> {
                     ),
                     const SizedBox(height: 8),
                     ActionBtn(
-                      text: timerSeconds < 1 ? "تایید" : "ارسال مجدد",
+                      text: "تایید",
                       onTap: onSubmitBtnTap,
                       background: AppTheme.customerPrimary,
                       textColor: Colors.white,
@@ -172,6 +173,7 @@ class _ConfirmRegistrationModalState extends State<ConfirmRegistrationModal> {
   }
 
   void onSubmitBtnTap() async {
+    print("onTap\n");
     var result = await repository.checkUserSms(sms: smsCode);
 
     result.fold((l) {
@@ -180,7 +182,13 @@ class _ConfirmRegistrationModalState extends State<ConfirmRegistrationModal> {
         errorVisibility = true;
       });
     }, (r) {
-      App.restart(context);
+      // App.restart(context);
+      timer.cancel();
+      Routes.sailor.pop();
+      Routes.sailor.navigate(
+        "/",
+        navigationType: NavigationType.pushReplace,
+      );
     });
   }
 }

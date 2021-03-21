@@ -49,7 +49,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
     final queryParameters = <String, dynamic>{};
     final _data = {'id': id, 'sms': sms};
     _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>('User/CheckSms',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'User/ConfirmRegistration',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

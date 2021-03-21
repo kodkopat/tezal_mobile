@@ -25,7 +25,7 @@ abstract class AuthRemoteDataSource {
     @Field("Password") String pass,
   );
 
-  @POST("User/CheckSms")
+  @POST("User/ConfirmRegistration")
   @Headers({
     "Content-Type": "application/json",
     "Accept": "text/plain",

@@ -8,7 +8,6 @@ import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/simple_app_bar.dart';
-import '../../../../main.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../controllers/registration_validators.dart';
 import 'modal_confirm_registration.dart';

@@ -48,7 +48,7 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       var userId = await this.userId;
-
+      print("userId: $userId\n");
       var result = await _remoteDataSource.checkSms(userId, sms);
 
       if (result.success) {
