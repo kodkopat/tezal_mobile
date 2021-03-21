@@ -20,13 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  CustomerMarketRepository repository;
-
-  @override
-  void initState() {
-    super.initState();
-    repository = CustomerMarketRepository();
-  }
+  final repository = CustomerMarketRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: SimpleAppBar.intance(text: "خانه"),
         body: CustomFutureBuilder(
-          future: repository.getNearByMarkets(
+          future: repository.nearByMarkets(
             context,
             maxDistance: 50,
             count: 10,
@@ -48,7 +42,10 @@ class _HomePageState extends State<HomePage> {
                 l.message,
                 style: AppTxtStyles().body..alignment.center(),
               ),
-              (r) => NearByMarketsList(model: r),
+              (r) => NearByMarketsList(
+                markets: r.data.markets,
+                repository: repository,
+              ),
             );
           },
           errorBuilder: (context, error) {
