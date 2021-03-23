@@ -1,10 +1,10 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:tezal/core/themes/app_theme.dart';
 
 import '../../core/page_routes/routes.dart';
 import '../../core/styles/txt_styles.dart';
+import '../themes/app_theme.dart';
 
 class AppBarAction extends StatelessWidget {
   AppBarAction({
