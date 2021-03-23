@@ -6,7 +6,7 @@ import 'app_localizations.dart';
 import 'core/page_routes/routes.dart';
 import 'core/services/location.dart';
 import 'core/themes/app_theme.dart';
-import 'features/auth/data/repositories/auth_repository.dart';
+import 'features/data/repositories/auth_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
