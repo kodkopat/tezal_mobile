@@ -1,7 +1,11 @@
 import 'package:sailor/sailor.dart';
 
-import '../../features/auth/presentation/pages/splash_page.dart';
-import '../../features/customer_dashboard/presentation/pages/dashboard_page.dart';
+import '../../features/data/models/nearby_markets_result_model.dart';
+import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
+import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
+import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
+import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
+import '../../features/presentation/splash/splash_page.dart';
 
 class Routes {
   static final sailor = Sailor();
@@ -13,17 +17,50 @@ class Routes {
           name: SplashPage.route,
           builder: (ctx, args, map) => SplashPage(),
         ),
-        SailorRoute(
-          name: CustomerDashBoardPage.route,
-          builder: (ctx, args, map) => CustomerDashBoardPage(),
-        ),
       ],
     );
   }
 
   static void createCustomerRoutes() {
     sailor.addRoutes(
-      [],
+      [
+        SailorRoute(
+          name: CustomerDashBoardPage.route,
+          builder: (ctx, args, map) => CustomerDashBoardPage(),
+        ),
+        SailorRoute(
+          name: MarketDetailPage.route,
+          builder: (ctx, args, map) {
+            final market = map.param<Market>("market");
+            return MarketDetailPage(market: market);
+          },
+          params: [
+            SailorParam<Market>(
+              name: "market",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: MarketCommentsPage.route,
+          builder: (ctx, args, map) {
+            final marketId = map.param<String>("marketId");
+            return MarketCommentsPage(marketId: marketId);
+          },
+          params: [
+            SailorParam<String>(
+              name: "marketId",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: AddressesPage.route,
+          builder: (ctx, args, map) => AddressesPage(),
+        ),
+      ],
     );
   }
 
@@ -38,42 +75,4 @@ class Routes {
       [],
     );
   }
-
-  // SailorRoute(
-  //   name: PatientPage.route,
-  //   builder: (ctx, args, map) {
-  //     final patient = map.param<Patient>("patient");
-  //     if (patient != null) {
-  //       return PatientPage(patient: patient);
-  //     } else {
-  //       return PatientPage();
-  //     }
-  //   },
-  //   params: [
-  //     SailorParam<Patient>(
-  //       name: "patient",
-  //       isRequired: false,
-  //       defaultValue: null,
-  //     ),
-  //   ],
-  // ),
-
-  // SailorRoute(
-  //   name: MedicalCenterPage.route,
-  //   builder: (ctx, args, map) {
-  //     final info = map.param<AccountInfo>("accountInfo");
-  //     if (info != null) {
-  //       return MedicalCenterPage(info: info);
-  //     } else {
-  //       return MedicalCenterPage();
-  //     }
-  //   },
-  //   params: [
-  //     SailorParam<AccountInfo>(
-  //       name: "accountInfo",
-  //       isRequired: false,
-  //       defaultValue: null,
-  //     ),
-  //   ],
-  // ),
 }
