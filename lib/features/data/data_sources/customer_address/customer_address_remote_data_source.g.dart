@@ -85,7 +85,46 @@ class _CustomerAddressRemoteDataSource
         'customer/Address/save',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'GET',
+            method: 'POST',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AddressActionsResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<AddressActionsResultModel> edit(
+      token, id, address, description, isDefault, cityId, name) async {
+    ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(address, 'address');
+    ArgumentError.checkNotNull(description, 'description');
+    ArgumentError.checkNotNull(isDefault, 'isDefault');
+    ArgumentError.checkNotNull(cityId, 'cityId');
+    ArgumentError.checkNotNull(name, 'name');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {
+      'id': id,
+      'address': address,
+      'description': description,
+      'isDefault': isDefault,
+      'cityId': cityId,
+      'name': name
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Address/save',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',

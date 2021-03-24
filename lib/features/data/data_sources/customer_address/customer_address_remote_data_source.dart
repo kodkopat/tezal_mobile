@@ -27,10 +27,22 @@ abstract class CustomerAddressRemoteDataSource {
     @Query("provinceId") String provinceId,
   );
 
-  @GET("$_apiUrlPrefix/save")
+  @POST("$_apiUrlPrefix/save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressActionsResultModel> save(
     @Header("token") String token,
+    @Field() String address,
+    @Field() String description,
+    @Field() bool isDefault,
+    @Field() String cityId,
+    @Field() String name,
+  );
+
+  @POST("$_apiUrlPrefix/save")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<AddressActionsResultModel> edit(
+    @Header("token") String token,
+    @Field() String id,
     @Field() String address,
     @Field() String description,
     @Field() bool isDefault,
