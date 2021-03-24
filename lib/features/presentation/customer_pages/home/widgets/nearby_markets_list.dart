@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../../core/page_routes/routes.dart';
 import '../../../../data/models/nearby_markets_result_model.dart';
 import '../../../../data/repositories/customer_market_repository.dart';
-import '../../../widgets/../customer_pages/home/widgets/nearby_markets_list_item.dart';
 import '../../market_detail/market_detail_page.dart';
+import 'nearby_markets_list_item.dart';
 
 class NearByMarketsList extends StatelessWidget {
   NearByMarketsList({
