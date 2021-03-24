@@ -1,7 +1,6 @@
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/validators/validators.dart';
 import '../../../../../core/widgets/action_btn.dart';
@@ -9,6 +8,7 @@ import '../../../../../core/widgets/custom_drop_down.dart';
 import '../../../../../core/widgets/custom_text_input.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../../core/widgets/simple_app_bar.dart';
+import '../../../../data/models/addresses_result_model.dart';
 import '../../../../data/models/cities_result_model.dart';
 import '../../../../data/models/provinces_result_model.dart';
 import '../../../../data/repositories/customer_address_repository.dart';
@@ -16,9 +16,11 @@ import '../../../../data/repositories/customer_address_repository.dart';
 class SaveAddressModal extends StatefulWidget {
   const SaveAddressModal({
     Key key,
+    this.address,
     @required this.customerAddressRepo,
   }) : super(key: key);
 
+  final Address address;
   final CustomerAddressRepository customerAddressRepo;
 
   @override
@@ -26,10 +28,13 @@ class SaveAddressModal extends StatefulWidget {
 }
 
 class _SaveAddressModalState extends State<SaveAddressModal> {
+  String appBarText;
+
   final formKey = GlobalKey<FormState>();
-  final nameCtrl = TextEditingController();
-  final addressCtrl = TextEditingController();
-  final descCtrl = TextEditingController();
+
+  var nameCtrl;
+  var addressCtrl;
+  var descCtrl;
 
   String selectedProvinceId;
   List<Province> provincesList;
@@ -47,6 +52,20 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
   bool loading = true;
 
   void initializeState() async {
+    if (widget.address != null) {
+      appBarText = "ویرایش آدرس";
+
+      nameCtrl = TextEditingController(text: widget.address.name);
+      addressCtrl = TextEditingController(text: widget.address.address);
+      descCtrl = TextEditingController();
+    } else {
+      appBarText = "ثبت آدرس";
+
+      nameCtrl = TextEditingController();
+      addressCtrl = TextEditingController();
+      descCtrl = TextEditingController();
+    }
+
     var provinces = await widget.customerAddressRepo.provinces;
     provinces.fold(
       (l) => {},
@@ -96,9 +115,36 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
       setState(() {});
     };
 
-    submitBtnOnTap = () {
+    submitBtnOnTap = () async {
       if (formKey.currentState.validate()) {
-        // widget.customerAddressRepo.s
+        if (widget.address == null) {
+          final result = await widget.customerAddressRepo.saveAddress(
+            address: addressCtrl.text,
+            description: descCtrl.text,
+            isDefault: false,
+            cityId: selectedCityId,
+            name: nameCtrl.text,
+          );
+
+          result.fold(
+            (l) => null,
+            (r) => Routes.sailor.pop(),
+          );
+        } else {
+          final result = await widget.customerAddressRepo.editAddress(
+            id: widget.address.id,
+            address: addressCtrl.text,
+            description: descCtrl.text,
+            isDefault: false,
+            cityId: selectedCityId,
+            name: nameCtrl.text,
+          );
+
+          result.fold(
+            (l) => null,
+            (r) => Routes.sailor.pop(),
+          );
+        }
       }
     };
 
@@ -131,7 +177,7 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar.intance(
-        text: "ثبت آدرس جدید",
+        text: appBarText,
         showBackBtn: true,
       ),
       body: loading
@@ -144,10 +190,6 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
                   textDirection: TextDirection.rtl,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Txt(
-                      "",
-                      style: AppTxtStyles().body..textAlign.justify(),
-                    ),
                     CustomTextInput(
                       controller: nameCtrl,
                       validator: AppValidators.name,
@@ -189,7 +231,6 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
                       background: AppTheme.customerPrimary,
                       textColor: Colors.white,
                     ),
-                    const SizedBox(height: 8),
                   ],
                 ),
               ),
