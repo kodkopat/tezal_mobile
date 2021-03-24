@@ -76,6 +76,33 @@ class CustomerAddressRepository {
     }
   }
 
+  Future<Either<Failure, AddressActionsResultModel>> editAddress({
+    @required String id,
+    @required String address,
+    @required String description,
+    @required bool isDefault,
+    @required String cityId,
+    @required String name,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.edit(
+        userToken,
+        id,
+        address,
+        description,
+        isDefault,
+        cityId,
+        name,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
   Future<Either<Failure, AddressActionsResultModel>> removeAddress({
     @required String addressId,
   }) async {
