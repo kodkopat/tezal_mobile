@@ -52,6 +52,8 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, AddressActionsResultModel>> saveAddress({
+    @required String latitude,
+    @required String longitude,
     @required String address,
     @required String description,
     @required bool isDefault,
@@ -65,6 +67,8 @@ class CustomerAddressRepository {
 
       var result = await _remoteDataSource.save(
         userToken,
+        latitude,
+        longitude,
         address,
         description,
         isDefault,
@@ -77,6 +81,8 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, AddressActionsResultModel>> editAddress({
+    @required String latitude,
+    @required String longitude,
     @required String id,
     @required String address,
     @required String description,
@@ -91,6 +97,8 @@ class CustomerAddressRepository {
 
       var result = await _remoteDataSource.edit(
         userToken,
+        latitude,
+        longitude,
         id,
         address,
         description,
