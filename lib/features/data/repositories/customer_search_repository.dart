@@ -10,7 +10,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../../core/services/location.dart';
 import '../data_sources/customer_search/customer_search_local_data_source.dart';
 import '../data_sources/customer_search/customer_search_remote_data_source.dart';
-import '../models/clear_search_terms_result_model.dart';
+import '../models/base_api_result_model.dart';
 import '../models/search_result_model.dart';
 import '../models/search_terms_result_model.dart';
 import 'auth_repository.dart';
@@ -72,7 +72,7 @@ class CustomerSearchRepository {
     }
   }
 
-  Future<Either<Failure, ClearSearchTermsResultModel>> clearSearchTerms({
+  Future<Either<Failure, BaseApiResultModel>> clearSearchTerms({
     @required String term,
   }) async {
     if (!await _connectionChecker.hasConnection) {
