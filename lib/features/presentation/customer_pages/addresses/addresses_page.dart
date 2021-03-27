@@ -48,10 +48,7 @@ class _AddressesPageState extends State<AddressesPage> {
           (r) => AddressList(
             addresses: r.data,
             customerAddressRepo: _customerAddressRepo,
-            onSetAddressDefaultComplete: () => setState(() {}),
-            onShowAddressDetailComplete: () => setState(() {}),
-            onEditAddressComplete: () => setState(() {}),
-            onRemoveAddressComplete: () => setState(() {}),
+            onActionsComplete: () => setState(() {}),
           ),
         );
       },
