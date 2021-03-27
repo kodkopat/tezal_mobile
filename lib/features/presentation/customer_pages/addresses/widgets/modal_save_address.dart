@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_map_location_picker/google_map_location_picker.dart';
+import 'package:tezal/core/page_routes/routes.dart';
 
-import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/validators/validators.dart';
 import '../../../../../core/widgets/action_btn.dart';
@@ -35,6 +37,8 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
   var nameCtrl;
   var addressCtrl;
   var descCtrl;
+
+  LocationResult locationResult;
 
   String selectedProvinceId;
   List<Province> provincesList;
@@ -116,6 +120,10 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
     };
 
     submitBtnOnTap = () async {
+      print("address: ${locationResult.address}\n");
+      print("latitude: ${locationResult.latLng.latitude}\n");
+      print("longitude: ${locationResult.latLng.longitude}\n");
+
       if (formKey.currentState.validate()) {
         if (widget.address == null) {
           final result = await widget.customerAddressRepo.saveAddress(
@@ -147,6 +155,47 @@ class _SaveAddressModalState extends State<SaveAddressModal> {
         }
       }
     };
+
+    locationResult = await showLocationPicker(
+      context,
+      "AIzaSyBbJbAPiVw28tsQTjo5NTj4VEJh_dXWIqI",
+      resultCardConfirmIcon: Icon(
+        Feather.check,
+        color: Colors.white,
+        size: 24,
+      ),
+      hintText: "جستجوی موقعیت",
+      resultCardPadding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+      resultCardAlignment: Alignment.bottomCenter,
+      resultCardDecoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: Offset(0, 4.0),
+            blurRadius: 8,
+            spreadRadius: 0,
+          )
+        ],
+      ),
+      searchBarBoxDecoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(8.0),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: Offset(0, 4.0),
+            blurRadius: 8,
+            spreadRadius: 0,
+          )
+        ],
+      ),
+    );
 
     setState(() => loading = false);
   }
