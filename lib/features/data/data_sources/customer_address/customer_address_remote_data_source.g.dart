@@ -63,7 +63,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<AddressActionsResultModel> save(token, latitude, longitude, address,
+  Future<BaseApiResultModel> save(token, latitude, longitude, address,
       description, isDefault, cityId, name) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(latitude, 'latitude');
@@ -99,13 +99,13 @@ class _CustomerAddressRemoteDataSource
                 contentType: 'application/json',
                 baseUrl: baseUrl),
             data: _data);
-    final value = AddressActionsResultModel.fromJson(_result.data);
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<AddressActionsResultModel> edit(token, latitude, longitude, id,
-      address, description, isDefault, cityId, name) async {
+  Future<BaseApiResultModel> edit(token, latitude, longitude, id, address,
+      description, isDefault, cityId, name) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(latitude, 'latitude');
     ArgumentError.checkNotNull(longitude, 'longitude');
@@ -142,12 +142,12 @@ class _CustomerAddressRemoteDataSource
                 contentType: 'application/json',
                 baseUrl: baseUrl),
             data: _data);
-    final value = AddressActionsResultModel.fromJson(_result.data);
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<AddressActionsResultModel> setdefaultAddress(token, id) async {
+  Future<BaseApiResultModel> setdefaultAddress(token, id) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -167,12 +167,12 @@ class _CustomerAddressRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = AddressActionsResultModel.fromJson(_result.data);
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<AddressActionsResultModel> removeAddress(token, id) async {
+  Future<BaseApiResultModel> removeAddress(token, id) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -192,7 +192,7 @@ class _CustomerAddressRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = AddressActionsResultModel.fromJson(_result.data);
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
