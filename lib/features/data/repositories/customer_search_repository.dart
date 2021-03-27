@@ -13,18 +13,21 @@ import '../data_sources/customer_search/customer_search_remote_data_source.dart'
 import '../models/clear_search_terms_result_model.dart';
 import '../models/search_result_model.dart';
 import '../models/search_terms_result_model.dart';
+import 'auth_repository.dart';
 
 class CustomerSearchRepository {
   CustomerSearchRepository()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerSearchRemoteDataSource(Dio()),
-        _localDataSource = CustomerSearchLocalDataSource();
+        _localDataSource = CustomerSearchLocalDataSource(),
+        _authRepo = AuthRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerSearchRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerSearchLocalDataSource _localDataSource;
+  final AuthRepository _authRepo;
 
   Future<Either<Failure, SearchResultModel>> search(
     BuildContext context, {
@@ -47,13 +50,23 @@ class CustomerSearchRepository {
     }
   }
 
-  Future<Either<Failure, SearchTermsResultModel>> searchTerms({
+  Future<Either<Failure, SearchTermsResultModel>> searchTerms(
+    BuildContext context, {
     @required String term,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getSearchTerms();
+      final userToken = await _authRepo.userToken;
+      var lang = Localizations.localeOf(context).languageCode;
+      var position = await LocationService.getSavedLocation();
+
+      var result = await _remoteDataSource.getSearchTerms(
+        userToken,
+        lang,
+        "${position.latitude}",
+        "${position.longitude}",
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
