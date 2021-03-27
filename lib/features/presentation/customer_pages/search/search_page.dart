@@ -7,7 +7,7 @@ import '../../../data/models/search_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../../data/repositories/customer_search_repository.dart';
 import 'widgets/search_box.dart';
-import 'widgets/search_result_list.dart';
+import 'widgets/search_market_list.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key key}) : super(key: key);
@@ -35,8 +35,19 @@ class _SearchPageState extends State<SearchPage> {
         appBar: SimpleAppBar.intance(text: "جستجو"),
         body: loading
             ? AppLoading(color: AppTheme.customerPrimary)
-            : Column(
+            : Stack(
+                textDirection: TextDirection.rtl,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: EdgeInsets.only(top: 48),
+                      child: SearchMarketList(
+                        // repository: marketRepo,
+                        markets: markets,
+                      ),
+                    ),
+                  ),
                   SearchBox(
                     controller: searchCtrl,
                     onSearchTap: () async {
@@ -52,8 +63,6 @@ class _SearchPageState extends State<SearchPage> {
                       result.fold(
                         (l) => null,
                         (r) {
-                          print("r: $r\n");
-
                           if (markets != null) {
                             markets.clear();
                             markets.addAll(r.data.markets);
@@ -65,20 +74,12 @@ class _SearchPageState extends State<SearchPage> {
                         },
                       );
                     },
-                  ),
-                  Divider(
-                    color: Colors.black12,
-                    thickness: 0.5,
-                    height: 0,
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: SearchResultList(
-                        repository: marketRepo,
-                        markets: markets,
-                      ),
-                    ),
+                    terms: [
+                      "محصول ۱",
+                      "محصول ۲",
+                      "محصول ۳",
+                      "محصول ۴",
+                    ],
                   ),
                 ],
               ),
