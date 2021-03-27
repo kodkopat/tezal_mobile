@@ -78,7 +78,7 @@ class _CustomerSearchRemoteDataSource
   }
 
   @override
-  Future<ClearSearchTermsResultModel> clearSearchTerms() async {
+  Future<BaseApiResultModel> clearSearchTerms() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -95,7 +95,7 @@ class _CustomerSearchRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = ClearSearchTermsResultModel.fromJson(_result.data);
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 }
