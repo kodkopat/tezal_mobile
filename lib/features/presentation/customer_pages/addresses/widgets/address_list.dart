@@ -14,18 +14,12 @@ class AddressList extends StatelessWidget {
     Key key,
     @required this.addresses,
     @required this.customerAddressRepo,
-    @required this.onSetAddressDefaultComplete,
-    @required this.onRemoveAddressComplete,
-    @required this.onEditAddressComplete,
-    @required this.onShowAddressDetailComplete,
+    @required this.onActionsComplete,
   }) : super(key: key);
 
   final List<Address> addresses;
   final CustomerAddressRepository customerAddressRepo;
-  final void Function() onSetAddressDefaultComplete;
-  final void Function() onRemoveAddressComplete;
-  final void Function() onEditAddressComplete;
-  final void Function() onShowAddressDetailComplete;
+  final void Function() onActionsComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +34,24 @@ class AddressList extends StatelessWidget {
               return AddressListItem(
                 customerAddressRepo: customerAddressRepo,
                 address: address,
-                onSetAddressDefault: () {},
+                onSetAddressDefault: () => onSetAddressDefault(address),
                 onRemoveAddress: () => onRemoveAddress(context, address),
                 onEditAddress: () => onEditAddress(context, address),
                 onShowAddressDetail: () {},
               );
             },
           );
+  }
+
+  void onSetAddressDefault(Address address) async {
+    final result = await customerAddressRepo.setDefaultAddress(
+      addressId: address.id,
+    );
+
+    result.fold(
+      (l) => null,
+      (r) => onActionsComplete(),
+    );
   }
 
   void onRemoveAddress(BuildContext context, Address address) {
@@ -73,7 +78,7 @@ class AddressList extends StatelessWidget {
           onDiscard: onDiscard,
         );
       },
-    ).then((value) => onRemoveAddressComplete());
+    ).then((value) => onActionsComplete());
   }
 
   void onEditAddress(BuildContext context, Address address) {
@@ -88,7 +93,7 @@ class AddressList extends StatelessWidget {
           address: address,
         );
       },
-    ).then((value) => onEditAddressComplete());
+    ).then((value) => onActionsComplete());
   }
 
   Widget get _emptyState => Txt(

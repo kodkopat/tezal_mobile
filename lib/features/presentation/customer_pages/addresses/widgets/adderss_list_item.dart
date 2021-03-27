@@ -1,6 +1,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:tezal/core/themes/app_theme.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/addresses_result_model.dart';
@@ -42,7 +43,7 @@ class _AddressListItemState extends State<AddressListItem> {
         }),
       style: ParentStyle()
         ..margin(vertical: 8)
-        ..padding(horizontal: 8, vertical: 16)
+        ..padding(horizontal: 16, vertical: 16)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)
         ..boxShadow(
@@ -67,26 +68,16 @@ class _AddressListItemState extends State<AddressListItem> {
                   _fieldAddress,
                 ],
               ),
-              Parent(
-                gesture: Gestures()
-                  ..onTap(() {
-                    setState(() {
-                      actionsVisibility = !actionsVisibility;
-                    });
-                  }),
-                style: ParentStyle()
-                  ..width(48)
-                  ..height(48)
-                  ..borderRadius(all: 24)
-                  ..ripple(true),
-                child: Icon(
-                  !actionsVisibility
-                      ? Feather.chevron_down
-                      : Feather.chevron_up,
-                  color: Colors.black,
-                  size: 18,
+              if (widget.address.isDefault)
+                Txt(
+                  "آدرس پیش‌فرض",
+                  style: AppTxtStyles().footNote
+                    ..padding(horizontal: 8, vertical: 4)
+                    ..borderRadius(all: 4)
+                    ..textColor(AppTheme.customerPrimary)
+                    ..background
+                        .color(AppTheme.customerPrimary.withOpacity(0.2)),
                 ),
-              ),
             ],
           ),
           if (actionsVisibility)
@@ -100,14 +91,15 @@ class _AddressListItemState extends State<AddressListItem> {
               textDirection: TextDirection.rtl,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (!widget.address.isDefault)
+                  _EditableItem(
+                    text: "انتخاب به عنوان پیش‌فرض",
+                    iconData: Feather.check_square,
+                    color: Colors.black,
+                    onTap: widget.onSetAddressDefault,
+                  ),
                 _EditableItem(
-                  text: "انتخاب به عنوان پیش‌فرض",
-                  iconData: Feather.check_square,
-                  color: Colors.black,
-                  onTap: widget.onShowAddressDetail,
-                ),
-                _EditableItem(
-                  text: "مشاهده جزئیات",
+                  text: "جزئیات آدرس",
                   iconData: Feather.file_text,
                   color: Colors.black,
                   onTap: widget.onShowAddressDetail,
@@ -119,10 +111,11 @@ class _AddressListItemState extends State<AddressListItem> {
                   onTap: widget.onEditAddress,
                 ),
                 _EditableItem(
-                    text: "حذف آدرس",
-                    iconData: Feather.trash_2,
-                    color: Theme.of(context).errorColor,
-                    onTap: widget.onRemoveAddress),
+                  text: "حذف آدرس",
+                  iconData: Feather.trash_2,
+                  color: Theme.of(context).errorColor,
+                  onTap: widget.onRemoveAddress,
+                ),
               ],
             ),
         ],
