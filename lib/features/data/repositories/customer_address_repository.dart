@@ -8,9 +8,9 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_address/customer_address_local_data_source.dart';
 import '../data_sources/customer_address/customer_address_remote_data_source.dart';
-import '../models/address_actions_result_model.dart';
 import '../models/address_result_model.dart';
 import '../models/addresses_result_model.dart';
+import '../models/base_api_result_model.dart';
 import '../models/cities_result_model.dart';
 import '../models/provinces_result_model.dart';
 import 'auth_repository.dart';
@@ -51,7 +51,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, AddressActionsResultModel>> saveAddress({
+  Future<Either<Failure, BaseApiResultModel>> saveAddress({
     @required String latitude,
     @required String longitude,
     @required String address,
@@ -80,7 +80,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, AddressActionsResultModel>> editAddress({
+  Future<Either<Failure, BaseApiResultModel>> editAddress({
     @required String latitude,
     @required String longitude,
     @required String id,
@@ -111,7 +111,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, AddressActionsResultModel>> removeAddress({
+  Future<Either<Failure, BaseApiResultModel>> removeAddress({
     @required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -128,7 +128,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, AddressActionsResultModel>> setDefaultAddress({
+  Future<Either<Failure, BaseApiResultModel>> setDefaultAddress({
     @required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
