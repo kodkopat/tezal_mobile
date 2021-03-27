@@ -47,7 +47,12 @@ class _CustomerSearchRemoteDataSource
   }
 
   @override
-  Future<SearchTermsResultModel> getSearchTerms() async {
+  Future<SearchTermsResultModel> getSearchTerms(
+      token, lang, latitude, longitude) async {
+    ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(lang, 'lang');
+    ArgumentError.checkNotNull(latitude, 'latitude');
+    ArgumentError.checkNotNull(longitude, 'longitude');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -58,7 +63,11 @@ class _CustomerSearchRemoteDataSource
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token,
+              r'lang': lang,
+              r'latitude': latitude,
+              r'longitude': longitude
             },
             extra: _extra,
             contentType: 'application/json',

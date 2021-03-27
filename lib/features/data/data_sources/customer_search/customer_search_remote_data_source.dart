@@ -26,7 +26,12 @@ abstract class CustomerSearchRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<SearchTermsResultModel> getSearchTerms();
+  Future<SearchTermsResultModel> getSearchTerms(
+    @Header("token") String token,
+    @Header("lang") String lang,
+    @Header("latitude") String latitude,
+    @Header("longitude") String longitude,
+  );
 
   @GET("$_apiUrlPrefix/ClearSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
