@@ -31,6 +31,8 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressActionsResultModel> save(
     @Header("token") String token,
+    @Header("latitude") String latitude,
+    @Header("longitude") String longitude,
     @Field() String address,
     @Field() String description,
     @Field() bool isDefault,
@@ -42,6 +44,8 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressActionsResultModel> edit(
     @Header("token") String token,
+    @Header("latitude") String latitude,
+    @Header("longitude") String longitude,
     @Field() String id,
     @Field() String address,
     @Field() String description,

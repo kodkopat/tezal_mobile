@@ -63,9 +63,11 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<AddressActionsResultModel> save(
-      token, address, description, isDefault, cityId, name) async {
+  Future<AddressActionsResultModel> save(token, latitude, longitude, address,
+      description, isDefault, cityId, name) async {
     ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(latitude, 'latitude');
+    ArgumentError.checkNotNull(longitude, 'longitude');
     ArgumentError.checkNotNull(address, 'address');
     ArgumentError.checkNotNull(description, 'description');
     ArgumentError.checkNotNull(isDefault, 'isDefault');
@@ -81,28 +83,32 @@ class _CustomerAddressRemoteDataSource
       'name': name
     };
     _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Address/save',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('customer/Address/save',
+            queryParameters: queryParameters,
+            options: RequestOptions(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token,
+                  r'latitude': latitude,
+                  r'longitude': longitude
+                },
+                extra: _extra,
+                contentType: 'application/json',
+                baseUrl: baseUrl),
+            data: _data);
     final value = AddressActionsResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<AddressActionsResultModel> edit(
-      token, id, address, description, isDefault, cityId, name) async {
+  Future<AddressActionsResultModel> edit(token, latitude, longitude, id,
+      address, description, isDefault, cityId, name) async {
     ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(latitude, 'latitude');
+    ArgumentError.checkNotNull(longitude, 'longitude');
     ArgumentError.checkNotNull(id, 'id');
     ArgumentError.checkNotNull(address, 'address');
     ArgumentError.checkNotNull(description, 'description');
@@ -120,20 +126,22 @@ class _CustomerAddressRemoteDataSource
       'name': name
     };
     _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Address/save',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
+    final _result =
+        await _dio.request<Map<String, dynamic>>('customer/Address/save',
+            queryParameters: queryParameters,
+            options: RequestOptions(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token,
+                  r'latitude': latitude,
+                  r'longitude': longitude
+                },
+                extra: _extra,
+                contentType: 'application/json',
+                baseUrl: baseUrl),
+            data: _data);
     final value = AddressActionsResultModel.fromJson(_result.data);
     return value;
   }
