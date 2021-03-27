@@ -2,7 +2,9 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/base_api_result_model.dart';
 import '../../models/photo_result_model.dart';
+import '../../models/product_detail_result_model.dart';
 
 part 'customer_product_remote_data_source.g.dart';
 
@@ -23,7 +25,7 @@ abstract class CustomerProductRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getDetail(
+  Future<ProductDetailResultModel> getDetail(
     @Query("Id") String id,
   );
 
@@ -53,7 +55,7 @@ abstract class CustomerProductRemoteDataSource {
 
   @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> like(
+  Future<BaseApiResultModel> like(
     @Query("Id") String id,
   );
 

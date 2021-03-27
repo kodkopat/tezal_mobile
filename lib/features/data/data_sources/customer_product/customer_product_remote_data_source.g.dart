@@ -46,12 +46,13 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> getDetail(id) async {
+  Future<ProductDetailResultModel> getDetail(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/GetDetail',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Product/GetDetail',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -63,7 +64,7 @@ class _CustomerProductRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = ProductDetailResultModel.fromJson(_result.data);
     return value;
   }
 
@@ -151,12 +152,13 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> like(id) async {
+  Future<BaseApiResultModel> like(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/Like',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Product/Like',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -168,7 +170,7 @@ class _CustomerProductRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
