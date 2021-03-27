@@ -3,58 +3,90 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-class SearchBox extends StatelessWidget {
-  const SearchBox({
+class SearchBox extends StatefulWidget {
+  SearchBox({
     Key key,
     @required this.controller,
     @required this.onSearchTap,
+    @required this.terms,
     this.textDirection,
   }) : super(key: key);
 
   final TextEditingController controller;
   final void Function() onSearchTap;
+  final List<String> terms;
   final TextDirection textDirection;
 
   @override
+  _SearchBoxState createState() => _SearchBoxState();
+}
+
+class _SearchBoxState extends State<SearchBox> {
+  final _divider = Divider(
+    color: Colors.black12,
+    thickness: 0.5,
+    height: 0,
+  );
+
+  final _textStyle = TextStyle(
+    height: 2.5,
+    color: Colors.black,
+    fontWeight: FontWeight.normal,
+    fontSize: 14,
+  );
+
+  final _hintStyle = TextStyle(
+    height: 2.5,
+    color: Colors.black54,
+    fontWeight: FontWeight.normal,
+    fontSize: 14,
+  );
+
+  bool searchBoxIsEmpty = true;
+  FocusNode focus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    widget.controller.addListener(() {
+      setState(() {
+        searchBoxIsEmpty = widget.controller.text.isEmpty;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var textStyle = TextStyle(
-      height: 2.5,
-      color: Colors.black,
-      fontWeight: FontWeight.normal,
-      fontSize: 14,
-    );
-
-    var hintStyle = TextStyle(
-      height: 2.5,
-      color: Colors.black54,
-      fontWeight: FontWeight.normal,
-      fontSize: 14,
-    );
-
     return Column(
       textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
           maxLines: 1,
-          controller: controller,
-          textDirection: textDirection ?? TextDirection.rtl,
-          style: textStyle,
+          enabled: true,
+          focusNode: focus,
+          controller: widget.controller,
+          textDirection: widget.textDirection ?? TextDirection.rtl,
+          style: _textStyle,
           keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.search,
+          onFieldSubmitted: (value) {
+            widget.onSearchTap();
+          },
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.transparent,
             border: InputBorder.none,
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: 12,
-              vertical: 8,
-            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             hintText: "جستجوی محصولات ...",
-            hintStyle: hintStyle,
+            hintStyle: _hintStyle,
             suffixIcon: Parent(
-              gesture: Gestures()..onTap(onSearchTap),
+              gesture: Gestures()
+                ..onTap(() {
+                  widget.controller.clear();
+                }),
               style: ParentStyle()
                 ..width(48)
                 ..height(48)
@@ -62,14 +94,60 @@ class SearchBox extends StatelessWidget {
                 ..borderRadius(all: 24)
                 ..ripple(true),
               child: Icon(
-                Feather.search,
-                color: Colors.black,
+                Feather.x,
+                color: searchBoxIsEmpty ? Colors.transparent : Colors.black,
                 size: 18,
               ),
             ),
           ),
         ),
+        _divider,
+        if (focus.hasFocus)
+          _SearchSuggestionList(
+            terms: widget.terms,
+            onTermSelected: (value) {
+              setState(() {
+                widget.controller.text = value;
+              });
+            },
+          ),
       ],
+    );
+  }
+}
+
+class _SearchSuggestionList extends StatelessWidget {
+  _SearchSuggestionList({
+    Key key,
+    @required this.terms,
+    @required this.onTermSelected,
+  }) : super(key: key);
+
+  final List<String> terms;
+  final void Function(String) onTermSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: terms.length,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return Txt(
+          terms[index],
+          gesture: Gestures()
+            ..onTap(() {
+              onTermSelected(terms[index]);
+            }),
+          style: TxtStyle()
+            ..padding(horizontal: 16, vertical: 12)
+            ..textAlign.right()
+            ..background.color(Colors.white)
+            ..textColor(Colors.black87)
+            ..fontSize(12)
+            ..ripple(true),
+        );
+      },
     );
   }
 }
