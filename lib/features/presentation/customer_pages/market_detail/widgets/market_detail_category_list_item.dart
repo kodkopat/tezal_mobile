@@ -19,7 +19,7 @@ class MarketDetailCategoryListItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsets.fromLTRB(8, 16, 20, 8),
+          padding: EdgeInsets.fromLTRB(4, 16, 20, 8),
           child: Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,8 +29,13 @@ class MarketDetailCategoryListItem extends StatelessWidget {
                 style: AppTxtStyles().body..bold(),
               ),
               Txt(
-                "مشاهده همه محصولات \u203A",
-                style: AppTxtStyles().body,
+                "مشاهده همه محصولات \u00BB",
+                gesture: Gestures()..onTap(() {}),
+                style: AppTxtStyles().footNote
+                  ..borderRadius(all: 4)
+                  ..margin(top: 2)
+                  ..padding(horizontal: 4, vertical: 2)
+                  ..ripple(true),
               ),
             ],
           ),
