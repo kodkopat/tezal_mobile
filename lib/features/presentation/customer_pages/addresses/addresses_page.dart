@@ -12,7 +12,7 @@ import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/addresses_result_model.dart';
 import '../../../data/repositories/customer_address_repository.dart';
 import 'widgets/address_list.dart';
-import 'widgets/modal_save_address.dart';
+import '../address_detail/widgets/modal_save_address.dart';
 
 class AddressesPage extends StatefulWidget {
   static const route = "/customer_addresses";
