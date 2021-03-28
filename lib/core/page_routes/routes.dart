@@ -1,8 +1,9 @@
 import 'package:sailor/sailor.dart';
 
-import '../../features/data/models/nearby_markets_result_model.dart';
+import '../../features/presentation/customer_pages/address_detail/address_detail_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
+import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
 import '../../features/presentation/splash/splash_page.dart';
@@ -31,12 +32,12 @@ class Routes {
         SailorRoute(
           name: MarketDetailPage.route,
           builder: (ctx, args, map) {
-            final market = map.param<Market>("market");
-            return MarketDetailPage(market: market);
+            final marketId = map.param<String>("marketId");
+            return MarketDetailPage(marketId: marketId);
           },
           params: [
-            SailorParam<Market>(
-              name: "market",
+            SailorParam<String>(
+              name: "marketId",
               isRequired: true,
               defaultValue: null,
             ),
@@ -59,6 +60,24 @@ class Routes {
         SailorRoute(
           name: AddressesPage.route,
           builder: (ctx, args, map) => AddressesPage(),
+        ),
+        SailorRoute(
+          name: AddressDetailPage.route,
+          builder: (ctx, args, map) {
+            final addressId = map.param<String>("addressId");
+            return AddressDetailPage(addressId: addressId);
+          },
+          params: [
+            SailorParam<String>(
+              name: "addressId",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: LikedProductsPage.route,
+          builder: (ctx, args, map) => LikedProductsPage(),
         ),
       ],
     );
