@@ -5,9 +5,8 @@ import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/addresses_result_model.dart';
 import '../../../../data/repositories/customer_address_repository.dart';
+import '../../address_detail/address_detail_page.dart';
 import 'adderss_list_item.dart';
-import 'modal_remove_address.dart';
-import 'modal_save_address.dart';
 
 class AddressList extends StatelessWidget {
   const AddressList({
@@ -32,68 +31,16 @@ class AddressList extends StatelessWidget {
               var address = addresses[index];
 
               return AddressListItem(
-                customerAddressRepo: customerAddressRepo,
+                onTap: () {
+                  Routes.sailor.navigate(
+                    AddressDetailPage.route,
+                    params: {"addressId": address.id},
+                  );
+                },
                 address: address,
-                onSetAddressDefault: () => onSetAddressDefault(address),
-                onRemoveAddress: () => onRemoveAddress(context, address),
-                onEditAddress: () => onEditAddress(context, address),
-                onShowAddressDetail: () {},
               );
             },
           );
-  }
-
-  void onSetAddressDefault(Address address) async {
-    final result = await customerAddressRepo.setDefaultAddress(
-      addressId: address.id,
-    );
-
-    result.fold(
-      (l) => null,
-      (r) => onActionsComplete(),
-    );
-  }
-
-  void onRemoveAddress(BuildContext context, Address address) {
-    var onAccept = () async {
-      var result = await customerAddressRepo.removeAddress(
-        addressId: address.id,
-      );
-
-      result.fold((l) => null, (r) => Routes.sailor.pop());
-    };
-
-    var onDiscard = () {
-      Routes.sailor.pop();
-    };
-
-    showDialog(
-      context: context,
-      useSafeArea: true,
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.2),
-      builder: (context) {
-        return RemoveAddressModal(
-          onAccept: onAccept,
-          onDiscard: onDiscard,
-        );
-      },
-    ).then((value) => onActionsComplete());
-  }
-
-  void onEditAddress(BuildContext context, Address address) {
-    showDialog(
-      context: context,
-      useSafeArea: true,
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.2),
-      builder: (context) {
-        return SaveAddressModal(
-          customerAddressRepo: customerAddressRepo,
-          address: address,
-        );
-      },
-    ).then((value) => onActionsComplete());
   }
 
   Widget get _emptyState => Txt(
