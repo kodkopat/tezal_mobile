@@ -5,6 +5,7 @@ import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/routes.dart';
 import '../../addresses/addresses_page.dart';
+import '../../liked_products/liked_products_page.dart';
 import 'modal_about_us.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
@@ -46,6 +47,13 @@ class _ProfileMenu {
           text: "سفارشات قبلی",
           iconData: Feather.shopping_bag,
           onTap: () {},
+        ),
+        ProfileMenuItem(
+          text: "محصولات مورد علاقه",
+          iconData: Feather.heart,
+          onTap: () {
+            Routes.sailor(LikedProductsPage.route);
+          },
         ),
         _divider,
         ProfileMenuItem(
