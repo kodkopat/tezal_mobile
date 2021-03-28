@@ -8,35 +8,40 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../../data/data_sources/customer_product/customer_product_local_data_source.dart';
 import '../../data/data_sources/customer_product/customer_product_remote_data_source.dart';
-import '../models/photo_result_model.dart';
+import '../models/base_api_result_model.dart';
+import '../models/liked_products_result_model.dart';
+import '../models/photos_result_model.dart';
+import '../models/product_detail_result_model.dart';
+import 'auth_repository.dart';
 
 class CustomerProductRepository {
   CustomerProductRepository()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerProductRemoteDataSource(Dio()),
-        _localDataSource = CustomerProductLocalDataSource();
+        _localDataSource = CustomerProductLocalDataSource(),
+        _authRepo = AuthRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerProductRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerProductLocalDataSource _localDataSource;
+  final AuthRepository _authRepo;
 
   Future<Either<Failure, dynamic>> productList({
-    @required int pageSize,
-    @required int page,
-    @required String orderBy,
+    @required String marketId,
+    @required String categoryId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.list(pageSize, page, orderBy);
+      var result = await _remoteDataSource.getAll(marketId, categoryId);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> productDetail({
+  Future<Either<Failure, ProductDetailResultModel>> productDetail({
     @required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -48,7 +53,7 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> productphoto({
+  Future<Either<Failure, PhotosResultModel>> productphoto({
     @required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -60,73 +65,39 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, PhotoResultModel>> marketProductPhoto({
+  Future<Either<Failure, BaseApiResultModel>> likeProduct({
     @required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getMarketProductPhoto(id);
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.like(userToken, id);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> saveProduct({
-    @required String id,
-    @required String categoryId,
-    @required String name,
-    @required String description,
-    @required double discountedPrice,
-    @required double originalPrice,
-    @required bool onSale,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      var result = await _remoteDataSource.save(
-        id,
-        categoryId,
-        name,
-        description,
-        discountedPrice,
-        originalPrice,
-        onSale,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, dynamic>> likeProduct({
+  Future<Either<Failure, BaseApiResultModel>> unlikeProduct({
     @required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.like(id);
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.unlike(userToken, id);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> unlikeProduct({
-    @required String id,
-  }) async {
+  Future<Either<Failure, LikedProductsResultModel>> likedProdutcs() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.unlike(id);
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, dynamic>> likedProdutcs() async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      var result = await _remoteDataSource.getLikedProducts();
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.getLikedProducts(userToken);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
