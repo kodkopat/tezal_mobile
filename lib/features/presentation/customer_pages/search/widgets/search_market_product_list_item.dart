@@ -8,7 +8,7 @@ import 'package:intl/intl.dart' as intl;
 import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
-import '../../../../data/models/photo_result_model.dart';
+import '../../../../data/models/photos_result_model.dart';
 import '../../../../data/models/search_result_model.dart';
 import '../../../../data/repositories/customer_product_repository.dart';
 
@@ -88,13 +88,13 @@ class SearchMarketProductListItem extends StatelessWidget {
   }
 
   Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-      future: _customerProductRepo.marketProductPhoto(id: product.id),
+    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+      future: _customerProductRepo.productphoto(id: product.id),
       successBuilder: (context, data) {
         return data.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
-            base64Decode(r.data.photo),
+            base64Decode(r.data.photos.first),
             fit: BoxFit.fill,
           ),
         );
