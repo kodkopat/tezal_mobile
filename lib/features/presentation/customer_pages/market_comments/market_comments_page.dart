@@ -9,7 +9,8 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/market_comments_result_model.dart';
-import '../../../data/repositories/customer_market_comment_repository.dart';
+
+import '../../../data/repositories/customer_market_repository.dart';
 import 'widgets/market_comment_list.dart';
 
 class MarketCommentsPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class MarketCommentsPage extends StatefulWidget {
   }) : super(key: key);
 
   final String marketId;
-  final _customerMarketCommentsRepo = CustomerMarketCommentRepository();
+  final _customerMarketRepo = CustomerMarketRepository();
 
   @override
   _MarketCommentsPageState createState() => _MarketCommentsPageState();
@@ -36,11 +37,11 @@ class _MarketCommentsPageState extends State<MarketCommentsPage> {
         showBackBtn: true,
       ),
       body: CustomFutureBuilder<Either<Failure, MarketCommentsResultModel>>(
-        future: widget._customerMarketCommentsRepo.marketComments(
+        future: widget._customerMarketRepo.marketComments(
           marketId: widget.marketId,
-          orderBy: "",
+          // orderBy: "",
           page: 1,
-          pageSize: 10,
+          // pageSize: 10,
         ),
         successBuilder: (context, data) {
           return data.fold(
