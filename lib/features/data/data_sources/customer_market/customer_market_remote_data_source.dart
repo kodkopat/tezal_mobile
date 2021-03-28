@@ -2,9 +2,9 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/market_comments_result_model.dart';
 import '../../models/market_detail_result_model.dart';
 import '../../models/nearby_markets_result_model.dart';
-import '../../models/photo_result_model.dart';
 import '../../models/photos_result_model.dart';
 
 part 'customer_market_remote_data_source.g.dart';
@@ -29,12 +29,13 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetMarketDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketDetailResultModel> getMarketDetail(
+    @Header("token") String token,
     @Query("Id") String id,
   );
 
   @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotoResultModel> getPhoto(
+  Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
   );
 
@@ -42,5 +43,20 @@ abstract class CustomerMarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhotos(
     @Query("Id") String id,
+  );
+
+  @GET("$_apiUrlPrefix/GetComments")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<MarketCommentsResultModel> getListComment(
+    @Query("MarketId") String marketId,
+    @Query("Page") int page,
+  );
+
+  @GET("$_apiUrlPrefix/AddComment")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<dynamic> addComment(
+    @Field() String comment,
+    @Field() int point,
+    @Field() String marketId,
   );
 }

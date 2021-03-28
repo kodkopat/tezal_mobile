@@ -52,7 +52,8 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<MarketDetailResultModel> getMarketDetail(id) async {
+  Future<MarketDetailResultModel> getMarketDetail(token, id) async {
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
@@ -64,7 +65,8 @@ class _CustomerMarketRemoteDataSource
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json',
@@ -75,7 +77,7 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<PhotoResultModel> getPhoto(id) async {
+  Future<PhotosResultModel> getPhoto(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
@@ -93,7 +95,7 @@ class _CustomerMarketRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = PhotoResultModel.fromJson(_result.data);
+    final value = PhotosResultModel.fromJson(_result.data);
     return value;
   }
 
@@ -117,6 +119,58 @@ class _CustomerMarketRemoteDataSource
             baseUrl: baseUrl),
         data: _data);
     final value = PhotosResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<MarketCommentsResultModel> getListComment(marketId, page) async {
+    ArgumentError.checkNotNull(marketId, 'marketId');
+    ArgumentError.checkNotNull(page, 'page');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'MarketId': marketId,
+      r'Page': page
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Market/GetComments',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = MarketCommentsResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<dynamic> addComment(comment, point, marketId) async {
+    ArgumentError.checkNotNull(comment, 'comment');
+    ArgumentError.checkNotNull(point, 'point');
+    ArgumentError.checkNotNull(marketId, 'marketId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'comment': comment, 'point': point, 'marketId': marketId};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('customer/Market/AddComment',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
     return value;
   }
 }
