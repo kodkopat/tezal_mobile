@@ -13,7 +13,7 @@ import '../../../data/models/market_comments_result_model.dart';
 import '../../../data/models/market_detail_result_model.dart';
 import '../../../data/models/nearby_markets_result_model.dart';
 import '../../../data/models/photos_result_model.dart';
-import '../../../data/repositories/customer_market_comment_repository.dart';
+
 import '../../../data/repositories/customer_market_repository.dart';
 import '../home/widgets/nearby_markets_list_item.dart';
 import '../market_comments/widgets/market_comment_list.dart';
@@ -24,13 +24,12 @@ class MarketDetailPage extends StatelessWidget {
 
   MarketDetailPage({
     Key key,
-    @required this.market,
+    @required this.marketId,
   }) : super(key: key);
 
-  final Market market;
+  final String marketId;
 
   final _customerMarketRepo = CustomerMarketRepository();
-  final _customerMarketCommentRepo = CustomerMarketCommentRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +40,7 @@ class MarketDetailPage extends StatelessWidget {
       ),
       body: CustomFutureBuilder(
         future: _customerMarketRepo.marketDetail(
-          marketId: market.id,
+          marketId: marketId,
         ),
         successBuilder: (context, data) {
           var result = data as Either<Failure, MarketDetailResultModel>;
@@ -66,6 +65,19 @@ class MarketDetailPage extends StatelessWidget {
   Widget _listOfSections(MarketDetailResultModel marketDetail) {
     var categories = marketDetail.data.categories;
 
+    var data = marketDetail.data;
+    var market = Market(
+      id: data.id,
+      name: data.name,
+      phone: data.phone,
+      address: data.address,
+      location: data.location,
+      score: data.score,
+      distance: data.distance,
+      deliveryCost: data.deliveryCost,
+      basketCount: data.basketCount,
+    );
+
     return SingleChildScrollView(
       // padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -77,23 +89,6 @@ class MarketDetailPage extends StatelessWidget {
           const SizedBox(height: 16),
           _sectionCategories(categories),
           const SizedBox(height: 16),
-          Padding(
-            padding: EdgeInsets.fromLTRB(8, 16, 20, 0),
-            child: Row(
-              textDirection: TextDirection.rtl,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Txt(
-                  "نظرات کاربران",
-                  style: AppTxtStyles().body..bold(),
-                ),
-                Txt(
-                  "مشاهده همه نظرات \u203A",
-                  style: AppTxtStyles().body,
-                ),
-              ],
-            ),
-          ),
           _sectionComments(),
         ],
       ),
@@ -104,11 +99,11 @@ class MarketDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: _customerMarketRepo.photos(marketId: market.id),
+        future: _customerMarketRepo.photo(marketId: marketId),
         successBuilder: (context, data) {
           return data.fold(
             (l) => ProductImageView(images: ["", ""]),
-            (r) => ProductImageView(images: r.data),
+            (r) => ProductImageView(images: r.data.photos),
           );
         },
         errorBuilder: (context, data) {
@@ -137,11 +132,11 @@ class MarketDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomFutureBuilder<Either<Failure, MarketCommentsResultModel>>(
-        future: _customerMarketCommentRepo.marketComments(
-          marketId: market.id,
-          orderBy: "",
+        future: _customerMarketRepo.marketComments(
+          marketId: marketId,
+          // orderBy: "",
           page: 1,
-          pageSize: 3,
+          // pageSize: 3,
         ),
         successBuilder: (context, data) {
           return data.fold(
@@ -150,7 +145,7 @@ class MarketDetailPage extends StatelessWidget {
               style: AppTxtStyles().body..alignment.center(),
             ),
             (r) => MarketCommentList(
-              marketId: market.id,
+              marketId: marketId,
               marketComments: r,
               enableLoadMore: true,
             ),
