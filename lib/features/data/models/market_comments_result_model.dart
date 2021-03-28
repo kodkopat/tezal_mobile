@@ -2,20 +2,19 @@
 //
 //     final marketCommentsResultModel = marketCommentsResultModelFromJson(jsonString);
 
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
+import 'dart:convert';
 
 class MarketCommentsResultModel {
   MarketCommentsResultModel({
+    @required this.success,
+    @required this.message,
     @required this.data,
-    @required this.page,
-    @required this.count,
   });
 
+  final bool success;
+  final dynamic message;
   final List<Comment> data;
-  final int page;
-  final int count;
 
   factory MarketCommentsResultModel.fromRawJson(String str) =>
       MarketCommentsResultModel.fromJson(json.decode(str));
@@ -24,62 +23,54 @@ class MarketCommentsResultModel {
 
   factory MarketCommentsResultModel.fromJson(Map<String, dynamic> json) =>
       MarketCommentsResultModel(
+        success: json["success"] == null ? null : json["success"],
+        message: json["message"],
         data: json["data"] == null
             ? null
             : List<Comment>.from(json["data"].map((x) => Comment.fromJson(x))),
-        page: json["page"] == null ? null : json["page"],
-        count: json["count"] == null ? null : json["count"],
       );
 
   Map<String, dynamic> toJson() => {
+        "success": success == null ? null : success,
+        "message": message,
         "data": data == null
             ? null
             : List<dynamic>.from(data.map((x) => x.toJson())),
-        "page": page == null ? null : page,
-        "count": count == null ? null : count,
       };
 }
 
 class Comment {
   Comment({
-    @required this.createDate,
+    @required this.id,
     @required this.comment,
     @required this.point,
-    @required this.userUserName,
-    @required this.marketName,
-    @required this.commentState,
+    @required this.page,
+    @required this.total,
   });
 
-  final DateTime createDate;
+  final String id;
   final String comment;
   final int point;
-  final String userUserName;
-  final String marketName;
-  final int commentState;
+  final int page;
+  final int total;
 
   factory Comment.fromRawJson(String str) => Comment.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
-        createDate: json["createDate"] == null
-            ? null
-            : DateTime.parse(json["createDate"]),
+        id: json["id"] == null ? null : json["id"],
         comment: json["comment"] == null ? null : json["comment"],
         point: json["point"] == null ? null : json["point"],
-        userUserName:
-            json["userUserName"] == null ? null : json["userUserName"],
-        marketName: json["marketName"] == null ? null : json["marketName"],
-        commentState:
-            json["commentState"] == null ? null : json["commentState"],
+        page: json["page"] == null ? null : json["page"],
+        total: json["total"] == null ? null : json["total"],
       );
 
   Map<String, dynamic> toJson() => {
-        "createDate": createDate == null ? null : createDate.toIso8601String(),
+        "id": id == null ? null : id,
         "comment": comment == null ? null : comment,
         "point": point == null ? null : point,
-        "userUserName": userUserName == null ? null : userUserName,
-        "marketName": marketName == null ? null : marketName,
-        "commentState": commentState == null ? null : commentState,
+        "page": page == null ? null : page,
+        "total": total == null ? null : total,
       };
 }
