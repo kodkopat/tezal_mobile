@@ -2,8 +2,10 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/all_products_result_model.dart';
 import '../../models/base_api_result_model.dart';
-import '../../models/photo_result_model.dart';
+import '../../models/liked_products_result_model.dart';
+import '../../models/photos_result_model.dart';
 import '../../models/product_detail_result_model.dart';
 
 part 'customer_product_remote_data_source.g.dart';
@@ -15,12 +17,11 @@ abstract class CustomerProductRemoteDataSource {
 
   static const _apiUrlPrefix = "customer/Product";
 
-  @POST("$_apiUrlPrefix/List")
+  @POST("$_apiUrlPrefix/GetAll")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> list(
-    @Query("PageSize") int pageSize,
-    @Query("Page") int page,
-    @Query("OrderBy") String orderBy,
+  Future<AllProductsResultModel> getAll(
+    @Query("MarketId") String marketId,
+    @Query("CategoryId") String categoryId,
   );
 
   @GET("$_apiUrlPrefix/GetDetail")
@@ -31,41 +32,27 @@ abstract class CustomerProductRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getPhoto(
+  Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
-  );
-
-  @GET("$_apiUrlPrefix/GetMarketProductPhoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotoResultModel> getMarketProductPhoto(
-    @Query("Id") String id,
-  );
-
-  @POST("$_apiUrlPrefix/Save")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> save(
-    @Field() String id,
-    @Field() String categoryId,
-    @Field() String name,
-    @Field() String description,
-    @Field() double discountedPrice,
-    @Field() double originalPrice,
-    @Field() bool onSale,
   );
 
   @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
+    @Header("token") String token,
     @Query("Id") String id,
   );
 
   @GET("$_apiUrlPrefix/Unlike")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> unlike(
+  Future<BaseApiResultModel> unlike(
+    @Header("token") String token,
     @Query("Id") String id,
   );
 
   @GET("$_apiUrlPrefix/GetLikedProducts")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getLikedProducts();
+  Future<LikedProductsResultModel> getLikedProducts(
+    @Header("token") String token,
+  );
 }

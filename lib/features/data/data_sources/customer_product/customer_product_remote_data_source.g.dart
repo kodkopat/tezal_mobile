@@ -18,18 +18,17 @@ class _CustomerProductRemoteDataSource
   String baseUrl;
 
   @override
-  Future<dynamic> list(pageSize, page, orderBy) async {
-    ArgumentError.checkNotNull(pageSize, 'pageSize');
-    ArgumentError.checkNotNull(page, 'page');
-    ArgumentError.checkNotNull(orderBy, 'orderBy');
+  Future<AllProductsResultModel> getAll(marketId, categoryId) async {
+    ArgumentError.checkNotNull(marketId, 'marketId');
+    ArgumentError.checkNotNull(categoryId, 'categoryId');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'PageSize': pageSize,
-      r'Page': page,
-      r'OrderBy': orderBy
+      r'MarketId': marketId,
+      r'CategoryId': categoryId
     };
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/List',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Product/GetAll',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -41,7 +40,7 @@ class _CustomerProductRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = AllProductsResultModel.fromJson(_result.data);
     return value;
   }
 
@@ -69,35 +68,13 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> getPhoto(id) async {
-    ArgumentError.checkNotNull(id, 'id');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/GetPhoto',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<PhotoResultModel> getMarketProductPhoto(id) async {
+  Future<PhotosResultModel> getPhoto(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/GetMarketProductPhoto',
+        'customer/Product/GetPhoto',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -109,50 +86,13 @@ class _CustomerProductRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = PhotoResultModel.fromJson(_result.data);
+    final value = PhotosResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<dynamic> save(id, categoryId, name, description, discountedPrice,
-      originalPrice, onSale) async {
-    ArgumentError.checkNotNull(id, 'id');
-    ArgumentError.checkNotNull(categoryId, 'categoryId');
-    ArgumentError.checkNotNull(name, 'name');
-    ArgumentError.checkNotNull(description, 'description');
-    ArgumentError.checkNotNull(discountedPrice, 'discountedPrice');
-    ArgumentError.checkNotNull(originalPrice, 'originalPrice');
-    ArgumentError.checkNotNull(onSale, 'onSale');
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = {
-      'id': id,
-      'categoryId': categoryId,
-      'name': name,
-      'description': description,
-      'discountedPrice': discountedPrice,
-      'originalPrice': originalPrice,
-      'onSale': onSale
-    };
-    _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request('customer/Product/Save',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<BaseApiResultModel> like(id) async {
+  Future<BaseApiResultModel> like(token, id) async {
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
@@ -164,7 +104,8 @@ class _CustomerProductRemoteDataSource
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json',
@@ -175,45 +116,51 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> unlike(id) async {
+  Future<BaseApiResultModel> unlike(token, id) async {
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/Unlike',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Product/Unlike',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<dynamic> getLikedProducts() async {
+  Future<LikedProductsResultModel> getLikedProducts(token) async {
+    ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/GetLikedProducts',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Product/GetLikedProducts',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = LikedProductsResultModel.fromJson(_result.data);
     return value;
   }
 }
