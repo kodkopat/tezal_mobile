@@ -2,8 +2,9 @@
 //
 //     final addressResultModel = addressResultModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
+
+import 'package:meta/meta.dart';
 
 class AddressResultModel {
   AddressResultModel({
@@ -14,7 +15,7 @@ class AddressResultModel {
 
   final bool success;
   final dynamic message;
-  final Data data;
+  final Address data;
 
   factory AddressResultModel.fromRawJson(String str) =>
       AddressResultModel.fromJson(json.decode(str));
@@ -25,7 +26,7 @@ class AddressResultModel {
       AddressResultModel(
         success: json["success"] == null ? null : json["success"],
         message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : Address.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,8 +36,8 @@ class AddressResultModel {
       };
 }
 
-class Data {
-  Data({
+class Address {
+  Address({
     @required this.id,
     @required this.isDefault,
     @required this.name,
@@ -54,11 +55,11 @@ class Data {
   final dynamic city;
   final String province;
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+  factory Address.fromRawJson(String str) => Address.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
         id: json["id"] == null ? null : json["id"],
         isDefault: json["isDefault"] == null ? null : json["isDefault"],
         name: json["name"] == null ? null : json["name"],
