@@ -9,8 +9,11 @@ import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/market_detail_result_model.dart';
-import '../../../../data/models/photo_result_model.dart';
+import '../../../../data/models/photos_result_model.dart';
 import '../../../../data/repositories/customer_product_repository.dart';
+import 'market_detail_product_list_item_basket_toggle.dart';
+import 'market_detail_product_list_item_counter.dart';
+import 'market_detail_product_list_item_like_toggle.dart';
 
 class MarketDetailProductListItem extends StatelessWidget {
   MarketDetailProductListItem({
@@ -27,9 +30,9 @@ class MarketDetailProductListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Parent(
       style: ParentStyle()
-        ..width(160)
+        ..width(192)
         ..margin(horizontal: 8)
-        ..padding(horizontal: 8, vertical: 8)
+        ..padding(horizontal: 4, vertical: 4)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)
         ..boxShadow(
@@ -50,8 +53,8 @@ class MarketDetailProductListItem extends StatelessWidget {
             children: [
               Parent(
                 style: ParentStyle()
-                  ..width(160)
-                  ..height(128)
+                  ..width(192)
+                  ..height(144)
                   ..borderRadius(all: 8)
                   ..background.image(
                     alignment: Alignment.center,
@@ -66,11 +69,42 @@ class MarketDetailProductListItem extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8),
-              Txt(
-                "${product.name}",
-                style: AppTxtStyles().subHeading
-                  ..padding(right: 4)
-                  ..bold(),
+              Row(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Txt(
+                    "${product.name}",
+                    style: AppTxtStyles().subHeading
+                      ..padding(right: 4)
+                      ..textOverflow(TextOverflow.ellipsis)
+                      ..maxLines(1)
+                      ..bold(),
+                  ),
+                  Row(
+                    textDirection: TextDirection.ltr,
+                    children: [
+                      MarketDetailProductListItemLikeToggle(
+                        defaultValue: product.liked,
+                        onChange: (value) {
+                          if (value) {
+                            _customerProductRepo.likeProduct(
+                              id: product.id,
+                            );
+                          } else {
+                            _customerProductRepo.unlikeProduct(
+                              id: product.id,
+                            );
+                          }
+                        },
+                      ),
+                      SizedBox(width: 4),
+                      MarketDetailProductListItemBasketToggle(
+                        onChange: (value) {},
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -80,6 +114,8 @@ class MarketDetailProductListItem extends StatelessWidget {
             children: [
               _fieldOriginalPrice(product),
               _fieldDiscountedPrice(product),
+              SizedBox(height: 8),
+              MarketProductListItemCounter(),
             ],
           ),
         ],
@@ -88,13 +124,13 @@ class MarketDetailProductListItem extends StatelessWidget {
   }
 
   Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-      future: _customerProductRepo.marketProductPhoto(id: product.id),
+    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+      future: _customerProductRepo.productphoto(id: product.id),
       successBuilder: (context, data) {
         return data.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
-            base64Decode(r.data.photo),
+            base64Decode(r.data.photos.first),
             fit: BoxFit.fill,
           ),
         );
