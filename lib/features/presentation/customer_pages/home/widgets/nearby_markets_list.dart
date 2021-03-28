@@ -31,7 +31,7 @@ class NearByMarketsList extends StatelessWidget {
             Routes.sailor.navigate(
               MarketDetailPage.route,
               params: {
-                "market": markets[index],
+                "marketId": markets[index].id,
               },
             );
           },
