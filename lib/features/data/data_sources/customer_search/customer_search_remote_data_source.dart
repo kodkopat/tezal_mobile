@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
-import 'package:tezal/features/data/models/base_api_result_model.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/base_api_result_model.dart';
 import '../../models/search_result_model.dart';
 import '../../models/search_terms_result_model.dart';
 
