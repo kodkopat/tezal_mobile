@@ -4,12 +4,12 @@ import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:tezal/features/data/models/photos_result_model.dart';
 
 import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/nearby_markets_result_model.dart';
-import '../../../../data/models/photo_result_model.dart';
 import '../../../../data/repositories/customer_market_repository.dart';
 
 class NearByMarketsListItem extends StatelessWidget {
@@ -106,13 +106,13 @@ class NearByMarketsListItem extends StatelessWidget {
   }
 
   Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
+    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
       future: repository.photo(marketId: market.id),
       successBuilder: (context, data) {
         return data.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
-            base64Decode(r.data.photo),
+            base64Decode(r.data.photos.first),
           ),
         );
       },
