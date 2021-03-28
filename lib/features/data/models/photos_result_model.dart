@@ -15,7 +15,7 @@ class PhotosResultModel {
 
   final bool success;
   final dynamic message;
-  final List<String> data;
+  final Data data;
 
   factory PhotosResultModel.fromRawJson(String str) =>
       PhotosResultModel.fromJson(json.decode(str));
@@ -26,14 +26,35 @@ class PhotosResultModel {
       PhotosResultModel(
         success: json["success"] == null ? null : json["success"],
         message: json["message"],
-        data: json["data"] == null
-            ? null
-            : List<String>.from(json["data"].map((x) => x)),
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success == null ? null : success,
         "message": message,
-        "data": data == null ? null : List<dynamic>.from(data.map((x) => x)),
+        "data": data == null ? null : data.toJson(),
+      };
+}
+
+class Data {
+  Data({
+    @required this.photos,
+  });
+
+  final List<String> photos;
+
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        photos: json["photos"] == null
+            ? null
+            : List<String>.from(json["photos"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "photos":
+            photos == null ? null : List<dynamic>.from(photos.map((x) => x)),
       };
 }
