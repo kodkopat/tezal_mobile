@@ -11,6 +11,7 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
+import 'product_list_item_basket_toggle.dart';
 import 'product_list_item_counter.dart';
 import 'product_list_item_like_toggle.dart';
 
@@ -81,19 +82,28 @@ class ProductListItem extends StatelessWidget {
                       ..maxLines(1)
                       ..bold(),
                   ),
-                  ProductListItemLikeToggle(
-                    defaultValue: product.liked,
-                    onChange: (value) {
-                      if (value) {
-                        _customerProductRepo.likeProduct(
-                          id: product.id,
-                        );
-                      } else {
-                        _customerProductRepo.unlikeProduct(
-                          id: product.id,
-                        );
-                      }
-                    },
+                  Row(
+                    textDirection: TextDirection.ltr,
+                    children: [
+                      ProductListItemLikeToggle(
+                        defaultValue: product.liked,
+                        onChange: (value) {
+                          if (value) {
+                            _customerProductRepo.likeProduct(
+                              id: product.id,
+                            );
+                          } else {
+                            _customerProductRepo.unlikeProduct(
+                              id: product.id,
+                            );
+                          }
+                        },
+                      ),
+                      SizedBox(width: 4),
+                      ProductListItemBasketToggle(
+                        onChange: (value) {},
+                      ),
+                    ],
                   ),
                 ],
               ),
