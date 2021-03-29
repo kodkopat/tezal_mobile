@@ -10,6 +10,7 @@ import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/nearby_markets_result_model.dart';
+import '../../../data/repositories/customer_campaign_repository.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import 'widgets/nearby_markets_list.dart';
 
@@ -21,7 +22,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final repository = CustomerMarketRepository();
+  final campaignRepo = CustomerCampaignRepository();
+  final marketRepo = CustomerMarketRepository();
+
+  bool campaignsLoading = true;
+  List<String> campaignPhotos = [];
+
+  void fetchCampaignPhotos() async {
+    var campaignsEigher = await campaignRepo.campaignes;
+    campaignsEigher.fold(
+      (l) => null,
+      (r) async {
+        var campaignIds = r.data.map((e) => e.id).toList();
+        print("campaignIds length: ${campaignIds.length}\n");
+        for (int i = 0; i < campaignIds.length; i++) {
+          var campaignsPhotoEigher = await campaignRepo.campaignPhoto(
+            campaignId: campaignIds[i],
+          );
+          campaignsPhotoEigher.fold(
+            (l) => null,
+            (r) {
+              campaignPhotos.add(r.data.photos.first);
+            },
+          );
+        }
+      },
+    );
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCampaignPhotos();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: SimpleAppBar.intance(text: "خانه"),
         body: CustomFutureBuilder(
-          future: repository.nearByMarkets(
+          future: marketRepo.nearByMarkets(
             context,
             maxDistance: 50,
             count: 10,
@@ -48,11 +83,11 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     const SizedBox(height: 16),
-                    ProductImageView(images: ["", "", "", "", "", ""]),
+                    ProductImageView(images: campaignPhotos),
                     const SizedBox(height: 8),
                     NearByMarketsList(
                       markets: r.data.markets,
-                      repository: repository,
+                      repository: marketRepo,
                     ),
                   ],
                 ),
