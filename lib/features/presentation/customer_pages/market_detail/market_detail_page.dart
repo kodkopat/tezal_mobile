@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/exceptions/failure.dart';
+import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
@@ -17,6 +18,7 @@ import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../home/widgets/nearby_markets_list_item.dart';
+import '../market_comments/market_comments_page.dart';
 
 class MarketDetailPage extends StatelessWidget {
   static const route = "/customer_market_detail";
@@ -133,9 +135,7 @@ class MarketDetailPage extends StatelessWidget {
       child: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
         future: _customerMarketRepo.marketComments(
           marketId: marketId,
-          // orderBy: "",
           page: 1,
-          // pageSize: 3,
         ),
         successBuilder: (context, data) {
           return data.fold(
@@ -145,8 +145,14 @@ class MarketDetailPage extends StatelessWidget {
             ),
             (r) => CommentList(
               commentsResultModel: r,
-              showAllCommentOnTap: () {},
-              enableLoadMore: true,
+              showAllCommentOnTap: () {
+                Routes.sailor.navigate(
+                  MarketCommentsPage.route,
+                  params: {"marketId": marketId},
+                );
+              },
+              enableLoadMore: false,
+              enableHeader: true,
             ),
           );
         },
