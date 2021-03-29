@@ -57,7 +57,7 @@ class Data {
   final int deliveryCost;
   final int payable;
   final dynamic note;
-  final List<Item> items;
+  final List<BasketItem> items;
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
@@ -78,7 +78,8 @@ class Data {
         note: json["note"],
         items: json["items"] == null
             ? null
-            : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
+            : List<BasketItem>.from(
+                json["items"].map((x) => BasketItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,8 +98,8 @@ class Data {
       };
 }
 
-class Item {
-  Item({
+class BasketItem {
+  BasketItem({
     @required this.id,
     @required this.productName,
     @required this.originalPrice,
@@ -118,11 +119,12 @@ class Item {
   final int totaldiscountedPrice;
   final int amount;
 
-  factory Item.fromRawJson(String str) => Item.fromJson(json.decode(str));
+  factory BasketItem.fromRawJson(String str) =>
+      BasketItem.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory Item.fromJson(Map<String, dynamic> json) => Item(
+  factory BasketItem.fromJson(Map<String, dynamic> json) => BasketItem(
         id: json["id"] == null ? null : json["id"],
         productName: json["productName"] == null ? null : json["productName"],
         originalPrice:
