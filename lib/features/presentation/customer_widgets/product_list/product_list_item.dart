@@ -10,6 +10,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
+import '../../../data/repositories/customer_basket_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import 'product_list_item_basket_toggle.dart';
 import 'product_list_item_counter.dart';
@@ -25,6 +26,9 @@ class ProductListItem extends StatelessWidget {
   final ProdutcResultModel product;
   final void Function() onTap;
   final _customerProductRepo = CustomerProductRepository();
+  final _customerBasketRepo = CustomerBasketRepository();
+
+  final productCounterKey = GlobalKey<ProductListItemCounterState>();
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +105,22 @@ class ProductListItem extends StatelessWidget {
                       ),
                       SizedBox(width: 4),
                       ProductListItemBasketToggle(
-                        onChange: (value) {},
+                        onChange: (value) {
+                          var productId = product.id;
+                          var amount = productCounterKey.currentState.counter;
+
+                          if (value) {
+                            _customerBasketRepo.addProductToBasket(
+                              productId: productId,
+                              amount: amount,
+                            );
+                          } else {
+                            _customerBasketRepo.removeProductToBasket(
+                              productId: productId,
+                              amount: amount,
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -117,7 +136,7 @@ class ProductListItem extends StatelessWidget {
               _fieldDiscountedPrice(),
             ],
           ),
-          ProductListItemCounter(),
+          ProductListItemCounter(key: productCounterKey),
         ],
       ),
     );
