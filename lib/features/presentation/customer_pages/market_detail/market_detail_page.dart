@@ -9,15 +9,14 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/simple_app_bar.dart';
-import '../../../data/models/market_comments_result_model.dart';
+import '../../../data/models/comments_result_model.dart';
 import '../../../data/models/market_detail_result_model.dart';
 import '../../../data/models/nearby_markets_result_model.dart';
 import '../../../data/models/photos_result_model.dart';
-
 import '../../../data/repositories/customer_market_repository.dart';
+import '../../customer_widgets/category_list/category_list.dart';
+import '../../customer_widgets/comment_list/comment_list.dart';
 import '../home/widgets/nearby_markets_list_item.dart';
-import '../market_comments/widgets/market_comment_list.dart';
-import 'widgets/market_detail_category_list.dart';
 
 class MarketDetailPage extends StatelessWidget {
   static const route = "/customer_market_detail";
@@ -125,13 +124,13 @@ class MarketDetailPage extends StatelessWidget {
   }
 
   Widget _sectionCategories(List<Category> categories) {
-    return MarketDetailCategoryList(categories: categories);
+    return CategoryList(categories: categories);
   }
 
   Widget _sectionComments() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      child: CustomFutureBuilder<Either<Failure, MarketCommentsResultModel>>(
+      child: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
         future: _customerMarketRepo.marketComments(
           marketId: marketId,
           // orderBy: "",
@@ -144,9 +143,9 @@ class MarketDetailPage extends StatelessWidget {
               l.message,
               style: AppTxtStyles().body..alignment.center(),
             ),
-            (r) => MarketCommentList(
-              marketId: marketId,
-              marketComments: r,
+            (r) => CommentList(
+              commentsResultModel: r,
+              showAllCommentOnTap: () {},
               enableLoadMore: true,
             ),
           );
