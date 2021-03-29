@@ -18,7 +18,9 @@ class _CustomerSearchRemoteDataSource
   String baseUrl;
 
   @override
-  Future<SearchResultModel> search(lang, latitude, longitude, term) async {
+  Future<SearchResultModel> search(
+      token, lang, latitude, longitude, term) async {
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(lang, 'lang');
     ArgumentError.checkNotNull(latitude, 'latitude');
     ArgumentError.checkNotNull(longitude, 'longitude');
@@ -34,6 +36,7 @@ class _CustomerSearchRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'token': token,
                   r'lang': lang,
                   r'latitude': latitude,
                   r'longitude': longitude
@@ -78,7 +81,12 @@ class _CustomerSearchRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> clearSearchTerms() async {
+  Future<BaseApiResultModel> clearSearchTerms(
+      token, lang, latitude, longitude) async {
+    ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(lang, 'lang');
+    ArgumentError.checkNotNull(latitude, 'latitude');
+    ArgumentError.checkNotNull(longitude, 'longitude');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -89,7 +97,11 @@ class _CustomerSearchRemoteDataSource
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token,
+              r'lang': lang,
+              r'latitude': latitude,
+              r'longitude': longitude
             },
             extra: _extra,
             contentType: 'application/json',
