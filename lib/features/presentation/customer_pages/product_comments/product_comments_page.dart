@@ -38,9 +38,7 @@ class _ProductCommentsPageState extends State<ProductCommentsPage> {
       body: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
         future: widget._customerProductRepo.productComments(
           productId: widget.productId,
-          // orderBy: "",
           page: 1,
-          // pageSize: 10,
         ),
         successBuilder: (context, data) {
           return data.fold(
@@ -52,8 +50,9 @@ class _ProductCommentsPageState extends State<ProductCommentsPage> {
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: CommentList(
                 commentsResultModel: r,
-                enableLoadMore: false,
                 showAllCommentOnTap: () {},
+                enableLoadMore: true,
+                enableHeader: false,
               ),
             ),
           );
