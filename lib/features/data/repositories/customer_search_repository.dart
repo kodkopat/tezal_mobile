@@ -36,10 +36,12 @@ class CustomerSearchRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userToken = await _authRepo.userToken;
       var lang = Localizations.localeOf(context).languageCode;
       var position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.search(
+        userToken,
         lang,
         "${position.latitude}",
         "${position.longitude}",
@@ -51,9 +53,7 @@ class CustomerSearchRepository {
   }
 
   Future<Either<Failure, SearchTermsResultModel>> searchTerms(
-    BuildContext context, {
-    @required String term,
-  }) async {
+      BuildContext context) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -72,13 +72,21 @@ class CustomerSearchRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> clearSearchTerms({
-    @required String term,
-  }) async {
+  Future<Either<Failure, BaseApiResultModel>> clearSearchTerms(
+      BuildContext context) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.clearSearchTerms();
+      final userToken = await _authRepo.userToken;
+      var lang = Localizations.localeOf(context).languageCode;
+      var position = await LocationService.getSavedLocation();
+
+      var result = await _remoteDataSource.clearSearchTerms(
+        userToken,
+        lang,
+        "${position.latitude}",
+        "${position.longitude}",
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
