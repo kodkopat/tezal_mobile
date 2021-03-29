@@ -13,10 +13,10 @@ class ProductListItemCounter extends StatefulWidget {
   final double hieght;
 
   @override
-  _ProductListItemCounterState createState() => _ProductListItemCounterState();
+  ProductListItemCounterState createState() => ProductListItemCounterState();
 }
 
-class _ProductListItemCounterState extends State<ProductListItemCounter>
+class ProductListItemCounterState extends State<ProductListItemCounter>
     with AutomaticKeepAliveClientMixin<ProductListItemCounter> {
   int counter = 0;
 
