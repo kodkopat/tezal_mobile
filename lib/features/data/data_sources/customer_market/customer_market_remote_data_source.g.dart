@@ -100,13 +100,13 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getPhotos(id) async {
-    ArgumentError.checkNotNull(id, 'id');
+  Future<MarketCategoriesResultModel> getMarketCategories(marketId) async {
+    ArgumentError.checkNotNull(marketId, 'marketId');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
+    final queryParameters = <String, dynamic>{r'MarketId': marketId};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Market/GetPhotos',
+        'customer/Market/GetMarketCategorys',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -118,12 +118,12 @@ class _CustomerMarketRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = PhotosResultModel.fromJson(_result.data);
+    final value = MarketCategoriesResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<MarketCommentsResultModel> getListComment(marketId, page) async {
+  Future<CommentsResultModel> getListComment(marketId, page) async {
     ArgumentError.checkNotNull(marketId, 'marketId');
     ArgumentError.checkNotNull(page, 'page');
     const _extra = <String, dynamic>{};
@@ -145,7 +145,7 @@ class _CustomerMarketRemoteDataSource
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = MarketCommentsResultModel.fromJson(_result.data);
+    final value = CommentsResultModel.fromJson(_result.data);
     return value;
   }
 

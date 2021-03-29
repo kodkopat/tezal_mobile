@@ -2,7 +2,8 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/market_comments_result_model.dart';
+import '../../models/comments_result_model.dart';
+import '../../models/market_categories_result_model.dart';
 import '../../models/market_detail_result_model.dart';
 import '../../models/nearby_markets_result_model.dart';
 import '../../models/photos_result_model.dart';
@@ -39,15 +40,15 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetPhotos")
+  @GET("$_apiUrlPrefix/GetMarketCategorys")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotosResultModel> getPhotos(
-    @Query("Id") String id,
+  Future<MarketCategoriesResultModel> getMarketCategories(
+    @Query("MarketId") String marketId,
   );
 
   @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<MarketCommentsResultModel> getListComment(
+  Future<CommentsResultModel> getListComment(
     @Query("MarketId") String marketId,
     @Query("Page") int page,
   );
