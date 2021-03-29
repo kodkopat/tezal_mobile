@@ -16,7 +16,7 @@ class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       children: _ProfileMenu.items(context),
     );
   }
@@ -27,15 +27,16 @@ class _ProfileMenu {
     color: Colors.black12,
     thickness: 0.5,
     height: 0,
-    indent: 56,
+    indent: 36,
   );
 
   static List<Widget> items(BuildContext context) => [
-        ProfileMenuItem(
-          text: "اطلاعات شخصی",
-          iconData: Feather.user,
-          onTap: () {},
-        ),
+        // ProfileMenuItem(
+        //   text: "اطلاعات شخصی",
+        //   iconData: Feather.user,
+        //   onTap: () {},
+        // ),
+
         ProfileMenuItem(
           text: "آدرس‌های من",
           iconData: Feather.map_pin,
@@ -56,16 +57,25 @@ class _ProfileMenu {
           },
         ),
         _divider,
+
+        // ProfileMenuItem(
+        //   text: "پشتیبانی",
+        //   iconData: Feather.life_buoy,
+        //   onTap: () {},
+        // ),
+
+        // ProfileMenuItem(
+        //   text: "قوانین و مقررات",
+        //   iconData: Feather.file_text,
+        //   onTap: () {},
+        // ),
+
         ProfileMenuItem(
-          text: "پشتیبانی",
-          iconData: Feather.life_buoy,
+          text: "تنظیمات",
+          iconData: Feather.settings,
           onTap: () {},
         ),
-        ProfileMenuItem(
-          text: "قوانین و مقررات",
-          iconData: Feather.file_text,
-          onTap: () {},
-        ),
+
         ProfileMenuItem(
           text: "درباره ما",
           iconData: Feather.info,
@@ -82,11 +92,7 @@ class _ProfileMenu {
           },
         ),
         _divider,
-        ProfileMenuItem(
-          text: "تنظیمات",
-          iconData: Feather.settings,
-          onTap: () {},
-        ),
+
         ProfileMenuItem(
           text: "خروج از حساب کاربری",
           iconData: Feather.log_out,
