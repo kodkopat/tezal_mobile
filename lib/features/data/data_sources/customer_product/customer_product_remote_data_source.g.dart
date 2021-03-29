@@ -163,4 +163,52 @@ class _CustomerProductRemoteDataSource
     final value = LikedProductsResultModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<CommentsResultModel> getComments(productId, page) async {
+    ArgumentError.checkNotNull(productId, 'productId');
+    ArgumentError.checkNotNull(page, 'page');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'productId': productId,
+      r'Page': page
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Product/GetComments',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = CommentsResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<dynamic> addComment() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request('customer/Product/AddComment',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    return value;
+  }
 }

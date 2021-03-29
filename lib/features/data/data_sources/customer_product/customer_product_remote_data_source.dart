@@ -4,6 +4,7 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../core/consts/consts.dart';
 import '../../models/all_products_result_model.dart';
 import '../../models/base_api_result_model.dart';
+import '../../models/comments_result_model.dart';
 import '../../models/liked_products_result_model.dart';
 import '../../models/photos_result_model.dart';
 import '../../models/product_detail_result_model.dart';
@@ -55,4 +56,15 @@ abstract class CustomerProductRemoteDataSource {
   Future<LikedProductsResultModel> getLikedProducts(
     @Header("token") String token,
   );
+
+  @GET("$_apiUrlPrefix/GetComments")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<CommentsResultModel> getComments(
+    @Query("productId") String productId,
+    @Query("Page") int page,
+  );
+
+  @GET("$_apiUrlPrefix/AddComment")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<dynamic> addComment();
 }
