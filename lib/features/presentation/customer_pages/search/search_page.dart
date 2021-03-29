@@ -24,8 +24,27 @@ class _SearchPageState extends State<SearchPage> {
   var onSearchTap;
 
   List<Market> markets = [];
+  List<String> searchTerms = [];
 
-  bool loading = false;
+  bool loading = true;
+
+  void initializeState() async {
+    var result = await searchRepo.searchTerms(context);
+    result.fold(
+      (l) => null,
+      (r) {
+        searchTerms = r.data;
+      },
+    );
+
+    setState(() => loading = false);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +61,7 @@ class _SearchPageState extends State<SearchPage> {
                   Expanded(
                     child: SingleChildScrollView(
                       padding: EdgeInsets.only(top: 48),
-                      child: SearchMarketList(
-                        // repository: marketRepo,
-                        markets: markets,
-                      ),
+                      child: SearchMarketList(markets: markets),
                     ),
                   ),
                   SearchBox(
@@ -74,12 +90,7 @@ class _SearchPageState extends State<SearchPage> {
                         },
                       );
                     },
-                    terms: [
-                      "محصول ۱",
-                      "محصول ۲",
-                      "محصول ۳",
-                      "محصول ۴",
-                    ],
+                    terms: searchTerms,
                   ),
                 ],
               ),
