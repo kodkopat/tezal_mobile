@@ -53,7 +53,8 @@ class _MarketCommentsPageState extends State<MarketCommentsPage> {
               child: CommentList(
                 commentsResultModel: r,
                 showAllCommentOnTap: () {},
-                enableLoadMore: false,
+                enableLoadMore: true,
+                enableHeader: false,
               ),
             ),
           );
