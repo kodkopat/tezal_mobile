@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../core/exceptions/failure.dart';
+import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
@@ -18,6 +19,7 @@ import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/product_list/product_list_item_basket_toggle.dart';
 import '../../customer_widgets/product_list/product_list_item_counter.dart';
 import '../../customer_widgets/product_list/product_list_item_like_toggle.dart';
+import '../product_comments/product_comments_page.dart';
 
 class ProductDetailPage extends StatelessWidget {
   static const route = "/customer_product_detail";
@@ -253,8 +255,14 @@ class ProductDetailPage extends StatelessWidget {
           ),
           (r) => CommentList(
             commentsResultModel: r,
-            showAllCommentOnTap: () {},
-            enableLoadMore: true,
+            showAllCommentOnTap: () {
+              Routes.sailor.navigate(
+                ProductCommentsPage.route,
+                params: {"productId": productDetail.data.id},
+              );
+            },
+            enableLoadMore: false,
+            enableHeader: true,
           ),
         );
       },
