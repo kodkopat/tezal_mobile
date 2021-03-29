@@ -10,7 +10,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../../core/services/location.dart';
 import '../../data/data_sources/customer_market/customer_market_local_data_source.dart';
 import '../../data/data_sources/customer_market/customer_market_remote_data_source.dart';
-import '../models/market_comments_result_model.dart';
+import '../models/comments_result_model.dart';
 import '../models/market_detail_result_model.dart';
 import '../models/nearby_markets_result_model.dart';
 import '../models/photos_result_model.dart';
@@ -78,23 +78,9 @@ class CustomerMarketRepository {
     }
   }
 
-  Future<Either<Failure, PhotosResultModel>> photos({
-    @required String marketId,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      var result = await _remoteDataSource.getPhotos(marketId);
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, MarketCommentsResultModel>> marketComments({
+  Future<Either<Failure, CommentsResultModel>> marketComments({
     @required String marketId,
     @required int page,
-    // @required String orderBy,
-    // @required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
