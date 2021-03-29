@@ -9,6 +9,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../data/data_sources/customer_product/customer_product_local_data_source.dart';
 import '../../data/data_sources/customer_product/customer_product_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
+import '../models/comments_result_model.dart';
 import '../models/liked_products_result_model.dart';
 import '../models/photos_result_model.dart';
 import '../models/product_detail_result_model.dart';
@@ -100,6 +101,21 @@ class CustomerProductRepository {
       var result = await _remoteDataSource.getLikedProducts(userToken);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, CommentsResultModel>> productComments({
+    @required String productId,
+    @required int page,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      var result = await _remoteDataSource.getComments(productId, page);
+
+      return result != null
+          ? Right(result)
+          : Left(ApiFailure("failed to load comments"));
     }
   }
 }
