@@ -6,6 +6,8 @@ import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
+import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
+import '../../features/presentation/customer_pages/product_detail/product_detail_page.dart';
 import '../../features/presentation/splash/splash_page.dart';
 
 class Routes {
@@ -38,6 +40,34 @@ class Routes {
           params: [
             SailorParam<String>(
               name: "marketId",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: ProductDetailPage.route,
+          builder: (ctx, args, map) {
+            final productId = map.param<String>("productId");
+            return ProductDetailPage(productId: productId);
+          },
+          params: [
+            SailorParam<String>(
+              name: "productId",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: ProductCommentsPage.route,
+          builder: (ctx, args, map) {
+            final productId = map.param<String>("productId");
+            return ProductCommentsPage(productId: productId);
+          },
+          params: [
+            SailorParam<String>(
+              name: "productId",
               isRequired: true,
               defaultValue: null,
             ),
