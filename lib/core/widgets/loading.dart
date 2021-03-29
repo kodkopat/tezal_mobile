@@ -13,8 +13,8 @@ class AppLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SpinKitFadingGrid(
-        size: size ?? 24,
+      child: SpinKitThreeBounce(
+        size: size ?? 20,
         itemBuilder: (BuildContext context, int index) {
           return DecoratedBox(
             decoration: BoxDecoration(
