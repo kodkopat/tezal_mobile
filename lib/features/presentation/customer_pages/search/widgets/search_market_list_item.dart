@@ -37,9 +37,7 @@ class SearchMarketListItem extends StatelessWidget {
                   ..onTap(() {
                     Routes.sailor.navigate(
                       MarketDetailPage.route,
-                      params: {
-                        "marketId": market,
-                      },
+                      params: {"marketId": market.id},
                     );
                   }),
                 style: AppTxtStyles().footNote
