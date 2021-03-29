@@ -10,7 +10,8 @@ class CustomerDashBoardPage extends StatefulWidget {
   _CustomerDashBoardPageState createState() => _CustomerDashBoardPageState();
 }
 
-class _CustomerDashBoardPageState extends State<CustomerDashBoardPage> {
+class _CustomerDashBoardPageState extends State<CustomerDashBoardPage>
+    with AutomaticKeepAliveClientMixin<CustomerDashBoardPage> {
   Widget currentWidget;
   CustomBottomAppBar bottomAppBar;
 
@@ -31,10 +32,14 @@ class _CustomerDashBoardPageState extends State<CustomerDashBoardPage> {
   }
 
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     return Scaffold(
       body: currentWidget,
       bottomNavigationBar: bottomAppBar,
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
