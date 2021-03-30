@@ -12,7 +12,7 @@ import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
 import '../../../data/repositories/customer_basket_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
-import 'product_list_item_basket_toggle.dart';
+import '../custom_rich_text.dart';
 import 'product_list_item_counter.dart';
 import 'product_list_item_like_toggle.dart';
 
@@ -86,43 +86,19 @@ class ProductListItem extends StatelessWidget {
                       ..maxLines(1)
                       ..bold(),
                   ),
-                  Row(
-                    textDirection: TextDirection.ltr,
-                    children: [
-                      ProductListItemLikeToggle(
-                        defaultValue: product.liked,
-                        onChange: (value) {
-                          if (value) {
-                            _customerProductRepo.likeProduct(
-                              id: product.id,
-                            );
-                          } else {
-                            _customerProductRepo.unlikeProduct(
-                              id: product.id,
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(width: 4),
-                      ProductListItemBasketToggle(
-                        onChange: (value) {
-                          var productId = product.id;
-                          var amount = productCounterKey.currentState.counter;
-
-                          if (value) {
-                            _customerBasketRepo.addProductToBasket(
-                              productId: productId,
-                              amount: amount,
-                            );
-                          } else {
-                            _customerBasketRepo.removeProductToBasket(
-                              productId: productId,
-                              amount: amount,
-                            );
-                          }
-                        },
-                      ),
-                    ],
+                  ProductListItemLikeToggle(
+                    defaultValue: product.liked,
+                    onChange: (value) {
+                      if (value) {
+                        _customerProductRepo.likeProduct(
+                          id: product.id,
+                        );
+                      } else {
+                        _customerProductRepo.unlikeProduct(
+                          id: product.id,
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -132,11 +108,33 @@ class ProductListItem extends StatelessWidget {
             textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _fieldOriginalPrice(),
+              Row(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _fieldOriginalPrice(),
+                  _fieldDiscountedRate(),
+                ],
+              ),
               _fieldDiscountedPrice(),
             ],
           ),
-          ProductListItemCounter(key: productCounterKey),
+          ProductListItemCounter(
+            key: productCounterKey,
+            defaultValue: product.amount,
+            onIncrease: (value) {
+              _customerBasketRepo.addProductToBasket(
+                productId: product.id,
+                amount: 1,
+              );
+            },
+            onDecrease: (value) {
+              _customerBasketRepo.removeProductToBasket(
+                productId: product.id,
+                amount: 1,
+              );
+            },
+          ),
         ],
       ),
     );
@@ -159,16 +157,34 @@ class ProductListItem extends StatelessWidget {
   }
 
   Widget _fieldOriginalPrice() {
-    return richText(
+    return CustomRichText(
       title: "قیمت",
       text: _generateOriginalPrice(),
+      dashedLineText: true,
     );
   }
 
   Widget _fieldDiscountedPrice() {
-    return richText(
+    return CustomRichText(
       title: "قیمت نهایی",
       text: _generateDiscountedPrice(),
+    );
+  }
+
+  Widget _fieldDiscountedRate() {
+    if (_generateDiscountedRate().isEmpty) {
+      return SizedBox();
+    }
+
+    return Txt(
+      _generateDiscountedRate(),
+      style: AppTxtStyles().footNote
+        ..bold()
+        ..textDirection(TextDirection.ltr)
+        ..textColor(Colors.white)
+        ..background.color(Colors.red)
+        ..borderRadius(all: 4)
+        ..padding(horizontal: 8),
     );
   }
 
@@ -189,14 +205,7 @@ class ProductListItem extends StatelessWidget {
       priceTxt = " $temp " + "تومان";
     }
 
-    var discountRateTxt;
-    if (product.discountRate == null || product.discountRate == 0) {
-      discountRateTxt = "";
-    } else {
-      discountRateTxt = "${product.discountRate}٪";
-    }
-
-    return priceTxt + " $discountRateTxt ";
+    return priceTxt;
   }
 
   String _generateDiscountedPrice() {
@@ -219,36 +228,13 @@ class ProductListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  Widget richText({
-    @required String title,
-    @required String text,
-  }) {
-    var textStyle = TextStyle(
-      color: Colors.black,
-      letterSpacing: 0.5,
-      fontFamily: 'Yekan',
-      fontWeight: FontWeight.w600,
-      fontSize: 13,
-    );
-
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: title + ":",
-            style: textStyle,
-          ),
-          TextSpan(
-            text: text,
-            style: textStyle.copyWith(
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
+  String _generateDiscountedRate() {
+    var discountRateTxt;
+    if (product.discountRate == null || product.discountRate == 0) {
+      discountRateTxt = "";
+    } else {
+      discountRateTxt = "${product.discountRate}٪";
+    }
+    return discountRateTxt;
   }
 }
