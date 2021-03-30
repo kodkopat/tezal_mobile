@@ -9,9 +9,11 @@ class ProfileInfoBox extends StatelessWidget {
   const ProfileInfoBox({
     Key key,
     @required this.profileInfo,
+    @required this.onEditBtnTap,
   }) : super(key: key);
 
   final CustomerProfileResultModel profileInfo;
+  final void Function() onEditBtnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class ProfileInfoBox extends StatelessWidget {
                 ],
               ),
               Parent(
-                gesture: Gestures()..onTap(() {}),
+                gesture: Gestures()..onTap(onEditBtnTap),
                 style: ParentStyle()
                   ..width(36)
                   ..height(36)
