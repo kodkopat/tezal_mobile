@@ -1,9 +1,13 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
+import '../../../../data/repositories/customer_basket_repository.dart';
+import '../../../../data/repositories/customer_product_repository.dart';
+import '../../../providers/customer_providers/basket_provider.dart';
 import '../../basket/basket_page.dart';
 import '../../home/home_page.dart';
 import '../../profile/profile_page.dart';
@@ -115,7 +119,13 @@ class _BottomNavigationBarList {
       index: 2,
       label: "سبد خرید",
       iconData: Feather.shopping_cart,
-      widget: BasketPage(),
+      widget: ChangeNotifierProvider<BasketNotifier>(
+        create: (context) => BasketNotifier(
+          customerBasketRepo: CustomerBasketRepository(),
+          customerProductRepo: CustomerProductRepository(),
+        ),
+        child: BasketPage(),
+      ),
     ),
     __BottomNavigationBarListItem(
       index: 3,
