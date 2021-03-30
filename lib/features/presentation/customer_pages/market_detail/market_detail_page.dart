@@ -17,7 +17,7 @@ import '../../../data/models/photos_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
-import '../home/widgets/nearby_markets_list_item.dart';
+import '../../customer_widgets/market_list/markets_list_item.dart';
 import '../market_comments/market_comments_page.dart';
 
 class MarketDetailPage extends StatelessWidget {
@@ -74,9 +74,11 @@ class MarketDetailPage extends StatelessWidget {
       address: data.address,
       location: data.location,
       score: data.score,
-      distance: data.distance,
+      distance: data.distance.toDouble(),
       deliveryCost: data.deliveryCost,
-      basketCount: data.basketCount,
+      clouseAt: null,
+      openAt: null,
+      situation: null,
     );
 
     return SingleChildScrollView(
@@ -117,7 +119,7 @@ class MarketDetailPage extends StatelessWidget {
   Widget _sectionDetailsBox(Market market) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
-      child: NearByMarketsListItem(
+      child: MarketsListItem(
         market: market,
         repository: _customerMarketRepo,
         onTap: () {},
