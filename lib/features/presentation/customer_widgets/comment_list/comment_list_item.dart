@@ -35,7 +35,7 @@ class CommentListItem extends StatelessWidget {
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // _fieldUserName,
+              _fieldUserName,
               _fieldScore,
             ],
           ),
@@ -46,85 +46,85 @@ class CommentListItem extends StatelessWidget {
           ),
           _fieldComment,
           SizedBox(height: 8),
-          // _fieldDate,
+          _fieldDate,
         ],
       ),
     );
   }
 
-  // Widget get _fieldDate {
-  //   var txtStyle = TextStyle(
-  //     color: Colors.black,
-  //     letterSpacing: 0.5,
-  //     fontFamily: 'Yekan',
-  //     fontWeight: FontWeight.w600,
-  //     fontSize: 13,
-  //   );
+  Widget get _fieldDate {
+    var txtStyle = TextStyle(
+      color: Colors.black,
+      letterSpacing: 0.5,
+      fontFamily: 'Yekan',
+      fontWeight: FontWeight.w600,
+      fontSize: 13,
+    );
 
-  //   var dateTxt;
-  //   if (comment.createDate == null) {
-  //     dateTxt = " ذکر نشده ";
-  //   } else {
-  //     dateTxt = "${(comment.createDate).toString().split(" ")[0]}";
-  //   }
+    var dateTxt;
+    if (comment.date == null) {
+      dateTxt = " ذکر نشده ";
+    } else {
+      dateTxt = "${(comment.date).toString().split(" ")[0]}";
+    }
 
-  //   return RichText(
-  //     textDirection: TextDirection.rtl,
-  //     textAlign: TextAlign.right,
-  //     text: TextSpan(
-  //       children: [
-  //         TextSpan(
-  //           text: "تاریخ" + ": ",
-  //           style: txtStyle,
-  //         ),
-  //         TextSpan(
-  //           text: dateTxt,
-  //           style: txtStyle.copyWith(
-  //             fontWeight: FontWeight.w400,
-  //             fontSize: 12,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "تاریخ" + ": ",
+            style: txtStyle,
+          ),
+          TextSpan(
+            text: dateTxt,
+            style: txtStyle.copyWith(
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-  // Widget get _fieldUserName {
-  //   var txtStyle = TextStyle(
-  //     color: Colors.black,
-  //     letterSpacing: 0.5,
-  //     fontFamily: 'Yekan',
-  //     fontWeight: FontWeight.w600,
-  //     fontSize: 13,
-  //   );
+  Widget get _fieldUserName {
+    var txtStyle = TextStyle(
+      color: Colors.black,
+      letterSpacing: 0.5,
+      fontFamily: 'Yekan',
+      fontWeight: FontWeight.w600,
+      fontSize: 13,
+    );
 
-  //   var usernameTxt;
-  //   if (comment.userUserName == null) {
-  //     usernameTxt = " ذکر نشده ";
-  //   } else {
-  //     usernameTxt = comment.userUserName;
-  //   }
+    var usernameTxt;
+    if (comment.customerName == null) {
+      usernameTxt = " ذکر نشده ";
+    } else {
+      usernameTxt = comment.customerName;
+    }
 
-  //   return RichText(
-  //     textDirection: TextDirection.rtl,
-  //     textAlign: TextAlign.right,
-  //     text: TextSpan(
-  //       children: [
-  //         TextSpan(
-  //           text: "کاربر" + ": ",
-  //           style: txtStyle,
-  //         ),
-  //         TextSpan(
-  //           text: usernameTxt,
-  //           style: txtStyle.copyWith(
-  //             fontWeight: FontWeight.w400,
-  //             fontSize: 12,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: "کاربر" + ": ",
+            style: txtStyle,
+          ),
+          TextSpan(
+            text: usernameTxt,
+            style: txtStyle.copyWith(
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget get _fieldScore {
     var txtStyle = TextStyle(
