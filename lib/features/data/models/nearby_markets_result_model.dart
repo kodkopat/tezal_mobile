@@ -67,25 +67,29 @@ class Data {
 class Market {
   Market({
     @required this.id,
-    @required this.name,
-    @required this.phone,
     @required this.address,
     @required this.location,
+    @required this.name,
+    @required this.phone,
     @required this.score,
-    @required this.distance,
+    @required this.openAt,
+    @required this.clouseAt,
+    @required this.situation,
     @required this.deliveryCost,
-    @required this.basketCount,
+    @required this.distance,
   });
 
   final String id;
-  final String name;
-  final dynamic phone;
   final String address;
   final String location;
-  final dynamic score;
-  final dynamic distance;
-  final dynamic deliveryCost;
-  final dynamic basketCount;
+  final String name;
+  final dynamic phone;
+  final int score;
+  final int openAt;
+  final int clouseAt;
+  final String situation;
+  final int deliveryCost;
+  final double distance;
 
   factory Market.fromRawJson(String str) => Market.fromJson(json.decode(str));
 
@@ -93,26 +97,30 @@ class Market {
 
   factory Market.fromJson(Map<String, dynamic> json) => Market(
         id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        phone: json["phone"],
         address: json["address"] == null ? null : json["address"],
         location: json["location"] == null ? null : json["location"],
+        name: json["name"] == null ? null : json["name"],
+        phone: json["phone"],
         score: json["score"] == null ? null : json["score"],
-        distance: json["distance"] == null ? null : json["distance"],
+        openAt: json["openAt"] == null ? null : json["openAt"],
+        clouseAt: json["clouseAt"] == null ? null : json["clouseAt"],
+        situation: json["situation"] == null ? null : json["situation"],
         deliveryCost:
             json["deliveryCost"] == null ? null : json["deliveryCost"],
-        basketCount: json["basketCount"] == null ? null : json["basketCount"],
+        distance: json["distance"] == null ? null : json["distance"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "phone": phone,
         "address": address == null ? null : address,
         "location": location == null ? null : location,
+        "name": name == null ? null : name,
+        "phone": phone,
         "score": score == null ? null : score,
-        "distance": distance == null ? null : distance,
+        "openAt": openAt == null ? null : openAt,
+        "clouseAt": clouseAt == null ? null : clouseAt,
+        "situation": situation == null ? null : situation,
         "deliveryCost": deliveryCost == null ? null : deliveryCost,
-        "basketCount": basketCount == null ? null : basketCount,
+        "distance": distance == null ? null : distance,
       };
 }
