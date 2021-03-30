@@ -38,10 +38,12 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userToken = await _authRepo.userToken;
       var lang = Localizations.localeOf(context).languageCode;
       var position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.getNearByMarkets(
+        userToken,
         lang,
         "${position.latitude}",
         "${position.longitude}",
