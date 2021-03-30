@@ -20,6 +20,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<NearByMarketsResultModel> getNearByMarkets(
+    @Header("token") String token,
     @Header("lang") String lang,
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,

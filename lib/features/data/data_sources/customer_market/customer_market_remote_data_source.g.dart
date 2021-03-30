@@ -19,7 +19,8 @@ class _CustomerMarketRemoteDataSource
 
   @override
   Future<NearByMarketsResultModel> getNearByMarkets(
-      lang, latitude, longitude, maxDistance, count) async {
+      token, lang, latitude, longitude, maxDistance, count) async {
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(lang, 'lang');
     ArgumentError.checkNotNull(latitude, 'latitude');
     ArgumentError.checkNotNull(longitude, 'longitude');
@@ -39,6 +40,7 @@ class _CustomerMarketRemoteDataSource
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'token': token,
               r'lang': lang,
               r'latitude': latitude,
               r'longitude': longitude
