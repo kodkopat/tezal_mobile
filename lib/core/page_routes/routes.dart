@@ -3,6 +3,7 @@ import 'package:sailor/sailor.dart';
 import '../../features/presentation/customer_pages/address_detail/address_detail_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
+import '../../features/presentation/customer_pages/edit_profile/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
@@ -30,6 +31,10 @@ class Routes {
         SailorRoute(
           name: CustomerDashBoardPage.route,
           builder: (ctx, args, map) => CustomerDashBoardPage(),
+        ),
+        SailorRoute(
+          name: EditProfilePage.route,
+          builder: (ctx, args, map) => EditProfilePage(),
         ),
         SailorRoute(
           name: MarketDetailPage.route,
