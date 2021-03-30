@@ -12,7 +12,7 @@ import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/nearby_markets_result_model.dart';
 import '../../../data/repositories/customer_campaign_repository.dart';
 import '../../../data/repositories/customer_market_repository.dart';
-import 'widgets/nearby_markets_list.dart';
+import '../../customer_widgets/market_list/markets_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 16),
                     ProductImageView(images: campaignPhotos),
                     const SizedBox(height: 8),
-                    NearByMarketsList(
+                    MarketsList(
                       markets: r.data.markets,
                       repository: marketRepo,
                     ),
