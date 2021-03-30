@@ -7,9 +7,15 @@ import '../../../../core/styles/txt_styles.dart';
 class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({
     Key key,
+    this.onIncrease,
+    this.onDecrease,
+    this.defaultValue,
     this.hieght,
   }) : super(key: key);
 
+  final int defaultValue;
+  final void Function(int) onIncrease;
+  final void Function(int) onDecrease;
   final double hieght;
 
   @override
@@ -18,7 +24,13 @@ class ProductListItemCounter extends StatefulWidget {
 
 class ProductListItemCounterState extends State<ProductListItemCounter>
     with AutomaticKeepAliveClientMixin<ProductListItemCounter> {
-  int counter = 0;
+  int counter;
+
+  @override
+  void initState() {
+    super.initState();
+    counter = widget.defaultValue ?? 0;
+  }
 
   @override
   // ignore: must_call_super
@@ -60,11 +72,16 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
   }
 
   void _increament() {
-    setState(() => counter++);
+    counter = counter + 1;
+    widget.onIncrease(counter);
+    setState(() {});
   }
 
   void _decreament() {
-    if (counter > 0) setState(() => counter--);
+    if (counter == 0) return;
+    counter = counter - 1;
+    widget.onDecrease(counter);
+    setState(() {});
   }
 
   @override
