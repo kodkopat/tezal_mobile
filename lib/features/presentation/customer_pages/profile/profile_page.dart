@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/exceptions/failure.dart';
+import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -12,6 +13,7 @@ import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/customer_profile_result_model.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../data/repositories/customer_repository.dart';
+import '../edit_profile/edit_profile_page.dart';
 import 'widgets/modal_login.dart';
 import 'widgets/profile_info_box.dart';
 import 'widgets/profile_menu.dart';
@@ -71,7 +73,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           "${l.message}",
                           style: AppTxtStyles().body,
                         ),
-                        (r) => ProfileInfoBox(profileInfo: r),
+                        (r) => ProfileInfoBox(
+                          profileInfo: r,
+                          onEditBtnTap: () {
+                            Routes.sailor(EditProfilePage.route);
+                          },
+                        ),
                       );
                     },
                     errorBuilder: (context, error) {
