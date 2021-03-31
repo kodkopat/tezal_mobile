@@ -164,10 +164,7 @@ class _LoginPagePageState extends State<LoginPagePage> {
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
-                        FlatColors.orange_light,
-                        FlatColors.orange_dark
-                      ]),
+                      List: [FlatColors.orange_light, FlatColors.orange_dark]),
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Material(
                 color: Colors.transparent,
@@ -226,7 +223,7 @@ class _LoginPagePageState extends State<LoginPagePage> {
                   gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [FlatColors.blue_light, FlatColors.blue_dark]),
+                      List: [FlatColors.blue_light, FlatColors.blue_dark]),
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Material(
                 color: Colors.transparent,
