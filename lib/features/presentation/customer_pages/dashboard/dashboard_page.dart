@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import '../home/home_page.dart';
 import 'widgets/bottom_app_bar.dart';
 
-class CustomerDashBoardPage extends StatefulWidget {
+class DashBoardPage extends StatefulWidget {
   static const route = "/customer_dashboard";
 
   @override
-  _CustomerDashBoardPageState createState() => _CustomerDashBoardPageState();
+  _DashBoardPageState createState() => _DashBoardPageState();
 }
 
-class _CustomerDashBoardPageState extends State<CustomerDashBoardPage>
-    with AutomaticKeepAliveClientMixin<CustomerDashBoardPage> {
+class _DashBoardPageState extends State<DashBoardPage>
+    with AutomaticKeepAliveClientMixin<DashBoardPage> {
   Widget currentWidget;
   CustomBottomAppBar bottomAppBar;
 
