@@ -5,9 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../../../data/repositories/customer_basket_repository.dart';
-import '../../../../data/repositories/customer_product_repository.dart';
-import '../../../providers/customer_providers/basket_provider.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../basket/basket_page.dart';
 import '../../home/home_page.dart';
 import '../../profile/profile_page.dart';
@@ -34,67 +32,59 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
   // ignore: must_call_super
   Widget build(BuildContext context) {
     return BottomAppBar(
-      child: bottomNavigationBar,
+      child: Parent(
+        style: ParentStyle()
+          ..height(56)
+          ..padding(horizontal: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: _BottomNavigationBarList.items.map(
+            (item) {
+              if (item == null) return SizedBox();
+
+              var color = item.index == currentIndex
+                  ? AppTheme.customerPrimary
+                  : AppTheme.black;
+
+              return Expanded(
+                flex: 1,
+                child: Parent(
+                  gesture: Gestures()
+                    ..onTap(() {
+                      setState(() {
+                        currentIndex = item.index;
+                        widget.onIndexChanged(item.widget);
+                      });
+                    }),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        item.iconData,
+                        color: color,
+                        size: 24,
+                      ),
+                      const SizedBox(height: 4),
+                      Txt(
+                        item.label,
+                        style: AppTxtStyles().footNote
+                          ..fontSize(10)
+                          ..textColor(color),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ).toList(),
+        ),
+      ),
       shape: CircularNotchedRectangle(),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       notchMargin: 0.0,
       elevation: 8.0,
     );
-  }
-
-  Widget get bottomNavigationBar {
-    bottomNavigationBarItems = _BottomNavigationBarList.items.map(
-      (item) {
-        if (item == null) return SizedBox();
-
-        var color = item.index == currentIndex
-            ? AppTheme.customerPrimary
-            : AppTheme.black;
-
-        return Expanded(
-          flex: 1,
-          child: Parent(
-            gesture: Gestures()
-              ..onTap(() {
-                setState(() {
-                  currentIndex = item.index;
-                  widget.onIndexChanged(item.widget);
-                });
-              }),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.iconData,
-                  color: color,
-                  size: 24,
-                ),
-                const SizedBox(height: 4),
-                Txt(
-                  item.label,
-                  style: AppTxtStyles().footNote
-                    ..fontSize(10)
-                    ..textColor(color),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    ).toList();
-
-    var bottomNavigationBar = Parent(
-      style: ParentStyle()
-        ..height(56)
-        ..padding(horizontal: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: bottomNavigationBarItems,
-      ),
-    );
-
-    return bottomNavigationBar;
   }
 
   @override
@@ -119,13 +109,7 @@ class _BottomNavigationBarList {
       index: 2,
       label: "سبد خرید",
       iconData: Feather.shopping_cart,
-      widget: ChangeNotifierProvider<BasketNotifier>(
-        create: (context) => BasketNotifier(
-          customerBasketRepo: CustomerBasketRepository(),
-          customerProductRepo: CustomerProductRepository(),
-        ),
-        child: BasketPage(),
-      ),
+      widget: BasketPage(),
     ),
     __BottomNavigationBarListItem(
       index: 3,
