@@ -4,14 +4,15 @@ import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:provider/provider.dart';
 
 import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
-import '../../../data/repositories/customer_basket_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
+import '../../providers/customer_providers/basket_notifier.dart';
 import '../custom_rich_text.dart';
 import 'product_list_item_counter.dart';
 import 'product_list_item_like_toggle.dart';
@@ -23,15 +24,15 @@ class ProductListItem extends StatelessWidget {
     @required this.onTap,
   }) : super(key: key);
 
-  final ProdutcResultModel product;
+  final ProductResultModel product;
   final void Function() onTap;
   final _customerProductRepo = CustomerProductRepository();
-  final _customerBasketRepo = CustomerBasketRepository();
-
   final productCounterKey = GlobalKey<ProductListItemCounterState>();
 
   @override
   Widget build(BuildContext context) {
+    var basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
+
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
@@ -88,9 +89,9 @@ class ProductListItem extends StatelessWidget {
                   ),
                   ProductListItemLikeToggle(
                     defaultValue: product.liked,
-                    onChange: (value) {
+                    onChange: (value) async {
                       if (value) {
-                        _customerProductRepo.likeProduct(
+                        await _customerProductRepo.likeProduct(
                           id: product.id,
                         );
                       } else {
@@ -122,14 +123,18 @@ class ProductListItem extends StatelessWidget {
           ProductListItemCounter(
             key: productCounterKey,
             defaultValue: product.amount,
+            hieght: 28,
+            unit: ("${product.productUnit}".toLowerCase() == "kilogram")
+                ? "کیلوگرم"
+                : null,
             onIncrease: (value) {
-              _customerBasketRepo.addProductToBasket(
+              basketNotifier.addToBasket(
                 productId: product.id,
                 amount: 1,
               );
             },
             onDecrease: (value) {
-              _customerBasketRepo.removeProductToBasket(
+              basketNotifier.removeFromBasket(
                 productId: product.id,
                 amount: 1,
               );
@@ -142,7 +147,10 @@ class ProductListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: _customerProductRepo.productphoto(id: product.id),
+      future: _customerProductRepo.productphoto(
+        id: product.id,
+        multi: true,
+      ),
       successBuilder: (context, data) {
         return data.fold(
           (l) => SizedBox(),
@@ -233,7 +241,7 @@ class ProductListItem extends StatelessWidget {
     if (product.discountRate == null || product.discountRate == 0) {
       discountRateTxt = "";
     } else {
-      discountRateTxt = "${product.discountRate}٪";
+      discountRateTxt = "${(product.discountRate * 100).toStringAsFixed(0)}٪";
     }
     return discountRateTxt;
   }

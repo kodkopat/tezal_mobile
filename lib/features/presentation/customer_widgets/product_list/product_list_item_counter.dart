@@ -7,13 +7,15 @@ import '../../../../core/styles/txt_styles.dart';
 class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({
     Key key,
+    this.defaultValue,
+    this.unit,
     this.onIncrease,
     this.onDecrease,
-    this.defaultValue,
     this.hieght,
   }) : super(key: key);
 
   final int defaultValue;
+  final String unit;
   final void Function(int) onIncrease;
   final void Function(int) onDecrease;
   final double hieght;
@@ -36,9 +38,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
   // ignore: must_call_super
   Widget build(BuildContext context) {
     return Parent(
-      style: ParentStyle()
-        ..borderRadius(all: 4)
-        ..background.color(Color(0xffEFEFEF)),
+      style: ParentStyle()..borderRadius(all: 4),
       child: Row(
         textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,9 +52,11 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Txt(
-              "$counter",
+              widget.unit == null
+                  ? "$counter"
+                  : "$counter" + " ${widget.unit} ",
               style: AppTxtStyles().body,
             ),
           ),
@@ -109,6 +111,7 @@ class _CounterIcon extends StatelessWidget {
       style: ParentStyle()
         ..height(height ?? 36)
         ..borderRadius(all: 4)
+        ..background.color(Color(0xffEFEFEF))
         ..ripple(true),
       child: Icon(
         iconData,

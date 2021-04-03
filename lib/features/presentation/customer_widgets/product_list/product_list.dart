@@ -11,7 +11,7 @@ class ProductList extends StatelessWidget {
     @required this.products,
   }) : super(key: key);
 
-  final List<ProdutcResultModel> products;
+  final List<ProductResultModel> products;
 
   @override
   Widget build(BuildContext context) {
