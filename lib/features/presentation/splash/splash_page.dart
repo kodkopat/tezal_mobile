@@ -35,7 +35,7 @@ class _SplashPageState extends State<SplashPage> {
 
     switch (userType) {
       case _AppUserType.Customer:
-        Routes.sailor(CustomerDashBoardPage.route);
+        Routes.sailor(DashBoardPage.route);
         break;
       case _AppUserType.Market:
         // Routes.sailor(CustomerDashBoardPage.route);
