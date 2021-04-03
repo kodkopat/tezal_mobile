@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
 import 'app_localizations.dart';
 import 'core/page_routes/routes.dart';
 import 'core/services/location.dart';
 import 'core/themes/app_theme.dart';
 import 'features/data/repositories/auth_repository.dart';
+import 'features/data/repositories/customer_address_repository.dart';
+import 'features/data/repositories/customer_basket_repository.dart';
+import 'features/data/repositories/customer_product_repository.dart';
+import 'features/presentation/providers/customer_providers/address_notifier.dart';
+import 'features/presentation/providers/customer_providers/basket_notifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -106,7 +112,7 @@ class _AppState extends State<App> {
         break;
     }
 
-    return MaterialApp(
+    var materialApp = MaterialApp(
       title: 'TezAl Market',
       theme: themeData,
       debugShowCheckedModeBanner: false,
@@ -117,6 +123,23 @@ class _AppState extends State<App> {
       supportedLocales: supportedLocales,
       localizationsDelegates: deligates,
       locale: locale,
+    );
+
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => AddressNotifier(
+            CustomerAddressRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => BasketNotifier(
+            CustomerBasketRepository(),
+            CustomerProductRepository(),
+          ),
+        ),
+      ],
+      child: materialApp,
     );
   }
 }
