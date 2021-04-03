@@ -4,6 +4,7 @@ import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:tezal/core/themes/app_theme.dart';
 
 import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
@@ -41,63 +42,83 @@ class MarketsListItem extends StatelessWidget {
           spread: 0,
         )
         ..ripple(true),
-      child: Column(
-        textDirection: TextDirection.rtl,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Row(
+          Column(
             textDirection: TextDirection.rtl,
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Parent(
-                style: ParentStyle()
-                  ..width(96)
-                  ..height(96)
-                  ..borderRadius(all: 8)
-                  ..background.image(
-                    alignment: Alignment.center,
-                    path: "assets/images/placeholder.jpg",
-                    fit: BoxFit.fill,
-                  ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  child: _futureImgFile,
-                ),
-              ),
-              SizedBox(width: 8),
-              Column(
+              Row(
                 textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Txt(
-                    "${market.name}",
-                    style: AppTxtStyles().heading..bold(),
+                  Parent(
+                    style: ParentStyle()
+                      ..width(96)
+                      ..height(96)
+                      ..borderRadius(all: 8)
+                      ..background.image(
+                        alignment: Alignment.center,
+                        path: "assets/images/placeholder.jpg",
+                        fit: BoxFit.fill,
+                      ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      child: _futureImgFile,
+                    ),
                   ),
-                  SizedBox(height: 4),
-                  if (market.openAt != null) _fieldWorkingTime,
-                  _fieldPhone,
-                  _fieldAddress,
+                  SizedBox(width: 8),
+                  Column(
+                    textDirection: TextDirection.rtl,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Txt(
+                        "${market.name}",
+                        style: AppTxtStyles().heading..bold(),
+                      ),
+                      SizedBox(height: 4),
+                      if (market.openAt != null) _fieldWorkingTime,
+                      _fieldPhone,
+                      _fieldAddress,
+                    ],
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.black12,
+                thickness: 0.5,
+                height: 32,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _fieldMarketScore,
+                  _verticalDivider,
+                  _fieldDeliveryCost,
+                  _verticalDivider,
+                  _fieldDistance,
                 ],
               ),
             ],
           ),
-          Divider(
-            color: Colors.black12,
-            thickness: 0.5,
-            height: 32,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _fieldMarketScore,
-              _verticalDivider,
-              _fieldDeliveryCost,
-              _verticalDivider,
-              _fieldDistance,
-            ],
+          Positioned(
+            left: 0,
+            top: 0,
+            child: Txt(
+              _generateMarketSituationText(),
+              style: TxtStyle()
+                ..width(48)
+                ..alignmentContent.center()
+                ..padding(vertical: 2)
+                ..borderRadius(all: 4)
+                ..background.color(Color(0xffEFEFEF))
+                ..textColor(_generateMarketSituationColor())
+                ..fontSize(12)
+                ..bold(),
+            ),
           ),
         ],
       ),
@@ -127,6 +148,22 @@ class MarketsListItem extends StatelessWidget {
           width: 0,
         ),
       );
+
+  String _generateMarketSituationText() {
+    if ("${market.situation}".toLowerCase() == "open") {
+      return "فعال";
+    } else {
+      return "غیر فعال";
+    }
+  }
+
+  Color _generateMarketSituationColor() {
+    if ("${market.situation}".toLowerCase() == "open") {
+      return AppTheme.customerPrimary;
+    } else {
+      return Colors.black;
+    }
+  }
 
   Widget get _fieldWorkingTime => CustomRichText(
         title: "ساعت کار" + ": ",
