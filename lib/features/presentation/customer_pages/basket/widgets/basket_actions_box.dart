@@ -1,12 +1,12 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:tezal/features/data/models/basket_result_model.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
+import '../../../../data/models/basket_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../../providers/customer_providers/basket_provider.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 
 class BasketActionsBox extends StatelessWidget {
   const BasketActionsBox({
@@ -95,8 +95,7 @@ class BasketActionsBox extends StatelessWidget {
                   "خالی کردن سبد",
                   gesture: Gestures()
                     ..onTap(() async {
-                      await basketNotifier.customerBasketRepo.emptyBasket();
-                      basketNotifier.refresh();
+                      await basketNotifier.clearBasket();
                     }),
                   style: AppTxtStyles().body
                     ..textColor(Colors.red)
