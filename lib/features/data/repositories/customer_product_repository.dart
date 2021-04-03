@@ -48,7 +48,8 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getDetail(id);
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.getDetail(userToken, id);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -56,11 +57,12 @@ class CustomerProductRepository {
 
   Future<Either<Failure, PhotosResultModel>> productphoto({
     @required String id,
+    @required bool multi,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getPhoto(id);
+      var result = await _remoteDataSource.getPhoto(id, multi);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
