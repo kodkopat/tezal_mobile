@@ -24,6 +24,7 @@ class ProfileMenuItem extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..height(48)
+        ..padding(horizontal: 20)
         ..ripple(true),
       child: Row(
         textDirection: TextDirection.rtl,
