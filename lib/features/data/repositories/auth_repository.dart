@@ -112,7 +112,7 @@ class AuthRepository {
   }
 
   Future<String> get userToken async {
-    return await _localDataSource.userToken;
+    return await _localDataSource.userToken ?? "";
   }
 
   Future<String> get userType async {
