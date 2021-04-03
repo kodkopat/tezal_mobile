@@ -28,6 +28,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductDetailResultModel> getDetail(
+    @Header("token") String token,
     @Query("Id") String id,
   );
 
@@ -35,6 +36,7 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
+    @Query("Multi") bool multi,
   );
 
   @GET("$_apiUrlPrefix/Like")

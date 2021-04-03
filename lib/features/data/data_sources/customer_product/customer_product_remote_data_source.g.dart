@@ -45,7 +45,8 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<ProductDetailResultModel> getDetail(id) async {
+  Future<ProductDetailResultModel> getDetail(token, id) async {
+    ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
@@ -57,7 +58,8 @@ class _CustomerProductRemoteDataSource
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json',
@@ -68,10 +70,11 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getPhoto(id) async {
+  Future<PhotosResultModel> getPhoto(id, multi) async {
     ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(multi, 'multi');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
+    final queryParameters = <String, dynamic>{r'Id': id, r'Multi': multi};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
         'customer/Product/GetPhoto',
