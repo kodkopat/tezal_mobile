@@ -114,10 +114,22 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getBasketCount(userToken);
+      try {
+        final userToken = await _authRepo.userToken;
+        var result = await _remoteDataSource.getBasketCount(userToken);
 
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
+        return result.success
+            ? Right(result)
+            : Left(ApiFailure(result.message));
+      } catch (error) {
+        return Right(
+          BasketCountResultModel(
+            success: false,
+            message: "failure",
+            data: 0,
+          ),
+        );
+      }
     }
   }
 
