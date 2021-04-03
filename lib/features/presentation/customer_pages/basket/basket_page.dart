@@ -5,12 +5,14 @@ import 'package:provider/provider.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/basket_provider.dart';
+import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/basket_notifier.dart';
 import 'widgets/basket_actions_box.dart';
 import 'widgets/basket_list.dart';
 
 class BasketPage extends StatelessWidget {
+  static const route = "/customer_basket";
+
   @override
   Widget build(BuildContext context) {
     var consumer = Consumer<BasketNotifier>(
@@ -53,7 +55,7 @@ class BasketPage extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar.intance(text: "سبد خرید"),
+        appBar: SimpleAppBar().create(context, text: "سبد خرید"),
         body: consumer,
       ),
     );

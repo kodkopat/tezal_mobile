@@ -8,14 +8,14 @@ import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/nearby_markets_result_model.dart';
 import '../../../data/repositories/customer_campaign_repository.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_widgets/market_list/markets_list.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  static const route = "/customer_home";
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar.intance(text: "خانه"),
+        appBar: SimpleAppBar().create(context, text: "خانه"),
         body: CustomFutureBuilder(
           future: marketRepo.nearByMarkets(
             context,

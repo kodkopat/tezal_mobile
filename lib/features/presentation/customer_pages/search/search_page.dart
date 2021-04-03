@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/search_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../../data/repositories/customer_search_repository.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/search_box.dart';
 import 'widgets/search_market_list.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key key}) : super(key: key);
+  static const route = "/customer_search";
 
   @override
   _SearchPageState createState() => _SearchPageState();
@@ -51,7 +51,7 @@ class _SearchPageState extends State<SearchPage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar.intance(text: "جستجو"),
+        appBar: SimpleAppBar().create(context, text: "جستجو"),
         body: loading
             ? AppLoading(color: AppTheme.customerPrimary)
             : Stack(
