@@ -1,14 +1,19 @@
 import 'package:sailor/sailor.dart';
 
 import '../../features/presentation/customer_pages/address_detail/address_detail_page.dart';
+import '../../features/presentation/customer_pages/address_save/address_save_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
+import '../../features/presentation/customer_pages/basket/basket_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/edit_profile/edit_profile_page.dart';
+import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
 import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
 import '../../features/presentation/customer_pages/product_detail/product_detail_page.dart';
+import '../../features/presentation/customer_pages/profile/profile_page.dart';
+import '../../features/presentation/customer_pages/search/search_page.dart';
 import '../../features/presentation/splash/splash_page.dart';
 
 class Routes {
@@ -29,8 +34,24 @@ class Routes {
     sailor.addRoutes(
       [
         SailorRoute(
-          name: CustomerDashBoardPage.route,
-          builder: (ctx, args, map) => CustomerDashBoardPage(),
+          name: DashBoardPage.route,
+          builder: (ctx, args, map) => DashBoardPage(),
+        ),
+        SailorRoute(
+          name: HomePage.route,
+          builder: (ctx, args, map) => HomePage(),
+        ),
+        SailorRoute(
+          name: SearchPage.route,
+          builder: (ctx, args, map) => SearchPage(),
+        ),
+        SailorRoute(
+          name: BasketPage.route,
+          builder: (ctx, args, map) => BasketPage(),
+        ),
+        SailorRoute(
+          name: ProfilePage.route,
+          builder: (ctx, args, map) => ProfilePage(),
         ),
         SailorRoute(
           name: EditProfilePage.route,
@@ -108,6 +129,32 @@ class Routes {
               isRequired: true,
               defaultValue: null,
             ),
+          ],
+        ),
+        SailorRoute(
+          name: AddressSavePage.route,
+          builder: (ctx, args, map) {
+            var id, name, address, description;
+
+            if (map != null) {
+              id = map.param<String>("id");
+              name = map.param<String>("name");
+              address = map.param<String>("address");
+              description = map.param<String>("description");
+            }
+
+            return AddressSavePage(
+              id: id,
+              name: name,
+              address: address,
+              description: description,
+            );
+          },
+          params: [
+            SailorParam<String>(name: "id"),
+            SailorParam<String>(name: "name"),
+            SailorParam<String>(name: "address"),
+            SailorParam<String>(name: "description"),
           ],
         ),
         SailorRoute(
