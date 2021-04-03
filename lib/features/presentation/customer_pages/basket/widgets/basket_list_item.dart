@@ -13,7 +13,7 @@ import '../../../../data/models/basket_result_model.dart';
 import '../../../../data/models/photos_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../customer_widgets/product_list/product_list_item_counter.dart';
-import '../../../providers/customer_providers/basket_provider.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 
 class BasketListItem extends StatelessWidget {
   BasketListItem({
@@ -106,6 +106,9 @@ class BasketListItem extends StatelessWidget {
         ProductListItemCounter(
           key: productCounterKey,
           defaultValue: basketItem.amount,
+          unit: ("${basketItem.productUnit}".toLowerCase() == "kilogram")
+              ? "کیلوگرم"
+              : null,
           hieght: 32,
           onIncrease: (value) async {
             await basketNotifier.customerBasketRepo.addProductToBasket(
@@ -130,6 +133,7 @@ class BasketListItem extends StatelessWidget {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
       future: basketNotifier.customerProductRepo.productphoto(
         id: basketItem.id,
+        multi: false,
       ),
       successBuilder: (context, data) {
         return data.fold(
@@ -204,14 +208,14 @@ class BasketListItem extends StatelessWidget {
 
   String _generateDiscountPrice() {
     var priceTxt;
-    if (basketItem.discount == null) {
+    if (basketItem.discountedPrice == null) {
       priceTxt = " ذکر نشده ";
     } else {
       var temp;
-      if ("${basketItem.discount}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(basketItem.discount);
+      if ("${basketItem.discountedPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(basketItem.discountedPrice);
       } else {
-        temp = "${basketItem.discount}";
+        temp = "${basketItem.discountedPrice}";
       }
 
       priceTxt = " $temp " + "تومان";

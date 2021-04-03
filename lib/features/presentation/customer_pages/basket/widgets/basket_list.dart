@@ -2,7 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/basket_result_model.dart';
-import '../../../providers/customer_providers/basket_provider.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 import 'basket_list_item.dart';
 
 class BasketList extends StatelessWidget {
