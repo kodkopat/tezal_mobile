@@ -9,7 +9,6 @@ import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/models/market_detail_result_model.dart';
 import '../../../data/models/nearby_markets_result_model.dart';
@@ -18,6 +17,7 @@ import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/market_list/markets_list_item.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import '../market_comments/market_comments_page.dart';
 
 class MarketDetailPage extends StatelessWidget {
@@ -35,7 +35,8 @@ class MarketDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar.intance(
+      appBar: SimpleAppBar().create(
+        context,
         text: "جزئیات فروشگاه",
         showBackBtn: true,
       ),
@@ -51,7 +52,9 @@ class MarketDetailPage extends StatelessWidget {
               l.message,
               style: AppTxtStyles().body..alignment.center(),
             ),
-            (r) => _listOfSections(r),
+            (r) {
+              return _listOfSections(r);
+            },
           );
         },
         errorBuilder: (context, error) {
@@ -74,7 +77,7 @@ class MarketDetailPage extends StatelessWidget {
       address: data.address,
       location: data.location,
       score: data.score,
-      distance: data.distance.toDouble(),
+      distance: null,
       deliveryCost: data.deliveryCost,
       clouseAt: null,
       openAt: null,

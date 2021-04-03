@@ -2,13 +2,14 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/widgets/simple_app_bar.dart';
+import '../../../customer_widgets/simple_app_bar.dart';
 
 class AboutUsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar.intance(text: "درباره ما", showBackBtn: true),
+      appBar:
+          SimpleAppBar().create(context, text: "درباره ما", showBackBtn: true),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(

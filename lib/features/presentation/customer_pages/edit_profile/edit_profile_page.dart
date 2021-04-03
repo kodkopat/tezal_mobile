@@ -1,15 +1,15 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:tezal/core/page_routes/routes.dart';
-import 'package:tezal/features/data/repositories/customer_repository.dart';
 
+import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
+import '../../../data/repositories/customer_repository.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/customer_edit_profile";
@@ -50,7 +50,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar.intance(
+      appBar: SimpleAppBar().create(
+        context,
         text: "ویرایش اطلاعات کاربری",
         showBackBtn: true,
       ),

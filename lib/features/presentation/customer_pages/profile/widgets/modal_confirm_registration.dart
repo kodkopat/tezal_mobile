@@ -10,8 +10,8 @@ import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/action_btn.dart';
-import '../../../../../core/widgets/simple_app_bar.dart';
 import '../../../../data/repositories/auth_repository.dart';
+import '../../../customer_widgets/simple_app_bar.dart';
 
 class ConfirmRegistrationModal extends StatefulWidget {
   @override
@@ -66,7 +66,8 @@ class _ConfirmRegistrationModalState extends State<ConfirmRegistrationModal> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: SimpleAppBar.intance(
+      appBar: SimpleAppBar().create(
+        context,
         text: "ایجاد حساب کاربری",
         showBackBtn: true,
       ),

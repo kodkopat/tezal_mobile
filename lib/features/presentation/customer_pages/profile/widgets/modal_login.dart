@@ -9,8 +9,8 @@ import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/validators/validators.dart';
 import '../../../../../core/widgets/action_btn.dart';
 import '../../../../../core/widgets/custom_text_input.dart';
-import '../../../../../core/widgets/simple_app_bar.dart';
 import '../../../../data/repositories/auth_repository.dart';
+import '../../../customer_widgets/simple_app_bar.dart';
 import 'modal_registration.dart';
 
 class LoginModal extends StatefulWidget {
@@ -55,7 +55,8 @@ class _LoginModalState extends State<LoginModal> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: SimpleAppBar.intance(
+      appBar: SimpleAppBar().create(
+        context,
         text: "ورود به حساب کاربری",
         showBackBtn: true,
       ),

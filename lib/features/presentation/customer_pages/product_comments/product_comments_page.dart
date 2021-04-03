@@ -7,10 +7,10 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 
 class ProductCommentsPage extends StatefulWidget {
   static const route = "/customer_product_comments";
@@ -31,7 +31,8 @@ class _ProductCommentsPageState extends State<ProductCommentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar.intance(
+      appBar: SimpleAppBar().create(
+        context,
         text: "نظرات کاربران",
         showBackBtn: true,
       ),

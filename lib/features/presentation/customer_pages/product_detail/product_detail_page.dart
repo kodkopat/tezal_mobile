@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:provider/provider.dart';
 
 import '../../../../core/exceptions/failure.dart';
 import '../../../../core/page_routes/routes.dart';
@@ -10,17 +11,18 @@ import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../../core/widgets/simple_app_bar.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_detail_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
-import '../../customer_widgets/product_list/product_list_item_basket_toggle.dart';
 import '../../customer_widgets/product_list/product_list_item_counter.dart';
 import '../../customer_widgets/product_list/product_list_item_like_toggle.dart';
+import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/basket_notifier.dart';
 import '../product_comments/product_comments_page.dart';
 
+// ignore: must_be_immutable
 class ProductDetailPage extends StatelessWidget {
   static const route = "/customer_product_detail";
 
@@ -29,11 +31,16 @@ class ProductDetailPage extends StatelessWidget {
   final String productId;
 
   final _customerProductRepo = CustomerProductRepository();
+  final productCounterKey = GlobalKey<ProductListItemCounterState>();
+  BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
+    basketNotifier ??= Provider.of<BasketNotifier>(context, listen: false);
+
     return Scaffold(
-      appBar: SimpleAppBar.intance(
+      appBar: SimpleAppBar().create(
+        context,
         text: "جزئیات محصول",
         showBackBtn: true,
       ),
@@ -80,8 +87,28 @@ class ProductDetailPage extends StatelessWidget {
           SizedBox(height: 8),
           _fieldOriginalPrice(productDetail),
           _fieldDiscountedPrice(productDetail),
-          SizedBox(height: 8),
-          ProductListItemCounter(hieght: 40),
+          SizedBox(height: 16),
+          ProductListItemCounter(
+            key: productCounterKey,
+            defaultValue: productDetail.data.amount,
+            hieght: 36,
+            unit: ("${productDetail.data.productUnit}".toLowerCase() ==
+                    "kilogram")
+                ? "کیلوگرم"
+                : null,
+            onIncrease: (value) {
+              basketNotifier.addToBasket(
+                productId: productDetail.data.id,
+                amount: 1,
+              );
+            },
+            onDecrease: (value) {
+              basketNotifier.removeFromBasket(
+                productId: productDetail.data.id,
+                amount: 1,
+              );
+            },
+          ),
           SizedBox(height: 8),
           _sectionComments(productDetail),
         ],
@@ -91,7 +118,10 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _sectionCarouselSlider(ProductDetailResultModel productDetail) {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: _customerProductRepo.productphoto(id: productDetail.data.id),
+      future: _customerProductRepo.productphoto(
+        id: productDetail.data.id,
+        multi: true,
+      ),
       successBuilder: (context, data) {
         return data.fold(
           (l) => ProductImageView(images: ["", ""]),
@@ -117,28 +147,19 @@ class ProductDetailPage extends StatelessWidget {
             ..maxLines(1)
             ..bold(),
         ),
-        Row(
-          textDirection: TextDirection.ltr,
-          children: [
-            ProductListItemLikeToggle(
-              defaultValue: productDetail.data.liked,
-              onChange: (value) {
-                if (value) {
-                  _customerProductRepo.likeProduct(
-                    id: productDetail.data.id,
-                  );
-                } else {
-                  _customerProductRepo.unlikeProduct(
-                    id: productDetail.data.id,
-                  );
-                }
-              },
-            ),
-            SizedBox(width: 4),
-            ProductListItemBasketToggle(
-              onChange: (value) {},
-            ),
-          ],
+        ProductListItemLikeToggle(
+          defaultValue: productDetail.data.liked,
+          onChange: (value) {
+            if (value) {
+              _customerProductRepo.likeProduct(
+                id: productDetail.data.id,
+              );
+            } else {
+              _customerProductRepo.unlikeProduct(
+                id: productDetail.data.id,
+              );
+            }
+          },
         ),
       ],
     );
