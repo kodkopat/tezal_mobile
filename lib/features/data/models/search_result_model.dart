@@ -72,7 +72,7 @@ class Market {
   final String name;
   final String address;
   final String id;
-  final List<ProdutcResultModel> products;
+  final List<ProductResultModel> products;
 
   factory Market.fromRawJson(String str) => Market.fromJson(json.decode(str));
 
@@ -84,8 +84,8 @@ class Market {
         id: json["id"] == null ? null : json["id"],
         products: json["products"] == null
             ? null
-            : List<ProdutcResultModel>.from(
-                json["products"].map((x) => ProdutcResultModel.fromJson(x))),
+            : List<ProductResultModel>.from(
+                json["products"].map((x) => ProductResultModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

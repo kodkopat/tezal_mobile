@@ -5,7 +5,8 @@
 import 'dart:convert';
 
 import 'package:meta/meta.dart';
-import 'package:tezal/features/data/models/product_result_model.dart';
+
+import 'product_result_model.dart';
 
 class MarketDetailResultModel {
   MarketDetailResultModel({
@@ -25,77 +26,72 @@ class MarketDetailResultModel {
 
   factory MarketDetailResultModel.fromJson(Map<String, dynamic> json) =>
       MarketDetailResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data.toJson(),
       };
 }
 
 class Data {
   Data({
     @required this.id,
-    @required this.name,
-    @required this.phone,
     @required this.address,
     @required this.location,
+    @required this.name,
+    @required this.phone,
     @required this.score,
-    @required this.distance,
     @required this.deliveryCost,
-    @required this.basketCount,
+    @required this.distance,
     @required this.categories,
+    @required this.basketCount,
   });
 
-  final String id;
-  final String name;
-  final dynamic phone;
-  final String address;
-  final String location;
-  final int score;
-  final int distance;
-  final int deliveryCost;
-  final int basketCount;
+  final id;
+  final address;
+  final location;
+  final name;
+  final phone;
+  final score;
+  final deliveryCost;
+  final distance;
   final List<Category> categories;
+  final basketCount;
 
   factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
+        id: json["id"],
+        address: json["address"],
+        location: json["location"],
+        name: json["name"],
         phone: json["phone"],
-        address: json["address"] == null ? null : json["address"],
-        location: json["location"] == null ? null : json["location"],
-        score: json["score"] == null ? null : json["score"],
-        distance: json["distance"] == null ? null : json["distance"],
-        deliveryCost:
-            json["deliveryCost"] == null ? null : json["deliveryCost"],
-        basketCount: json["basketCount"] == null ? null : json["basketCount"],
-        categories: json["categories"] == null
-            ? null
-            : List<Category>.from(
-                json["categories"].map((x) => Category.fromJson(x))),
+        score: json["score"],
+        deliveryCost: json["deliveryCost"],
+        distance: json["distance"],
+        categories: List<Category>.from(
+            json["categories"].map((x) => Category.fromJson(x))),
+        basketCount: json["basketCount"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
+        "id": id,
+        "address": address,
+        "location": location,
+        "name": name,
         "phone": phone,
-        "address": address == null ? null : address,
-        "location": location == null ? null : location,
-        "score": score == null ? null : score,
-        "distance": distance == null ? null : distance,
-        "deliveryCost": deliveryCost == null ? null : deliveryCost,
-        "basketCount": basketCount == null ? null : basketCount,
-        "categories": categories == null
-            ? null
-            : List<dynamic>.from(categories.map((x) => x.toJson())),
+        "score": score,
+        "deliveryCost": deliveryCost,
+        "distance": distance,
+        "categories": List<dynamic>.from(categories.map((x) => x.toJson())),
+        "basketCount": basketCount,
       };
 }
 
@@ -106,9 +102,9 @@ class Category {
     @required this.products,
   });
 
-  final String id;
-  final String name;
-  final List<ProdutcResultModel> products;
+  final id;
+  final name;
+  final List<ProductResultModel> products;
 
   factory Category.fromRawJson(String str) =>
       Category.fromJson(json.decode(str));
@@ -116,19 +112,15 @@ class Category {
   String toRawJson() => json.encode(toJson());
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        products: json["products"] == null
-            ? null
-            : List<ProdutcResultModel>.from(
-                json["products"].map((x) => ProdutcResultModel.fromJson(x))),
+        id: json["id"],
+        name: json["name"],
+        products: List<ProductResultModel>.from(
+            json["products"].map((x) => ProductResultModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "products": products == null
-            ? null
-            : List<dynamic>.from(products.map((x) => x.toJson())),
+        "id": id,
+        "name": name,
+        "products": List<dynamic>.from(products.map((x) => x.toJson())),
       };
 }

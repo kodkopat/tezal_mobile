@@ -1,60 +1,66 @@
 // To parse this JSON data, do
 //
-//     final produtcResultModel = produtcResultModelFromJson(jsonString);
+//     final productResultModel = productResultModelFromJson(jsonString);
 
 import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
-class ProdutcResultModel {
-  ProdutcResultModel({
+class ProductResultModel {
+  ProductResultModel({
     @required this.id,
     @required this.name,
-    @required this.description,
-    @required this.liked,
-    @required this.originalPrice,
     @required this.discountedPrice,
+    @required this.totalDiscount,
+    @required this.originalPrice,
+    @required this.liked,
     @required this.discountRate,
+    @required this.productUnit,
     @required this.amount,
   });
 
-  final String id;
-  final String name;
-  final dynamic description;
-  final bool liked;
-  final int originalPrice;
-  final int discountedPrice;
-  final int discountRate;
-  final int amount;
+  final id;
+  final name;
+  final discountedPrice;
+  final totalDiscount;
+  final originalPrice;
+  final liked;
+  final discountRate;
+  final productUnit;
+  final amount;
 
-  factory ProdutcResultModel.fromRawJson(String str) =>
-      ProdutcResultModel.fromJson(json.decode(str));
+  factory ProductResultModel.fromRawJson(String str) =>
+      ProductResultModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory ProdutcResultModel.fromJson(Map<String, dynamic> json) =>
-      ProdutcResultModel(
+  factory ProductResultModel.fromJson(Map<String, dynamic> json) =>
+      ProductResultModel(
         id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
-        description: json["description"],
-        liked: json["liked"] == null ? null : json["liked"],
-        originalPrice:
-            json["originalPrice"] == null ? null : json["originalPrice"],
         discountedPrice:
             json["discountedPrice"] == null ? null : json["discountedPrice"],
-        discountRate:
-            json["discountRate"] == null ? null : json["discountRate"],
+        totalDiscount:
+            json["totalDiscount"] == null ? null : json["totalDiscount"],
+        originalPrice:
+            json["originalPrice"] == null ? null : json["originalPrice"],
+        liked: json["liked"] == null ? null : json["liked"],
+        discountRate: json["discountRate"] == null
+            ? null
+            : json["discountRate"].toDouble(),
+        productUnit: json["productUnit"] == null ? null : json["productUnit"],
         amount: json["amount"] == null ? null : json["amount"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "name": name == null ? null : name,
-        "description": description,
-        "liked": liked == null ? null : liked,
-        "originalPrice": originalPrice == null ? null : originalPrice,
         "discountedPrice": discountedPrice == null ? null : discountedPrice,
+        "totalDiscount": totalDiscount == null ? null : totalDiscount,
+        "originalPrice": originalPrice == null ? null : originalPrice,
+        "liked": liked == null ? null : liked,
         "discountRate": discountRate == null ? null : discountRate,
+        "productUnit": productUnit == null ? null : productUnit,
         "amount": amount == null ? null : amount,
       };
 }

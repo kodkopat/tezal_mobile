@@ -104,20 +104,24 @@ class BasketItem {
     @required this.productName,
     @required this.originalPrice,
     @required this.discountedPrice,
-    @required this.discount,
+    @required this.totalDiscountedPrice,
+    @required this.totalDiscount,
     @required this.totalPrice,
-    @required this.totaldiscountedPrice,
+    @required this.payablePrice,
+    @required this.productUnit,
     @required this.amount,
   });
 
-  final String id;
-  final String productName;
-  final int originalPrice;
-  final int discountedPrice;
-  final int discount;
-  final int totalPrice;
-  final int totaldiscountedPrice;
-  final int amount;
+  final id;
+  final productName;
+  final originalPrice;
+  final discountedPrice;
+  final totalDiscountedPrice;
+  final totalDiscount;
+  final totalPrice;
+  final payablePrice;
+  final productUnit;
+  final amount;
 
   factory BasketItem.fromRawJson(String str) =>
       BasketItem.fromJson(json.decode(str));
@@ -131,11 +135,15 @@ class BasketItem {
             json["originalPrice"] == null ? null : json["originalPrice"],
         discountedPrice:
             json["discountedPrice"] == null ? null : json["discountedPrice"],
-        discount: json["discount"] == null ? null : json["discount"],
-        totalPrice: json["totalPrice"] == null ? null : json["totalPrice"],
-        totaldiscountedPrice: json["totaldiscountedPrice"] == null
+        totalDiscountedPrice: json["totalDiscountedPrice"] == null
             ? null
-            : json["totaldiscountedPrice"],
+            : json["totalDiscountedPrice"],
+        totalDiscount:
+            json["totalDiscount"] == null ? null : json["totalDiscount"],
+        totalPrice: json["totalPrice"] == null ? null : json["totalPrice"],
+        payablePrice:
+            json["payablePrice"] == null ? null : json["payablePrice"],
+        productUnit: json["productUnit"] == null ? null : json["productUnit"],
         amount: json["amount"] == null ? null : json["amount"],
       );
 
@@ -144,10 +152,12 @@ class BasketItem {
         "productName": productName == null ? null : productName,
         "originalPrice": originalPrice == null ? null : originalPrice,
         "discountedPrice": discountedPrice == null ? null : discountedPrice,
-        "discount": discount == null ? null : discount,
+        "totalDiscountedPrice":
+            totalDiscountedPrice == null ? null : totalDiscountedPrice,
+        "totalDiscount": totalDiscount == null ? null : totalDiscount,
         "totalPrice": totalPrice == null ? null : totalPrice,
-        "totaldiscountedPrice":
-            totaldiscountedPrice == null ? null : totaldiscountedPrice,
+        "payablePrice": payablePrice == null ? null : payablePrice,
+        "productUnit": productUnit == null ? null : productUnit,
         "amount": amount == null ? null : amount,
       };
 }

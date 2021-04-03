@@ -24,15 +24,15 @@ class NearByMarketsResultModel {
 
   factory NearByMarketsResultModel.fromJson(Map<String, dynamic> json) =>
       NearByMarketsResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data.toJson(),
       };
 }
 
@@ -50,17 +50,14 @@ class Data {
   String toRawJson() => json.encode(toJson());
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        basketCount: json["basketCount"] == null ? null : json["basketCount"],
-        markets: json["markets"] == null
-            ? null
-            : List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
+        basketCount: json["basketCount"],
+        markets:
+            List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "basketCount": basketCount == null ? null : basketCount,
-        "markets": markets == null
-            ? null
-            : List<dynamic>.from(markets.map((x) => x.toJson())),
+        "basketCount": basketCount,
+        "markets": List<dynamic>.from(markets.map((x) => x.toJson())),
       };
 }
 
@@ -79,48 +76,47 @@ class Market {
     @required this.distance,
   });
 
-  final String id;
-  final String address;
-  final String location;
-  final String name;
-  final dynamic phone;
-  final int score;
-  final int openAt;
-  final int clouseAt;
-  final String situation;
-  final int deliveryCost;
-  final double distance;
+  final id;
+  final address;
+  final location;
+  final name;
+  final phone;
+  final score;
+  final openAt;
+  final clouseAt;
+  final situation;
+  final deliveryCost;
+  final distance;
 
   factory Market.fromRawJson(String str) => Market.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Market.fromJson(Map<String, dynamic> json) => Market(
-        id: json["id"] == null ? null : json["id"],
-        address: json["address"] == null ? null : json["address"],
-        location: json["location"] == null ? null : json["location"],
-        name: json["name"] == null ? null : json["name"],
+        id: json["id"],
+        address: json["address"],
+        location: json["location"],
+        name: json["name"],
         phone: json["phone"],
-        score: json["score"] == null ? null : json["score"],
-        openAt: json["openAt"] == null ? null : json["openAt"],
-        clouseAt: json["clouseAt"] == null ? null : json["clouseAt"],
-        situation: json["situation"] == null ? null : json["situation"],
-        deliveryCost:
-            json["deliveryCost"] == null ? null : json["deliveryCost"],
-        distance: json["distance"] == null ? null : json["distance"].toDouble(),
+        score: json["score"],
+        openAt: json["openAt"],
+        clouseAt: json["clouseAt"],
+        situation: json["situation"],
+        deliveryCost: json["deliveryCost"],
+        distance: json["distance"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "address": address == null ? null : address,
-        "location": location == null ? null : location,
-        "name": name == null ? null : name,
+        "id": id,
+        "address": address,
+        "location": location,
+        "name": name,
         "phone": phone,
-        "score": score == null ? null : score,
-        "openAt": openAt == null ? null : openAt,
-        "clouseAt": clouseAt == null ? null : clouseAt,
-        "situation": situation == null ? null : situation,
-        "deliveryCost": deliveryCost == null ? null : deliveryCost,
-        "distance": distance == null ? null : distance,
+        "score": score,
+        "openAt": openAt,
+        "clouseAt": clouseAt,
+        "situation": situation,
+        "deliveryCost": deliveryCost,
+        "distance": distance,
       };
 }
