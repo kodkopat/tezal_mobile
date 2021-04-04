@@ -151,43 +151,50 @@ class _AddressSavePageState extends State<AddressSavePage> {
 
     locationResult = await showLocationPicker(
       context,
+
       "AIzaSyBbJbAPiVw28tsQTjo5NTj4VEJh_dXWIqI",
+
+      hintText: "جستجوی موقعیت",
+
+      resultCardAlignment: Alignment.bottomCenter,
+
+      resultCardPadding: EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
+
       resultCardConfirmIcon: Icon(
         Feather.check,
         color: Colors.white,
         size: 24,
       ),
-      hintText: "جستجوی موقعیت",
-      resultCardPadding: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
-      resultCardAlignment: Alignment.bottomCenter,
-      resultCardDecoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: Offset(0, 4.0),
-            blurRadius: 8,
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      searchBarBoxDecoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8.0),
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            offset: Offset(0, 4.0),
-            blurRadius: 8,
-            spreadRadius: 0,
-          )
-        ],
-      ),
+
+      // resultCardDecoration: BoxDecoration(
+      //   color: Colors.white,
+      //   boxShadow: [
+      //     BoxShadow(
+      //       color: Colors.black.withOpacity(0.2),
+      //       offset: Offset(0, 4.0),
+      //       blurRadius: 8,
+      //       spreadRadius: 0,
+      //     )
+      //   ],
+      // ),
+      //
+      // searchBarBoxDecoration: BoxDecoration(
+      //   color: Colors.white,
+      //   borderRadius: BorderRadius.all(
+      //     Radius.circular(8.0),
+      //   ),
+      //   boxShadow: [
+      //     BoxShadow(
+      //       color: Colors.black.withOpacity(0.2),
+      //       offset: Offset(0, 4.0),
+      //       blurRadius: 8,
+      //       spreadRadius: 0,
+      //     )
+      //   ],
+      // ),
     );
 
     setState(() => loading = false);
