@@ -255,7 +255,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    List: (nameController.text.isNotEmpty &&
+                    colors: (nameController.text.isNotEmpty &&
                             passController.text.isNotEmpty &&
                             phoneController.text.isNotEmpty &&
                             contractSigned)
