@@ -8,16 +8,18 @@ class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({
     Key key,
     this.defaultValue,
+    this.step,
     this.unit,
     this.onIncrease,
     this.onDecrease,
     this.hieght,
   }) : super(key: key);
 
-  final int defaultValue;
+  final num defaultValue;
+  final num step;
   final String unit;
-  final void Function(int) onIncrease;
-  final void Function(int) onDecrease;
+  final void Function(num) onIncrease;
+  final void Function(num) onDecrease;
   final double hieght;
 
   @override
@@ -26,7 +28,7 @@ class ProductListItemCounter extends StatefulWidget {
 
 class ProductListItemCounterState extends State<ProductListItemCounter>
     with AutomaticKeepAliveClientMixin<ProductListItemCounter> {
-  int counter;
+  num counter;
 
   @override
   void initState() {
@@ -74,14 +76,14 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
   }
 
   void _increament() {
-    counter = counter + 1;
+    counter = counter + widget.step;
     widget.onIncrease(counter);
     setState(() {});
   }
 
   void _decreament() {
     if (counter == 0) return;
-    counter = counter - 1;
+    counter = counter - widget.step;
     widget.onDecrease(counter);
     setState(() {});
   }
