@@ -2,8 +2,9 @@
 //
 //     final marketDetailResultModel = marketDetailResultModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
+
+import 'package:meta/meta.dart';
 
 import 'product_result_model.dart';
 
