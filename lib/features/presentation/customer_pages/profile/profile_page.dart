@@ -34,7 +34,11 @@ class _ProfilePageState extends State<ProfilePage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar().create(context, text: "حساب کاربری"),
+        appBar: SimpleAppBar().create(
+          context,
+          text: "حساب کاربری",
+          showBasketBtn: true,
+        ),
         body: CustomFutureBuilder(
           future: authRepo.userToken,
           successBuilder: (context, data) {

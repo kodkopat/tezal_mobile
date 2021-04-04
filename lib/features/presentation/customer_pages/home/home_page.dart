@@ -63,7 +63,11 @@ class _HomePageState extends State<HomePage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar().create(context, text: "خانه"),
+        appBar: SimpleAppBar().create(
+          context,
+          text: "خانه",
+          showBasketBtn: true,
+        ),
         body: CustomFutureBuilder(
           future: marketRepo.nearByMarkets(
             context,

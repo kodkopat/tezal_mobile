@@ -43,6 +43,7 @@ class ProductDetailPage extends StatelessWidget {
         context,
         text: "جزئیات محصول",
         showBackBtn: true,
+        showBasketBtn: true,
       ),
       body: CustomFutureBuilder(
         future: _customerProductRepo.productDetail(

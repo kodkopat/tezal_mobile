@@ -39,6 +39,7 @@ class MarketDetailPage extends StatelessWidget {
         context,
         text: "جزئیات فروشگاه",
         showBackBtn: true,
+        showBasketBtn: true,
       ),
       body: CustomFutureBuilder(
         future: _customerMarketRepo.marketDetail(
@@ -77,11 +78,11 @@ class MarketDetailPage extends StatelessWidget {
       address: data.address,
       location: data.location,
       score: data.score,
-      distance: null,
+      distance: data.distance,
       deliveryCost: data.deliveryCost,
-      clouseAt: null,
-      openAt: null,
-      situation: null,
+      clouseAt: data.clouseAt,
+      openAt: data.openAt,
+      situation: data.situation,
     );
 
     return SingleChildScrollView(

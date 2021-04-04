@@ -26,6 +26,7 @@ class LikedProductsPage extends StatelessWidget {
         context,
         text: "محصولات مورد علاقه",
         showBackBtn: true,
+        showBasketBtn: true,
       ),
       body: CustomFutureBuilder<Either<Failure, LikedProductsResultModel>>(
         future: _customerProductRepo.likedProdutcs(),

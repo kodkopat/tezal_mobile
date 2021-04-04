@@ -14,6 +14,7 @@ class SimpleAppBar {
     BuildContext context, {
     @required String text,
     bool showBackBtn,
+    bool showBasketBtn,
   }) {
     return AppBar(
       automaticallyImplyLeading: false,
@@ -47,7 +48,7 @@ class SimpleAppBar {
         ],
       ),
       actions: [
-        if (ModalRoute.of(context).settings.name != BasketPage.route)
+        if (showBasketBtn ?? false)
           Consumer<BasketNotifier>(
             builder: (context, provider, child) {
               return Stack(
