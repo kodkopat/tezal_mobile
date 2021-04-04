@@ -2,9 +2,8 @@
 //
 //     final productResultModel = productResultModelFromJson(jsonString);
 
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
+import 'dart:convert';
 
 class ProductResultModel {
   ProductResultModel({
@@ -16,6 +15,7 @@ class ProductResultModel {
     @required this.liked,
     @required this.discountRate,
     @required this.productUnit,
+    @required this.step,
     @required this.amount,
   });
 
@@ -27,6 +27,7 @@ class ProductResultModel {
   final liked;
   final discountRate;
   final productUnit;
+  final step;
   final amount;
 
   factory ProductResultModel.fromRawJson(String str) =>
@@ -49,6 +50,7 @@ class ProductResultModel {
             ? null
             : json["discountRate"].toDouble(),
         productUnit: json["productUnit"] == null ? null : json["productUnit"],
+        step: json["step"] == null ? null : json["step"],
         amount: json["amount"] == null ? null : json["amount"],
       );
 
@@ -61,6 +63,7 @@ class ProductResultModel {
         "liked": liked == null ? null : liked,
         "discountRate": discountRate == null ? null : discountRate,
         "productUnit": productUnit == null ? null : productUnit,
+        "step": step == null ? null : step,
         "amount": amount == null ? null : amount,
       };
 }
