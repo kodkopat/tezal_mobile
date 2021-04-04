@@ -4,7 +4,6 @@ import 'package:dartz/dartz.dart';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:tezal/core/themes/app_theme.dart';
 
 import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
