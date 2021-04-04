@@ -12,9 +12,9 @@ import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer_profile_result_model.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../../data/repositories/customer_repository.dart';
+import '../../base_pages/login/login_page.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../edit_profile/edit_profile_page.dart';
-import 'widgets/modal_login.dart';
 import 'widgets/profile_info_box.dart';
 import 'widgets/profile_menu.dart';
 
@@ -37,7 +37,6 @@ class _ProfilePageState extends State<ProfilePage> {
         appBar: SimpleAppBar().create(
           context,
           text: "حساب کاربری",
-          showBasketBtn: true,
         ),
         body: CustomFutureBuilder(
           future: authRepo.userToken,
@@ -50,15 +49,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: ActionBtn(
                     text: "ورود / ثبت‌نام",
                     onTap: () async {
-                      showDialog(
-                        context: context,
-                        useSafeArea: true,
-                        barrierDismissible: true,
-                        barrierColor: Colors.black.withOpacity(0.2),
-                        builder: (context) {
-                          return LoginModal();
-                        },
-                      );
+                      Routes.sailor(LoginPage.route);
                     },
                     background: AppTheme.customerPrimary,
                     textColor: Colors.white,
