@@ -1,11 +1,9 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../basket/basket_page.dart';
 import '../../home/home_page.dart';
 import '../../profile/profile_page.dart';
