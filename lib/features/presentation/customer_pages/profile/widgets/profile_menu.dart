@@ -4,9 +4,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/routes.dart';
+import '../../about_us/about_us_page.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';
-import 'modal_about_us.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
@@ -80,15 +80,7 @@ class _ProfileMenu {
           text: "درباره ما",
           iconData: Feather.info,
           onTap: () {
-            showDialog(
-              context: context,
-              useSafeArea: true,
-              barrierDismissible: true,
-              barrierColor: Colors.black.withOpacity(0.2),
-              builder: (context) {
-                return AboutUsModal();
-              },
-            );
+            Routes.sailor(AboutUsPage.route);
           },
         ),
         _divider,

@@ -1,10 +1,12 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/styles/txt_styles.dart';
-import '../../../customer_widgets/simple_app_bar.dart';
+import '../../../../core/styles/txt_styles.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 
-class AboutUsModal extends StatelessWidget {
+class AboutUsPage extends StatelessWidget {
+  static const route = "/customer_about_us";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

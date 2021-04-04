@@ -1,5 +1,6 @@
 import 'package:sailor/sailor.dart';
 
+import '../../features/presentation/customer_pages/about_us/about_us_page.dart';
 import '../../features/presentation/customer_pages/address_detail/address_detail_page.dart';
 import '../../features/presentation/customer_pages/address_save/address_save_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
@@ -52,6 +53,10 @@ class Routes {
         SailorRoute(
           name: ProfilePage.route,
           builder: (ctx, args, map) => ProfilePage(),
+        ),
+        SailorRoute(
+          name: AboutUsPage.route,
+          builder: (ctx, args, map) => AboutUsPage(),
         ),
         SailorRoute(
           name: EditProfilePage.route,
