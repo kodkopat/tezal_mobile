@@ -1,10 +1,18 @@
-import 'package:division/division.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
-import '../../../core/styles/txt_styles.dart';
+import '../../../core/exceptions/failure.dart';
+import '../../../core/themes/app_theme.dart';
+import '../../../core/widgets/custom_future_builder.dart';
+import '../../../core/widgets/loading.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/repositories/auth_repository.dart';
 import '../customer_widgets/simple_app_bar.dart';
 
 class PrivacyModal extends StatelessWidget {
+  final repository = AuthRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,15 +23,25 @@ class PrivacyModal extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Column(
-          textDirection: TextDirection.rtl,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Txt(
-              "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.",
-              style: AppTxtStyles().body..textAlign.justify(),
-            ),
-          ],
+        child: CustomFutureBuilder<Either<Failure, BaseApiResultModel>>(
+          future: repository.privacyText,
+          successBuilder: (context, data) {
+            return data.fold(
+              (left) {
+                // return Txt(
+                //   "${left.message}",
+                //   style: AppTxtStyles().body..textAlign.justify(),
+                // );
+                return Html(data: "${left.message}");
+              },
+              (right) {
+                return Html(data: right.data);
+              },
+            );
+          },
+          errorBuilder: (context, error) {
+            return AppLoading(color: AppTheme.customerPrimary);
+          },
         ),
       ),
     );
