@@ -10,6 +10,7 @@ class CustomTextInput extends StatelessWidget {
     this.keyboardType,
     this.textDirection,
     this.maxLength,
+    this.obscureText,
   });
 
   final String label;
@@ -17,7 +18,8 @@ class CustomTextInput extends StatelessWidget {
   final String Function(String) validator;
   final TextInputType keyboardType;
   final TextDirection textDirection;
-  final maxLength;
+  final int maxLength;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +53,7 @@ class CustomTextInput extends StatelessWidget {
         if (label != null) SizedBox(height: 2),
         TextFormField(
           maxLines: 1,
+          obscureText: obscureText ?? false,
           controller: controller,
           validator: validator,
           textDirection: textDirection ?? TextDirection.rtl,
