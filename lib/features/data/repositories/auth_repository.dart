@@ -8,6 +8,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/auth/auth_local_data_source.dart';
 import '../data_sources/auth/auth_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
 
 class AuthRepository {
   AuthRepository()
@@ -19,6 +20,29 @@ class AuthRepository {
   final DataConnectionChecker _connectionChecker;
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
+
+  Future<Either<Failure, String>> userLogin({
+    @required String username,
+    @required String password,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      var result = await _remoteDataSource.login(username, password);
+
+      if (result.success) {
+        final userToken = result.data.token;
+        await _localDataSource.saveUserToken(userToken);
+
+        final userType = result.data.type;
+        await _localDataSource.saveUserType(userType);
+
+        return Right(userToken);
+      } else {
+        return Left(ApiFailure(result.message));
+      }
+    }
+  }
 
   Future<Either<Failure, String>> userRegister({
     @required String name,
@@ -62,29 +86,6 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, String>> userLogin({
-    @required String username,
-    @required String password,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      var result = await _remoteDataSource.login(username, password);
-
-      if (result.success) {
-        final userToken = result.data.token;
-        await _localDataSource.saveUserToken(userToken);
-
-        final userType = result.data.type;
-        await _localDataSource.saveUserType(userType);
-
-        return Right(userToken);
-      } else {
-        return Left(ApiFailure(result.message));
-      }
-    }
-  }
-
   Future<Either<Failure, String>> checkUserToken({
     @required String token,
   }) async {
@@ -104,6 +105,66 @@ class AuthRepository {
       } else {
         return Left(ApiFailure(result.message));
       }
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> requestRestPass({
+    @required String phone,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      var result = await _remoteDataSource.resetPasswordRequest(phone);
+
+      return (result.success)
+          ? Right(result)
+          : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> resetPass({
+    @required String phone,
+    @required String sms,
+    @required String password,
+    @required String passwordRepeat,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      var result = await _remoteDataSource.resetPassword(
+        phone,
+        sms,
+        password,
+        passwordRepeat,
+      );
+
+      return (result.success)
+          ? Right(result)
+          : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> get rulesText async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      var result = await _remoteDataSource.getRulesText();
+
+      return (result.success)
+          ? Right(result)
+          : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> get privacyText async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      var result = await _remoteDataSource.getPrivacyText();
+
+      return (result.success)
+          ? Right(result)
+          : Left(ApiFailure(result.message));
     }
   }
 
