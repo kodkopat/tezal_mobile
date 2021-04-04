@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/http.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/base_api_result_model.dart';
 import '../../models/check_sms_result_model.dart';
 import '../../models/check_token_result_model.dart';
 import '../../models/login_result_model.dart';
@@ -43,4 +44,27 @@ abstract class AuthRemoteDataSource {
     @Field() String id,
     @Field() String sms,
   );
+
+  @GET("$_apiUrlPrefix/ResetPasswordRequest")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> resetPasswordRequest(
+    @Query("Phone") String phone,
+  );
+
+  @GET("$_apiUrlPrefix/ResetPassword")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> resetPassword(
+    @Query("Phone") String phone,
+    @Query("sms") String sms,
+    @Query("Password") String password,
+    @Query("PasswordRepeat") String passwordRepeat,
+  );
+
+  @GET("$_apiUrlPrefix/getPrivacyText")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> getPrivacyText();
+
+  @GET("$_apiUrlPrefix/getRulesText")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> getRulesText();
 }

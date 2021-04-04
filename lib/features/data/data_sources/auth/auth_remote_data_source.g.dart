@@ -112,4 +112,103 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
     final value = CheckSmsResultModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<BaseApiResultModel> resetPasswordRequest(phone) async {
+    ArgumentError.checkNotNull(phone, 'phone');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'Phone': phone};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'User/ResetPasswordRequest',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BaseApiResultModel> resetPassword(
+      phone, sms, password, passwordRepeat) async {
+    ArgumentError.checkNotNull(phone, 'phone');
+    ArgumentError.checkNotNull(sms, 'sms');
+    ArgumentError.checkNotNull(password, 'password');
+    ArgumentError.checkNotNull(passwordRepeat, 'passwordRepeat');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'Phone': phone,
+      r'sms': sms,
+      r'Password': password,
+      r'PasswordRepeat': passwordRepeat
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'User/ResetPassword',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BaseApiResultModel> getPrivacyText() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'User/getPrivacyText',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BaseApiResultModel> getRulesText() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'User/getRulesText',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain'
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResultModel.fromJson(_result.data);
+    return value;
+  }
 }
