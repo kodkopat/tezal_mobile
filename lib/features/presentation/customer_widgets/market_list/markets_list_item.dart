@@ -108,14 +108,14 @@ class MarketsListItem extends StatelessWidget {
             left: 0,
             top: 0,
             child: Txt(
-              _generateMarketSituationText(),
+              "${market.situation}",
               style: TxtStyle()
                 ..width(48)
                 ..alignmentContent.center()
                 ..padding(vertical: 2)
                 ..borderRadius(all: 4)
                 ..background.color(Color(0xffEFEFEF))
-                ..textColor(_generateMarketSituationColor())
+                ..textColor(Colors.black)
                 ..fontSize(12)
                 ..bold(),
             ),
@@ -148,22 +148,6 @@ class MarketsListItem extends StatelessWidget {
           width: 0,
         ),
       );
-
-  String _generateMarketSituationText() {
-    if ("${market.situation}".toLowerCase() == "open") {
-      return "فعال";
-    } else {
-      return "غیر فعال";
-    }
-  }
-
-  Color _generateMarketSituationColor() {
-    if ("${market.situation}".toLowerCase() == "open") {
-      return AppTheme.customerPrimary;
-    } else {
-      return Colors.black;
-    }
-  }
 
   Widget get _fieldWorkingTime => CustomRichText(
         title: "ساعت کار" + ": ",
