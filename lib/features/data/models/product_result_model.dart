@@ -2,8 +2,9 @@
 //
 //     final productResultModel = productResultModelFromJson(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
+
+import 'package:meta/meta.dart';
 
 class ProductResultModel {
   ProductResultModel({
