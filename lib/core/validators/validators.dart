@@ -24,7 +24,7 @@ class AppValidators {
     bool emptyCondition = value.trim().isEmpty;
     String emptyTxt = "\u26b9 شماره موبایل الزامی است";
 
-    bool errorCondition = value.trim().length != 11 && !value.startsWith("09");
+    bool errorCondition = value.trim().length != 11 || !value.startsWith("09");
     String errorTxt = "\u26b9 شماره موبایل نامعتبر است";
 
     return emptyCondition
@@ -38,7 +38,7 @@ class AppValidators {
     bool emptyCondition = value.trim().isEmpty;
     String emptyTxt = "\u26b9 ایمیل الزامی است";
 
-    bool errorCondition = !value.contains(".") && !value.contains("@");
+    bool errorCondition = !value.contains(".") || !value.contains("@");
     String errorTxt = "\u26b9 ایمیل نامعتبر است";
 
     return emptyCondition
