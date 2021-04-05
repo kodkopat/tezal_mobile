@@ -109,6 +109,7 @@ class BasketItem {
     @required this.totalPrice,
     @required this.payablePrice,
     @required this.productUnit,
+    @required this.step,
     @required this.amount,
   });
 
@@ -121,6 +122,7 @@ class BasketItem {
   final totalPrice;
   final payablePrice;
   final productUnit;
+  final step;
   final amount;
 
   factory BasketItem.fromRawJson(String str) =>
@@ -144,6 +146,7 @@ class BasketItem {
         payablePrice:
             json["payablePrice"] == null ? null : json["payablePrice"],
         productUnit: json["productUnit"] == null ? null : json["productUnit"],
+        step: json["step"] == null ? null : json["step"],
         amount: json["amount"] == null ? null : json["amount"],
       );
 
@@ -158,6 +161,7 @@ class BasketItem {
         "totalPrice": totalPrice == null ? null : totalPrice,
         "payablePrice": payablePrice == null ? null : payablePrice,
         "productUnit": productUnit == null ? null : productUnit,
+        "step": step == null ? null : step,
         "amount": amount == null ? null : amount,
       };
 }
