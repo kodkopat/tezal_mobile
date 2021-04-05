@@ -104,12 +104,11 @@ class BasketListItem extends StatelessWidget {
         ),
         SizedBox(height: 16),
         ProductListItemCounter(
-          key: productCounterKey,
-          defaultValue: basketItem.amount,
-          unit: ("${basketItem.productUnit}".toLowerCase() == "kilogram")
-              ? "کیلوگرم"
-              : null,
           hieght: 32,
+          key: productCounterKey,
+          defaultValue: basketItem.amount * basketItem.step,
+          unit: "${basketItem.productUnit}",
+          step: basketItem.step,
           onIncrease: (value) async {
             await basketNotifier.customerBasketRepo.addProductToBasket(
               productId: basketItem.id,
