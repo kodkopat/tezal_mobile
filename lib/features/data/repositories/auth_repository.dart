@@ -8,6 +8,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/auth/auth_local_data_source.dart';
 import '../data_sources/auth/auth_remote_data_source.dart';
+import '../models/agreement_result_model.dart';
 import '../models/base_api_result_model.dart';
 
 class AuthRepository {
@@ -144,7 +145,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> get rulesText async {
+  Future<Either<Failure, AgreementResultModel>> get rulesText async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -156,7 +157,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> get privacyText async {
+  Future<Either<Failure, AgreementResultModel>> get privacyText async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
