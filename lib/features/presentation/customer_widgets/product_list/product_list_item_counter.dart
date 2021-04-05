@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../core/styles/txt_styles.dart';
+import '../../../../core/themes/app_theme.dart';
 
 class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({
@@ -40,38 +41,58 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
   // ignore: must_call_super
   Widget build(BuildContext context) {
     return Parent(
-      style: ParentStyle()..borderRadius(all: 4),
-      child: Row(
-        textDirection: TextDirection.rtl,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _CounterIcon(
-              iconData: Feather.plus,
-              height: widget.hieght,
-              onTap: _increament,
+      style: ParentStyle()
+        ..borderRadius(all: 4)
+        ..background.color(Color(0xffEFEFEF)),
+      child: counter == 0
+          ? Row(
+              textDirection: TextDirection.rtl,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: _CounterIcon(
+                    iconData: Feather.plus,
+                    height: widget.hieght,
+                    onTap: _increament,
+                  ),
+                ),
+              ],
+            )
+          : Row(
+              textDirection: TextDirection.rtl,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: _CounterIcon(
+                    iconData: Feather.plus,
+                    height: widget.hieght,
+                    onTap: _increament,
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Txt(
+                    widget.unit == null
+                        ? (counter)
+                            .toStringAsFixed(widget.step is double ? 1 : 0)
+                        : (counter).toStringAsFixed(
+                                widget.step is double ? 1 : 0) +
+                            " ${widget.unit} ",
+                    style: AppTxtStyles().body,
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: _CounterIcon(
+                    iconData: Feather.minus,
+                    height: widget.hieght,
+                    onTap: _decreament,
+                  ),
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Txt(
-              widget.unit == null
-                  ? "$counter"
-                  : "$counter" + " ${widget.unit} ",
-              style: AppTxtStyles().body,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: _CounterIcon(
-              iconData: Feather.minus,
-              height: widget.hieght,
-              onTap: _decreament,
-            ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -113,7 +134,6 @@ class _CounterIcon extends StatelessWidget {
       style: ParentStyle()
         ..height(height ?? 36)
         ..borderRadius(all: 4)
-        ..background.color(Color(0xffEFEFEF))
         ..ripple(true),
       child: Icon(
         iconData,

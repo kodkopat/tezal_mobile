@@ -123,7 +123,7 @@ class ProductListItem extends StatelessWidget {
           ProductListItemCounter(
             hieght: 28,
             key: productCounterKey,
-            defaultValue: product.amount,
+            defaultValue: product.amount * product.step,
             step: product.step,
             unit: "${product.productUnit}",
             onIncrease: (value) {
