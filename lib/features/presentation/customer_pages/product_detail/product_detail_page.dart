@@ -90,13 +90,11 @@ class ProductDetailPage extends StatelessWidget {
           _fieldDiscountedPrice(productDetail),
           SizedBox(height: 16),
           ProductListItemCounter(
-            key: productCounterKey,
-            defaultValue: productDetail.data.amount,
             hieght: 36,
-            unit: ("${productDetail.data.productUnit}".toLowerCase() ==
-                    "kilogram")
-                ? "کیلوگرم"
-                : null,
+            key: productCounterKey,
+            defaultValue: productDetail.data.amount * productDetail.data.step,
+            step: productDetail.data.step,
+            unit: "${productDetail.data.productUnit}",
             onIncrease: (value) {
               basketNotifier.addToBasket(
                 productId: productDetail.data.id,
