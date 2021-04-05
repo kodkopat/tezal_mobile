@@ -45,6 +45,13 @@ class _ProfileMenu {
           },
         ),
         ProfileMenuItem(
+          text: "کیف پول من",
+          iconData: Feather.credit_card,
+          onTap: () {
+            // Routes.sailor(AddressesPage.route);
+          },
+        ),
+        ProfileMenuItem(
           text: "سفارشات قبلی",
           iconData: Feather.shopping_bag,
           onTap: () {},
