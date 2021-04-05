@@ -13,6 +13,7 @@ import 'features/data/repositories/customer_basket_repository.dart';
 import 'features/data/repositories/customer_product_repository.dart';
 import 'features/presentation/providers/customer_providers/address_notifier.dart';
 import 'features/presentation/providers/customer_providers/basket_notifier.dart';
+import 'features/presentation/providers/customer_providers/product_notifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -130,6 +131,11 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(
           create: (ctx) => AddressNotifier(
             CustomerAddressRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => ProductNotifier(
+            CustomerProductRepository(),
           ),
         ),
         ChangeNotifierProvider(
