@@ -5,7 +5,8 @@
 import 'dart:convert';
 
 import 'package:meta/meta.dart';
-import 'package:tezal/features/data/models/product_result_model.dart';
+
+import 'product_result_model.dart';
 
 class SearchResultModel {
   SearchResultModel({
@@ -66,12 +67,22 @@ class Market {
     @required this.name,
     @required this.address,
     @required this.id,
+    @required this.openAt,
+    @required this.clouseAt,
+    @required this.situation,
+    @required this.deliveryCost,
+    @required this.distance,
     @required this.products,
   });
 
   final String name;
   final String address;
   final String id;
+  final int openAt;
+  final int clouseAt;
+  final String situation;
+  final int deliveryCost;
+  final double distance;
   final List<ProductResultModel> products;
 
   factory Market.fromRawJson(String str) => Market.fromJson(json.decode(str));
@@ -82,6 +93,12 @@ class Market {
         name: json["name"] == null ? null : json["name"],
         address: json["address"] == null ? null : json["address"],
         id: json["id"] == null ? null : json["id"],
+        openAt: json["openAt"] == null ? null : json["openAt"],
+        clouseAt: json["clouseAt"] == null ? null : json["clouseAt"],
+        situation: json["situation"] == null ? null : json["situation"],
+        deliveryCost:
+            json["deliveryCost"] == null ? null : json["deliveryCost"],
+        distance: json["distance"] == null ? null : json["distance"].toDouble(),
         products: json["products"] == null
             ? null
             : List<ProductResultModel>.from(
@@ -92,6 +109,11 @@ class Market {
         "name": name == null ? null : name,
         "address": address == null ? null : address,
         "id": id == null ? null : id,
+        "openAt": openAt == null ? null : openAt,
+        "clouseAt": clouseAt == null ? null : clouseAt,
+        "situation": situation == null ? null : situation,
+        "deliveryCost": deliveryCost == null ? null : deliveryCost,
+        "distance": distance == null ? null : distance,
         "products": products == null
             ? null
             : List<dynamic>.from(products.map((x) => x.toJson())),
