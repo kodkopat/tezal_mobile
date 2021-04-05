@@ -169,7 +169,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> getPrivacyText() async {
+  Future<AgreementResultModel> getPrivacyText() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -186,12 +186,12 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = BaseApiResultModel.fromJson(_result.data);
+    final value = AgreementResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<BaseApiResultModel> getRulesText() async {
+  Future<AgreementResultModel> getRulesText() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -208,7 +208,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = BaseApiResultModel.fromJson(_result.data);
+    final value = AgreementResultModel.fromJson(_result.data);
     return value;
   }
 }

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/http.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/agreement_result_model.dart';
 import '../../models/base_api_result_model.dart';
 import '../../models/check_sms_result_model.dart';
 import '../../models/check_token_result_model.dart';
@@ -62,9 +63,9 @@ abstract class AuthRemoteDataSource {
 
   @GET("$_apiUrlPrefix/getPrivacyText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> getPrivacyText();
+  Future<AgreementResultModel> getPrivacyText();
 
   @GET("$_apiUrlPrefix/getRulesText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> getRulesText();
+  Future<AgreementResultModel> getRulesText();
 }
