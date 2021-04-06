@@ -55,8 +55,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "درخواست تغییر رمز عبور",
         showBackBtn: true,
       ),
