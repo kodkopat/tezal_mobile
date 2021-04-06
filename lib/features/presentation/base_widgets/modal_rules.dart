@@ -18,8 +18,7 @@ class RulesModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "قوانین و مقررات",
         showBackBtn: true,
       ),
