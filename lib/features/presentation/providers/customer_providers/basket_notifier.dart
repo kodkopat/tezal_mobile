@@ -69,9 +69,7 @@ class BasketNotifier extends ChangeNotifier {
   Future<void> clearBasket() async {
     var result = await customerBasketRepo.emptyBasket();
     result.fold(
-      (left) {
-        errorMsg = left.message;
-      },
+      (left) => errorMsg = left.message,
       (right) {
         basketResultModel = null;
         basketCount = 0;
@@ -83,13 +81,10 @@ class BasketNotifier extends ChangeNotifier {
   Future<void> fetchBasket() async {
     var result = await customerBasketRepo.basket;
     result.fold(
-      (left) {
-        errorMsg = left.message;
-      },
-      (right) {
-        basketResultModel = right;
-      },
+      (left) => errorMsg = left.message,
+      (right) => basketResultModel = right,
     );
+
     loading = false;
     notifyListeners();
   }
