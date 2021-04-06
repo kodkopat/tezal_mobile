@@ -31,8 +31,7 @@ class _ProductCommentsPageState extends State<ProductCommentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "نظرات کاربران",
         showBackBtn: true,
       ),
