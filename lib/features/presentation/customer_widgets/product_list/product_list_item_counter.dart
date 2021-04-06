@@ -44,7 +44,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
       style: ParentStyle()
         ..borderRadius(all: 4)
         ..background.color(Color(0xffEFEFEF)),
-      child: counter == 0
+      child: counter == 0 || counter == 0.0
           ? Row(
               textDirection: TextDirection.rtl,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
