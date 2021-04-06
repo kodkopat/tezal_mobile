@@ -48,6 +48,13 @@ class AppValidators {
             : null;
   }
 
+  static String numeric(String value) {
+    bool emptyCondition = value.trim().isEmpty;
+    String emptyTxt = "\u26b9 مبلغ وارد شده نامعتبر است";
+
+    return emptyCondition ? emptyTxt : null;
+  }
+
   static String pass(String value) {
     bool emptyCondition = value.trim().isEmpty;
     String emptyTxt = "\u26b9 رمز عبور الزامی است";
