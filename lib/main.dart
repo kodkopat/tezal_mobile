@@ -10,10 +10,16 @@ import 'core/themes/app_theme.dart';
 import 'features/data/repositories/auth_repository.dart';
 import 'features/data/repositories/customer_address_repository.dart';
 import 'features/data/repositories/customer_basket_repository.dart';
+import 'features/data/repositories/customer_order_repository.dart';
 import 'features/data/repositories/customer_product_repository.dart';
+import 'features/data/repositories/customer_repository.dart';
+import 'features/data/repositories/customer_wallet_repository.dart';
 import 'features/presentation/providers/customer_providers/address_notifier.dart';
 import 'features/presentation/providers/customer_providers/basket_notifier.dart';
+import 'features/presentation/providers/customer_providers/order_notifier.dart';
 import 'features/presentation/providers/customer_providers/product_notifier.dart';
+import 'features/presentation/providers/customer_providers/profile_notifier.dart';
+import 'features/presentation/providers/customer_providers/wallet_notifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -129,8 +135,23 @@ class _AppState extends State<App> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (ctx) => ProfileNotifier(
+            CustomerRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => AddressNotifier(
             CustomerAddressRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => WalletNotifier(
+            CustomerWalletRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => OrderNotifier(
+            CustomerOrderRepository(),
           ),
         ),
         ChangeNotifierProvider(
