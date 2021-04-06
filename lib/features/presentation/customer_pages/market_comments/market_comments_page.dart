@@ -31,8 +31,7 @@ class _MarketCommentsPageState extends State<MarketCommentsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "نظرات کاربران",
         showBackBtn: true,
       ),
