@@ -22,8 +22,7 @@ class LikedProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "محصولات مورد علاقه",
         showBackBtn: true,
         showBasketBtn: true,
