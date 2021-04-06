@@ -12,15 +12,18 @@ import '../../features/presentation/customer_pages/address_save/address_save_pag
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
 import '../../features/presentation/customer_pages/basket/basket_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
-import '../../features/presentation/customer_pages/edit_profile/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
+import '../../features/presentation/customer_pages/orders/orders_page.dart';
 import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
 import '../../features/presentation/customer_pages/product_detail/product_detail_page.dart';
 import '../../features/presentation/customer_pages/profile/profile_page.dart';
+import '../../features/presentation/customer_pages/profile_edit/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/search/search_page.dart';
+import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
+import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
 
 class Routes {
   static final sailor = Sailor();
@@ -152,6 +155,18 @@ class Routes {
               defaultValue: null,
             ),
           ],
+        ),
+        SailorRoute(
+          name: WalletPage.route,
+          builder: (ctx, args, map) => WalletPage(),
+        ),
+        SailorRoute(
+          name: ChargeWalletPage.route,
+          builder: (ctx, args, map) => ChargeWalletPage(),
+        ),
+        SailorRoute(
+          name: OrdersPage.route,
+          builder: (ctx, args, map) => OrdersPage(),
         ),
         SailorRoute(
           name: AddressesPage.route,
