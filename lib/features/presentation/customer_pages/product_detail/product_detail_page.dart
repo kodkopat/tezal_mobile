@@ -39,8 +39,7 @@ class ProductDetailPage extends StatelessWidget {
     basketNotifier ??= Provider.of<BasketNotifier>(context, listen: false);
 
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "جزئیات محصول",
         showBackBtn: true,
         showBasketBtn: true,
