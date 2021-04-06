@@ -12,11 +12,12 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
       itemCount: walletDetail.length,
-      physics: NeverScrollableScrollPhysics(),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       itemBuilder: (context, index) {
-        return TransactionListItem(walletDetail: walletDetail[index]);
+        return TransactionListItem(
+          walletDetail: walletDetail[index],
+        );
       },
     );
   }
