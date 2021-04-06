@@ -26,7 +26,8 @@ class CustomerRepository {
   final CustomerLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, CustomerProfileResultModel>> customerProfile() async {
+  Future<Either<Failure, CustomerProfileResultModel>>
+      get customerProfile async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
