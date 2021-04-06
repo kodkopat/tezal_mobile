@@ -55,8 +55,7 @@ class AddressDetailPage extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "جزئیات آدرس",
         showBackBtn: true,
       ),
