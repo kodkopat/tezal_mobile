@@ -10,8 +10,11 @@ import '../customer_pages/basket/basket_page.dart';
 import '../providers/customer_providers/basket_notifier.dart';
 
 class SimpleAppBar {
-  AppBar create(
-    BuildContext context, {
+  final BuildContext context;
+
+  SimpleAppBar(this.context);
+
+  AppBar create({
     @required String text,
     bool showBackBtn,
     bool showBasketBtn,
