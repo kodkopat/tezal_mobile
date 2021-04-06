@@ -18,8 +18,7 @@ class PrivacyModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "حریم خصوصی",
         showBackBtn: true,
       ),
