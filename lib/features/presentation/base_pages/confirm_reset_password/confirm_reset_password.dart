@@ -70,8 +70,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "تغییر رمز عبور",
         showBackBtn: true,
       ),
