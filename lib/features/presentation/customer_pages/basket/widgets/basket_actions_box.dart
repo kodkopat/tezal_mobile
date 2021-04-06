@@ -1,12 +1,15 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../data/models/basket_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
+import '../../../providers/customer_providers/order_notifier.dart';
+import '../../address_selector/address_selector_page.dart';
 
 class BasketActionsBox extends StatelessWidget {
   const BasketActionsBox({
@@ -20,6 +23,8 @@ class BasketActionsBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final orderNotifier = Provider.of<OrderNotifier>(context, listen: false);
+
     return Parent(
       style: ParentStyle()
         ..width(MediaQuery.of(context).size.width)
@@ -76,8 +81,29 @@ class BasketActionsBox extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Txt(
-                  "ادامه خرید",
-                  gesture: Gestures()..onTap(() {}),
+                  "ثبت خرید",
+                  gesture: Gestures()
+                    ..onTap(() async {
+                      await showModalBottomSheet(
+                        context: context,
+                        elevation: 16,
+                        isDismissible: true,
+                        isScrollControlled: true,
+                        barrierColor: Colors.transparent,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) {
+                          return FractionallySizedBox(
+                            heightFactor: 0.75,
+                            child: AddressesSelectorPage(),
+                          );
+                        },
+                      );
+
+                      await orderNotifier.saveOrder(paymentType: 3);
+
+                      basketNotifier.refresh();
+                      orderNotifier.refresh();
+                    }),
                   style: AppTxtStyles().body
                     ..textColor(AppTheme.customerPrimary)
                     ..borderRadius(all: 4)
