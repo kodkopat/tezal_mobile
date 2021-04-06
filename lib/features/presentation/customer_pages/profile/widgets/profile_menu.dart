@@ -7,6 +7,8 @@ import '../../../../../core/page_routes/routes.dart';
 import '../../about_us/about_us_page.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';
+import '../../orders/orders_page.dart';
+import '../../wallet/wallet_page.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
@@ -16,6 +18,8 @@ class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       padding: EdgeInsets.symmetric(vertical: 8),
       children: _ProfileMenu.items(context),
     );
@@ -48,13 +52,15 @@ class _ProfileMenu {
           text: "کیف پول من",
           iconData: Feather.credit_card,
           onTap: () {
-            // Routes.sailor(AddressesPage.route);
+            Routes.sailor(WalletPage.route);
           },
         ),
         ProfileMenuItem(
           text: "سفارشات قبلی",
           iconData: Feather.shopping_bag,
-          onTap: () {},
+          onTap: () {
+            Routes.sailor(OrdersPage.route);
+          },
         ),
         ProfileMenuItem(
           text: "محصولات مورد علاقه",
