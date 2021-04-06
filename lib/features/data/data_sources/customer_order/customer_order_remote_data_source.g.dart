@@ -17,13 +17,14 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   String baseUrl;
 
   @override
-  Future<dynamic> save(token, paymentType) async {
+  Future<OrderResultModel> save(token, paymentType) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(paymentType, 'paymentType');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'paymentType': paymentType};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Order/Save',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Order/Save',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -36,7 +37,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = OrderResultModel.fromJson(_result.data);
     return value;
   }
 
@@ -110,12 +111,13 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getOlderOrders(token) async {
+  Future<OlderOrdersResultModel> getOlderOrders(token) async {
     ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Order/GetOlderOrders',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Order/GetOlderOrders',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -128,18 +130,19 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = OlderOrdersResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<dynamic> getDetail(token, id) async {
+  Future<OrderDetailResultModel> getDetail(token, id) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Order/GetDetail',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Order/GetDetail',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -152,7 +155,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             contentType: 'application/json',
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
+    final value = OrderDetailResultModel.fromJson(_result.data);
     return value;
   }
 

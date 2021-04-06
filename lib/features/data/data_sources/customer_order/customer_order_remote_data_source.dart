@@ -2,6 +2,9 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/older_orders_result_model.dart';
+import '../../models/order_detail_result_model.dart';
+import '../../models/order_result_model.dart';
 
 part 'customer_order_remote_data_source.g.dart';
 
@@ -14,7 +17,7 @@ abstract class CustomerOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/Save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> save(
+  Future<OrderResultModel> save(
     @Header("token") String token,
     @Query("paymentType") int paymentType,
   );
@@ -39,13 +42,13 @@ abstract class CustomerOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetOlderOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getOlderOrders(
+  Future<OlderOrdersResultModel> getOlderOrders(
     @Header("token") String token,
   );
 
   @GET("$_apiUrlPrefix/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getDetail(
+  Future<OrderDetailResultModel> getDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
