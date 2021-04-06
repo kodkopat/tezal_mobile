@@ -41,8 +41,7 @@ class AddressesPage extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "آدرس‌های من",
         showBackBtn: true,
       ),
