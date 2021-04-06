@@ -228,8 +228,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: loading ? "" : appBarText,
         showBackBtn: true,
       ),
