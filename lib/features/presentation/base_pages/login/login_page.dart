@@ -59,8 +59,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "ورود به حساب کاربری",
         showBackBtn: true,
       ),
