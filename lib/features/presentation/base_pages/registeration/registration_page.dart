@@ -60,8 +60,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: SimpleAppBar().create(
-        context,
+      appBar: SimpleAppBar(context).create(
         text: "ایجاد حساب کاربری",
         showBackBtn: true,
       ),
