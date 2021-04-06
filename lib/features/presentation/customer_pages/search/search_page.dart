@@ -51,8 +51,7 @@ class _SearchPageState extends State<SearchPage> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar().create(
-          context,
+        appBar: SimpleAppBar(context).create(
           text: "جستجو",
           showBasketBtn: true,
         ),
