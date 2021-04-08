@@ -2,6 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tezal/features/presentation/customer_pages/payment_method_selector/payment_method_selector.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
@@ -84,10 +85,10 @@ class BasketActionsBox extends StatelessWidget {
                   "ثبت خرید",
                   gesture: Gestures()
                     ..onTap(() async {
-                      await showModalBottomSheet(
+                      final returedData = await showModalBottomSheet(
                         context: context,
                         elevation: 16,
-                        isDismissible: true,
+                        isDismissible: false,
                         isScrollControlled: true,
                         barrierColor: Colors.transparent,
                         backgroundColor: Colors.transparent,
@@ -99,10 +100,26 @@ class BasketActionsBox extends StatelessWidget {
                         },
                       );
 
-                      await orderNotifier.saveOrder(paymentType: 3);
+                      var map = returedData as Map<String, dynamic>;
+                      if (map["result"]) {
+                        await showModalBottomSheet(
+                          context: context,
+                          elevation: 16,
+                          isDismissible: false,
+                          isScrollControlled: true,
+                          barrierColor: Colors.transparent,
+                          backgroundColor: Colors.transparent,
+                          builder: (context) {
+                            return FractionallySizedBox(
+                              heightFactor: 0.75,
+                              child: PaymentMethodSelectorPage(),
+                            );
+                          },
+                        );
 
-                      basketNotifier.refresh();
-                      orderNotifier.refresh();
+                        basketNotifier.refresh();
+                        orderNotifier.refresh();
+                      }
                     }),
                   style: AppTxtStyles().body
                     ..textColor(AppTheme.customerPrimary)
