@@ -17,24 +17,24 @@ class OrdersPage extends StatelessWidget {
     var consumer = Consumer<OrderNotifier>(
       builder: (context, provider, child) {
         if (provider.olderOrdersResultModel == null &&
-            provider.errorMsg == null) {
+            provider.olderOrdersErrorMsg == null) {
           provider.fetchOlderOrders();
         }
 
-        return provider.loading
+        return provider.olderOrdersLoading
             ? AppLoading(color: AppTheme.customerPrimary)
-            : provider.errorMsg != null
+            : provider.olderOrdersErrorMsg != null
                 ? Txt(
-                    provider.errorMsg,
+                    provider.olderOrdersErrorMsg,
                     style: AppTxtStyles().body..alignment.center(),
                   )
-                : provider.olderOrdersResultModel.data.isEmpty
+                : provider.olderOrdersResultModel.data.orders.isEmpty
                     ? Txt(
                         "لیست سفارشات شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),
                       )
                     : OrderList(
-                        orderList: provider.olderOrdersResultModel.data,
+                        orderList: provider.olderOrdersResultModel.data.orders,
                       );
       },
     );
