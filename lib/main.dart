@@ -150,11 +150,6 @@ class _AppState extends State<App> {
           ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) => OrderNotifier(
-            CustomerOrderRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
           create: (ctx) => ProductNotifier(
             CustomerProductRepository(),
           ),
@@ -162,6 +157,12 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(
           create: (ctx) => BasketNotifier(
             CustomerBasketRepository(),
+            CustomerProductRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => OrderNotifier(
+            CustomerOrderRepository(),
             CustomerProductRepository(),
           ),
         ),
