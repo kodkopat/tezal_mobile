@@ -20,6 +20,7 @@ abstract class CustomerOrderRemoteDataSource {
   Future<OrderResultModel> save(
     @Header("token") String token,
     @Query("paymentType") int paymentType,
+    @Query("AddressId") String addressId,
   );
 
   @GET("$_apiUrlPrefix/Cancel")
@@ -44,6 +45,7 @@ abstract class CustomerOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OlderOrdersResultModel> getOlderOrders(
     @Header("token") String token,
+    @Header("page") int page,
   );
 
   @GET("$_apiUrlPrefix/GetDetail")

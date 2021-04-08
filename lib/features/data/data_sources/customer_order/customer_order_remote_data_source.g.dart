@@ -17,11 +17,15 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   String baseUrl;
 
   @override
-  Future<OrderResultModel> save(token, paymentType) async {
+  Future<OrderResultModel> save(token, paymentType, addressId) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(paymentType, 'paymentType');
+    ArgumentError.checkNotNull(addressId, 'addressId');
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'paymentType': paymentType};
+    final queryParameters = <String, dynamic>{
+      r'paymentType': paymentType,
+      r'AddressId': addressId
+    };
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
         'customer/Order/Save',
@@ -111,8 +115,9 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<OlderOrdersResultModel> getOlderOrders(token) async {
+  Future<OlderOrdersResultModel> getOlderOrders(token, page) async {
     ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(page, 'page');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -124,7 +129,8 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token
+              r'token': token,
+              r'page': page
             },
             extra: _extra,
             contentType: 'application/json',
