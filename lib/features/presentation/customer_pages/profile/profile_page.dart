@@ -28,6 +28,11 @@ class _ProfilePageState extends State<ProfilePage> {
   ProfileNotifier profileNotifier;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     profileNotifier ??= Provider.of<ProfileNotifier>(context, listen: false);
 
