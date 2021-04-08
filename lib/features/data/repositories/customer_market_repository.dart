@@ -3,6 +3,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:tezal/features/data/models/base_api_result_model.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -33,7 +34,7 @@ class CustomerMarketRepository {
   Future<Either<Failure, NearByMarketsResultModel>> nearByMarkets(
     BuildContext context, {
     @required int maxDistance,
-    @required int count,
+    @required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -48,7 +49,21 @@ class CustomerMarketRepository {
         "${position.latitude}",
         "${position.longitude}",
         maxDistance,
-        count,
+        page,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> updateNearByMarkets() async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.updateNearByMarkets(
+        userToken,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
