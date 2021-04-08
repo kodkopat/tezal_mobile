@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
           future: marketRepo.nearByMarkets(
             context,
             maxDistance: 50,
-            count: 10,
+            page: 1,
           ),
           successBuilder: (context, data) {
             var result = data as Either<Failure, NearByMarketsResultModel>;
@@ -81,18 +81,24 @@ class _HomePageState extends State<HomePage> {
                       l.message,
                       style: AppTxtStyles().body..alignment.center(),
                     ), (r) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 16),
-                    ProductImageView(images: campaignPhotos),
-                    const SizedBox(height: 8),
-                    MarketsList(
-                      markets: r.data.markets,
-                      repository: marketRepo,
-                    ),
-                  ],
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await marketRepo.updateNearByMarkets();
+                  return Future<void>.value();
+                },
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 16),
+                      ProductImageView(images: campaignPhotos),
+                      const SizedBox(height: 8),
+                      MarketsList(
+                        markets: r.data.markets,
+                        repository: marketRepo,
+                      ),
+                    ],
+                  ),
                 ),
               );
             });
