@@ -2,6 +2,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tezal/core/widgets/load_more_btn.dart';
 
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
@@ -67,9 +68,9 @@ class WalletPage extends StatelessWidget {
 
     var walltDetailConsumer = Consumer<WalletNotifier>(
       builder: (context, provider, child) {
-        if (provider.walletDetailResultModel == null &&
+        if (provider.walletDetailList == null &&
             provider.detailErrorMsg == null) {
-          provider.walletDetails(page: 1);
+          provider.walletDetail();
         }
 
         return provider.detailLoading
@@ -79,14 +80,29 @@ class WalletPage extends StatelessWidget {
                     provider.detailErrorMsg,
                     style: AppTxtStyles().body..alignment.center(),
                   )
-                : provider.walletDetailResultModel.data.details.isEmpty
+                : provider.walletDetailList.isEmpty
                     ? Txt(
                         "لیست تراکنش‌های شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),
                       )
-                    : TransactionList(
-                        walletDetail:
-                            provider.walletDetailResultModel.data.details,
+                    : SingleChildScrollView(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            TransactionList(
+                              walletDetail: provider.walletDetailList,
+                            ),
+                            SizedBox(height: 8),
+                            if (provider.enableLoadMoreData)
+                              LoadMoreBtn(
+                                onTap: () {
+                                  provider.walletDetail();
+                                },
+                              )
+                          ],
+                        ),
                       );
       },
     );
