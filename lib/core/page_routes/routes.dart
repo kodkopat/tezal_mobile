@@ -16,6 +16,7 @@ import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
+import '../../features/presentation/customer_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/customer_pages/orders/orders_page.dart';
 import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
 import '../../features/presentation/customer_pages/product_detail/product_detail_page.dart';
@@ -167,6 +168,20 @@ class Routes {
         SailorRoute(
           name: OrdersPage.route,
           builder: (ctx, args, map) => OrdersPage(),
+        ),
+        SailorRoute(
+          name: OrderDetailPage.route,
+          builder: (ctx, args, map) {
+            final orderId = map.param<String>("orderId");
+            return OrderDetailPage(orderId: orderId);
+          },
+          params: [
+            SailorParam<String>(
+              name: "orderId",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
         ),
         SailorRoute(
           name: AddressesPage.route,
