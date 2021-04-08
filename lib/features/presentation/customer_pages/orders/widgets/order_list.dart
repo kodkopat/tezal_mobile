@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/page_routes/routes.dart';
 import '../../../../data/models/older_orders_result_model.dart';
+import '../../order_detail/order_detail_page.dart';
 import 'order_list_item.dart';
 
 class OrderList extends StatelessWidget {
@@ -16,6 +18,12 @@ class OrderList extends StatelessWidget {
       itemBuilder: (context, index) {
         return OrderListItem(
           order: orderList[index],
+          onTap: () {
+            Routes.sailor.navigate(
+              OrderDetailPage.route,
+              params: {"orderId": orderList[index].id},
+            );
+          },
         );
       },
     );
