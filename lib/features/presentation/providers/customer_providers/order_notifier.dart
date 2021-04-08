@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/older_orders_result_model.dart';
+import '../../../data/models/order_detail_result_model.dart';
 import '../../../data/models/order_result_model.dart';
 import '../../../data/repositories/customer_order_repository.dart';
+import '../../../data/repositories/customer_product_repository.dart';
 
 class OrderNotifier extends ChangeNotifier {
   static OrderNotifier _instance;
 
   factory OrderNotifier(
     CustomerOrderRepository customerOrderRepo,
+    CustomerProductRepository customerProductRepo,
   ) {
     if (_instance == null) {
       _instance = OrderNotifier._privateConstructor(
         customerOrderRepo: customerOrderRepo,
+        customerProductRepo: customerProductRepo,
       );
     }
 
@@ -21,35 +25,58 @@ class OrderNotifier extends ChangeNotifier {
 
   OrderNotifier._privateConstructor({
     this.customerOrderRepo,
+    this.customerProductRepo,
   });
 
   final CustomerOrderRepository customerOrderRepo;
+  final CustomerProductRepository customerProductRepo;
 
-  bool loading = true;
-  String errorMsg;
-
+  bool olderOrdersLoading = true;
+  String olderOrdersErrorMsg;
   OlderOrdersResultModel olderOrdersResultModel;
-  OrderResultModel orderResultModel;
-
   Future<void> fetchOlderOrders() async {
-    var result = await customerOrderRepo.olderOrders();
+    var result = await customerOrderRepo.olderOrders(page: 1);
     result.fold(
-      (left) => errorMsg = left.message,
+      (left) => olderOrdersErrorMsg = left.message,
       (right) => olderOrdersResultModel = right,
     );
 
-    loading = false;
+    olderOrdersLoading = false;
     notifyListeners();
   }
 
-  Future<void> saveOrder({@required int paymentType}) async {
-    var result = await customerOrderRepo.saveOrder(paymentType: paymentType);
+  bool orderDetailLoading = true;
+  String orderDetailErrorMsg;
+  OrderDetailResultModel orderDetailResultModel;
+  Future<void> fetchOrderDetail({@required String orderId}) async {
+    var result = await customerOrderRepo.orderDetail(id: orderId);
     result.fold(
-      (left) => errorMsg = left.message,
+      (left) => orderDetailErrorMsg = left.message,
+      (right) => orderDetailResultModel = right,
+    );
+
+    orderDetailLoading = false;
+    notifyListeners();
+  }
+
+  bool orderLoading = true;
+  String orderErrorMsg;
+  OrderResultModel orderResultModel;
+  Future<void> saveOrder({
+    @required int paymentType,
+    @required String addressId,
+  }) async {
+    var result = await customerOrderRepo.saveOrder(
+      paymentType: paymentType,
+      addressId: addressId,
+    );
+
+    result.fold(
+      (left) => orderErrorMsg = left.message,
       (right) => orderResultModel = right,
     );
 
-    loading = false;
+    orderLoading = false;
     notifyListeners();
   }
 
