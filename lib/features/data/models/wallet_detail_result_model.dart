@@ -77,7 +77,7 @@ class Detail {
   });
 
   final int amount;
-  final DateTime date;
+  final String date;
   final dynamic description;
   final String action;
 
@@ -87,14 +87,14 @@ class Detail {
 
   factory Detail.fromJson(Map<String, dynamic> json) => Detail(
         amount: json["amount"] == null ? null : json["amount"],
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
+        date: json["date"] == null ? null : json["date"],
         description: json["description"],
         action: json["action"] == null ? null : json["action"],
       );
 
   Map<String, dynamic> toJson() => {
         "amount": amount == null ? null : amount,
-        "date": date == null ? null : date.toIso8601String(),
+        "date": date == null ? null : date,
         "description": description,
         "action": action == null ? null : action,
       };
