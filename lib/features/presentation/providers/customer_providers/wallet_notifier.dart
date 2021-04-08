@@ -25,11 +25,9 @@ class WalletNotifier extends ChangeNotifier {
 
   final CustomerWalletRepository customerWalletRepo;
 
-  WalletInfoResultModel walletInfoResultModel;
-  WalletDetailResultModel walletDetailResultModel;
-
   bool infoLoading = true;
   String infoErrorMsg;
+  WalletInfoResultModel walletInfoResultModel;
 
   Future<void> fetchWalletInfo() async {
     var result = await customerWalletRepo.walletInfo;
@@ -45,18 +43,57 @@ class WalletNotifier extends ChangeNotifier {
   bool detailLoading = true;
   String detailErrorMsg;
 
-  Future<void> walletDetails({@required int page}) async {
-    var result = await customerWalletRepo.walletDetails(page: page);
-    result.fold(
-      (left) => detailErrorMsg = left.message,
-      (right) => walletDetailResultModel = right,
-    );
+  bool enableLoadMoreData;
+  int walletDetailTotalCount;
+  int latestPageIndex;
+  List<Detail> walletDetailList;
+
+  Future<void> walletDetail() async {
+    if (walletDetailTotalCount == null) {
+      var result = await customerWalletRepo.walletDetails(page: 1);
+      result.fold(
+        (left) => detailErrorMsg = left.message,
+        (right) {
+          walletDetailTotalCount = right.data.total;
+          latestPageIndex = right.data.page;
+          walletDetailList = right.data.details;
+          enableLoadMoreData =
+              walletDetailTotalCount != walletDetailList.length;
+        },
+      );
+    } else {
+      if (walletDetailTotalCount == 0) return;
+
+      var result = await customerWalletRepo.walletDetails(
+        page: latestPageIndex + 1,
+      );
+
+      result.fold(
+        (left) => detailErrorMsg = left.message,
+        (right) {
+          // walletDetailTotalCount = right.data.total;
+          latestPageIndex = right.data.page;
+          walletDetailList.addAll(right.data.details);
+          enableLoadMoreData =
+              walletDetailTotalCount != walletDetailList.length;
+        },
+      );
+    }
+
     detailLoading = false;
     notifyListeners();
   }
 
   void refresh() async {
+    detailLoading = true;
+    notifyListeners();
+
     await fetchWalletInfo();
-    await walletDetails(page: 1);
+
+    enableLoadMoreData = null;
+    walletDetailTotalCount = null;
+    latestPageIndex = null;
+    walletDetailList = null;
+    await walletDetail();
   }
 }
