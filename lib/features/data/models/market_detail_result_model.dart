@@ -65,7 +65,7 @@ class Data {
   final int clouseAt;
   final String situation;
   final int deliveryCost;
-  final int distance;
+  final double distance;
   final List<Category> categories;
   final int basketCount;
 
@@ -85,7 +85,7 @@ class Data {
         situation: json["situation"] == null ? null : json["situation"],
         deliveryCost:
             json["deliveryCost"] == null ? null : json["deliveryCost"],
-        distance: json["distance"] == null ? null : json["distance"],
+        distance: json["distance"] == null ? null : json["distance"].toDouble(),
         categories: json["categories"] == null
             ? null
             : List<Category>.from(
