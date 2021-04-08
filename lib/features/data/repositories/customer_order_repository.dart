@@ -29,23 +29,30 @@ class CustomerOrderRepository {
 
   Future<Either<Failure, OrderResultModel>> saveOrder({
     @required int paymentType,
+    @required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.save(userToken, paymentType);
+      var result = await _remoteDataSource.save(
+        userToken,
+        paymentType,
+        addressId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, OlderOrdersResultModel>> olderOrders() async {
+  Future<Either<Failure, OlderOrdersResultModel>> olderOrders({
+    @required int page,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getOlderOrders(userToken);
+      var result = await _remoteDataSource.getOlderOrders(userToken, page);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
