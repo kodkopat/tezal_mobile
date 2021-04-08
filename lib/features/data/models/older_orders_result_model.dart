@@ -7,75 +7,93 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 
 class OlderOrdersResultModel {
-  OlderOrdersResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
-  });
+    OlderOrdersResultModel({
+        @required this.success,
+        @required this.message,
+        @required this.data,
+    });
 
-  final bool success;
-  final dynamic message;
-  final List<Order> data;
+    final bool success;
+    final dynamic message;
+    final Data data;
 
-  factory OlderOrdersResultModel.fromRawJson(String str) =>
-      OlderOrdersResultModel.fromJson(json.decode(str));
+    factory OlderOrdersResultModel.fromRawJson(String str) => OlderOrdersResultModel.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+    String toRawJson() => json.encode(toJson());
 
-  factory OlderOrdersResultModel.fromJson(Map<String, dynamic> json) =>
-      OlderOrdersResultModel(
+    factory OlderOrdersResultModel.fromJson(Map<String, dynamic> json) => OlderOrdersResultModel(
         success: json["success"] == null ? null : json["success"],
         message: json["message"],
-        data: json["data"] == null
-            ? null
-            : List<Order>.from(json["data"].map((x) => Order.fromJson(x))),
-      );
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "success": success == null ? null : success,
         "message": message,
-        "data": data == null
-            ? null
-            : List<dynamic>.from(data.map((x) => x.toJson())),
-      };
+        "data": data == null ? null : data.toJson(),
+    };
+}
+
+class Data {
+    Data({
+        @required this.page,
+        @required this.total,
+        @required this.orders,
+    });
+
+    final int page;
+    final int total;
+    final List<Order> orders;
+
+    factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+
+    String toRawJson() => json.encode(toJson());
+
+    factory Data.fromJson(Map<String, dynamic> json) => Data(
+        page: json["page"] == null ? null : json["page"],
+        total: json["total"] == null ? null : json["total"],
+        orders: json["orders"] == null ? null : List<Order>.from(json["orders"].map((x) => Order.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "page": page == null ? null : page,
+        "total": total == null ? null : total,
+        "orders": orders == null ? null : List<dynamic>.from(orders.map((x) => x.toJson())),
+    };
 }
 
 class Order {
-  Order({
-    @required this.id,
-    @required this.marketName,
-    @required this.date,
-    @required this.totalPrice,
-    @required this.status,
-    @required this.paymentType,
-  });
+    Order({
+        @required this.id,
+        @required this.date,
+        @required this.marketName,
+        @required this.status,
+        @required this.totalPrice,
+    });
 
-  final String id;
-  final String marketName;
-  final DateTime date;
-  final int totalPrice;
-  final String status;
-  final dynamic paymentType;
+    final String id;
+    final String date;
+    final String marketName;
+    final String status;
+    final int totalPrice;
 
-  factory Order.fromRawJson(String str) => Order.fromJson(json.decode(str));
+    factory Order.fromRawJson(String str) => Order.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
+    String toRawJson() => json.encode(toJson());
 
-  factory Order.fromJson(Map<String, dynamic> json) => Order(
+    factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json["id"] == null ? null : json["id"],
+        date: json["date"] == null ? null : json["date"],
         marketName: json["marketName"] == null ? null : json["marketName"],
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        totalPrice: json["totalPrice"] == null ? null : json["totalPrice"],
         status: json["status"] == null ? null : json["status"],
-        paymentType: json["paymentType"],
-      );
+        totalPrice: json["totalPrice"] == null ? null : json["totalPrice"],
+    );
 
-  Map<String, dynamic> toJson() => {
+    Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
+        "date": date == null ? null : date,
         "marketName": marketName == null ? null : marketName,
-        "date": date == null ? null : date.toIso8601String(),
-        "totalPrice": totalPrice == null ? null : totalPrice,
         "status": status == null ? null : status,
-        "paymentType": paymentType,
-      };
+        "totalPrice": totalPrice == null ? null : totalPrice,
+    };
 }
