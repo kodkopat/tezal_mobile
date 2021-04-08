@@ -52,11 +52,11 @@ class ProductDetailPage extends StatelessWidget {
           var result = data as Either<Failure, ProductDetailResultModel>;
 
           return result.fold(
-            (l) => Txt(
-              l.message,
+            (left) => Txt(
+              left.message,
               style: AppTxtStyles().body..alignment.center(),
             ),
-            (r) => _listOfSections(r),
+            (right) => _listOfSections(right),
           );
         },
         errorBuilder: (context, error) {
@@ -77,16 +77,31 @@ class ProductDetailPage extends StatelessWidget {
         children: [
           const SizedBox(height: 16),
           _sectionCarouselSlider(productDetail),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           _sectionTitleAndLike(productDetail),
-          const SizedBox(height: 16),
-          richText(
-            title: "توضیحات",
-            text: productDetail.data.description,
+          const SizedBox(height: 2),
+          Txt(
+            productDetail.data.description,
+            style: AppTxtStyles().body..textAlign.right(),
           ),
           SizedBox(height: 8),
-          _fieldOriginalPrice(productDetail),
-          _fieldDiscountedPrice(productDetail),
+          Row(
+            textDirection: TextDirection.rtl,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _fieldOriginalPrice(productDetail),
+                  _fieldDiscountedPrice(productDetail),
+                ],
+              ),
+              _fieldDiscountedRate(productDetail),
+            ],
+          ),
           SizedBox(height: 16),
           ProductListItemCounter(
             hieght: 36,
@@ -107,8 +122,8 @@ class ProductDetailPage extends StatelessWidget {
               );
             },
           ),
-          SizedBox(height: 8),
           _sectionComments(productDetail),
+          SizedBox(height: 16),
         ],
       ),
     );
@@ -139,8 +154,7 @@ class ProductDetailPage extends StatelessWidget {
       children: [
         Txt(
           "${productDetail.data.name}",
-          style: AppTxtStyles().subHeading
-            ..padding(right: 4)
+          style: AppTxtStyles().heading
             ..textOverflow(TextOverflow.ellipsis)
             ..maxLines(1)
             ..bold(),
@@ -164,16 +178,54 @@ class ProductDetailPage extends StatelessWidget {
   }
 
   Widget _fieldOriginalPrice(ProductDetailResultModel productDetail) {
-    return richText(
-      title: "قیمت",
-      text: _generateOriginalPrice(productDetail),
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateOriginalPrice(productDetail),
+        style: TextStyle(
+          decoration: TextDecoration.lineThrough,
+          color: Colors.black54,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.w500,
+          fontSize: 10,
+        ),
+      ),
     );
   }
 
   Widget _fieldDiscountedPrice(ProductDetailResultModel productDetail) {
-    return richText(
-      title: "قیمت نهایی",
-      text: _generateDiscountedPrice(productDetail),
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateDiscountedPrice(productDetail),
+        style: TextStyle(
+          color: Colors.green,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+
+  Widget _fieldDiscountedRate(ProductDetailResultModel productDetail) {
+    if (_generateDiscountedRate(productDetail).isEmpty) {
+      return SizedBox();
+    }
+
+    return Txt(
+      _generateDiscountedRate(productDetail),
+      style: AppTxtStyles().subHeading
+        ..bold()
+        ..textDirection(TextDirection.ltr)
+        ..textColor(Colors.red)
+        ..background.color(Colors.red.withOpacity(0.1))
+        ..borderRadius(topLeft: 4, bottomLeft: 4, topRight: 24, bottomRight: 24)
+        ..padding(horizontal: 12, vertical: 8),
     );
   }
 
@@ -195,15 +247,7 @@ class ProductDetailPage extends StatelessWidget {
       priceTxt = " $temp " + "تومان";
     }
 
-    var discountRateTxt;
-    if (productDetail.data.discountRate == null ||
-        productDetail.data.discountRate == 0) {
-      discountRateTxt = "";
-    } else {
-      discountRateTxt = "${productDetail.data.discountRate}٪";
-    }
-
-    return priceTxt + " $discountRateTxt ";
+    return priceTxt;
   }
 
   String _generateDiscountedPrice(ProductDetailResultModel productDetail) {
@@ -227,37 +271,16 @@ class ProductDetailPage extends StatelessWidget {
     return priceTxt;
   }
 
-  Widget richText({
-    @required String title,
-    @required String text,
-  }) {
-    var textStyle = TextStyle(
-      color: Colors.black,
-      letterSpacing: 0.5,
-      fontFamily: 'Yekan',
-      fontWeight: FontWeight.w600,
-      fontSize: 13,
-    );
-
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: title + ":",
-            style: textStyle,
-          ),
-          TextSpan(
-            text: text,
-            style: textStyle.copyWith(
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
+  String _generateDiscountedRate(ProductDetailResultModel productDetail) {
+    var discountRateTxt;
+    if (productDetail.data.discountRate == null ||
+        productDetail.data.discountRate == 0) {
+      discountRateTxt = "";
+    } else {
+      discountRateTxt =
+          "${(productDetail.data.discountRate * 100).toStringAsFixed(0)}٪";
+    }
+    return discountRateTxt;
   }
 
   Widget _sectionComments(ProductDetailResultModel productDetail) {
@@ -268,12 +291,12 @@ class ProductDetailPage extends StatelessWidget {
       ),
       successBuilder: (context, data) {
         return data.fold(
-          (l) => Txt(
-            l.message,
+          (left) => Txt(
+            left.message,
             style: AppTxtStyles().body..alignment.center(),
           ),
-          (r) => CommentList(
-            commentsResultModel: r,
+          (right) => CommentList(
+            commentsResultModel: right,
             showAllCommentOnTap: () {
               Routes.sailor.navigate(
                 ProductCommentsPage.route,
@@ -281,7 +304,7 @@ class ProductDetailPage extends StatelessWidget {
               );
             },
             enableLoadMore: false,
-            enableHeader: true,
+            enableHeader: right.data.comments.isNotEmpty,
           ),
         );
       },
