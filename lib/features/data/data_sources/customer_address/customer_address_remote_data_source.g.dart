@@ -63,16 +63,16 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> save(token, latitude, longitude, address,
-      description, isDefault, cityId, name) async {
+  Future<BaseApiResultModel> save(token, address, description, isDefault,
+      cityId, name, latitude, longitude) async {
     ArgumentError.checkNotNull(token, 'token');
-    ArgumentError.checkNotNull(latitude, 'latitude');
-    ArgumentError.checkNotNull(longitude, 'longitude');
     ArgumentError.checkNotNull(address, 'address');
     ArgumentError.checkNotNull(description, 'description');
     ArgumentError.checkNotNull(isDefault, 'isDefault');
     ArgumentError.checkNotNull(cityId, 'cityId');
     ArgumentError.checkNotNull(name, 'name');
+    ArgumentError.checkNotNull(latitude, 'latitude');
+    ArgumentError.checkNotNull(longitude, 'longitude');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {
@@ -80,41 +80,41 @@ class _CustomerAddressRemoteDataSource
       'description': description,
       'isDefault': isDefault,
       'cityId': cityId,
-      'name': name
+      'name': name,
+      'latitude': latitude,
+      'longitude': longitude
     };
     _data.removeWhere((k, v) => v == null);
-    final _result =
-        await _dio.request<Map<String, dynamic>>('customer/Address/save',
-            queryParameters: queryParameters,
-            options: RequestOptions(
-                method: 'POST',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'token': token,
-                  r'latitude': latitude,
-                  r'longitude': longitude
-                },
-                extra: _extra,
-                contentType: 'application/json',
-                baseUrl: baseUrl),
-            data: _data);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Address/save',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
     final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
   @override
-  Future<BaseApiResultModel> edit(token, latitude, longitude, id, address,
-      description, isDefault, cityId, name) async {
+  Future<BaseApiResultModel> edit(token, id, address, description, isDefault,
+      cityId, name, latitude, longitude) async {
     ArgumentError.checkNotNull(token, 'token');
-    ArgumentError.checkNotNull(latitude, 'latitude');
-    ArgumentError.checkNotNull(longitude, 'longitude');
     ArgumentError.checkNotNull(id, 'id');
     ArgumentError.checkNotNull(address, 'address');
     ArgumentError.checkNotNull(description, 'description');
     ArgumentError.checkNotNull(isDefault, 'isDefault');
     ArgumentError.checkNotNull(cityId, 'cityId');
     ArgumentError.checkNotNull(name, 'name');
+    ArgumentError.checkNotNull(latitude, 'latitude');
+    ArgumentError.checkNotNull(longitude, 'longitude');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {
@@ -123,25 +123,25 @@ class _CustomerAddressRemoteDataSource
       'description': description,
       'isDefault': isDefault,
       'cityId': cityId,
-      'name': name
+      'name': name,
+      'latitude': latitude,
+      'longitude': longitude
     };
     _data.removeWhere((k, v) => v == null);
-    final _result =
-        await _dio.request<Map<String, dynamic>>('customer/Address/save',
-            queryParameters: queryParameters,
-            options: RequestOptions(
-                method: 'POST',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'token': token,
-                  r'latitude': latitude,
-                  r'longitude': longitude
-                },
-                extra: _extra,
-                contentType: 'application/json',
-                baseUrl: baseUrl),
-            data: _data);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Address/save',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
     final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }

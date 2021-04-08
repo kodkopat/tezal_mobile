@@ -31,27 +31,27 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> save(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Field() String address,
     @Field() String description,
     @Field() bool isDefault,
     @Field() String cityId,
     @Field() String name,
+    @Field() String latitude,
+    @Field() String longitude,
   );
 
   @POST("$_apiUrlPrefix/save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> edit(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Field() String id,
     @Field() String address,
     @Field() String description,
     @Field() bool isDefault,
     @Field() String cityId,
     @Field() String name,
+    @Field() String latitude,
+    @Field() String longitude,
   );
 
   @GET("$_apiUrlPrefix/SetDefaultAddress")
