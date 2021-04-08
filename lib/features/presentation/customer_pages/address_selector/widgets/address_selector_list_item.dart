@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../data/models/addresses_result_model.dart';
+import '../../../providers/customer_providers/address_notifier.dart';
 
 class AddressSelectorListItem extends StatelessWidget {
   const AddressSelectorListItem({
     Key key,
     @required this.address,
     @required this.onTap,
+    @required this.addressNotifier,
   }) : super(key: key);
 
   final Address address;
   final void Function() onTap;
+  final AddressNotifier addressNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +38,11 @@ class AddressSelectorListItem extends StatelessWidget {
                 style: AppTxtStyles().body..bold(),
               ),
               Icon(
-                address.isDefault
+                _isItemSelected
                     ? Icons.radio_button_on_rounded
                     : Icons.radio_button_off_rounded,
                 color:
-                    address.isDefault ? AppTheme.customerPrimary : Colors.black,
+                    _isItemSelected ? AppTheme.customerPrimary : Colors.black,
                 size: 24,
               ),
             ],
@@ -49,6 +52,16 @@ class AddressSelectorListItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool get _isItemSelected {
+    return addressNotifier.selectedOrderAddressId == null
+        ? address.isDefault
+            ? true
+            : false
+        : addressNotifier.selectedOrderAddressId == address.id
+            ? true
+            : false;
   }
 
   Widget get _fieldAddress {

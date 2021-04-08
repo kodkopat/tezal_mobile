@@ -122,26 +122,26 @@ class _AddressSavePageState extends State<AddressSavePage> {
       if (formKey.currentState.validate()) {
         if (widget.id == null) {
           await addressNotifier.addAddress(
-            latitude: "${locationResult.latLng.latitude}",
-            longitude: "${locationResult.latLng.longitude}",
+            name: nameCtrl.text,
             address: addressCtrl.text,
             description: descCtrl.text,
             isDefault: false,
             cityId: selectedCityId,
-            name: nameCtrl.text,
+            latitude: "${locationResult.latLng.latitude}",
+            longitude: "${locationResult.latLng.longitude}",
           );
 
           Routes.sailor.pop();
         } else {
           await addressNotifier.editAddress(
             id: widget.id,
-            latitude: "${locationResult.latLng.latitude}",
-            longitude: "${locationResult.latLng.longitude}",
+            name: nameCtrl.text,
             address: addressCtrl.text,
             description: descCtrl.text,
             isDefault: false,
             cityId: selectedCityId,
-            name: nameCtrl.text,
+            latitude: "${locationResult.latLng.latitude}",
+            longitude: "${locationResult.latLng.longitude}",
           );
 
           Routes.sailor.pop();

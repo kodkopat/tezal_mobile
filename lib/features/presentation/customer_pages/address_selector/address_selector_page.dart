@@ -42,9 +42,9 @@ class AddressesSelectorPage extends StatelessWidget {
                                 vertical: 16,
                               ),
                               child: ActionBtn(
-                                text: "تایید آدرس پیش‌فرض",
+                                text: "ثبت آدرس ارسال سفارش",
                                 onTap: () {
-                                  Routes.sailor.pop();
+                                  Routes.sailor.pop({"result": true});
                                 },
                                 background: AppTheme.customerPrimary,
                                 textColor: Colors.white,
@@ -63,19 +63,6 @@ class AddressesSelectorPage extends StatelessWidget {
           ..borderRadius(topLeft: 16, topRight: 16)
           ..background.color(Colors.white),
         child: consumer,
-        /* floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Routes.sailor.navigate(
-              AddressSavePage.route,
-              params: {},
-            );
-          },
-          child: Icon(
-            Feather.plus,
-            color: Colors.white,
-            size: 24,
-          ),
-        ), */
       ),
     );
   }

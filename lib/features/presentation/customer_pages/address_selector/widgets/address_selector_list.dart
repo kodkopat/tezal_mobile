@@ -18,11 +18,11 @@ class AddressSelectorList extends StatelessWidget {
       itemBuilder: (context, index) {
         return AddressSelectorListItem(
           address: list[index],
-          onTap: () async {
-            await addressNotifier.setAddressDefault(
-              addressId: list[index].id,
-            );
+          onTap: () {
+            addressNotifier.selectedOrderAddressId = list[index].id;
+            addressNotifier.notify();
           },
+          addressNotifier: addressNotifier,
         );
       },
       separatorBuilder: (context, index) {
