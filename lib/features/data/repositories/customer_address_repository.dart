@@ -52,13 +52,13 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> saveAddress({
-    @required String latitude,
-    @required String longitude,
     @required String address,
     @required String description,
     @required bool isDefault,
     @required String cityId,
     @required String name,
+    @required String latitude,
+    @required String longitude,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -67,13 +67,13 @@ class CustomerAddressRepository {
 
       var result = await _remoteDataSource.save(
         userToken,
-        latitude,
-        longitude,
         address,
         description,
         isDefault,
         cityId,
         name,
+        latitude,
+        longitude,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -81,14 +81,14 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> editAddress({
-    @required String latitude,
-    @required String longitude,
     @required String id,
     @required String address,
     @required String description,
     @required bool isDefault,
     @required String cityId,
     @required String name,
+    @required String latitude,
+    @required String longitude,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -97,14 +97,14 @@ class CustomerAddressRepository {
 
       var result = await _remoteDataSource.edit(
         userToken,
-        latitude,
-        longitude,
         id,
         address,
         description,
         isDefault,
         cityId,
         name,
+        latitude,
+        longitude,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
