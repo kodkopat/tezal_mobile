@@ -13,7 +13,6 @@ import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
-import '../custom_rich_text.dart';
 import 'product_list_item_counter.dart';
 import 'product_list_item_like_toggle.dart';
 
@@ -40,45 +39,43 @@ class ProductListItem extends StatelessWidget {
         ..margin(horizontal: 8)
         ..padding(horizontal: 4, vertical: 4)
         ..background.color(Colors.white)
-        ..borderRadius(all: 8)
+        ..borderRadius(all: 12)
         ..boxShadow(
-          color: Colors.black.withOpacity(0.2),
-          offset: Offset(0, 4.0),
-          blur: 8,
+          color: Colors.black.withOpacity(0.1),
+          offset: Offset(0, 3.0),
+          blur: 6,
           spread: 0,
         )
         ..ripple(true),
-      child: Column(
-        textDirection: TextDirection.rtl,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Stack(
         children: [
           Column(
             textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Parent(
-                style: ParentStyle()
-                  ..width(192)
-                  ..height(144)
-                  ..borderRadius(all: 8)
-                  ..background.image(
-                    alignment: Alignment.center,
-                    path: "assets/images/placeholder.jpg",
-                    fit: BoxFit.fill,
-                  ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  child: _futureImgFile,
-                ),
-              ),
-              SizedBox(height: 8),
-              Row(
+              Column(
                 textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Parent(
+                    style: ParentStyle()
+                      ..width(192)
+                      ..height(144)
+                      ..borderRadius(all: 8)
+                      ..background.image(
+                        alignment: Alignment.center,
+                        path: "assets/images/placeholder.jpg",
+                        fit: BoxFit.fill,
+                      ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(8),
+                      ),
+                      child: _futureImgFile,
+                    ),
+                  ),
+                  SizedBox(height: 8),
                   Txt(
                     "${product.name}",
                     style: AppTxtStyles().subHeading
@@ -87,57 +84,63 @@ class ProductListItem extends StatelessWidget {
                       ..maxLines(1)
                       ..bold(),
                   ),
-                  ProductListItemLikeToggle(
-                    defaultValue: product.liked,
-                    onChange: (value) async {
-                      if (value) {
-                        await _customerProductRepo.likeProduct(
-                          id: product.id,
-                        );
-                      } else {
-                        _customerProductRepo.unlikeProduct(
-                          id: product.id,
-                        );
-                      }
-                    },
-                  ),
                 ],
               ),
-            ],
-          ),
-          Column(
-            textDirection: TextDirection.rtl,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
               Row(
                 textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _fieldOriginalPrice(),
+                  Column(
+                    textDirection: TextDirection.rtl,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _fieldOriginalPrice(),
+                      _fieldDiscountedPrice(),
+                    ],
+                  ),
                   _fieldDiscountedRate(),
                 ],
               ),
-              _fieldDiscountedPrice(),
+              ProductListItemCounter(
+                hieght: 36,
+                key: productCounterKey,
+                defaultValue: product.amount * product.step,
+                step: product.step,
+                unit: "${product.productUnit}",
+                onIncrease: (value) {
+                  basketNotifier.addToBasket(
+                    productId: product.id,
+                    amount: 1,
+                  );
+                },
+                onDecrease: (value) {
+                  basketNotifier.removeFromBasket(
+                    productId: product.id,
+                    amount: 1,
+                  );
+                },
+              ),
             ],
           ),
-          ProductListItemCounter(
-            hieght: 28,
-            key: productCounterKey,
-            defaultValue: product.amount * product.step,
-            step: product.step,
-            unit: "${product.productUnit}",
-            onIncrease: (value) {
-              basketNotifier.addToBasket(
-                productId: product.id,
-                amount: 1,
-              );
-            },
-            onDecrease: (value) {
-              basketNotifier.removeFromBasket(
-                productId: product.id,
-                amount: 1,
-              );
-            },
+          Positioned(
+            right: 2,
+            top: 2,
+            child: ProductListItemLikeToggle(
+              defaultValue: product.liked,
+              onChange: (value) async {
+                if (value) {
+                  await _customerProductRepo.likeProduct(
+                    id: product.id,
+                  );
+                } else {
+                  _customerProductRepo.unlikeProduct(
+                    id: product.id,
+                  );
+                }
+              },
+            ),
           ),
         ],
       ),
@@ -164,17 +167,37 @@ class ProductListItem extends StatelessWidget {
   }
 
   Widget _fieldOriginalPrice() {
-    return CustomRichText(
-      title: "قیمت",
-      text: _generateOriginalPrice(),
-      dashedLineText: true,
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateOriginalPrice(),
+        style: TextStyle(
+          decoration: TextDecoration.lineThrough,
+          color: Colors.black54,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.w500,
+          fontSize: 10,
+        ),
+      ),
     );
   }
 
   Widget _fieldDiscountedPrice() {
-    return CustomRichText(
-      title: "قیمت نهایی",
-      text: _generateDiscountedPrice(),
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateDiscountedPrice(),
+        style: TextStyle(
+          color: Colors.green,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
     );
   }
 
@@ -185,13 +208,13 @@ class ProductListItem extends StatelessWidget {
 
     return Txt(
       _generateDiscountedRate(),
-      style: AppTxtStyles().footNote
+      style: AppTxtStyles().subHeading
         ..bold()
         ..textDirection(TextDirection.ltr)
-        ..textColor(Colors.white)
-        ..background.color(Colors.red)
-        ..borderRadius(all: 4)
-        ..padding(horizontal: 8),
+        ..textColor(Colors.red)
+        ..background.color(Colors.red.withOpacity(0.1))
+        ..borderRadius(topLeft: 4, bottomLeft: 4, topRight: 24, bottomRight: 24)
+        ..padding(horizontal: 12, vertical: 8),
     );
   }
 
