@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/base_api_result_model.dart';
 import '../../models/comments_result_model.dart';
 import '../../models/market_categories_result_model.dart';
 import '../../models/market_detail_result_model.dart';
@@ -25,7 +26,13 @@ abstract class CustomerMarketRemoteDataSource {
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,
     @Query("maxDistance") int maxDistance,
-    @Query("count") int count,
+    @Query("maxDistance") int page,
+  );
+
+  @GET("$_apiUrlPrefix/UpdateNearByMarkets")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> updateNearByMarkets(
+    @Header("token") String token,
   );
 
   @GET("$_apiUrlPrefix/GetMarketDetail")

@@ -19,17 +19,17 @@ class _CustomerMarketRemoteDataSource
 
   @override
   Future<NearByMarketsResultModel> getNearByMarkets(
-      token, lang, latitude, longitude, maxDistance, count) async {
+      token, lang, latitude, longitude, maxDistance, page) async {
     ArgumentError.checkNotNull(token, 'token');
     ArgumentError.checkNotNull(lang, 'lang');
     ArgumentError.checkNotNull(latitude, 'latitude');
     ArgumentError.checkNotNull(longitude, 'longitude');
     ArgumentError.checkNotNull(maxDistance, 'maxDistance');
-    ArgumentError.checkNotNull(count, 'count');
+    ArgumentError.checkNotNull(page, 'page');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'maxDistance': maxDistance,
-      r'count': count
+      r'maxDistance': page
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
@@ -50,6 +50,30 @@ class _CustomerMarketRemoteDataSource
             baseUrl: baseUrl),
         data: _data);
     final value = NearByMarketsResultModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<BaseApiResultModel> updateNearByMarkets(token) async {
+    ArgumentError.checkNotNull(token, 'token');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'customer/Market/UpdateNearByMarkets',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json',
+            baseUrl: baseUrl),
+        data: _data);
+    final value = BaseApiResultModel.fromJson(_result.data);
     return value;
   }
 
