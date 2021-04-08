@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tezal/features/data/models/address_result_model.dart'
     hide Address;
 import 'package:tezal/features/data/models/addresses_result_model.dart';
@@ -26,6 +27,8 @@ class AddressNotifier extends ChangeNotifier {
   });
 
   final CustomerAddressRepository customerAddressRepo;
+
+  String selectedOrderAddressId;
 
   bool listLoading = true;
   String listErrorMsg;
@@ -153,6 +156,10 @@ class AddressNotifier extends ChangeNotifier {
       (left) => null,
       (right) => refresh(),
     );
+  }
+
+  void notify() async {
+    notifyListeners();
   }
 
   void refresh() async {
