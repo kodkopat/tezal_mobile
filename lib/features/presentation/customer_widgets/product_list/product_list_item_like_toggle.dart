@@ -39,13 +39,15 @@ class _ProductListItemLikeToggleState extends State<ProductListItemLikeToggle>
       style: ParentStyle()
         ..width(36)
         ..height(36)
-        ..borderRadius(all: 4)
-        ..background.color(Color(0xffEFEFEF))
+        ..borderRadius(all: 8)
+        // ..background.color(Color(0xffEFEFEF))
         ..ripple(true),
       child: Icon(
-        Feather.heart,
-        color: !value ? Colors.black : Colors.red,
-        size: 18,
+        Icons.favorite_rounded,
+        color: !value
+            ? Color(0xffEFEFEF).withOpacity(0.8)
+            : Colors.red.withOpacity(0.8),
+        size: 30,
       ),
     );
   }

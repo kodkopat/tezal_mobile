@@ -42,7 +42,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
   Widget build(BuildContext context) {
     return Parent(
       style: ParentStyle()
-        ..borderRadius(all: 4)
+        ..borderRadius(all: 8)
         ..background.color(Color(0xffEFEFEF)),
       child: counter == 0 || counter == 0.0
           ? Row(
@@ -133,7 +133,7 @@ class _CounterIcon extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..height(height ?? 36)
-        ..borderRadius(all: 4)
+        ..borderRadius(all: 8)
         ..ripple(true),
       child: Icon(
         iconData,
