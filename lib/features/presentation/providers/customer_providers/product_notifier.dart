@@ -33,7 +33,10 @@ class ProductNotifier extends ChangeNotifier {
 
     result.fold(
       (left) => likedProductsErrorMsg = left.message,
-      (right) => likedProductsResultModel = right,
+      (right) {
+        print("likedProducts: ${right.toJson()}\n");
+        likedProductsResultModel = right;
+      },
     );
 
     likedProductsloading = false;
@@ -41,7 +44,9 @@ class ProductNotifier extends ChangeNotifier {
   }
 
   Future<void> likeProduct({@required String productId}) async {
-    var result = await customerProductRepo.likeProduct(id: productId);
+    var result = await customerProductRepo.likeProduct(
+      id: productId,
+    );
 
     result.fold(
       (left) => null,
@@ -50,7 +55,9 @@ class ProductNotifier extends ChangeNotifier {
   }
 
   Future<void> unlikeProduct({@required String productId}) async {
-    var result = await customerProductRepo.unlikeProduct(id: productId);
+    var result = await customerProductRepo.unlikeProduct(
+      id: productId,
+    );
 
     result.fold(
       (left) => null,
