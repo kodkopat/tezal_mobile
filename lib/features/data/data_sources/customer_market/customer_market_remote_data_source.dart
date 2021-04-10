@@ -26,7 +26,7 @@ abstract class CustomerMarketRemoteDataSource {
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,
     @Query("maxDistance") int maxDistance,
-    @Query("maxDistance") int page,
+    @Query("page") int page,
   );
 
   @GET("$_apiUrlPrefix/UpdateNearByMarkets")

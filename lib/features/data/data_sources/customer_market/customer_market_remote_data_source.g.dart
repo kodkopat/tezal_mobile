@@ -29,7 +29,7 @@ class _CustomerMarketRemoteDataSource
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'maxDistance': maxDistance,
-      r'maxDistance': page
+      r'page': page
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
