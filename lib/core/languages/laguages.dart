@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
-import '../app_localizations.dart';
+import '../../app_localizations.dart';
 
 class Lang {
   BuildContext context;
+
   Lang(this.context) {
     programName = AppLocalizations.of(context).translate('programName');
     programSlogan = AppLocalizations.of(context).translate('programSlogan');
@@ -97,6 +98,7 @@ class Lang {
     deleteQuestion = AppLocalizations.of(context).translate("deleteQuestion");
     productDetail = AppLocalizations.of(context).translate("productDetail");
   }
+
   String programName;
   String programSlogan;
   String home;
