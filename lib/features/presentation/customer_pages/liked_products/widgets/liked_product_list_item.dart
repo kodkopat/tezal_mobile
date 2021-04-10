@@ -94,15 +94,14 @@ class LikedProductListItem extends StatelessWidget {
               defaultValue: true,
               onChange: (value) async {
                 if (value) {
-                  await productNotifier.customerProductRepo.likeProduct(
-                    id: likedProduct.id,
+                  productNotifier.likeProduct(
+                    productId: likedProduct.productId,
                   );
                 } else {
-                  productNotifier.customerProductRepo.unlikeProduct(
-                    id: likedProduct.id,
+                  productNotifier.unlikeProduct(
+                    productId: likedProduct.productId,
                   );
                 }
-                productNotifier.fetchLikedProducts();
               },
             ),
           ),

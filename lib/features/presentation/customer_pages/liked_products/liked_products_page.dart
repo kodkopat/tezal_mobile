@@ -18,6 +18,7 @@ class LikedProductsPage extends StatelessWidget {
       builder: (context, provider, child) {
         if (provider.likedProductsResultModel == null &&
             provider.likedProductsErrorMsg == null) {
+          print("fetchLikedProducts\n");
           provider.fetchLikedProducts();
         }
 

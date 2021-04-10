@@ -32,7 +32,7 @@ class LikedProductList extends StatelessWidget {
           onTap: () {
             Routes.sailor.navigate(
               ProductDetailPage.route,
-              params: {"productId": likedProducts[index].id},
+              params: {"productId": likedProducts[index].productId},
             );
           },
           productNotifier: productNotifier,
