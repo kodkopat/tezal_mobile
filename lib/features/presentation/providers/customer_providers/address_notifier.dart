@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:tezal/features/data/models/address_result_model.dart'
     hide Address;
 import 'package:tezal/features/data/models/addresses_result_model.dart';
