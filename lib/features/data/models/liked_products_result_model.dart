@@ -44,13 +44,19 @@ class LikedProductsResultModel {
 class LikedProduct {
   LikedProduct({
     @required this.id,
-    @required this.name,
+    @required this.productId,
     @required this.category,
+    @required this.name,
+    @required this.market,
+    @required this.marketId,
   });
 
   final String id;
-  final String name;
+  final String productId;
   final String category;
+  final String name;
+  final String market;
+  final String marketId;
 
   factory LikedProduct.fromRawJson(String str) =>
       LikedProduct.fromJson(json.decode(str));
@@ -59,13 +65,19 @@ class LikedProduct {
 
   factory LikedProduct.fromJson(Map<String, dynamic> json) => LikedProduct(
         id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
+        productId: json["productId"] == null ? null : json["productId"],
         category: json["category"] == null ? null : json["category"],
+        name: json["name"] == null ? null : json["name"],
+        market: json["market"] == null ? null : json["market"],
+        marketId: json["marketId"] == null ? null : json["marketId"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
-        "name": name == null ? null : name,
+        "productId": productId == null ? null : productId,
         "category": category == null ? null : category,
+        "name": name == null ? null : name,
+        "market": market == null ? null : market,
+        "marketId": marketId == null ? null : marketId,
       };
 }
