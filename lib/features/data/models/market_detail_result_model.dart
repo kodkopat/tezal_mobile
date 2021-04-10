@@ -61,8 +61,8 @@ class Data {
   final String name;
   final dynamic phone;
   final int score;
-  final int openAt;
-  final int clouseAt;
+  final String openAt;
+  final String clouseAt;
   final String situation;
   final int deliveryCost;
   final double distance;
