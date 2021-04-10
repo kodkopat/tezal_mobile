@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 
 class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({

@@ -13,6 +13,7 @@ import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
+import '../../providers/customer_providers/product_notifier.dart';
 import 'product_list_item_counter.dart';
 import 'product_list_item_like_toggle.dart';
 
@@ -30,6 +31,7 @@ class ProductListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var productNotifier = Provider.of<ProductNotifier>(context, listen: false);
     var basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
 
     return Parent(
@@ -131,12 +133,12 @@ class ProductListItem extends StatelessWidget {
               defaultValue: product.liked,
               onChange: (value) async {
                 if (value) {
-                  await _customerProductRepo.likeProduct(
-                    id: product.id,
+                  productNotifier.likeProduct(
+                    productId: product.id,
                   );
                 } else {
-                  _customerProductRepo.unlikeProduct(
-                    id: product.id,
+                  productNotifier.unlikeProduct(
+                    productId: product.id,
                   );
                 }
               },
