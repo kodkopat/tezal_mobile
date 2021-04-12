@@ -10,12 +10,14 @@ import 'core/themes/app_theme.dart';
 import 'features/data/repositories/auth_repository.dart';
 import 'features/data/repositories/customer_address_repository.dart';
 import 'features/data/repositories/customer_basket_repository.dart';
+import 'features/data/repositories/customer_market_repository.dart';
 import 'features/data/repositories/customer_order_repository.dart';
 import 'features/data/repositories/customer_product_repository.dart';
 import 'features/data/repositories/customer_repository.dart';
 import 'features/data/repositories/customer_wallet_repository.dart';
 import 'features/presentation/providers/customer_providers/address_notifier.dart';
 import 'features/presentation/providers/customer_providers/basket_notifier.dart';
+import 'features/presentation/providers/customer_providers/market_notifier.dart';
 import 'features/presentation/providers/customer_providers/order_notifier.dart';
 import 'features/presentation/providers/customer_providers/product_notifier.dart';
 import 'features/presentation/providers/customer_providers/profile_notifier.dart';
@@ -49,16 +51,9 @@ Future<void> main() async {
 }
 
 class App extends StatefulWidget {
-  const App({
-    Key key,
-    @required this.userType,
-  }) : super(key: key);
+  const App({@required this.userType});
 
-  final _AppUserType userType;
-
-  static void restart(BuildContext context) {
-    context.findAncestorStateOfType<_AppState>().restartApp();
-  }
+  final _AppUserType? userType;
 
   @override
   _AppState createState() => _AppState();
@@ -68,11 +63,11 @@ class _AppState extends State<App> {
   final _authRepository = AuthRepository();
 
   Key key = UniqueKey();
-  _AppUserType userType;
+  _AppUserType? userType;
 
   void restartApp() {
     _authRepository.userType.then((value) {
-      if (value != null && value.isNotEmpty) {
+      if (value.isNotEmpty) {
         setState(() {
           key = UniqueKey();
           userType = _AppUserTypeParser.fromString(value);
@@ -117,6 +112,9 @@ class _AppState extends State<App> {
       case _AppUserType.Delivery:
         themeData = AppTheme.deliveryThemeData(fontFamily);
         break;
+      case null:
+        themeData = AppTheme.customerThemeData(fontFamily);
+        break;
     }
 
     var materialApp = MaterialApp(
@@ -134,6 +132,11 @@ class _AppState extends State<App> {
 
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => MarketNotifier(
+            CustomerMarketRepository(),
+          ),
+        ),
         ChangeNotifierProvider(
           create: (ctx) => ProfileNotifier(
             CustomerRepository(),
@@ -184,22 +187,17 @@ class _AppUserTypeParser {
   static const _deliveryKey = "delivery";
 
   static _AppUserType fromString(String userType) {
-    if (userType == null || userType.trim().isEmpty)
-      return _AppUserType.Customer;
+    if (userType.trim().isEmpty) return _AppUserType.Customer;
 
     switch (userType.toLowerCase()) {
       case _customerKey:
         return _AppUserType.Customer;
-        break;
       case _marketKey:
         return _AppUserType.Market;
-        break;
       case _deliveryKey:
         return _AppUserType.Delivery;
-        break;
       default:
         return _AppUserType.Customer;
-        break;
     }
   }
 }
