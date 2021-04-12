@@ -1,6 +1,6 @@
 {
-    "name": "tezal_mobile",
-    "short_name": "tezal_mobile",
+    "name": "tezal",
+    "short_name": "tezal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
