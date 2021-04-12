@@ -4,15 +4,18 @@ import 'device_screen_type.dart';
 import 'sizing_information.dart';
 
 class ResponsiveBuilder extends StatelessWidget {
-  final Widget Function(BuildContext context, SizingInformation sizingInformation) builder;
+  const ResponsiveBuilder({required this.builder});
 
-  const ResponsiveBuilder({Key key, this.builder}) : super(key: key);
+  final Widget Function(
+      BuildContext context, SizingInformation sizingInformation) builder;
 
   DeviceScreenType getDeviceType(MediaQueryData mediaQuery) {
     var orientation = mediaQuery.orientation;
     double deviceWidth = 0;
 
-    deviceWidth = (orientation == Orientation.portrait) ? mediaQuery.size.width : mediaQuery.size.height;
+    deviceWidth = (orientation == Orientation.portrait)
+        ? mediaQuery.size.width
+        : mediaQuery.size.height;
 
     if (deviceWidth >= 800) return DeviceScreenType.Desktop;
     if (deviceWidth >= 600) return DeviceScreenType.Tablet;

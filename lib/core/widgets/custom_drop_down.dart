@@ -1,12 +1,13 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDown extends StatefulWidget {
   CustomDropDown({
-    @required this.label,
-    @required this.defaultValue,
-    @required this.values,
-    @required this.onChange,
+    required this.label,
+    required this.defaultValue,
+    required this.values,
+    required this.onChange,
   });
 
   final String label;

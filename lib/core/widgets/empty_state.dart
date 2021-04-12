@@ -1,17 +1,18 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/txt_styles.dart';
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({Key key, this.text}) : super(key: key);
+  const EmptyState({required this.text});
   final String text;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Txt(
-        text ?? "موردی برای نمایش وجود ندارد!",
+        "موردی برای نمایش وجود ندارد!",
         style: AppTxtStyles().body..alignment.center(),
       ),
     );

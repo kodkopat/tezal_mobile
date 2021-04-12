@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AppLoading extends StatelessWidget {
@@ -7,8 +8,8 @@ class AppLoading extends StatelessWidget {
     this.color,
   });
 
-  final double size;
-  final Color color;
+  final double? size;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

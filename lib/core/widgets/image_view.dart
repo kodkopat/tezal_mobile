@@ -1,14 +1,12 @@
 import 'dart:convert';
-
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../styles/txt_styles.dart';
 
 class ProductImageView extends StatefulWidget {
-  const ProductImageView({
-    @required this.images,
-  });
+  const ProductImageView({required this.images});
 
   final List<String> images;
 
@@ -82,7 +80,7 @@ class _ProductImageViewState extends State<ProductImageView> {
                   ..clone()
                   ..padding(horizontal: 2)
                   ..textColor(
-                    selectedImage == index ? Colors.black54 : Colors.grey[300],
+                    selectedImage == index ? Colors.black54 : Colors.grey,
                   ),
               );
             },

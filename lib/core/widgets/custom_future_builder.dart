@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomFutureBuilder<T> extends StatelessWidget {
   CustomFutureBuilder({
-    @required this.future,
-    @required this.successBuilder,
-    @required this.errorBuilder,
+    required this.future,
+    required this.successBuilder,
+    required this.errorBuilder,
   });
 
   final Future<T> future;
-  final Widget Function(BuildContext, T) successBuilder;
+  final Widget Function(BuildContext, T?) successBuilder;
   final Widget Function(BuildContext, String) errorBuilder;
 
   @override

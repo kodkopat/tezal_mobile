@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 class CustomScrollConfiguration extends StatelessWidget {
   final Widget child;
 
-  CustomScrollConfiguration({
-    @required this.child,
-  }) : assert(child != null);
+  CustomScrollConfiguration({required this.child});
 
   @override
   Widget build(BuildContext context) {

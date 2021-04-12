@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../core/page_routes/routes.dart';
@@ -8,12 +10,12 @@ import '../themes/app_theme.dart';
 
 class AppBarAction extends StatelessWidget {
   AppBarAction({
-    @required this.text,
+    required this.text,
     this.showBackBtn,
   });
 
   final String text;
-  final bool showBackBtn;
+  final bool? showBackBtn;
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -5,21 +6,21 @@ import 'package:flutter/services.dart';
 class CustomTextInput extends StatelessWidget {
   CustomTextInput({
     this.label,
-    @required this.controller,
-    @required this.validator,
+    required this.controller,
+    required this.validator,
     this.keyboardType,
     this.textDirection,
     this.maxLength,
     this.obscureText,
   });
 
-  final String label;
+  final String? label;
   final TextEditingController controller;
-  final String Function(String) validator;
-  final TextInputType keyboardType;
-  final TextDirection textDirection;
-  final int maxLength;
-  final bool obscureText;
+  final String? Function(String?) validator;
+  final TextInputType? keyboardType;
+  final TextDirection? textDirection;
+  final int? maxLength;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class CustomTextInput extends StatelessWidget {
       children: [
         if (label != null)
           Txt(
-            label,
+            label!,
             style: TxtStyle()
               ..textAlign.right()
               ..margin(right: 6)
