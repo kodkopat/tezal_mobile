@@ -6,10 +6,7 @@ import '../../customer_pages/product_detail/product_detail_page.dart';
 import 'product_list_item.dart';
 
 class ProductList extends StatelessWidget {
-  const ProductList({
-    Key key,
-    @required this.products,
-  }) : super(key: key);
+  const ProductList({required this.products});
 
   final List<ProductResultModel> products;
 

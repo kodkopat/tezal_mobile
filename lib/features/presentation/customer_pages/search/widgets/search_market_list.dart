@@ -4,10 +4,7 @@ import '../../../../data/models/search_result_model.dart';
 import 'search_market_list_item.dart';
 
 class SearchMarketList extends StatelessWidget {
-  const SearchMarketList({
-    Key key,
-    @required this.markets,
-  }) : super(key: key);
+  const SearchMarketList({required this.markets});
 
   final List<Market> markets;
 

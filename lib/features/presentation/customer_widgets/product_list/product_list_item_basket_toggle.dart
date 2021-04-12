@@ -1,13 +1,14 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 class ProductListItemBasketToggle extends StatefulWidget {
   ProductListItemBasketToggle({
-    Key key,
-    @required this.onChange,
-    this.defaultValue,
-  }) : super(key: key);
+    required this.onChange,
+    required this.defaultValue,
+  });
 
   final bool defaultValue;
   final void Function(bool) onChange;
@@ -20,12 +21,12 @@ class ProductListItemBasketToggle extends StatefulWidget {
 class _ProductListItemBasketToggleState
     extends State<ProductListItemBasketToggle>
     with AutomaticKeepAliveClientMixin<ProductListItemBasketToggle> {
-  bool value;
+  bool value = false;
 
   @override
   void initState() {
     super.initState();
-    value = widget.defaultValue ?? false;
+    value = widget.defaultValue;
   }
 
   @override

@@ -1,8 +1,10 @@
 import 'dart:convert';
-
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -17,11 +19,10 @@ import '../../../providers/customer_providers/basket_notifier.dart';
 
 class BasketListItem extends StatelessWidget {
   BasketListItem({
-    Key key,
-    @required this.basketItem,
-    @required this.onRemoveItem,
-    @required this.basketNotifier,
-  }) : super(key: key);
+    required this.basketItem,
+    required this.onRemoveItem,
+    required this.basketNotifier,
+  });
 
   final BasketItem basketItem;
   final void Function() onRemoveItem;
@@ -127,7 +128,6 @@ class BasketListItem extends StatelessWidget {
           SizedBox(height: 12),
           ProductListItemCounter(
             hieght: 32,
-            key: productCounterKey,
             defaultValue: basketItem.amount * basketItem.step,
             unit: "${basketItem.productUnit}",
             step: basketItem.step,
@@ -158,7 +158,7 @@ class BasketListItem extends StatelessWidget {
         multi: false,
       ),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
             base64Decode(r.data.photos.first),
@@ -272,7 +272,7 @@ class BasketListItem extends StatelessWidget {
   }
 
   String _generateDiscountedRate() {
-    double discountRateTxt =
+    num discountRateTxt =
         100 - (basketItem.discountedPrice) * 100 / (basketItem.originalPrice);
     if (discountRateTxt < 1)
       return "";
@@ -289,9 +289,7 @@ class BasketListItem extends StatelessWidget {
   String _generateOriginalPrice() {
     var priceTxt;
     if (basketItem.originalPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (basketItem.originalPrice == 0) {
-      priceTxt = " رایگان ";
+      priceTxt = "-";
     } else {
       var temp;
       if ("${basketItem.originalPrice}".length >= 3) {
@@ -314,16 +312,17 @@ class BasketListItem extends StatelessWidget {
 
   String _generateDiscountedPrice() {
     var priceTxt;
-    if (basketItem.discountedPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (basketItem.discountedPrice == 0) {
-      priceTxt = " رایگان ";
+    if (basketItem.originalPrice == null ||
+        basketItem.discountedPrice == null) {
+      priceTxt = "-";
     } else {
       var temp;
-      if ("${basketItem.discountedPrice}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(basketItem.discountedPrice);
+      if ("${basketItem.originalPrice - basketItem.discountedPrice}".length >=
+          3) {
+        temp = intl.NumberFormat("#,000")
+            .format(basketItem.originalPrice - basketItem.discountedPrice);
       } else {
-        temp = "${basketItem.discountedPrice}";
+        temp = "${basketItem.originalPrice - basketItem.discountedPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
@@ -341,7 +340,7 @@ class BasketListItem extends StatelessWidget {
   String _generateTotalDiscount() {
     var priceTxt;
     if (basketItem.totalDiscount == null) {
-      priceTxt = " ذکر نشده ";
+      priceTxt = "-";
     } else {
       var temp;
       if ("${basketItem.totalDiscount}".length >= 3) {

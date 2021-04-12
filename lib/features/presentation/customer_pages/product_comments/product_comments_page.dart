@@ -1,4 +1,6 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart' hide State;
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +17,7 @@ import '../../customer_widgets/simple_app_bar.dart';
 class ProductCommentsPage extends StatefulWidget {
   static const route = "/customer_product_comments";
 
-  ProductCommentsPage({
-    Key key,
-    @required this.productId,
-  }) : super(key: key);
+  ProductCommentsPage({required this.productId});
 
   final String productId;
   final _customerProductRepo = CustomerProductRepository();
@@ -41,7 +40,7 @@ class _ProductCommentsPageState extends State<ProductCommentsPage> {
           page: 1,
         ),
         successBuilder: (context, data) {
-          return data.fold(
+          return data!.fold(
             (l) => Txt(
               l.message,
               style: AppTxtStyles().body..alignment.center(),

@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -5,17 +6,16 @@ import '../../../../../core/styles/txt_styles.dart';
 
 class AddressDetailActionsMenuItem extends StatelessWidget {
   const AddressDetailActionsMenuItem({
-    Key key,
-    @required this.text,
-    @required this.iconData,
-    @required this.onTap,
+    required this.text,
+    required this.iconData,
+    required this.onTap,
     this.color,
-  }) : super(key: key);
+  });
 
   final String text;
   final IconData iconData;
   final void Function() onTap;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

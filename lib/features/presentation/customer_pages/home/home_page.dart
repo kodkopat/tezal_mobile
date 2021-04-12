@@ -1,14 +1,14 @@
-import 'package:dartz/dartz.dart' hide State;
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
-import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/image_view.dart';
+import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../data/models/nearby_markets_result_model.dart';
+import '../../../../features/presentation/providers/customer_providers/market_notifier.dart';
 import '../../../data/repositories/customer_campaign_repository.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_widgets/market_list/markets_list.dart';
@@ -60,6 +60,47 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    var consumer = Consumer<MarketNotifier>(
+      builder: (context, provider, child) {
+        if (provider.nearByMarkets == null &&
+            provider.nearByMarketsErrorMsg == null) {
+          provider.fetchNearbyMarkets(context);
+        }
+
+        return provider.nearByMarketsLoading
+            ? AppLoading(color: AppTheme.customerPrimary)
+            : provider.nearByMarketsErrorMsg != null
+                ? Txt(
+                    provider.nearByMarketsErrorMsg!,
+                    style: AppTxtStyles().body..alignment.center(),
+                  )
+                : provider.nearByMarkets!.isEmpty
+                    ? Txt(
+                        "لیست فروشگاه‌ها خالی است",
+                        style: AppTxtStyles().body..alignment.center(),
+                      )
+                    : SingleChildScrollView(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            MarketsList(
+                              markets: provider.nearByMarkets!,
+                              repository: marketRepo,
+                            ),
+                            SizedBox(height: 8),
+                            if (provider.enableLoadMoreData!)
+                              LoadMoreBtn(
+                                onTap: () {
+                                  provider.fetchNearbyMarkets(context);
+                                },
+                              )
+                          ],
+                        ),
+                      );
+      },
+    );
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -67,45 +108,22 @@ class _HomePageState extends State<HomePage> {
           text: "خانه",
           showBasketBtn: true,
         ),
-        body: CustomFutureBuilder(
-          future: marketRepo.nearByMarkets(
-            context,
-            maxDistance: 50,
-            page: 1,
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await marketRepo.updateNearByMarkets();
+            return Future<void>.value();
+          },
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                ProductImageView(images: campaignPhotos),
+                const SizedBox(height: 8),
+                consumer,
+              ],
+            ),
           ),
-          successBuilder: (context, data) {
-            var result = data as Either<Failure, NearByMarketsResultModel>;
-
-            return result.fold(
-                (l) => Txt(
-                      l.message,
-                      style: AppTxtStyles().body..alignment.center(),
-                    ), (r) {
-              return RefreshIndicator(
-                onRefresh: () async {
-                  await marketRepo.updateNearByMarkets();
-                  return Future<void>.value();
-                },
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      ProductImageView(images: campaignPhotos),
-                      const SizedBox(height: 8),
-                      MarketsList(
-                        markets: r.data.markets,
-                        repository: marketRepo,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            });
-          },
-          errorBuilder: (context, error) {
-            return AppLoading(color: AppTheme.customerPrimary);
-          },
         ),
       ),
     );

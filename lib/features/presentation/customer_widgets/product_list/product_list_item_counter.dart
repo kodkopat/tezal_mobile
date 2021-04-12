@@ -1,19 +1,20 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 
 class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({
-    Key key,
-    this.defaultValue,
-    this.step,
-    this.unit,
-    this.onIncrease,
-    this.onDecrease,
-    this.hieght,
-  }) : super(key: key);
+    required this.defaultValue,
+    required this.step,
+    required this.unit,
+    required this.onIncrease,
+    required this.onDecrease,
+    required this.hieght,
+  });
 
   final num defaultValue;
   final num step;
@@ -28,12 +29,12 @@ class ProductListItemCounter extends StatefulWidget {
 
 class ProductListItemCounterState extends State<ProductListItemCounter>
     with AutomaticKeepAliveClientMixin<ProductListItemCounter> {
-  num counter;
+  num counter = 0;
 
   @override
   void initState() {
     super.initState();
-    counter = widget.defaultValue ?? 0;
+    counter = widget.defaultValue;
   }
 
   @override
@@ -54,6 +55,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                     iconData: Feather.plus,
                     height: widget.hieght,
                     onTap: _increament,
+                    iconSize: 18,
                   ),
                 ),
               ],
@@ -68,6 +70,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                     iconData: Feather.plus,
                     height: widget.hieght,
                     onTap: _increament,
+                    iconSize: 18,
                   ),
                 ),
                 Expanded(
@@ -88,6 +91,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                     iconData: Feather.minus,
                     height: widget.hieght,
                     onTap: _decreament,
+                    iconSize: 18,
                   ),
                 ),
               ],
@@ -114,12 +118,11 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
 
 class _CounterIcon extends StatelessWidget {
   const _CounterIcon({
-    Key key,
-    @required this.iconData,
-    @required this.onTap,
-    this.height,
-    this.iconSize,
-  }) : super(key: key);
+    required this.iconData,
+    required this.onTap,
+    required this.height,
+    required this.iconSize,
+  });
 
   final IconData iconData;
   final void Function() onTap;
@@ -131,13 +134,13 @@ class _CounterIcon extends StatelessWidget {
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
-        ..height(height ?? 36)
+        ..height(height)
         ..borderRadius(all: 8)
         ..ripple(true),
       child: Icon(
         iconData,
         color: Colors.black,
-        size: iconSize ?? 18,
+        size: iconSize,
       ),
     );
   }

@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -15,11 +17,10 @@ import '../custom_rich_text.dart';
 
 class MarketsListItem extends StatelessWidget {
   const MarketsListItem({
-    Key key,
-    @required this.market,
-    @required this.onTap,
-    @required this.repository,
-  }) : super(key: key);
+    required this.market,
+    required this.onTap,
+    required this.repository,
+  });
 
   final Market market;
   final void Function() onTap;
@@ -128,7 +129,7 @@ class MarketsListItem extends StatelessWidget {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
       future: repository.photo(marketId: market.id),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
             base64Decode(r.data.photos.first),

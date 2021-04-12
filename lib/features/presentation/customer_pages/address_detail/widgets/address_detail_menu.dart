@@ -4,10 +4,7 @@ import '../../../../data/models/address_result_model.dart';
 import 'address_detail_menu_item.dart';
 
 class AddressDetailMenu extends StatelessWidget {
-  const AddressDetailMenu({
-    Key key,
-    @required this.address,
-  }) : super(key: key);
+  const AddressDetailMenu({required this.address});
 
   final Address address;
 

@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
@@ -10,10 +12,7 @@ import '../../profile/profile_page.dart';
 import '../../search/search_page.dart';
 
 class CustomBottomAppBar extends StatefulWidget {
-  const CustomBottomAppBar({
-    Key key,
-    @required this.onIndexChanged,
-  }) : super(key: key);
+  const CustomBottomAppBar({required this.onIndexChanged});
 
   final void Function(Widget) onIndexChanged;
 
@@ -120,10 +119,10 @@ class _BottomNavigationBarList {
 
 class __BottomNavigationBarListItem {
   __BottomNavigationBarListItem({
-    @required this.index,
-    @required this.label,
-    @required this.iconData,
-    @required this.widget,
+    required this.index,
+    required this.label,
+    required this.iconData,
+    required this.widget,
   });
 
   final int index;

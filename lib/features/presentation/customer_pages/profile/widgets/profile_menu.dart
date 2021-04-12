@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/routes.dart';
@@ -13,8 +16,6 @@ import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
 class ProfileMenu extends StatelessWidget {
-  const ProfileMenu({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ListView(

@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -14,10 +15,9 @@ import '../../address_selector/address_selector_page.dart';
 
 class BasketActionsBox extends StatelessWidget {
   const BasketActionsBox({
-    Key key,
-    @required this.basket,
-    @required this.basketNotifier,
-  }) : super(key: key);
+    required this.basket,
+    required this.basketNotifier,
+  });
 
   final BasketResultModel basket;
   final BasketNotifier basketNotifier;

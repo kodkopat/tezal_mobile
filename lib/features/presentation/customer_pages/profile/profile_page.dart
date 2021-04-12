@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final authRepo = AuthRepository();
-  ProfileNotifier profileNotifier;
+  ProfileNotifier? profileNotifier;
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: AppTxtStyles().body,
                   )
                 : ProfileInfoBox(
-                    profileInfo: provider.customerProfile,
+                    profileInfo: provider.customerProfile!,
                     onEditBtnTap: () {
                       Routes.sailor(EditProfilePage.route);
                     },
@@ -62,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: SimpleAppBar(context).create(text: "حساب کاربری"),
-        body: CustomFutureBuilder(
+        body: CustomFutureBuilder<String>(
           future: authRepo.userToken,
           successBuilder: (context, data) {
             print("userToken= $data\n");

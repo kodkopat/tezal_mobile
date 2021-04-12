@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,10 +25,10 @@ class AddressesSelectorPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.listErrorMsg != null
                 ? Txt(
-                    provider.listErrorMsg,
+                    provider.listErrorMsg!,
                     style: AppTxtStyles().body..alignment.center(),
                   )
-                : provider.addressList.isEmpty
+                : provider.addressList!.isEmpty
                     ? Txt(
                         "لیست آدرس‌های شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),

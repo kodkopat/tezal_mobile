@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -6,10 +7,7 @@ import '../../../data/models/market_detail_result_model.dart';
 import 'category_list_item.dart';
 
 class CategoryList extends StatelessWidget {
-  const CategoryList({
-    Key key,
-    @required this.categories,
-  }) : super(key: key);
+  const CategoryList({required this.categories});
 
   final List<Category> categories;
 

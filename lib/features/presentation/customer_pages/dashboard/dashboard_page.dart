@@ -12,8 +12,8 @@ class DashBoardPage extends StatefulWidget {
 
 class _DashBoardPageState extends State<DashBoardPage>
     with AutomaticKeepAliveClientMixin<DashBoardPage> {
-  Widget currentWidget;
-  CustomBottomAppBar bottomAppBar;
+  Widget? currentWidget;
+  CustomBottomAppBar? bottomAppBar;
 
   void initializeState() {
     bottomAppBar = CustomBottomAppBar(

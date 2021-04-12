@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,16 +26,16 @@ class OrdersPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.olderOrdersErrorMsg != null
                 ? Txt(
-                    provider.olderOrdersErrorMsg,
+                    provider.olderOrdersErrorMsg!,
                     style: AppTxtStyles().body..alignment.center(),
                   )
-                : provider.olderOrdersResultModel.data.orders.isEmpty
+                : provider.olderOrdersResultModel!.data.orders.isEmpty
                     ? Txt(
                         "لیست سفارشات شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),
                       )
                     : OrderList(
-                        orderList: provider.olderOrdersResultModel.data.orders,
+                        orderList: provider.olderOrdersResultModel!.data.orders,
                       );
       },
     );

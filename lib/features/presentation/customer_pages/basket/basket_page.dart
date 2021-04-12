@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,38 +18,37 @@ class BasketPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var consumer = Consumer<BasketNotifier>(
       builder: (context, provider, child) {
-        if (provider.basketResultModel == null && provider.errorMsg == null) {
+        if (provider.basketItemList == null) {
           provider.fetchBasket();
         }
 
         return provider.loading
             ? AppLoading(color: AppTheme.customerPrimary)
-            : provider.errorMsg != null
-                ? Txt(
-                    provider.errorMsg,
-                    style: AppTxtStyles().body..alignment.center(),
-                  )
-                : provider.basketResultModel.data == null
+            : provider.basketItemList == null
+                ? provider.errorMsg == null
                     ? Txt(
                         "سبد خرید محصولات شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),
                       )
-                    : SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            BasketList(
-                              basketItems:
-                                  provider.basketResultModel.data?.items,
-                              basketNotifier: provider,
-                            ),
-                            SizedBox(height: 8),
-                            BasketActionsBox(
-                              basket: provider.basketResultModel,
-                              basketNotifier: provider,
-                            ),
-                          ],
+                    : Txt(
+                        "${provider.errorMsg!}",
+                        style: AppTxtStyles().body..alignment.center(),
+                      )
+                : SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        BasketList(
+                          basketItems: provider.basketItemList!,
+                          basketNotifier: provider,
                         ),
-                      );
+                        SizedBox(height: 8),
+                        BasketActionsBox(
+                          basket: provider.basketResultModel!,
+                          basketNotifier: provider,
+                        ),
+                      ],
+                    ),
+                  );
       },
     );
 

@@ -1,4 +1,6 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +25,7 @@ import '../market_comments/market_comments_page.dart';
 class MarketDetailPage extends StatelessWidget {
   static const route = "/customer_market_detail";
 
-  MarketDetailPage({
-    Key key,
-    @required this.marketId,
-  }) : super(key: key);
+  MarketDetailPage({required this.marketId});
 
   final String marketId;
 
@@ -107,7 +106,7 @@ class MarketDetailPage extends StatelessWidget {
       child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
         future: _customerMarketRepo.photo(marketId: marketId),
         successBuilder: (context, data) {
-          return data.fold(
+          return data!.fold(
             (l) => ProductImageView(images: ["", ""]),
             (r) => ProductImageView(images: r.data.photos),
           );
@@ -143,7 +142,7 @@ class MarketDetailPage extends StatelessWidget {
           page: 1,
         ),
         successBuilder: (context, data) {
-          return data.fold(
+          return data!.fold(
             (l) => Txt(
               l.message,
               style: AppTxtStyles().body..alignment.center(),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/routes.dart';
@@ -10,8 +12,8 @@ import 'modal_remove_address.dart';
 
 class AddressDetailActionsMenu extends StatelessWidget {
   const AddressDetailActionsMenu({
-    @required this.addressId,
-    @required this.addressNotifier,
+    required this.addressId,
+    required this.addressNotifier,
   });
 
   final String addressId;

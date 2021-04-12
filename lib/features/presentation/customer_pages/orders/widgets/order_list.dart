@@ -6,7 +6,7 @@ import '../../order_detail/order_detail_page.dart';
 import 'order_list_item.dart';
 
 class OrderList extends StatelessWidget {
-  const OrderList({@required this.orderList});
+  const OrderList({required this.orderList});
 
   final List<Order> orderList;
 

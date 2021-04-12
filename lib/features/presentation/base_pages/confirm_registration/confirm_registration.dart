@@ -1,9 +1,11 @@
 import 'dart:async';
-
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../../../core/page_routes/routes.dart';
@@ -23,15 +25,15 @@ class ConfirmRegistrationPage extends StatefulWidget {
 
 class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
   final repository = AuthRepository();
-  String smsCode;
+  String? smsCode;
 
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog prgDialog;
+  ProgressDialog? prgDialog;
 
-  Timer timer;
-  int timerSeconds;
+  Timer? timer;
+  int? timerSeconds;
 
   void startTimer() {
     timerSeconds = 60;
@@ -39,10 +41,10 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
       Duration(seconds: 1),
       (Timer _timer) {
         setState(() {
-          if (timerSeconds < 1) {
+          if (timerSeconds! < 1) {
             _timer.cancel();
           } else {
-            timerSeconds--;
+            timerSeconds = timerSeconds! - 1;
           }
         });
       },
@@ -67,7 +69,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: SimpleAppBar(context).create(
         text: "ایجاد حساب کاربری",
         showBackBtn: true,
@@ -108,8 +110,8 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
                         pinBoxDecoration: (
                           borderColor,
                           pinBoxColor, {
-                          borderWidth,
-                          radius,
+                          double? borderWidth,
+                          double? radius,
                         }) {
                           return BoxDecoration(
                             border: Border.all(
@@ -176,7 +178,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
 
   void onSubmitBtnTap() async {
     print("onTap\n");
-    var result = await repository.checkUserSms(sms: smsCode);
+    var result = await repository.checkUserSms(sms: smsCode!);
 
     result.fold((l) {
       setState(() {
@@ -185,7 +187,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
       });
     }, (r) {
       // App.restart(context);
-      timer.cancel();
+      timer!.cancel();
       Routes.sailor.pop();
       Routes.sailor.navigate(
         "/",

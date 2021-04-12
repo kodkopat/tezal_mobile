@@ -1,22 +1,23 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   ProfileMenuItem({
-    Key key,
-    @required this.text,
-    @required this.iconData,
-    @required this.onTap,
+    required this.text,
+    required this.iconData,
+    required this.onTap,
     this.showChevron,
-  }) : super(key: key);
+  });
 
   final String text;
   final IconData iconData;
   final void Function() onTap;
-  final bool showChevron;
+  final bool? showChevron;
 
   @override
   Widget build(BuildContext context) {

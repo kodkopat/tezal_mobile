@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +16,6 @@ import '../../providers/customer_providers/profile_notifier.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/customer_edit_profile";
-
-  EditProfilePage({Key key}) : super(key: key);
 
   @override
   _EditProfilePageState createState() => _EditProfilePageState();
@@ -32,7 +32,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog prgDialog;
+  ProgressDialog? prgDialog;
 
   @override
   void initState() {
@@ -85,15 +85,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ActionBtn(
                 text: "ثبت",
                 onTap: () async {
-                  if (formKey.currentState.validate()) {
-                    prgDialog.show();
+                  if ((formKey.currentState as FormState).validate()) {
+                    prgDialog!.show();
 
                     await profileNotifier.editInfo(
                       name: nameCtrl.text,
                       email: emailCtrl.text,
                     );
 
-                    prgDialog.hide();
+                    prgDialog!.hide();
                     Routes.sailor.pop();
                   }
                 },

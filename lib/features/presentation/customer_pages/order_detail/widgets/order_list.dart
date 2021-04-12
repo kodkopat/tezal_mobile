@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,9 @@ import 'order_list_item.dart';
 
 class OrderList extends StatelessWidget {
   const OrderList({
-    Key key,
-    @required this.orderItems,
-    @required this.orderNotifier,
-  }) : super(key: key);
+    required this.orderItems,
+    required this.orderNotifier,
+  });
 
   final List<OrderItem> orderItems;
   final OrderNotifier orderNotifier;
@@ -30,10 +30,10 @@ class OrderList extends StatelessWidget {
           spread: 0,
         ),
       child: ListView.separated(
-        shrinkWrap: true,
+        // shrinkWrap: true,
         itemCount: orderItems.length,
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return OrderListItem(
             orderItem: orderItems[index],

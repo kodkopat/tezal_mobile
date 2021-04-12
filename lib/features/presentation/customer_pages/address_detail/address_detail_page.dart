@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +14,7 @@ import 'widgets/address_detail_menu.dart';
 class AddressDetailPage extends StatelessWidget {
   static const route = "/customer_address_detail";
 
-  AddressDetailPage({@required this.addressId});
+  AddressDetailPage({required this.addressId});
 
   final String addressId;
 
@@ -30,7 +31,7 @@ class AddressDetailPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.detailErrorMsg != null
                 ? Txt(
-                    provider.detailErrorMsg,
+                    provider.detailErrorMsg!,
                     style: AppTxtStyles().body..alignment.center(),
                   )
                 : Column(
@@ -38,7 +39,7 @@ class AddressDetailPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AddressDetailMenu(
-                        address: provider.addressResultModel.data,
+                        address: provider.addressResultModel!.data,
                       ),
                       Divider(
                         color: Colors.black12,

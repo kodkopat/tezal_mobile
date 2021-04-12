@@ -1,21 +1,22 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 class SearchBox extends StatefulWidget {
   SearchBox({
-    Key key,
-    @required this.controller,
-    @required this.onSearchTap,
-    @required this.terms,
+    required this.controller,
+    required this.onSearchTap,
+    required this.terms,
     this.textDirection,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final void Function() onSearchTap;
   final List<String> terms;
-  final TextDirection textDirection;
+  final TextDirection? textDirection;
 
   @override
   _SearchBoxState createState() => _SearchBoxState();
@@ -118,10 +119,9 @@ class _SearchBoxState extends State<SearchBox> {
 
 class _SearchSuggestionList extends StatelessWidget {
   _SearchSuggestionList({
-    Key key,
-    @required this.terms,
-    @required this.onTermSelected,
-  }) : super(key: key);
+    required this.terms,
+    required this.onTermSelected,
+  });
 
   final List<String> terms;
   final void Function(String) onTermSelected;

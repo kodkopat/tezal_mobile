@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -8,12 +9,11 @@ import 'comment_list_load_more_btn.dart';
 
 class CommentList extends StatelessWidget {
   const CommentList({
-    Key key,
-    @required this.commentsResultModel,
-    @required this.showAllCommentOnTap,
-    @required this.enableLoadMore,
-    @required this.enableHeader,
-  }) : super(key: key);
+    required this.commentsResultModel,
+    required this.showAllCommentOnTap,
+    required this.enableLoadMore,
+    required this.enableHeader,
+  });
 
   final CommentsResultModel commentsResultModel;
   final void Function() showAllCommentOnTap;
@@ -53,10 +53,9 @@ class CommentList extends StatelessWidget {
           ),
         ListView.builder(
           shrinkWrap: true,
-          itemCount:
-              enableLoadMore ?? false ? comments.length + 1 : comments.length,
+          itemCount: enableLoadMore ? comments.length + 1 : comments.length,
           physics: NeverScrollableScrollPhysics(),
-          itemBuilder: enableLoadMore ?? false
+          itemBuilder: enableLoadMore
               ? (context, index) {
                   if (index != comments.length) {
                     return CommentListItem(

@@ -1,11 +1,12 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 class ProductListItemLikeToggle extends StatefulWidget {
-  ProductListItemLikeToggle({
-    Key key,
-    @required this.onChange,
-    this.defaultValue,
+  const ProductListItemLikeToggle({
+    Key? key,
+    required this.defaultValue,
+    required this.onChange,
   }) : super(key: key);
 
   final bool defaultValue;
@@ -18,12 +19,12 @@ class ProductListItemLikeToggle extends StatefulWidget {
 
 class _ProductListItemLikeToggleState extends State<ProductListItemLikeToggle>
     with AutomaticKeepAliveClientMixin<ProductListItemLikeToggle> {
-  bool value;
+  bool value = false;
 
   @override
   void initState() {
     super.initState();
-    value = widget.defaultValue ?? false;
+    value = widget.defaultValue;
   }
 
   @override
@@ -39,7 +40,6 @@ class _ProductListItemLikeToggleState extends State<ProductListItemLikeToggle>
         ..width(36)
         ..height(36)
         ..borderRadius(all: 8)
-        // ..background.color(Color(0xffEFEFEF))
         ..ripple(true),
       child: Icon(
         Icons.favorite_rounded,

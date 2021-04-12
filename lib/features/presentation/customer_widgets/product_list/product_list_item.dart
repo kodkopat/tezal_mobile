@@ -1,6 +1,7 @@
 import 'dart:convert';
-
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -19,15 +20,13 @@ import 'product_list_item_like_toggle.dart';
 
 class ProductListItem extends StatelessWidget {
   ProductListItem({
-    Key key,
-    @required this.product,
-    @required this.onTap,
-  }) : super(key: key);
+    required this.product,
+    required this.onTap,
+  });
 
   final ProductResultModel product;
   final void Function() onTap;
   final _customerProductRepo = CustomerProductRepository();
-  final productCounterKey = GlobalKey<ProductListItemCounterState>();
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +106,6 @@ class ProductListItem extends StatelessWidget {
               ),
               ProductListItemCounter(
                 hieght: 36,
-                key: productCounterKey,
                 defaultValue: product.amount * product.step,
                 step: product.step,
                 unit: "${product.productUnit}",
@@ -156,7 +154,7 @@ class ProductListItem extends StatelessWidget {
         multi: true,
       ),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
             base64Decode(r.data.photos.first),

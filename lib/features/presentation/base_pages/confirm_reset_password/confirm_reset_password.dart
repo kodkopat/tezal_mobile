@@ -1,6 +1,9 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:keyboard_avoider/keyboard_avoider.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
 
 import '../../../../core/page_routes/routes.dart';
@@ -15,10 +18,7 @@ import '../../customer_widgets/simple_app_bar.dart';
 class ConfirmResetPasswordPage extends StatefulWidget {
   static const route = "/confirm_reset_password";
 
-  const ConfirmResetPasswordPage({
-    Key key,
-    @required this.phone,
-  }) : super(key: key);
+  const ConfirmResetPasswordPage({required this.phone});
 
   final String phone;
 
@@ -39,7 +39,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog prgDialog;
+  ProgressDialog? prgDialog;
 
   var textStyle = TextStyle(
     color: Colors.black,
@@ -69,7 +69,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: SimpleAppBar(context).create(
         text: "تغییر رمز عبور",
         showBackBtn: true,
@@ -162,8 +162,8 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
   }
 
   void onSubmitBtnTap() async {
-    if (formKey.currentState.validate()) {
-      prgDialog.show();
+    if (((formKey.currentState as FormState)).validate()) {
+      prgDialog!.show();
       var result = await repository.resetPass(
         phone: phoneCtrl.text,
         sms: pinCodeCtrl.text,
@@ -173,16 +173,16 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
 
       result.fold(
         (l) {
-          prgDialog.hide();
+          prgDialog!.hide();
 
-          formKey.currentState.reset();
+          (formKey.currentState as FormState).reset();
           setState(() {
             errorTxt = l.message;
             errorVisibility = true;
           });
         },
         (r) {
-          prgDialog.hide();
+          prgDialog!.hide();
           Routes.sailor.pop();
           Routes.sailor.pop();
         },

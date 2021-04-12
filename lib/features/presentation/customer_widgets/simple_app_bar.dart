@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +17,9 @@ class SimpleAppBar {
   SimpleAppBar(this.context);
 
   AppBar create({
-    @required String text,
-    bool showBackBtn,
-    bool showBasketBtn,
+    required String text,
+    bool? showBackBtn,
+    bool? showBasketBtn,
   }) {
     return AppBar(
       automaticallyImplyLeading: false,

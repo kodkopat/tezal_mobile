@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -5,10 +6,9 @@ import '../../../data/models/comments_result_model.dart';
 
 class CommentListItem extends StatelessWidget {
   const CommentListItem({
-    Key key,
-    @required this.comment,
-    @required this.onTap,
-  }) : super(key: key);
+    required this.comment,
+    required this.onTap,
+  });
 
   final Comment comment;
   final void Function() onTap;

@@ -8,10 +8,9 @@ import 'markets_list_item.dart';
 
 class MarketsList extends StatelessWidget {
   MarketsList({
-    Key key,
-    @required this.markets,
-    @required this.repository,
-  }) : super(key: key);
+    required this.markets,
+    required this.repository,
+  });
 
   final List<Market> markets;
   final CustomerMarketRepository repository;

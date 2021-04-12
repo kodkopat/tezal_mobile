@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,20 +23,20 @@ class LikedProductsPage extends StatelessWidget {
           provider.fetchLikedProducts();
         }
 
-        return provider.likedProductsloading
+        return provider.likedProductsLoading
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.likedProductsErrorMsg != null
                 ? Txt(
-                    provider.likedProductsErrorMsg,
+                    provider.likedProductsErrorMsg!,
                     style: AppTxtStyles().body..alignment.center(),
                   )
-                : provider.likedProductsResultModel.data.isEmpty
+                : provider.likedProductsResultModel!.data.isEmpty
                     ? Txt(
                         "لیست محصولات مورد علاقه خالی است",
                         style: AppTxtStyles().body..alignment.center(),
                       )
                     : LikedProductList(
-                        likedProducts: provider.likedProductsResultModel.data,
+                        likedProducts: provider.likedProductsResultModel!.data,
                         productNotifier: provider,
                       );
       },

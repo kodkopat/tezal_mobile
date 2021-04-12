@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -30,7 +31,7 @@ class WalletPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.infoErrorMsg != null
                 ? Txt(
-                    provider.infoErrorMsg,
+                    provider.infoErrorMsg!,
                     style: AppTxtStyles().body..alignment.center(),
                   )
                 : Parent(
@@ -46,7 +47,7 @@ class WalletPage extends StatelessWidget {
                           style: AppTxtStyles().footNote..alignment.center(),
                         ),
                         Txt(
-                          "${intl.NumberFormat("#,000").format(provider.walletInfoResultModel.data.balance)}",
+                          "${intl.NumberFormat("#,000").format(provider.walletInfoResultModel!.data.balance)}",
                           style: AppTxtStyles().title
                             ..bold()
                             ..alignment.center(),
@@ -77,10 +78,10 @@ class WalletPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.detailErrorMsg != null
                 ? Txt(
-                    provider.detailErrorMsg,
+                    provider.detailErrorMsg!,
                     style: AppTxtStyles().body..alignment.center(),
                   )
-                : provider.walletDetailList.isEmpty
+                : provider.walletDetailList!.isEmpty
                     ? Txt(
                         "لیست تراکنش‌های شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),
@@ -92,10 +93,10 @@ class WalletPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             TransactionList(
-                              walletDetail: provider.walletDetailList,
+                              walletDetail: provider.walletDetailList!,
                             ),
                             SizedBox(height: 8),
-                            if (provider.enableLoadMoreData)
+                            if (provider.enableLoadMoreData!)
                               LoadMoreBtn(
                                 onTap: () {
                                   provider.walletDetail();

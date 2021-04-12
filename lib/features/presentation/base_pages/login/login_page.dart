@@ -1,6 +1,9 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../../../core/page_routes/routes.dart';
@@ -12,7 +15,7 @@ import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../base_widgets/agreement_text.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../registeration/registration_page.dart';
+import '../registration/registration_page.dart';
 import '../reset_password/reset_password_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -31,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog prgDialog;
+  ProgressDialog? prgDialog;
 
   var textStyle = TextStyle(
     color: Colors.black,
@@ -58,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: SimpleAppBar(context).create(
         text: "ورود به حساب کاربری",
         showBackBtn: true,
@@ -151,8 +154,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> onLoginBtnTap() async {
-    if (formKey.currentState.validate()) {
-      prgDialog.show();
+    if (((formKey.currentState as FormState)).validate()) {
+      prgDialog!.show();
       var result = await repository.userLogin(
         username: phoneCtrl.text,
         password: passCtrl.text,
@@ -160,16 +163,16 @@ class _LoginPageState extends State<LoginPage> {
 
       result.fold(
         (l) {
-          prgDialog.hide();
+          prgDialog!.hide();
 
-          formKey.currentState.reset();
+          (formKey.currentState as FormState).reset();
           setState(() {
             errorTxt = l.message;
             errorVisibility = true;
           });
         },
         (r) {
-          prgDialog.hide();
+          prgDialog!.hide();
 
           // App.restart(context);
           Routes.sailor.pop();

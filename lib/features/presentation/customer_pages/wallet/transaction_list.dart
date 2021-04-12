@@ -5,7 +5,7 @@ import 'package:tezal/features/data/models/wallet_detail_result_model.dart'
 import 'transaction_list_item.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({@required this.walletDetail});
+  const TransactionList({required this.walletDetail});
 
   final List<wallet.Detail> walletDetail;
 

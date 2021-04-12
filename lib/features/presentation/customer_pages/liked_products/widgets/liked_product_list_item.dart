@@ -1,6 +1,7 @@
 import 'dart:convert';
-
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,9 @@ import '../../../providers/customer_providers/product_notifier.dart';
 
 class LikedProductListItem extends StatelessWidget {
   const LikedProductListItem({
-    @required this.likedProduct,
-    @required this.onTap,
-    @required this.productNotifier,
+    required this.likedProduct,
+    required this.onTap,
+    required this.productNotifier,
   });
 
   final LikedProduct likedProduct;
@@ -76,8 +77,16 @@ class LikedProductListItem extends StatelessWidget {
                       ..bold(),
                   ),
                   Txt(
-                    "${likedProduct.category}",
-                    style: AppTxtStyles().body
+                    " دسته: " + "${likedProduct.category}",
+                    style: AppTxtStyles().footNote
+                      ..textColor(Colors.black38)
+                      ..padding(right: 4)
+                      ..textOverflow(TextOverflow.ellipsis)
+                      ..maxLines(1),
+                  ),
+                  Txt(
+                    " فروشگاه: " + "${likedProduct.market}",
+                    style: AppTxtStyles().footNote
                       ..textColor(Colors.black38)
                       ..padding(right: 4)
                       ..textOverflow(TextOverflow.ellipsis)
@@ -91,17 +100,12 @@ class LikedProductListItem extends StatelessWidget {
             right: 2,
             top: 2,
             child: ProductListItemLikeToggle(
+              key: GlobalKey(),
               defaultValue: true,
               onChange: (value) async {
-                if (value) {
-                  productNotifier.likeProduct(
-                    productId: likedProduct.productId,
-                  );
-                } else {
-                  productNotifier.unlikeProduct(
-                    productId: likedProduct.productId,
-                  );
-                }
+                productNotifier.unlikeProduct(
+                  productId: likedProduct.productId,
+                );
               },
             ),
           ),
@@ -113,11 +117,11 @@ class LikedProductListItem extends StatelessWidget {
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
       future: productNotifier.customerProductRepo.productphoto(
-        id: likedProduct.id,
+        id: likedProduct.productId,
         multi: true,
       ),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
             base64Decode(r.data.photos.first),

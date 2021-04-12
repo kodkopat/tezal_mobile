@@ -4,7 +4,7 @@ import '../../../data/models/customer_profile_result_model.dart';
 import '../../../data/repositories/customer_repository.dart';
 
 class ProfileNotifier extends ChangeNotifier {
-  static ProfileNotifier _instance;
+  static ProfileNotifier? _instance;
 
   factory ProfileNotifier(
     CustomerRepository customerRepo,
@@ -15,18 +15,18 @@ class ProfileNotifier extends ChangeNotifier {
       );
     }
 
-    return _instance;
+    return _instance!;
   }
 
   ProfileNotifier._privateConstructor({
-    this.customerRepo,
+    required this.customerRepo,
   });
 
   final CustomerRepository customerRepo;
 
   bool loading = true;
-  String errorMsg;
-  CustomerProfileResultModel customerProfile;
+  String? errorMsg;
+  CustomerProfileResultModel? customerProfile;
 
   Future<void> fetchInfo() async {
     var result = await customerRepo.customerProfile;
@@ -41,8 +41,8 @@ class ProfileNotifier extends ChangeNotifier {
   }
 
   Future<void> editInfo({
-    @required String name,
-    @required String email,
+    required String name,
+    required String email,
   }) async {
     var result = await customerRepo.editCustomerProfile(
       name: name,

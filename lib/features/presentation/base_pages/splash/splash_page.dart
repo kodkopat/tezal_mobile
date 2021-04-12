@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -78,22 +79,17 @@ class _AppUserTypeParser {
   static const _deliveryKey = "delivery";
 
   static _AppUserType fromString(String userType) {
-    if (userType == null || userType.trim().isEmpty)
-      return _AppUserType.Customer;
+    if (userType.trim().isEmpty) return _AppUserType.Customer;
 
     switch (userType.toLowerCase()) {
       case _customerKey:
         return _AppUserType.Customer;
-        break;
       case _marketKey:
         return _AppUserType.Market;
-        break;
       case _deliveryKey:
         return _AppUserType.Delivery;
-        break;
       default:
         return _AppUserType.Customer;
-        break;
     }
   }
 }

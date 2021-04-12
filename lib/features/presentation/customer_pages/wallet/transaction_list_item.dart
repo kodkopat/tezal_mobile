@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -8,7 +9,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 
 class TransactionListItem extends StatelessWidget {
-  const TransactionListItem({@required this.walletDetail});
+  const TransactionListItem({required this.walletDetail});
 
   final wallet.Detail walletDetail;
 

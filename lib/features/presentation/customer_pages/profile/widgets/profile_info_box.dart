@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
@@ -7,10 +9,9 @@ import '../../../../data/models/customer_profile_result_model.dart';
 
 class ProfileInfoBox extends StatelessWidget {
   const ProfileInfoBox({
-    Key key,
-    @required this.profileInfo,
-    @required this.onEditBtnTap,
-  }) : super(key: key);
+    required this.profileInfo,
+    required this.onEditBtnTap,
+  });
 
   final CustomerProfileResultModel profileInfo;
   final void Function() onEditBtnTap;
@@ -87,21 +88,6 @@ class ProfileInfoBox extends StatelessWidget {
     );
   }
 
-  // Widget get _futureImgFile {
-  //   return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-  //     future: repository.photo(marketId: market.id),
-  //     successBuilder: (context, data) {
-  //       return data.fold(
-  //         (l) => SizedBox(),
-  //         (r) => Image.memory(
-  //           base64Decode(r.data.photos.first),
-  //         ),
-  //       );
-  //     },
-  //     errorBuilder: (context, data) => SizedBox(),
-  //   );
-  // }
-
   Widget get _fieldEmail => richText(
         title: "ایمیل",
         text: " ${profileInfo.data.email} ",
@@ -124,8 +110,8 @@ class ProfileInfoBox extends StatelessWidget {
   }
 
   Widget richText({
-    @required String title,
-    @required String text,
+    required String title,
+    required String text,
   }) {
     var textStyle = TextStyle(
       color: Colors.black,

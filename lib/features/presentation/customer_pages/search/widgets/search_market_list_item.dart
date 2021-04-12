@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -8,10 +9,7 @@ import '../../../customer_widgets/product_list/product_list.dart';
 import '../../market_detail/market_detail_page.dart';
 
 class SearchMarketListItem extends StatelessWidget {
-  const SearchMarketListItem({
-    Key key,
-    @required this.market,
-  }) : super(key: key);
+  const SearchMarketListItem({required this.market});
 
   final Market market;
 

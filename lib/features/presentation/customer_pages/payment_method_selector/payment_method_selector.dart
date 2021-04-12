@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class PaymentMethodSelectorPage extends StatelessWidget {
               onTap: () async {
                 await orderNotifier.saveOrder(
                   paymentType: 3,
-                  addressId: addressNotifier.selectedOrderAddressId,
+                  addressId: addressNotifier.selectedOrderAddressId!,
                 );
                 Routes.sailor.pop();
               },

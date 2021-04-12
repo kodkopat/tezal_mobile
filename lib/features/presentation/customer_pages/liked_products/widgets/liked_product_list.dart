@@ -8,8 +8,8 @@ import 'liked_product_list_item.dart';
 
 class LikedProductList extends StatelessWidget {
   const LikedProductList({
-    @required this.likedProducts,
-    @required this.productNotifier,
+    required this.likedProducts,
+    required this.productNotifier,
   });
 
   final List<LikedProduct> likedProducts;

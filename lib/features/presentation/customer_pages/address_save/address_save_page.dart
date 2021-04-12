@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:google_map_location_picker/google_map_location_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -19,51 +21,51 @@ class AddressSavePage extends StatefulWidget {
   static const route = "/customer_address_save";
 
   AddressSavePage({
-    @required this.id,
-    @required this.name,
-    @required this.address,
-    @required this.description,
+    this.id,
+    this.name,
+    this.address,
+    this.description,
   });
 
-  final String id;
-  final String name;
-  final String address;
-  final String description;
+  final String? id;
+  final String? name;
+  final String? address;
+  final String? description;
 
   @override
   _AddressSavePageState createState() => _AddressSavePageState();
 }
 
 class _AddressSavePageState extends State<AddressSavePage> {
-  AddressNotifier addressNotifier;
+  late AddressNotifier addressNotifier;
 
-  String appBarText;
+  late String appBarText;
 
   final formKey = GlobalKey<FormState>();
 
-  var nameCtrl;
-  var addressCtrl;
-  var descCtrl;
+  late var nameCtrl;
+  late var addressCtrl;
+  late var descCtrl;
 
-  LocationResult locationResult;
+  late LocationResult locationResult;
 
-  String selectedProvinceId;
-  List<Province> provincesList;
-  List<String> provincesDropDownValues;
-  String provincesDropDownDefaultValue;
-  void Function(dynamic) provincesDropDownOnChange;
+  late String selectedProvinceId;
+  late List<Province> provincesList;
+  late List<String> provincesDropDownValues;
+  late String provincesDropDownDefaultValue;
+  late void Function(dynamic) provincesDropDownOnChange;
 
-  String selectedCityId;
-  List<City> citiesList;
-  List<String> citiesDropDownValues;
-  String citiesDropDownDefaultValue;
-  void Function(dynamic) citiesDropDownOnChange;
+  late String selectedCityId;
+  late List<City> citiesList;
+  late List<String> citiesDropDownValues;
+  late String citiesDropDownDefaultValue;
+  late void Function(dynamic) citiesDropDownOnChange;
 
-  void Function() submitBtnOnTap;
+  late void Function() submitBtnOnTap;
   bool loading = true;
 
   void initializeState(BuildContext context) async {
-    addressNotifier ??= Provider.of<AddressNotifier>(context, listen: false);
+    addressNotifier = Provider.of<AddressNotifier>(context, listen: false);
 
     if (widget.id != null) {
       appBarText = "ویرایش آدرس";
@@ -115,11 +117,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
     };
 
     submitBtnOnTap = () async {
-      print("address: ${locationResult.address}\n");
-      print("latitude: ${locationResult.latLng.latitude}\n");
-      print("longitude: ${locationResult.latLng.longitude}\n");
-
-      if (formKey.currentState.validate()) {
+      if ((formKey.currentState as FormState).validate()) {
         if (widget.id == null) {
           await addressNotifier.addAddress(
             name: nameCtrl.text,
@@ -151,50 +149,18 @@ class _AddressSavePageState extends State<AddressSavePage> {
 
     locationResult = await showLocationPicker(
       context,
-
       "AIzaSyBbJbAPiVw28tsQTjo5NTj4VEJh_dXWIqI",
-
       hintText: "جستجوی موقعیت",
-
       resultCardAlignment: Alignment.bottomCenter,
-
       resultCardPadding: EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 8,
       ),
-
       resultCardConfirmIcon: Icon(
         Feather.check,
         color: Colors.white,
         size: 24,
       ),
-
-      // resultCardDecoration: BoxDecoration(
-      //   color: Colors.white,
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: Colors.black.withOpacity(0.2),
-      //       offset: Offset(0, 4.0),
-      //       blurRadius: 8,
-      //       spreadRadius: 0,
-      //     )
-      //   ],
-      // ),
-      //
-      // searchBarBoxDecoration: BoxDecoration(
-      //   color: Colors.white,
-      //   borderRadius: BorderRadius.all(
-      //     Radius.circular(8.0),
-      //   ),
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: Colors.black.withOpacity(0.2),
-      //       offset: Offset(0, 4.0),
-      //       blurRadius: 8,
-      //       spreadRadius: 0,
-      //     )
-      //   ],
-      // ),
     );
 
     setState(() => loading = false);
@@ -202,16 +168,16 @@ class _AddressSavePageState extends State<AddressSavePage> {
 
   void fillProvinces(List<Province> provinces) {
     provincesList = provinces;
-    selectedProvinceId ??= provincesList.first.id;
-    provincesDropDownValues = provincesList.map((e) => e.name).toList();
+    selectedProvinceId = provincesList.first.id;
+    provincesDropDownValues = provincesList.map((e) => "${e.name}").toList();
     provincesDropDownDefaultValue = provincesDropDownValues.first;
     setState(() {});
   }
 
   void fillCities(List<City> cities) {
     citiesList = cities;
-    selectedCityId ??= citiesList.first.id;
-    citiesDropDownValues = citiesList.map((e) => e.name).toList();
+    selectedCityId = citiesList.first.id;
+    citiesDropDownValues = citiesList.map((e) => "${e.name}").toList();
     citiesDropDownDefaultValue = citiesDropDownValues.first;
     setState(() {});
   }

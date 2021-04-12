@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
 
 import '../../../../core/page_routes/routes.dart';
@@ -27,7 +29,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog prgDialog;
+  ProgressDialog? prgDialog;
 
   var textStyle = TextStyle(
     color: Colors.black,
@@ -54,7 +56,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: SimpleAppBar(context).create(
         text: "درخواست تغییر رمز عبور",
         showBackBtn: true,
@@ -111,24 +113,24 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   void onSubmitBtnTap() async {
-    if (formKey.currentState.validate()) {
-      prgDialog.show();
+    if ((formKey.currentState as FormState).validate()) {
+      prgDialog!.show();
       var result = await repository.requestRestPass(
         phone: phoneCtrl.text,
       );
 
       result.fold(
         (l) {
-          prgDialog.hide();
+          prgDialog!.hide();
 
-          formKey.currentState.reset();
+          (formKey.currentState as FormState).reset();
           setState(() {
             errorTxt = l.message;
             errorVisibility = true;
           });
         },
         (r) {
-          prgDialog.hide();
+          prgDialog!.hide();
           Routes.sailor.navigate(
             ConfirmResetPasswordPage.route,
             params: {"phone": phoneCtrl.text},

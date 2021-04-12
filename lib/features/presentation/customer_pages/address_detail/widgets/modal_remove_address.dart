@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -5,8 +6,8 @@ import '../../../../../core/styles/txt_styles.dart';
 
 class RemoveAddressModal extends StatelessWidget {
   RemoveAddressModal({
-    @required this.onAccept,
-    @required this.onDiscard,
+    required this.onAccept,
+    required this.onDiscard,
   });
 
   final void Function() onAccept;

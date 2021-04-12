@@ -4,7 +4,7 @@ import '../../../providers/customer_providers/address_notifier.dart';
 import 'address_selector_list_item.dart';
 
 class AddressSelectorList extends StatelessWidget {
-  const AddressSelectorList({@required this.addressNotifier});
+  const AddressSelectorList({required this.addressNotifier});
 
   final AddressNotifier addressNotifier;
 
@@ -13,7 +13,7 @@ class AddressSelectorList extends StatelessWidget {
     var list = addressNotifier.addressList;
     return ListView.separated(
       shrinkWrap: true,
-      itemCount: list.length,
+      itemCount: list!.length,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return AddressSelectorListItem(

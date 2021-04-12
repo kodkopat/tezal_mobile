@@ -1,4 +1,6 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart' hide State;
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +17,7 @@ import '../../customer_widgets/simple_app_bar.dart';
 class MarketCommentsPage extends StatefulWidget {
   static const route = "/customer_market_comments";
 
-  MarketCommentsPage({
-    Key key,
-    @required this.marketId,
-  }) : super(key: key);
+  MarketCommentsPage({required this.marketId});
 
   final String marketId;
   final _customerMarketRepo = CustomerMarketRepository();
@@ -43,7 +42,7 @@ class _MarketCommentsPageState extends State<MarketCommentsPage> {
           // pageSize: 10,
         ),
         successBuilder: (context, data) {
-          return data.fold(
+          return data!.fold(
             (l) => Txt(
               l.message,
               style: AppTxtStyles().body..alignment.center(),

@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:tezal/core/widgets/dashed_line_painter.dart';
@@ -8,10 +9,9 @@ import 'basket_list_item.dart';
 
 class BasketList extends StatelessWidget {
   const BasketList({
-    Key key,
-    @required this.basketItems,
-    @required this.basketNotifier,
-  }) : super(key: key);
+    required this.basketItems,
+    required this.basketNotifier,
+  });
 
   final List<BasketItem> basketItems;
   final BasketNotifier basketNotifier;

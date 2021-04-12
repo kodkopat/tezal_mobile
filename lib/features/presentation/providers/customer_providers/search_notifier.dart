@@ -5,7 +5,7 @@ import '../../../data/repositories/customer_search_repository.dart';
 class SearchNotifier extends ChangeNotifier {
   SearchNotifier(
     this.context, {
-    @required this.customerSearchRepo,
+    required this.customerSearchRepo,
   });
 
   final BuildContext context;

@@ -1,4 +1,6 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -26,13 +28,12 @@ import '../product_comments/product_comments_page.dart';
 class ProductDetailPage extends StatelessWidget {
   static const route = "/customer_product_detail";
 
-  ProductDetailPage({Key key, this.productId}) : super(key: key);
+  ProductDetailPage({required this.productId});
 
   final String productId;
 
   final _customerProductRepo = CustomerProductRepository();
-  final productCounterKey = GlobalKey<ProductListItemCounterState>();
-  BasketNotifier basketNotifier;
+  BasketNotifier? basketNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -105,18 +106,17 @@ class ProductDetailPage extends StatelessWidget {
           SizedBox(height: 16),
           ProductListItemCounter(
             hieght: 36,
-            key: productCounterKey,
             defaultValue: productDetail.data.amount * productDetail.data.step,
             step: productDetail.data.step,
             unit: "${productDetail.data.productUnit}",
             onIncrease: (value) {
-              basketNotifier.addToBasket(
+              basketNotifier!.addToBasket(
                 productId: productDetail.data.id,
                 amount: 1,
               );
             },
             onDecrease: (value) {
-              basketNotifier.removeFromBasket(
+              basketNotifier!.removeFromBasket(
                 productId: productDetail.data.id,
                 amount: 1,
               );
@@ -136,7 +136,7 @@ class ProductDetailPage extends StatelessWidget {
         multi: true,
       ),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (l) => ProductImageView(images: ["", ""]),
           (r) => ProductImageView(images: r.data.photos),
         );
@@ -290,7 +290,7 @@ class ProductDetailPage extends StatelessWidget {
         page: 1,
       ),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (left) => Txt(
             left.message,
             style: AppTxtStyles().body..alignment.center(),

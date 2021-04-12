@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -5,10 +6,9 @@ import '../../../../core/styles/txt_styles.dart';
 
 class CommentListLoadMoreBtn extends StatelessWidget {
   const CommentListLoadMoreBtn({
-    Key key,
-    @required this.text,
-    @required this.onTap,
-  }) : super(key: key);
+    required this.text,
+    required this.onTap,
+  });
 
   final String text;
   final void Function() onTap;

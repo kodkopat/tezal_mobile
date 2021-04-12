@@ -6,7 +6,7 @@ import '../../address_detail/address_detail_page.dart';
 import 'adderss_list_item.dart';
 
 class AddressList extends StatelessWidget {
-  const AddressList({@required this.addresses});
+  const AddressList({required this.addresses});
 
   final List<Address> addresses;
 

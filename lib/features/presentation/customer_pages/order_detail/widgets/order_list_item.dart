@@ -1,6 +1,7 @@
 import 'dart:convert';
-
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -15,8 +16,8 @@ import '../../../providers/customer_providers/order_notifier.dart';
 
 class OrderListItem extends StatelessWidget {
   OrderListItem({
-    @required this.orderItem,
-    @required this.orderNotifier,
+    required this.orderItem,
+    required this.orderNotifier,
   });
 
   final OrderItem orderItem;
@@ -88,7 +89,7 @@ class OrderListItem extends StatelessWidget {
         multi: false,
       ),
       successBuilder: (context, data) {
-        return data.fold(
+        return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
             base64Decode(r.data.photos.first),
@@ -197,7 +198,7 @@ class OrderListItem extends StatelessWidget {
   }
 
   String _generateDiscountedRate() {
-    double discountRateTxt =
+    num discountRateTxt =
         100 - (orderItem.discountedPrice) * 100 / (orderItem.originalPrice);
     if (discountRateTxt < 1)
       return "0٪";

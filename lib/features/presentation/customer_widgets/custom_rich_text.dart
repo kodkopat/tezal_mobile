@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class CustomRichText extends StatelessWidget {
   CustomRichText({
-    @required this.title,
-    @required this.text,
+    required this.title,
+    required this.text,
     this.textAlign,
     this.dashedLineText,
   });
 
   final String title;
   final String text;
-  final TextAlign textAlign;
-  final bool dashedLineText;
+  final TextAlign? textAlign;
+  final bool? dashedLineText;
 
   final _textStyle = TextStyle(
     color: Colors.black,

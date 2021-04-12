@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 class AddressDetailMenuItem extends StatelessWidget {
   AddressDetailMenuItem({
-    Key key,
-    @required this.title,
-    @required this.text,
-  }) : super(key: key);
+    required this.title,
+    required this.text,
+  });
 
   final String title;
   final String text;

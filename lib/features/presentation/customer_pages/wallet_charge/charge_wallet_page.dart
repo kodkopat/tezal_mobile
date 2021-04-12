@@ -1,5 +1,7 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 
@@ -20,16 +22,13 @@ class ChargeWalletPage extends StatefulWidget {
 }
 
 class _ChargeWalletPageState extends State<ChargeWalletPage> {
-  final formKey = GlobalKey<FormState>();
-
-  WalletNotifier walletNotifier;
-
-  final amountCtrl = TextEditingController();
-
+  GlobalKey? formKey = GlobalKey<FormState>();
+  WalletNotifier? walletNotifier;
+  TextEditingController amountCtrl = TextEditingController();
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog prgDialog;
+  ProgressDialog? prgDialog;
 
   @override
   void initState() {
@@ -73,15 +72,15 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
               ActionBtn(
                 text: "ثبت",
                 onTap: () async {
-                  if (formKey.currentState.validate()) {
-                    prgDialog.show();
+                  if ((formKey!.currentState as FormState).validate()) {
+                    prgDialog!.show();
 
                     var loadBalanceResult =
-                        await walletNotifier.customerWalletRepo.loadBalance(
+                        await walletNotifier!.customerWalletRepo!.loadBalance(
                       amount: double.parse(amountCtrl.text),
                     );
 
-                    prgDialog.hide();
+                    prgDialog!.hide();
 
                     loadBalanceResult.fold(
                       (left) {
@@ -91,8 +90,8 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
                         });
                       },
                       (right) async {
-                        var confirmLoadBalanceResult = await walletNotifier
-                            .customerWalletRepo
+                        var confirmLoadBalanceResult = await walletNotifier!
+                            .customerWalletRepo!
                             .confirmLoadBalance(
                           id: right.data.transactionId,
                         );
@@ -105,7 +104,7 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
                             });
                           },
                           (right) {
-                            walletNotifier.refresh();
+                            walletNotifier!.refresh();
                             Routes.sailor.pop();
                           },
                         );

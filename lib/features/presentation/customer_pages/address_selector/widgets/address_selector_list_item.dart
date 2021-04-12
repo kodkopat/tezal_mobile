@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +9,10 @@ import '../../../providers/customer_providers/address_notifier.dart';
 
 class AddressSelectorListItem extends StatelessWidget {
   const AddressSelectorListItem({
-    Key key,
-    @required this.address,
-    @required this.onTap,
-    @required this.addressNotifier,
-  }) : super(key: key);
+    required this.address,
+    required this.onTap,
+    required this.addressNotifier,
+  });
 
   final Address address;
   final void Function() onTap;

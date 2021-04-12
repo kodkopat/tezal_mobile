@@ -5,7 +5,7 @@ import '../../../data/repositories/customer_basket_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 
 class BasketNotifier extends ChangeNotifier {
-  static BasketNotifier _instance;
+  static BasketNotifier? _instance;
 
   factory BasketNotifier(
     CustomerBasketRepository customerBasketRepo,
@@ -18,12 +18,12 @@ class BasketNotifier extends ChangeNotifier {
       );
     }
 
-    return _instance;
+    return _instance!;
   }
 
   BasketNotifier._privateConstructor({
-    this.customerBasketRepo,
-    this.customerProductRepo,
+    required this.customerBasketRepo,
+    required this.customerProductRepo,
   }) {
     fetchBasketCount();
   }
@@ -32,13 +32,14 @@ class BasketNotifier extends ChangeNotifier {
   final CustomerProductRepository customerProductRepo;
 
   bool loading = true;
-  String errorMsg;
-  BasketResultModel basketResultModel;
-  int basketCount;
+  String? errorMsg;
+  BasketResultModel? basketResultModel;
+  List<BasketItem>? basketItemList;
+  int? basketCount;
 
   Future<void> addToBasket({
-    @required String productId,
-    @required int amount,
+    required String productId,
+    required int amount,
   }) async {
     var result = await customerBasketRepo.addProductToBasket(
       productId: productId,
@@ -52,8 +53,8 @@ class BasketNotifier extends ChangeNotifier {
   }
 
   Future<void> removeFromBasket({
-    @required String productId,
-    @required int amount,
+    required String productId,
+    required int amount,
   }) async {
     var result = await customerBasketRepo.removeProductToBasket(
       productId: productId,
@@ -72,6 +73,7 @@ class BasketNotifier extends ChangeNotifier {
       (left) => errorMsg = left.message,
       (right) {
         basketResultModel = null;
+        basketItemList = null;
         basketCount = 0;
       },
     );
@@ -82,7 +84,10 @@ class BasketNotifier extends ChangeNotifier {
     var result = await customerBasketRepo.basket;
     result.fold(
       (left) => errorMsg = left.message,
-      (right) => basketResultModel = right,
+      (right) {
+        basketResultModel = right;
+        basketItemList = right.data!.items;
+      },
     );
 
     loading = false;
@@ -99,6 +104,11 @@ class BasketNotifier extends ChangeNotifier {
   }
 
   void refresh() async {
+    errorMsg = null;
+    basketResultModel = null;
+    basketItemList = null;
+    basketCount = null;
+
     await fetchBasket();
     await fetchBasketCount();
   }

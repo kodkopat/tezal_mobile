@@ -7,7 +7,7 @@ import '../../../data/repositories/customer_order_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 
 class OrderNotifier extends ChangeNotifier {
-  static OrderNotifier _instance;
+  static OrderNotifier? _instance;
 
   factory OrderNotifier(
     CustomerOrderRepository customerOrderRepo,
@@ -20,20 +20,20 @@ class OrderNotifier extends ChangeNotifier {
       );
     }
 
-    return _instance;
+    return _instance!;
   }
 
   OrderNotifier._privateConstructor({
-    this.customerOrderRepo,
-    this.customerProductRepo,
+    required this.customerOrderRepo,
+    required this.customerProductRepo,
   });
 
   final CustomerOrderRepository customerOrderRepo;
   final CustomerProductRepository customerProductRepo;
 
   bool olderOrdersLoading = true;
-  String olderOrdersErrorMsg;
-  OlderOrdersResultModel olderOrdersResultModel;
+  String? olderOrdersErrorMsg;
+  OlderOrdersResultModel? olderOrdersResultModel;
   Future<void> fetchOlderOrders() async {
     var result = await customerOrderRepo.olderOrders(page: 1);
     result.fold(
@@ -46,9 +46,9 @@ class OrderNotifier extends ChangeNotifier {
   }
 
   bool orderDetailLoading = true;
-  String orderDetailErrorMsg;
-  OrderDetailResultModel orderDetailResultModel;
-  Future<void> fetchOrderDetail({@required String orderId}) async {
+  String? orderDetailErrorMsg;
+  OrderDetailResultModel? orderDetailResultModel;
+  Future<void> fetchOrderDetail({required String orderId}) async {
     var result = await customerOrderRepo.orderDetail(id: orderId);
     result.fold(
       (left) => orderDetailErrorMsg = left.message,
@@ -60,11 +60,11 @@ class OrderNotifier extends ChangeNotifier {
   }
 
   bool orderLoading = true;
-  String orderErrorMsg;
-  OrderResultModel orderResultModel;
+  String? orderErrorMsg;
+  OrderResultModel? orderResultModel;
   Future<void> saveOrder({
-    @required int paymentType,
-    @required String addressId,
+    required int paymentType,
+    required String addressId,
   }) async {
     var result = await customerOrderRepo.saveOrder(
       paymentType: paymentType,

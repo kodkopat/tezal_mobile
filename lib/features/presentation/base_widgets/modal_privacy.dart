@@ -1,6 +1,9 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_html/flutter_html.dart';
 
 import '../../../core/exceptions/failure.dart';
@@ -27,7 +30,7 @@ class PrivacyModal extends StatelessWidget {
         child: CustomFutureBuilder<Either<Failure, AgreementResultModel>>(
           future: repository.privacyText,
           successBuilder: (context, data) {
-            return data.fold(
+            return data!.fold(
               (left) {
                 return Txt(
                   "${left.message}",
