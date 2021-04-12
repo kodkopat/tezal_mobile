@@ -5,20 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppLocalizations {
-  final Locale locale;
   AppLocalizations(this.locale);
+
+  final Locale locale;
+
   static const LocalizationsDelegate<AppLocalizations> delegate =
       _AppLocalizationsDelegate();
 
-  static AppLocalizations of(BuildContext context) {
+  static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  Map<String, String> _localizedStrings;
+  late Map<String, String> _localizedStrings;
 
   Future<bool> load() async {
     String jsonString =
-        await rootBundle.loadString('lang/${locale.languageCode}.json');
+        await rootBundle.loadString('assets/langs/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = json.decode(jsonString);
 
     _localizedStrings = jsonMap.map((key, value) {
@@ -28,7 +30,7 @@ class AppLocalizations {
     return true;
   }
 
-  String translate(String key) {
+  String? translate(String key) {
     return _localizedStrings[key];
   }
 }
