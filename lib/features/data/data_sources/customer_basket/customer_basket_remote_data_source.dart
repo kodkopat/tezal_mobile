@@ -3,7 +3,6 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
-import '../../models/basket_count_result_model.dart';
 import '../../models/basket_result_model.dart';
 import '../../models/payment_info_result_model.dart';
 
@@ -59,7 +58,7 @@ abstract class CustomerBasketRemoteDataSource {
 
   @GET("$_apiUrlPrefix/getBasketCount")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BasketCountResultModel> getBasketCount(
+  Future<BaseApiResultModel> getBasketCount(
     @Header("token") String token,
   );
 

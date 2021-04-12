@@ -9,188 +9,167 @@ part of 'customer_product_remote_data_source.dart';
 class _CustomerProductRemoteDataSource
     implements CustomerProductRemoteDataSource {
   _CustomerProductRemoteDataSource(this._dio, {this.baseUrl}) {
-    ArgumentError.checkNotNull(_dio, '_dio');
     baseUrl ??= 'http://178.157.14.77/api/';
   }
 
   final Dio _dio;
 
-  String baseUrl;
+  String? baseUrl;
 
   @override
   Future<AllProductsResultModel> getAll(marketId, categoryId) async {
-    ArgumentError.checkNotNull(marketId, 'marketId');
-    ArgumentError.checkNotNull(categoryId, 'categoryId');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
       r'CategoryId': categoryId
     };
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/GetAll',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = AllProductsResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AllProductsResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain'
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/GetAll',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AllProductsResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<ProductDetailResultModel> getDetail(token, id) async {
-    ArgumentError.checkNotNull(token, 'token');
-    ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/GetDetail',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = ProductDetailResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductDetailResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/GetDetail',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductDetailResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<PhotosResultModel> getPhoto(id, multi) async {
-    ArgumentError.checkNotNull(id, 'id');
-    ArgumentError.checkNotNull(multi, 'multi');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id, r'Multi': multi};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/GetPhoto',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = PhotosResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PhotosResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain'
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/GetPhoto',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PhotosResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<BaseApiResultModel> like(token, id) async {
-    ArgumentError.checkNotNull(token, 'token');
-    ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/Like',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = BaseApiResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/Like',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<BaseApiResultModel> unlike(token, id) async {
-    ArgumentError.checkNotNull(token, 'token');
-    ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/Unlike',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = BaseApiResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/Unlike',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<LikedProductsResultModel> getLikedProducts(token) async {
-    ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/GetLikedProducts',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = LikedProductsResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<LikedProductsResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/GetLikedProducts',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = LikedProductsResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<CommentsResultModel> getComments(productId, page) async {
-    ArgumentError.checkNotNull(productId, 'productId');
-    ArgumentError.checkNotNull(page, 'page');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'productId': productId,
       r'Page': page
     };
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>(
-        'customer/Product/GetComments',
-        queryParameters: queryParameters,
-        options: RequestOptions(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
-            },
-            extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = CommentsResultModel.fromJson(_result.data);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CommentsResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain'
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Product/GetComments',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = CommentsResultModel.fromJson(_result.data!);
     return value;
   }
 
@@ -199,19 +178,31 @@ class _CustomerProductRemoteDataSource
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request('customer/Product/AddComment',
-        queryParameters: queryParameters,
-        options: RequestOptions(
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain'
             },
             extra: _extra,
-            contentType: 'application/json',
-            baseUrl: baseUrl),
-        data: _data);
-    final value = _result.data;
+            contentType: 'application/json')
+        .compose(_dio.options, 'customer/Product/AddComment',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
     return value;
+  }
+
+  RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
+    if (T != dynamic &&
+        !(requestOptions.responseType == ResponseType.bytes ||
+            requestOptions.responseType == ResponseType.stream)) {
+      if (T == String) {
+        requestOptions.responseType = ResponseType.plain;
+      } else {
+        requestOptions.responseType = ResponseType.json;
+      }
+    }
+    return requestOptions;
   }
 }

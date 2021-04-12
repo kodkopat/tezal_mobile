@@ -1,3 +1,4 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../core/consts/consts.dart';
@@ -10,21 +11,21 @@ class AuthLocalDataSource {
   Future<void> saveUserId(String userId) async {
     await _secureStorage.write(
       key: storageKeyUserId,
-      value: userId,
+      value: "$userId",
     );
   }
 
   Future<void> saveUserToken(String userToken) async {
     await _secureStorage.write(
       key: storageKeyUserToken,
-      value: userToken,
+      value: "$userToken",
     );
   }
 
   Future<void> saveUserType(String userType) async {
     await _secureStorage.write(
       key: storageKeyUserType,
-      value: userType,
+      value: "$userType",
     );
   }
 
@@ -35,14 +36,10 @@ class AuthLocalDataSource {
   }
 
   Future<String> get userToken async {
-    return await _secureStorage.read(
-      key: storageKeyUserToken,
-    );
+    return await _secureStorage.read(key: storageKeyUserToken);
   }
 
   Future<String> get userType async {
-    return await _secureStorage.read(
-      key: storageKeyUserType,
-    );
+    return await _secureStorage.read(key: storageKeyUserType);
   }
 }
