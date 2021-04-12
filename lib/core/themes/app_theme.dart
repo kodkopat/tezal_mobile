@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   AppTheme({
-    @required this.context,
-    @required this.isDarkTheme,
+    required this.context,
+    required this.isDarkTheme,
   });
 
   final BuildContext context;

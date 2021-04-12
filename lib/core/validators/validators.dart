@@ -1,27 +1,27 @@
 class AppValidators {
-  static String name(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? name(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 نام کاربری الزامی است";
 
     return emptyCondition ? emptyTxt : null;
   }
 
-  static String address(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? address(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 آدرس الزامی است";
 
     return emptyCondition ? emptyTxt : null;
   }
 
-  static String description(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? description(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 توضیحات الزامی است";
 
     return emptyCondition ? emptyTxt : null;
   }
 
-  static String phone(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? phone(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 شماره موبایل الزامی است";
 
     bool errorCondition = value.trim().length != 11 || !value.startsWith("09");
@@ -34,8 +34,8 @@ class AppValidators {
             : null;
   }
 
-  static String email(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? email(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 ایمیل الزامی است";
 
     bool errorCondition = !value.contains(".") || !value.contains("@");
@@ -48,15 +48,15 @@ class AppValidators {
             : null;
   }
 
-  static String numeric(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? numeric(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 مبلغ وارد شده نامعتبر است";
 
     return emptyCondition ? emptyTxt : null;
   }
 
-  static String pass(String value) {
-    bool emptyCondition = value.trim().isEmpty;
+  static String? pass(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
     String emptyTxt = "\u26b9 رمز عبور الزامی است";
 
     bool errorCondition = value.trim().length < 4;
