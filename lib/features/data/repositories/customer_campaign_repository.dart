@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -38,7 +39,7 @@ class CustomerCampaignRepository {
   }
 
   Future<Either<Failure, PhotosResultModel>> campaignPhoto({
-    @required String campaignId,
+    required String campaignId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

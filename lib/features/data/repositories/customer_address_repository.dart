@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -40,7 +41,7 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, CitiesResultModel>> cities({
-    @required String provinceId,
+    required String provinceId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -52,13 +53,13 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> saveAddress({
-    @required String address,
-    @required String description,
-    @required bool isDefault,
-    @required String cityId,
-    @required String name,
-    @required String latitude,
-    @required String longitude,
+    required String address,
+    required String description,
+    required bool isDefault,
+    required String cityId,
+    required String name,
+    required String latitude,
+    required String longitude,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -81,14 +82,14 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> editAddress({
-    @required String id,
-    @required String address,
-    @required String description,
-    @required bool isDefault,
-    @required String cityId,
-    @required String name,
-    @required String latitude,
-    @required String longitude,
+    required String id,
+    required String address,
+    required String description,
+    required bool isDefault,
+    required String cityId,
+    required String name,
+    required String latitude,
+    required String longitude,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -112,7 +113,7 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> removeAddress({
-    @required String addressId,
+    required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -129,7 +130,7 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> setDefaultAddress({
-    @required String addressId,
+    required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -146,7 +147,7 @@ class CustomerAddressRepository {
   }
 
   Future<Either<Failure, AddressResultModel>> addressDetails({
-    @required String addressId,
+    required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -23,8 +24,8 @@ class AuthRepository {
   final AuthLocalDataSource _localDataSource;
 
   Future<Either<Failure, String>> userLogin({
-    @required String username,
-    @required String password,
+    required String username,
+    required String password,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -46,9 +47,9 @@ class AuthRepository {
   }
 
   Future<Either<Failure, String>> userRegister({
-    @required String name,
-    @required String phone,
-    @required String pass,
+    required String name,
+    required String phone,
+    required String pass,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -67,7 +68,7 @@ class AuthRepository {
   }
 
   Future<Either<Failure, String>> checkUserSms({
-    @required String sms,
+    required String sms,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -88,7 +89,7 @@ class AuthRepository {
   }
 
   Future<Either<Failure, String>> checkUserToken({
-    @required String token,
+    required String token,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -110,7 +111,7 @@ class AuthRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> requestRestPass({
-    @required String phone,
+    required String phone,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -124,10 +125,10 @@ class AuthRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> resetPass({
-    @required String phone,
-    @required String sms,
-    @required String password,
-    @required String passwordRepeat,
+    required String phone,
+    required String sms,
+    required String password,
+    required String passwordRepeat,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -174,7 +175,7 @@ class AuthRepository {
   }
 
   Future<String> get userToken async {
-    return await _localDataSource.userToken ?? "";
+    return await _localDataSource.userToken;
   }
 
   Future<String> get userType async {

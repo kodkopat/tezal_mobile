@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -9,7 +10,6 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_basket/customer_basket_local_data_source.dart';
 import '../data_sources/customer_basket/customer_basket_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
-import '../models/basket_count_result_model.dart';
 import '../models/basket_result_model.dart';
 import '../models/payment_info_result_model.dart';
 import 'auth_repository.dart';
@@ -43,10 +43,17 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getBasket(userToken);
+      try {
+        final userToken = await _authRepo.userToken;
+        print("getBasketToke:$userToken\n");
+        var result = await _remoteDataSource.getBasket(userToken);
 
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
+        return result.success
+            ? Right(result)
+            : Left(ApiFailure(result.message));
+      } catch (e) {
+        return Left(ApiFailure("اشکال در نمایش سبد خرید"));
+      }
     }
   }
 
@@ -62,7 +69,7 @@ class CustomerBasketRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> selectAddress({
-    @required String addressId,
+    required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -75,8 +82,8 @@ class CustomerBasketRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> addProductToBasket({
-    @required String productId,
-    @required int amount,
+    required String productId,
+    required int amount,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -93,8 +100,8 @@ class CustomerBasketRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> removeProductToBasket({
-    @required String productId,
-    @required int amount,
+    required String productId,
+    required int amount,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -110,7 +117,7 @@ class CustomerBasketRepository {
     }
   }
 
-  Future<Either<Failure, BasketCountResultModel>> get basketCount async {
+  Future<Either<Failure, BaseApiResultModel>> get basketCount async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -123,7 +130,7 @@ class CustomerBasketRepository {
             : Left(ApiFailure(result.message));
       } catch (error) {
         return Right(
-          BasketCountResultModel(
+          BaseApiResultModel(
             success: false,
             message: "failure",
             data: 0,
@@ -134,7 +141,7 @@ class CustomerBasketRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> updateBasket({
-    @required String note,
+    required String note,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

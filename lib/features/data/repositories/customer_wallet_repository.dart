@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -39,7 +40,7 @@ class CustomerWalletRepository {
   }
 
   Future<Either<Failure, WalletDetailResultModel>> walletDetails({
-    @required int page,
+    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -52,7 +53,7 @@ class CustomerWalletRepository {
   }
 
   Future<Either<Failure, WalletLoadBalanceResultModel>> loadBalance({
-    @required double amount,
+    required double amount,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -65,7 +66,7 @@ class CustomerWalletRepository {
   }
 
   Future<Either<Failure, WalletLoadBalanceResultModel>> confirmLoadBalance({
-    @required String id,
+    required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

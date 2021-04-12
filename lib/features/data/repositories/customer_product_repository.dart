@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -30,8 +31,8 @@ class CustomerProductRepository {
   final AuthRepository _authRepo;
 
   Future<Either<Failure, dynamic>> productList({
-    @required String marketId,
-    @required String categoryId,
+    required String marketId,
+    required String categoryId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -43,7 +44,7 @@ class CustomerProductRepository {
   }
 
   Future<Either<Failure, ProductDetailResultModel>> productDetail({
-    @required String id,
+    required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -56,8 +57,8 @@ class CustomerProductRepository {
   }
 
   Future<Either<Failure, PhotosResultModel>> productphoto({
-    @required String id,
-    @required bool multi,
+    required String id,
+    required bool multi,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -69,7 +70,7 @@ class CustomerProductRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> likeProduct({
-    @required String id,
+    required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -83,7 +84,7 @@ class CustomerProductRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> unlikeProduct({
-    @required String id,
+    required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -107,8 +108,8 @@ class CustomerProductRepository {
   }
 
   Future<Either<Failure, CommentsResultModel>> productComments({
-    @required String productId,
-    @required int page,
+    required String productId,
+    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

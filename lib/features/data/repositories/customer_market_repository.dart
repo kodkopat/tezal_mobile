@@ -1,9 +1,9 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
-import 'package:tezal/features/data/models/base_api_result_model.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -11,6 +11,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../../core/services/location.dart';
 import '../../data/data_sources/customer_market/customer_market_local_data_source.dart';
 import '../../data/data_sources/customer_market/customer_market_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
 import '../models/comments_result_model.dart';
 import '../models/market_detail_result_model.dart';
 import '../models/nearby_markets_result_model.dart';
@@ -33,8 +34,8 @@ class CustomerMarketRepository {
 
   Future<Either<Failure, NearByMarketsResultModel>> nearByMarkets(
     BuildContext context, {
-    @required int maxDistance,
-    @required int page,
+    required int maxDistance,
+    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -71,7 +72,7 @@ class CustomerMarketRepository {
   }
 
   Future<Either<Failure, MarketDetailResultModel>> marketDetail({
-    @required String marketId,
+    required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -84,7 +85,7 @@ class CustomerMarketRepository {
   }
 
   Future<Either<Failure, PhotosResultModel>> photo({
-    @required String marketId,
+    required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -96,8 +97,8 @@ class CustomerMarketRepository {
   }
 
   Future<Either<Failure, CommentsResultModel>> marketComments({
-    @required String marketId,
-    @required int page,
+    required String marketId,
+    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -111,9 +112,9 @@ class CustomerMarketRepository {
   }
 
   Future<Either<Failure, dynamic>> addComment({
-    @required String comment,
-    @required int point,
-    @required String marketId,
+    required String comment,
+    required int point,
+    required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

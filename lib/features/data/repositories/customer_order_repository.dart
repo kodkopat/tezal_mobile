@@ -1,7 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:meta/meta.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -28,8 +29,8 @@ class CustomerOrderRepository {
   final AuthRepository _authRepo;
 
   Future<Either<Failure, OrderResultModel>> saveOrder({
-    @required int paymentType,
-    @required String addressId,
+    required int paymentType,
+    required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -46,7 +47,7 @@ class CustomerOrderRepository {
   }
 
   Future<Either<Failure, OlderOrdersResultModel>> olderOrders({
-    @required int page,
+    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -59,7 +60,7 @@ class CustomerOrderRepository {
   }
 
   Future<Either<Failure, OrderDetailResultModel>> orderDetail({
-    @required String id,
+    required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
