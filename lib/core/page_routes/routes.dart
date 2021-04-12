@@ -1,9 +1,10 @@
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../features/presentation/base_pages/confirm_registration/confirm_registration.dart';
 import '../../features/presentation/base_pages/confirm_reset_password/confirm_reset_password.dart';
 import '../../features/presentation/base_pages/login/login_page.dart';
-import '../../features/presentation/base_pages/registeration/registration_page.dart';
+import '../../features/presentation/base_pages/registration/registration_page.dart';
 import '../../features/presentation/base_pages/reset_password/reset_password_page.dart';
 import '../../features/presentation/base_pages/splash/splash_page.dart';
 import '../../features/presentation/customer_pages/about_us/about_us_page.dart';
@@ -62,7 +63,7 @@ class Routes {
             SailorParam<String>(
               name: "phone",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
@@ -111,7 +112,7 @@ class Routes {
             SailorParam<String>(
               name: "marketId",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
@@ -125,7 +126,7 @@ class Routes {
             SailorParam<String>(
               name: "productId",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
@@ -139,7 +140,7 @@ class Routes {
             SailorParam<String>(
               name: "productId",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
@@ -153,7 +154,7 @@ class Routes {
             SailorParam<String>(
               name: "marketId",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
@@ -179,7 +180,7 @@ class Routes {
             SailorParam<String>(
               name: "orderId",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
@@ -197,7 +198,7 @@ class Routes {
             SailorParam<String>(
               name: "addressId",
               isRequired: true,
-              defaultValue: null,
+              defaultValue: "",
             ),
           ],
         ),
