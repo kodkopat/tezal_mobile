@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final walletInfoResultModel = walletInfoResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class WalletInfoResultModel {
@@ -13,24 +7,19 @@ class WalletInfoResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final Data data;
-
-  factory WalletInfoResultModel.fromRawJson(String str) =>
-      WalletInfoResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory WalletInfoResultModel.fromJson(Map<String, dynamic> json) =>
       WalletInfoResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null ? null : data.toJson(),
       };
@@ -42,23 +31,16 @@ class Data {
     @required this.lastActionDate,
   });
 
-  final int balance;
-  final DateTime lastActionDate;
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final balance;
+  final lastActionDate;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        balance: json["balance"] == null ? null : json["balance"],
-        lastActionDate: json["lastActionDate"] == null
-            ? null
-            : DateTime.parse(json["lastActionDate"]),
+        balance: json["balance"],
+        lastActionDate: json["lastActionDate"],
       );
 
   Map<String, dynamic> toJson() => {
-        "balance": balance == null ? null : balance,
-        "lastActionDate":
-            lastActionDate == null ? null : lastActionDate.toIso8601String(),
+        "balance": balance,
+        "lastActionDate": lastActionDate,
       };
 }

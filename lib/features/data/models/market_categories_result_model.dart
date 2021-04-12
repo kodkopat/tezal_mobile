@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final marketCategoriesResultModel = marketCategoriesResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class MarketCategoriesResultModel {
@@ -13,31 +7,33 @@ class MarketCategoriesResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final List<MarketCategory> data;
-
-  factory MarketCategoriesResultModel.fromRawJson(String str) =>
-      MarketCategoriesResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory MarketCategoriesResultModel.fromJson(Map<String, dynamic> json) =>
       MarketCategoriesResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null
             ? null
             : List<MarketCategory>.from(
-                json["data"].map((x) => MarketCategory.fromJson(x))),
+                json["data"].map(
+                  (x) => MarketCategory.fromJson(x),
+                ),
+              ),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(data.map((x) => x.toJson())),
+            : List<dynamic>.from(
+                data.map(
+                  (x) => x.toJson(),
+                ),
+              ),
       };
 }
 
@@ -49,27 +45,22 @@ class MarketCategory {
     @required this.photo,
   });
 
-  final String categoryId;
-  final String marketId;
-  final String name;
-  final String photo;
-
-  factory MarketCategory.fromRawJson(String str) =>
-      MarketCategory.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final categoryId;
+  final marketId;
+  final name;
+  final photo;
 
   factory MarketCategory.fromJson(Map<String, dynamic> json) => MarketCategory(
-        categoryId: json["categoryId"] == null ? null : json["categoryId"],
-        marketId: json["marketId"] == null ? null : json["marketId"],
-        name: json["name"] == null ? null : json["name"],
-        photo: json["photo"] == null ? null : json["photo"],
+        categoryId: json["categoryId"],
+        marketId: json["marketId"],
+        name: json["name"],
+        photo: json["photo"],
       );
 
   Map<String, dynamic> toJson() => {
-        "categoryId": categoryId == null ? null : categoryId,
-        "marketId": marketId == null ? null : marketId,
-        "name": name == null ? null : name,
-        "photo": photo == null ? null : photo,
+        "categoryId": categoryId,
+        "marketId": marketId,
+        "name": name,
+        "photo": photo,
       };
 }

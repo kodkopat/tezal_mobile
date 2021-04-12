@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final productResultModel = productResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class ProductResultModel {
@@ -31,40 +25,30 @@ class ProductResultModel {
   final step;
   final amount;
 
-  factory ProductResultModel.fromRawJson(String str) =>
-      ProductResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory ProductResultModel.fromJson(Map<String, dynamic> json) =>
       ProductResultModel(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        discountedPrice:
-            json["discountedPrice"] == null ? null : json["discountedPrice"],
-        totalDiscount:
-            json["totalDiscount"] == null ? null : json["totalDiscount"],
-        originalPrice:
-            json["originalPrice"] == null ? null : json["originalPrice"],
-        liked: json["liked"] == null ? null : json["liked"],
-        discountRate: json["discountRate"] == null
-            ? null
-            : json["discountRate"].toDouble(),
-        productUnit: json["productUnit"] == null ? null : json["productUnit"],
-        step: json["step"] == null ? null : json["step"],
-        amount: json["amount"] == null ? null : json["amount"],
+        id: json["id"],
+        name: json["name"],
+        discountedPrice: json["discountedPrice"],
+        totalDiscount: json["totalDiscount"],
+        originalPrice: json["originalPrice"],
+        liked: json["liked"],
+        discountRate: json["discountRate"],
+        productUnit: json["productUnit"],
+        step: json["step"],
+        amount: json["amount"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "discountedPrice": discountedPrice == null ? null : discountedPrice,
-        "totalDiscount": totalDiscount == null ? null : totalDiscount,
-        "originalPrice": originalPrice == null ? null : originalPrice,
-        "liked": liked == null ? null : liked,
-        "discountRate": discountRate == null ? null : discountRate,
-        "productUnit": productUnit == null ? null : productUnit,
-        "step": step == null ? null : step,
-        "amount": amount == null ? null : amount,
+        "id": id,
+        "name": name,
+        "discountedPrice": discountedPrice,
+        "totalDiscount": totalDiscount,
+        "originalPrice": originalPrice,
+        "liked": liked,
+        "discountRate": discountRate,
+        "productUnit": productUnit,
+        "step": step,
+        "amount": amount,
       };
 }

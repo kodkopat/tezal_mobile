@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final paymentInfoResultModel = paymentInfoResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class PaymentInfoResultModel {
@@ -13,24 +7,19 @@ class PaymentInfoResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final Data data;
-
-  factory PaymentInfoResultModel.fromRawJson(String str) =>
-      PaymentInfoResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory PaymentInfoResultModel.fromJson(Map<String, dynamic> json) =>
       PaymentInfoResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null ? null : data.toJson(),
       };
@@ -41,23 +30,26 @@ class Data {
     @required this.address,
   });
 
-  final List<Address> address;
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final address;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         address: json["address"] == null
             ? null
             : List<Address>.from(
-                json["address"].map((x) => Address.fromJson(x))),
+                json["address"].map(
+                  (x) => Address.fromJson(x),
+                ),
+              ),
       );
 
   Map<String, dynamic> toJson() => {
         "address": address == null
             ? null
-            : List<dynamic>.from(address.map((x) => x.toJson())),
+            : List<dynamic>.from(
+                address.map(
+                  (x) => x.toJson(),
+                ),
+              ),
       };
 }
 
@@ -72,37 +64,31 @@ class Address {
     @required this.address,
   });
 
-  final String id;
-  final DateTime createDate;
-  final bool isSelected;
-  final String name;
-  final String city;
-  final bool isDefault;
-  final String address;
-
-  factory Address.fromRawJson(String str) => Address.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final id;
+  final createDate;
+  final isSelected;
+  final name;
+  final city;
+  final isDefault;
+  final address;
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-        id: json["id"] == null ? null : json["id"],
-        createDate: json["createDate"] == null
-            ? null
-            : DateTime.parse(json["createDate"]),
-        isSelected: json["isSelected"] == null ? null : json["isSelected"],
-        name: json["name"] == null ? null : json["name"],
-        city: json["city"] == null ? null : json["city"],
-        isDefault: json["isDefault"] == null ? null : json["isDefault"],
-        address: json["address"] == null ? null : json["address"],
+        id: json["id"],
+        createDate: json["createDate"],
+        isSelected: json["isSelected"],
+        name: json["name"],
+        city: json["city"],
+        isDefault: json["isDefault"],
+        address: json["address"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "createDate": createDate == null ? null : createDate.toIso8601String(),
-        "isSelected": isSelected == null ? null : isSelected,
-        "name": name == null ? null : name,
-        "city": city == null ? null : city,
-        "isDefault": isDefault == null ? null : isDefault,
-        "address": address == null ? null : address,
+        "id": id,
+        "createDate": createDate,
+        "isSelected": isSelected,
+        "name": name,
+        "city": city,
+        "isDefault": isDefault,
+        "address": address,
       };
 }

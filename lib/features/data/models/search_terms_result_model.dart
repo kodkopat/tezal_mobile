@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final searchTermsResultModel = searchTermsResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class SearchTermsResultModel {
@@ -13,18 +7,13 @@ class SearchTermsResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final List<String> data;
-
-  factory SearchTermsResultModel.fromRawJson(String str) =>
-      SearchTermsResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory SearchTermsResultModel.fromJson(Map<String, dynamic> json) =>
       SearchTermsResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null
             ? null
@@ -32,7 +21,7 @@ class SearchTermsResultModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null ? null : List<dynamic>.from(data.map((x) => x)),
       };

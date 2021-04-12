@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final orderResultModel = orderResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class OrderResultModel {
@@ -13,24 +7,19 @@ class OrderResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final Data data;
-
-  factory OrderResultModel.fromRawJson(String str) =>
-      OrderResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory OrderResultModel.fromJson(Map<String, dynamic> json) =>
       OrderResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null ? null : data.toJson(),
       };
@@ -42,20 +31,16 @@ class Data {
     @required this.orderId,
   });
 
-  final int paymentType;
-  final String orderId;
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final paymentType;
+  final orderId;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        paymentType: json["paymentType"] == null ? null : json["paymentType"],
-        orderId: json["orderId"] == null ? null : json["orderId"],
+        paymentType: json["paymentType"],
+        orderId: json["orderId"],
       );
 
   Map<String, dynamic> toJson() => {
-        "paymentType": paymentType == null ? null : paymentType,
-        "orderId": orderId == null ? null : orderId,
+        "paymentType": paymentType,
+        "orderId": orderId,
       };
 }

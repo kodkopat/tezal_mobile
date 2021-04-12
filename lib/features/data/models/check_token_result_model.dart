@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final checkTokenResultModel = checkTokenResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class CheckTokenResultModel {
@@ -13,24 +7,19 @@ class CheckTokenResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final Data data;
-
-  factory CheckTokenResultModel.fromRawJson(String str) =>
-      CheckTokenResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory CheckTokenResultModel.fromJson(Map<String, dynamic> json) =>
       CheckTokenResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null ? null : data.toJson(),
       };
@@ -43,23 +32,19 @@ class Data {
     @required this.token,
   });
 
-  final String name;
-  final String type;
-  final String token;
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final name;
+  final type;
+  final token;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        name: json["name"] == null ? null : json["name"],
-        type: json["type"] == null ? null : json["type"],
-        token: json["token"] == null ? null : json["token"],
+        name: json["name"],
+        type: json["type"],
+        token: json["token"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "type": type == null ? null : type,
-        "token": token == null ? null : token,
+        "name": name,
+        "type": type,
+        "token": token,
       };
 }

@@ -1,26 +1,15 @@
-// To parse this JSON data, do
-//
-//     final nearByMarketsResultModel = nearByMarketsResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class NearByMarketsResultModel {
   NearByMarketsResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final Data data;
-
-  factory NearByMarketsResultModel.fromRawJson(String str) =>
-      NearByMarketsResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory NearByMarketsResultModel.fromJson(Map<String, dynamic> json) =>
       NearByMarketsResultModel(
@@ -32,31 +21,31 @@ class NearByMarketsResultModel {
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data.toJson(),
+        "data": data,
       };
 }
 
 class Data {
   Data({
-    @required this.basketCount,
+    @required this.page,
+    @required this.total,
     @required this.markets,
   });
 
-  final int basketCount;
-  final List<Market> markets;
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final page;
+  final total;
+  final markets;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        basketCount: json["basketCount"],
+        page: json["page"],
+        total: json["total"],
         markets:
             List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "basketCount": basketCount,
+        "page": page,
+        "total": total,
         "markets": List<dynamic>.from(markets.map((x) => x.toJson())),
       };
 }
@@ -88,10 +77,6 @@ class Market {
   final deliveryCost;
   final distance;
 
-  factory Market.fromRawJson(String str) => Market.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Market.fromJson(Map<String, dynamic> json) => Market(
         id: json["id"],
         address: json["address"],
@@ -103,7 +88,7 @@ class Market {
         clouseAt: json["clouseAt"],
         situation: json["situation"],
         deliveryCost: json["deliveryCost"],
-        distance: json["distance"].toDouble(),
+        distance: json["distance"],
       );
 
   Map<String, dynamic> toJson() => {

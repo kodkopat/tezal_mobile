@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final photosResultModel = photosResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class PhotosResultModel {
@@ -13,24 +7,19 @@ class PhotosResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final Data data;
-
-  factory PhotosResultModel.fromRawJson(String str) =>
-      PhotosResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory PhotosResultModel.fromJson(Map<String, dynamic> json) =>
       PhotosResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null ? null : data.toJson(),
       };
@@ -41,11 +30,7 @@ class Data {
     @required this.photos,
   });
 
-  final List<String> photos;
-
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final photos;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         photos: json["photos"] == null

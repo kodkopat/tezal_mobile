@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final allProductsResultModel = allProductsResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:meta/meta.dart';
 
 class AllProductsResultModel {
@@ -13,18 +7,13 @@ class AllProductsResultModel {
     @required this.data,
   });
 
-  final bool success;
-  final dynamic message;
-  final List<Datum> data;
-
-  factory AllProductsResultModel.fromRawJson(String str) =>
-      AllProductsResultModel.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final success;
+  final message;
+  final data;
 
   factory AllProductsResultModel.fromJson(Map<String, dynamic> json) =>
       AllProductsResultModel(
-        success: json["success"] == null ? null : json["success"],
+        success: json["success"],
         message: json["message"],
         data: json["data"] == null
             ? null
@@ -32,7 +21,7 @@ class AllProductsResultModel {
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success == null ? null : success,
+        "success": success,
         "message": message,
         "data": data == null
             ? null
@@ -54,51 +43,40 @@ class Datum {
     @required this.amount,
   });
 
-  final String subCategoryName;
-  final String mainCategoryName;
-  final String subCategoryId;
-  final String mainCategoryId;
-  final String id;
-  final String name;
-  final int discountedPrice;
-  final int originalPrice;
-  final int discountRate;
-  final int amount;
-
-  factory Datum.fromRawJson(String str) => Datum.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
+  final subCategoryName;
+  final mainCategoryName;
+  final subCategoryId;
+  final mainCategoryId;
+  final id;
+  final name;
+  final discountedPrice;
+  final originalPrice;
+  final discountRate;
+  final amount;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        subCategoryName:
-            json["subCategoryName"] == null ? null : json["subCategoryName"],
-        mainCategoryName:
-            json["mainCategoryName"] == null ? null : json["mainCategoryName"],
-        subCategoryId:
-            json["subCategoryId"] == null ? null : json["subCategoryId"],
-        mainCategoryId:
-            json["mainCategoryId"] == null ? null : json["mainCategoryId"],
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        discountedPrice:
-            json["discountedPrice"] == null ? null : json["discountedPrice"],
-        originalPrice:
-            json["originalPrice"] == null ? null : json["originalPrice"],
-        discountRate:
-            json["discountRate"] == null ? null : json["discountRate"],
-        amount: json["amount"] == null ? null : json["amount"],
+        subCategoryName: json["subCategoryName"],
+        mainCategoryName: json["mainCategoryName"],
+        subCategoryId: json["subCategoryId"],
+        mainCategoryId: json["mainCategoryId"],
+        id: json["id"],
+        name: json["name"],
+        discountedPrice: json["discountedPrice"],
+        originalPrice: json["originalPrice"],
+        discountRate: json["discountRate"],
+        amount: json["amount"],
       );
 
   Map<String, dynamic> toJson() => {
-        "subCategoryName": subCategoryName == null ? null : subCategoryName,
-        "mainCategoryName": mainCategoryName == null ? null : mainCategoryName,
-        "subCategoryId": subCategoryId == null ? null : subCategoryId,
-        "mainCategoryId": mainCategoryId == null ? null : mainCategoryId,
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "discountedPrice": discountedPrice == null ? null : discountedPrice,
-        "originalPrice": originalPrice == null ? null : originalPrice,
-        "discountRate": discountRate == null ? null : discountRate,
-        "amount": amount == null ? null : amount,
+        "subCategoryName": subCategoryName,
+        "mainCategoryName": mainCategoryName,
+        "subCategoryId": subCategoryId,
+        "mainCategoryId": mainCategoryId,
+        "id": id,
+        "name": name,
+        "discountedPrice": discountedPrice,
+        "originalPrice": originalPrice,
+        "discountRate": discountRate,
+        "amount": amount,
       };
 }
