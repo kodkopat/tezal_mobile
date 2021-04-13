@@ -77,7 +77,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         validator: AppValidators.phone,
                         label: "شماره موبایل",
                         maxLength: 11,
-                        textDirection: TextDirection.rtl,
+                        textDirection: TextDirection.ltr,
                         keyboardType: TextInputType.number,
                       ),
                       const SizedBox(height: 24),
