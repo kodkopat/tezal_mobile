@@ -60,7 +60,7 @@ class ProductResultModel {
         totalPrice: json["totalPrice"],
         payablePrice: json["payablePrice"],
         liked: json["liked"],
-        discountRate: json["discountRate"].toDouble(),
+        discountRate: json["discountRate"],
         productUnit: json["productUnit"],
         step: json["step"],
         rate: json["rate"],
