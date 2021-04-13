@@ -35,26 +35,30 @@ class ProductCommentsPage extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                     : Txt(provider.productCommentsErrorMsg,
                         style: AppTxtStyles().body..alignment.center())
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      CommentList(
-                        comments: provider.productComments!,
-                        showAllCommentOnTap: () {
-                          Routes.sailor.navigate(
-                            ProductCommentsPage.route,
-                            params: {"productId": productId},
-                          );
-                        },
-                        enableHeader: provider.productComments!.isNotEmpty,
-                      ),
-                      const SizedBox(height: 8),
-                      if (provider.enableLoadMoreData!)
-                        LoadMoreBtn(onTap: () {
-                          provider.fetchProductComments(context,
-                              productId: productId);
-                        })
-                    ],
+                : SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CommentList(
+                          comments: provider.productComments!,
+                          showAllCommentOnTap: () {
+                            Routes.sailor.navigate(
+                              ProductCommentsPage.route,
+                              params: {"productId": productId},
+                            );
+                          },
+                          enableHeader: provider.productComments!.isNotEmpty,
+                        ),
+                        const SizedBox(height: 8),
+                        if (provider.enableLoadMoreData!)
+                          LoadMoreBtn(onTap: () {
+                            provider.fetchProductComments(context,
+                                productId: productId);
+                          }),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
                   );
       },
     );
