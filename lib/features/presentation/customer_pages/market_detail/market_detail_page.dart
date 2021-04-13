@@ -66,11 +66,11 @@ class MarketDetailPage extends StatelessWidget {
   }
 
   Widget _listOfSections(MarketDetailResultModel marketDetail) {
-    var categories = marketDetail.data.categories;
+    var categories = marketDetail.data!.categories;
 
     var data = marketDetail.data;
     var market = Market(
-      id: data.id,
+      id: data!.id,
       name: data.name,
       phone: data.phone,
       address: data.address,
@@ -91,7 +91,7 @@ class MarketDetailPage extends StatelessWidget {
           _sectionCarouselSlider(marketDetail),
           const SizedBox(height: 16),
           _sectionDetailsBox(market),
-          _sectionCategories(categories),
+          _sectionCategories(categories!),
           _sectionComments(),
         ],
       ),
