@@ -136,10 +136,10 @@ class CommentListItem extends StatelessWidget {
     );
 
     var scroeTxt;
-    if (comment.point == null) {
+    if (comment.rate == null) {
       scroeTxt = " ذکر نشده ";
     } else {
-      scroeTxt = "${comment.point}";
+      scroeTxt = "${comment.rate}";
     }
 
     return RichText(
