@@ -116,9 +116,7 @@ class CustomerProductRepository {
     } else {
       var result = await _remoteDataSource.getComments(productId, page);
 
-      return result != null
-          ? Right(result)
-          : Left(ApiFailure("failed to load comments"));
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 }
