@@ -1,6 +1,8 @@
+import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
+import '../../features/data/repositories/customer_product_repository.dart';
 import '../../features/presentation/base_pages/confirm_registration/confirm_registration.dart';
 import '../../features/presentation/base_pages/confirm_reset_password/confirm_reset_password.dart';
 import '../../features/presentation/base_pages/login/login_page.dart';
@@ -26,6 +28,7 @@ import '../../features/presentation/customer_pages/profile_edit/edit_profile_pag
 import '../../features/presentation/customer_pages/search/search_page.dart';
 import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
 import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
+import '../../features/presentation/providers/customer_providers/product_comments_notifier.dart';
 
 class Routes {
   static final sailor = Sailor();
@@ -120,7 +123,13 @@ class Routes {
           name: ProductDetailPage.route,
           builder: (ctx, args, map) {
             final productId = map.param<String>("productId");
-            return ProductDetailPage(productId: productId);
+
+            return ChangeNotifierProvider(
+              create: (ctx) => ProductCommentsNotifier(
+                CustomerProductRepository(),
+              ),
+              child: ProductDetailPage(productId: productId),
+            );
           },
           params: [
             SailorParam<String>(
@@ -134,7 +143,13 @@ class Routes {
           name: ProductCommentsPage.route,
           builder: (ctx, args, map) {
             final productId = map.param<String>("productId");
-            return ProductCommentsPage(productId: productId);
+
+            return ChangeNotifierProvider(
+              create: (ctx) => ProductCommentsNotifier(
+                CustomerProductRepository(),
+              ),
+              child: ProductCommentsPage(productId: productId),
+            );
           },
           params: [
             SailorParam<String>(
