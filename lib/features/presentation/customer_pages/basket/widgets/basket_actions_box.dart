@@ -138,7 +138,7 @@ class BasketActionsBox extends StatelessWidget {
                   "خالی کردن سبد",
                   gesture: Gestures()
                     ..onTap(() async {
-                      await basketNotifier.clearBasket();
+                      await basketNotifier.clearBasket(context);
                     }),
                   style: AppTxtStyles().body
                     ..textColor(Colors.red)
