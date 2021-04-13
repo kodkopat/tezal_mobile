@@ -18,7 +18,7 @@ class CustomRichText extends StatelessWidget {
     letterSpacing: 0.5,
     fontFamily: 'Yekan',
     fontWeight: FontWeight.w600,
-    fontSize: 13,
+    fontSize: 12,
   );
 
   @override
@@ -39,7 +39,7 @@ class CustomRichText extends StatelessWidget {
                   ? TextDecoration.lineThrough
                   : TextDecoration.none,
               fontWeight: FontWeight.w400,
-              fontSize: 12,
+              fontSize: 11,
             ),
           ),
         ],
