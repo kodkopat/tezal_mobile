@@ -10,7 +10,7 @@ part 'customer_search_remote_data_source.g.dart';
 
 @RestApi(baseUrl: apiBaseUrl)
 abstract class CustomerSearchRemoteDataSource {
-  factory CustomerSearchRemoteDataSource(Dio dio, {String baseUrl}) =
+  factory CustomerSearchRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerSearchRemoteDataSource;
 
   static const _apiUrlPrefix = "customer/Search";

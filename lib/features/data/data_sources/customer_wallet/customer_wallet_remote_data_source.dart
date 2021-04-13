@@ -10,7 +10,7 @@ part 'customer_wallet_remote_data_source.g.dart';
 
 @RestApi(baseUrl: apiBaseUrl)
 abstract class CustomerWalletRemoteDataSource {
-  factory CustomerWalletRemoteDataSource(Dio dio, {String baseUrl}) =
+  factory CustomerWalletRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerWalletRemoteDataSource;
 
   static const _apiUrlPrefix = "customer/Wallet";

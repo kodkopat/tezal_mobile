@@ -9,7 +9,7 @@ part 'customer_campaign_remote_data_source.g.dart';
 
 @RestApi(baseUrl: apiBaseUrl)
 abstract class CustomerCampaignRemoteDataSource {
-  factory CustomerCampaignRemoteDataSource(Dio dio, {String baseUrl}) =
+  factory CustomerCampaignRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerCampaignRemoteDataSource;
 
   static const _apiUrlPrefix = "customer/Campaign";

@@ -13,7 +13,7 @@ part 'auth_remote_data_source.g.dart';
 
 @RestApi(baseUrl: apiBaseUrl)
 abstract class AuthRemoteDataSource {
-  factory AuthRemoteDataSource(Dio dio, {String baseUrl}) =
+  factory AuthRemoteDataSource(Dio dio, {String? baseUrl}) =
       _AuthRemoteDataSource;
 
   static const _apiUrlPrefix = "User";

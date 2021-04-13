@@ -10,7 +10,7 @@ part 'customer_basket_remote_data_source.g.dart';
 
 @RestApi(baseUrl: apiBaseUrl)
 abstract class CustomerBasketRemoteDataSource {
-  factory CustomerBasketRemoteDataSource(Dio dio, {String baseUrl}) =
+  factory CustomerBasketRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerBasketRemoteDataSource;
 
   static const _apiUrlPrefix = "customer/Basket";

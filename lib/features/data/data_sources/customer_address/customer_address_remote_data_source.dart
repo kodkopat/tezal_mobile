@@ -12,7 +12,7 @@ part 'customer_address_remote_data_source.g.dart';
 
 @RestApi(baseUrl: apiBaseUrl)
 abstract class CustomerAddressRemoteDataSource {
-  factory CustomerAddressRemoteDataSource(Dio dio, {String baseUrl}) =
+  factory CustomerAddressRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerAddressRemoteDataSource;
 
   static const _apiUrlPrefix = "customer/Address";
