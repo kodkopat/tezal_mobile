@@ -60,7 +60,7 @@ class AppValidators {
     String emptyTxt = "\u26b9 رمز عبور الزامی است";
 
     bool errorCondition = value.trim().length < 4;
-    String errorTxt = "\u26b9 رمز عبور باید بیشتر از ۴ حرف باشد";
+    String errorTxt = "\u26b9 رمز عبور باید شامل ۴ عدد باشد";
 
     return emptyCondition
         ? emptyTxt
