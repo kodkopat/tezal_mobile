@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:tezal/features/data/models/wallet_detail_result_model.dart'
     as wallet;
+import 'package:tezal/features/presentation/customer_widgets/custom_rich_text.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 
 class TransactionListItem extends StatelessWidget {
   const TransactionListItem({required this.walletDetail});
@@ -18,47 +18,68 @@ class TransactionListItem extends StatelessWidget {
     return Parent(
       style: ParentStyle()
         ..margin(vertical: 8)
-        ..padding(horizontal: 8, vertical: 8)
-        ..background.color(Colors.white)
-        ..borderRadius(all: 8)
-        ..boxShadow(
-          color: Colors.black.withOpacity(0.2),
-          offset: Offset(0, 4.0),
-          blur: 8,
-          spread: 0,
-        ),
-      child: Column(
+        ..padding(horizontal: 8, vertical: 8),
+      child: Row(
         textDirection: TextDirection.rtl,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
+          Column(
             textDirection: TextDirection.rtl,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Txt(
-                "${walletDetail.action}",
-                style: AppTxtStyles().body,
-              ),
-              Txt(
-                "+${intl.NumberFormat("#,000").format(walletDetail.amount)}",
-                style: AppTxtStyles().subHeading
-                  ..textColor(AppTheme.customerPrimary)
-                  ..textDirection(TextDirection.ltr),
-              ),
+              _fieldTransactionType,
+              _fieldTransactionDate,
             ],
           ),
-          Row(
-            textDirection: TextDirection.rtl,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              Txt(
-                walletDetail.date.toString().split(" ")[0].replaceAll("-", "/"),
-                style: AppTxtStyles().footNote..textColor(Colors.black54),
-              ),
-            ],
-          ),
+          _fieldTransactionPriceText,
         ],
       ),
     );
+  }
+
+  Widget get _fieldTransactionType {
+    return CustomRichText(
+      title: "نوع تراکنش: ",
+      text: "${walletDetail.action}",
+    );
+  }
+
+  Widget get _fieldTransactionDate {
+    return CustomRichText(
+      title: "تاریخ تراکنش: ",
+      text: _generateTransactionDateText(),
+    );
+  }
+
+  String _generateTransactionDateText() {
+    return walletDetail.date.toString().split(" ")[0].replaceAll("-", "/");
+  }
+
+  Widget get _fieldTransactionPriceText {
+    return Txt(
+      _generateTransactionPriceText(),
+      style: AppTxtStyles().subHeading
+        ..textColor(
+          "${walletDetail.amount}".contains("-") ? Colors.red : Colors.green,
+        ),
+    );
+  }
+
+  String _generateTransactionPriceText() {
+    String priceTxt;
+    if (walletDetail.amount == null) {
+      priceTxt = " نامشخص ";
+    } else {
+      var temp;
+      if ("${walletDetail.amount}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(walletDetail.amount);
+      } else {
+        temp = "${walletDetail.amount}";
+      }
+
+      priceTxt = " $temp " + "تومان";
+    }
+
+    return priceTxt.replaceAll("-", "");
   }
 }
