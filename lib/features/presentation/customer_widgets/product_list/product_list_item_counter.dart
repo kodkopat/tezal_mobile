@@ -42,7 +42,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
   Widget build(BuildContext context) {
     return Parent(
       style: ParentStyle()
-        ..borderRadius(all: 8)
+        ..borderRadius(all: 6)
         ..background.color(Color(0xffEFEFEF)),
       child: counter == 0 || counter == 0.0
           ? Row(
@@ -55,7 +55,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                     iconData: Feather.plus,
                     height: widget.hieght,
                     onTap: _increament,
-                    iconSize: 18,
+                    iconSize: 14,
                   ),
                 ),
               ],
@@ -70,19 +70,16 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                     iconData: Feather.plus,
                     height: widget.hieght,
                     onTap: _increament,
-                    iconSize: 18,
+                    iconSize: 14,
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Txt(
-                    widget.unit == null
-                        ? (counter)
-                            .toStringAsFixed(widget.step is double ? 1 : 0)
-                        : (counter).toStringAsFixed(
-                                widget.step is double ? 1 : 0) +
-                            " ${widget.unit} ",
-                    style: AppTxtStyles().body,
+                    (counter).toStringAsFixed(widget.step is double ? 1 : 0) +
+                        " ${widget.unit} ",
+                    gesture: Gestures()..onTap(() {}),
+                    style: AppTxtStyles().footNote,
                   ),
                 ),
                 Expanded(
@@ -91,7 +88,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                     iconData: Feather.minus,
                     height: widget.hieght,
                     onTap: _decreament,
-                    iconSize: 18,
+                    iconSize: 14,
                   ),
                 ),
               ],
@@ -135,7 +132,7 @@ class _CounterIcon extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..height(height)
-        ..borderRadius(all: 8)
+        ..borderRadius(all: 6)
         ..ripple(true),
       child: Icon(
         iconData,
