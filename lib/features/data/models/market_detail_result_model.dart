@@ -11,7 +11,7 @@ class MarketDetailResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory MarketDetailResultModel.fromJson(Map<String, dynamic> json) =>
       MarketDetailResultModel(
@@ -23,7 +23,7 @@ class MarketDetailResultModel {
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
@@ -55,7 +55,7 @@ class Data {
   final situation;
   final deliveryCost;
   final distance;
-  final categories;
+  final List<Category>? categories;
   final basketCount;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -95,7 +95,7 @@ class Data {
         "categories": categories == null
             ? null
             : List<dynamic>.from(
-                categories.map(
+                categories!.map(
                   (x) => x.toJson(),
                 ),
               ),
@@ -112,7 +112,7 @@ class Category {
 
   final id;
   final name;
-  final products;
+  final List<ProductResultModel>? products;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
@@ -132,7 +132,7 @@ class Category {
         "products": products == null
             ? null
             : List<dynamic>.from(
-                products.map(
+                products!.map(
                   (x) => x.toJson(),
                 ),
               ),
