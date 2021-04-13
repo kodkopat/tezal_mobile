@@ -9,7 +9,7 @@ import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
-import '../../../../core/widgets/image_view.dart';
+import '../../../../core/widgets/carousel_image_slider.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/models/market_detail_result_model.dart';
@@ -47,13 +47,13 @@ class MarketDetailPage extends StatelessWidget {
           var result = data as Either<Failure, MarketDetailResultModel>;
 
           return result.fold(
-            (l) => Txt(
-              l.message,
-              style: AppTxtStyles().body..alignment.center(),
-            ),
-            (r) {
-              return _listOfSections(r);
+            (left) {
+              return Txt(
+                left.message,
+                style: AppTxtStyles().body..alignment.center(),
+              );
             },
+            (right) => _listOfSections(right),
           );
         },
         errorBuilder: (context, error) {
@@ -91,9 +91,7 @@ class MarketDetailPage extends StatelessWidget {
           _sectionCarouselSlider(marketDetail),
           const SizedBox(height: 16),
           _sectionDetailsBox(market),
-          const SizedBox(height: 16),
           _sectionCategories(categories),
-          const SizedBox(height: 16),
           _sectionComments(),
         ],
       ),
@@ -107,12 +105,12 @@ class MarketDetailPage extends StatelessWidget {
         future: _customerMarketRepo.photo(marketId: marketId),
         successBuilder: (context, data) {
           return data!.fold(
-            (l) => ProductImageView(images: ["", ""]),
-            (r) => ProductImageView(images: r.data.photos),
+            (l) => CarouselImageSlider(images: []),
+            (r) => CarouselImageSlider(images: r.data.photos),
           );
         },
         errorBuilder: (context, data) {
-          return ProductImageView(images: ["", ""]);
+          return CarouselImageSlider(images: []);
         },
       ),
     );
@@ -143,20 +141,19 @@ class MarketDetailPage extends StatelessWidget {
         ),
         successBuilder: (context, data) {
           return data!.fold(
-            (l) => Txt(
-              l.message,
+            (left) => Txt(
+              left.message,
               style: AppTxtStyles().body..alignment.center(),
             ),
-            (r) => CommentList(
-              commentsResultModel: r,
+            (right) => CommentList(
+              comments: right.data!.comments!,
               showAllCommentOnTap: () {
                 Routes.sailor.navigate(
                   MarketCommentsPage.route,
                   params: {"marketId": marketId},
                 );
               },
-              enableLoadMore: false,
-              enableHeader: true,
+              enableHeader: right.data!.comments!.isNotEmpty,
             ),
           );
         },

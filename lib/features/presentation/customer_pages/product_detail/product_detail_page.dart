@@ -10,8 +10,8 @@ import '../../../../core/exceptions/failure.dart';
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
+import '../../../../core/widgets/carousel_image_slider.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
-import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/models/photos_result_model.dart';
@@ -22,6 +22,7 @@ import '../../customer_widgets/product_list/product_list_item_counter.dart';
 import '../../customer_widgets/product_list/product_list_item_like_toggle.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
+import '../../providers/customer_providers/product_comments_notifier.dart';
 import '../product_comments/product_comments_page.dart';
 
 // ignore: must_be_immutable
@@ -57,7 +58,7 @@ class ProductDetailPage extends StatelessWidget {
               left.message,
               style: AppTxtStyles().body..alignment.center(),
             ),
-            (right) => _listOfSections(right),
+            (right) => _listOfSections(context, right),
           );
         },
         errorBuilder: (context, error) {
@@ -69,7 +70,8 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _listOfSections(ProductDetailResultModel productDetail) {
+  Widget _listOfSections(
+      BuildContext context, ProductDetailResultModel productDetail) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -82,7 +84,7 @@ class ProductDetailPage extends StatelessWidget {
           _sectionTitleAndLike(productDetail),
           const SizedBox(height: 2),
           Txt(
-            productDetail.data.description,
+            "${productDetail.data!.description}",
             style: AppTxtStyles().body..textAlign.right(),
           ),
           SizedBox(height: 8),
@@ -106,23 +108,25 @@ class ProductDetailPage extends StatelessWidget {
           SizedBox(height: 16),
           ProductListItemCounter(
             hieght: 36,
-            defaultValue: productDetail.data.amount * productDetail.data.step,
-            step: productDetail.data.step,
-            unit: "${productDetail.data.productUnit}",
+            defaultValue: productDetail.data!.amount * productDetail.data!.step,
+            step: productDetail.data!.step,
+            unit: "${productDetail.data!.productUnit}",
             onIncrease: (value) {
               basketNotifier!.addToBasket(
-                productId: productDetail.data.id,
+                context,
+                productId: productDetail.data!.id,
                 amount: 1,
               );
             },
             onDecrease: (value) {
               basketNotifier!.removeFromBasket(
-                productId: productDetail.data.id,
+                context,
+                productId: productDetail.data!.id,
                 amount: 1,
               );
             },
           ),
-          _sectionComments(productDetail),
+          _sectionComments(context, productDetail),
           SizedBox(height: 16),
         ],
       ),
@@ -132,17 +136,17 @@ class ProductDetailPage extends StatelessWidget {
   Widget _sectionCarouselSlider(ProductDetailResultModel productDetail) {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
       future: _customerProductRepo.productphoto(
-        id: productDetail.data.id,
+        id: productDetail.data!.id,
         multi: true,
       ),
       successBuilder: (context, data) {
         return data!.fold(
-          (l) => ProductImageView(images: ["", ""]),
-          (r) => ProductImageView(images: r.data.photos),
+          (left) => CarouselImageSlider(images: []),
+          (right) => CarouselImageSlider(images: right.data.photos),
         );
       },
       errorBuilder: (context, data) {
-        return ProductImageView(images: ["", ""]);
+        return CarouselImageSlider(images: []);
       },
     );
   }
@@ -153,22 +157,22 @@ class ProductDetailPage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Txt(
-          "${productDetail.data.name}",
+          "${productDetail.data!.name}",
           style: AppTxtStyles().heading
             ..textOverflow(TextOverflow.ellipsis)
             ..maxLines(1)
             ..bold(),
         ),
         ProductListItemLikeToggle(
-          defaultValue: productDetail.data.liked,
+          defaultValue: productDetail.data!.liked,
           onChange: (value) {
             if (value) {
               _customerProductRepo.likeProduct(
-                id: productDetail.data.id,
+                id: productDetail.data!.id,
               );
             } else {
               _customerProductRepo.unlikeProduct(
-                id: productDetail.data.id,
+                id: productDetail.data!.id,
               );
             }
           },
@@ -231,17 +235,17 @@ class ProductDetailPage extends StatelessWidget {
 
   String _generateOriginalPrice(ProductDetailResultModel productDetail) {
     var priceTxt;
-    if (productDetail.data.originalPrice == null) {
+    if (productDetail.data!.originalPrice == null) {
       priceTxt = " ذکر نشده ";
-    } else if (productDetail.data.originalPrice == 0) {
+    } else if (productDetail.data!.originalPrice == 0) {
       priceTxt = " رایگان ";
     } else {
       var temp;
-      if ("${productDetail.data.originalPrice}".length >= 3) {
-        temp =
-            intl.NumberFormat("#,000").format(productDetail.data.originalPrice);
+      if ("${productDetail.data!.originalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000")
+            .format(productDetail.data!.originalPrice);
       } else {
-        temp = "${productDetail.data.originalPrice}";
+        temp = "${productDetail.data!.originalPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
@@ -252,17 +256,17 @@ class ProductDetailPage extends StatelessWidget {
 
   String _generateDiscountedPrice(ProductDetailResultModel productDetail) {
     var priceTxt;
-    if (productDetail.data.discountedPrice == null) {
+    if (productDetail.data!.discountedPrice == null) {
       priceTxt = " ذکر نشده ";
-    } else if (productDetail.data.discountedPrice == 0) {
+    } else if (productDetail.data!.discountedPrice == 0) {
       priceTxt = " رایگان ";
     } else {
       var temp;
-      if ("${productDetail.data.originalPrice}".length >= 3) {
-        temp =
-            intl.NumberFormat("#,000").format(productDetail.data.originalPrice);
+      if ("${productDetail.data!.originalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000")
+            .format(productDetail.data!.originalPrice);
       } else {
-        temp = "${productDetail.data.originalPrice}";
+        temp = "${productDetail.data!.originalPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
@@ -273,44 +277,59 @@ class ProductDetailPage extends StatelessWidget {
 
   String _generateDiscountedRate(ProductDetailResultModel productDetail) {
     var discountRateTxt;
-    if (productDetail.data.discountRate == null ||
-        productDetail.data.discountRate == 0) {
+    if (productDetail.data!.discountRate == null ||
+        productDetail.data!.discountRate == 0) {
       discountRateTxt = "";
     } else {
       discountRateTxt =
-          "${(productDetail.data.discountRate * 100).toStringAsFixed(0)}٪";
+          "${(productDetail.data!.discountRate * 100).toStringAsFixed(0)}٪";
     }
     return discountRateTxt;
   }
 
-  Widget _sectionComments(ProductDetailResultModel productDetail) {
-    return CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
-      future: _customerProductRepo.productComments(
-        productId: productDetail.data.id,
-        page: 1,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => Txt(
-            left.message,
-            style: AppTxtStyles().body..alignment.center(),
-          ),
-          (right) => CommentList(
-            commentsResultModel: right,
-            showAllCommentOnTap: () {
-              Routes.sailor.navigate(
-                ProductCommentsPage.route,
-                params: {"productId": productDetail.data.id},
+  Widget _sectionComments(
+    BuildContext context,
+    ProductDetailResultModel productDetail,
+  ) {
+    var provider = Provider.of<ProductCommentsNotifier>(
+      context,
+      listen: false,
+    );
+
+    print("productId: ${productDetail.data!.id}\n");
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
+        future: provider.customerProductRepo.productComments(
+          productId: productDetail.data!.id,
+          page: 1,
+        ),
+        successBuilder: (context, data) {
+          return data!.fold(
+            (left) => Txt(
+              left.message,
+              style: AppTxtStyles().body..alignment.center(),
+            ),
+            (right) {
+              print("productCommentsRight: ${right.toJson()}\n");
+              return CommentList(
+                comments: right.data!.comments!.sublist(0, 3),
+                showAllCommentOnTap: () {
+                  Routes.sailor.navigate(
+                    ProductCommentsPage.route,
+                    params: {"productId": productDetail.data!.id},
+                  );
+                },
+                enableHeader: right.data!.comments!.isNotEmpty,
               );
             },
-            enableLoadMore: false,
-            enableHeader: right.data.comments.isNotEmpty,
-          ),
-        );
-      },
-      errorBuilder: (context, data) {
-        return AppLoading(color: AppTheme.customerPrimary);
-      },
+          );
+        },
+        errorBuilder: (context, data) {
+          return AppLoading(color: AppTheme.customerPrimary);
+        },
+      ),
     );
   }
 }

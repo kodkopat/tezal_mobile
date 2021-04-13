@@ -50,9 +50,8 @@ class _MarketCommentsPageState extends State<MarketCommentsPage> {
             (r) => SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: CommentList(
-                commentsResultModel: r,
+                comments: r.data!.comments!,
                 showAllCommentOnTap: () {},
-                enableLoadMore: true,
                 enableHeader: false,
               ),
             ),
