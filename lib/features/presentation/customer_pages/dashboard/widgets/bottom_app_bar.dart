@@ -38,22 +38,20 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
           crossAxisAlignment: CrossAxisAlignment.center,
           children: _BottomNavigationBarList.items.map(
             (item) {
-              if (item == null) return SizedBox();
-
               var color = item.index == currentIndex
                   ? AppTheme.customerPrimary
                   : AppTheme.black;
 
               return Expanded(
                 flex: 1,
-                child: Parent(
-                  gesture: Gestures()
-                    ..onTap(() {
-                      setState(() {
-                        currentIndex = item.index;
-                        widget.onIndexChanged(item.widget);
-                      });
-                    }),
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () {
+                    setState(() {
+                      currentIndex = item.index;
+                      widget.onIndexChanged(item.widget);
+                    });
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
