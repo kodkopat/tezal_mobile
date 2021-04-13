@@ -79,9 +79,11 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      print("call market Detail: $marketId \n");
       final userToken = await _authRepo.userToken;
       var result = await _remoteDataSource.getMarketDetail(userToken, marketId);
 
+      print("marketDetail: ${result.toJson()}\n");
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
