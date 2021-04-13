@@ -23,11 +23,9 @@ class SimpleAppBar {
   }) {
     return AppBar(
       automaticallyImplyLeading: false,
-      titleSpacing: 1,
-      title: Row(
-        children: [
-          if (showBackBtn ?? false)
-            Parent(
+
+      leading: (showBackBtn ?? false)
+          ? Parent(
               gesture: Gestures()..onTap(() => Routes.sailor.pop()),
               style: ParentStyle()
                 ..width(48)
@@ -40,17 +38,18 @@ class SimpleAppBar {
                 color: Colors.white,
                 size: 24,
               ),
-            ),
-          Txt(
-            text,
-            style: AppTxtStyles().subHeading
-              ..margin(right: showBackBtn ?? false ? 4 : 16)
-              ..textColor(AppTheme.white)
-              ..textOverflow(TextOverflow.ellipsis)
-              ..maxLines(1)
-              ..bold(),
-          ),
-        ],
+            )
+          : SizedBox(),
+      // titleSpacing: 1,
+      centerTitle: true,
+      title: Txt(
+        text,
+        style: AppTxtStyles().subHeading
+          // ..margin(right: showBackBtn ?? false ? 4 : 16)
+          ..textColor(AppTheme.white)
+          ..textOverflow(TextOverflow.ellipsis)
+          ..maxLines(1)
+          ..bold(),
       ),
       actions: [
         if (showBasketBtn ?? false)
