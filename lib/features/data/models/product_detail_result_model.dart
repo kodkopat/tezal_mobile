@@ -9,7 +9,7 @@ class ProductDetailResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory ProductDetailResultModel.fromJson(Map<String, dynamic> json) =>
       ProductDetailResultModel(
@@ -21,7 +21,7 @@ class ProductDetailResultModel {
   Map<String, dynamic> toJson() => {
         "success": success == null ? null : success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
