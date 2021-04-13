@@ -78,7 +78,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: emailCtrl,
                 validator: AppValidators.email,
                 label: "آدرس ایمیل",
-                textDirection: TextDirection.rtl,
+                textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 24),
