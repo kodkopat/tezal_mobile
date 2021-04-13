@@ -36,11 +36,11 @@ class ProductListItem extends StatelessWidget {
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
-        ..width(192)
+        ..width(144)
         ..margin(horizontal: 8)
         ..padding(horizontal: 4, vertical: 4)
         ..background.color(Colors.white)
-        ..borderRadius(all: 12)
+        ..borderRadius(all: 8)
         ..boxShadow(
           color: Colors.black.withOpacity(0.1),
           offset: Offset(0, 3.0),
@@ -55,37 +55,29 @@ class ProductListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                textDirection: TextDirection.rtl,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Parent(
-                    style: ParentStyle()
-                      ..width(192)
-                      ..height(144)
-                      ..borderRadius(all: 8)
-                      ..background.image(
-                        alignment: Alignment.center,
-                        path: "assets/images/placeholder.jpg",
-                        fit: BoxFit.fill,
-                      ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(8),
-                      ),
-                      child: _futureImgFile,
-                    ),
+              Parent(
+                style: ParentStyle()
+                  ..width(144)
+                  ..height(112)
+                  ..borderRadius(all: 6)
+                  ..background.image(
+                    alignment: Alignment.center,
+                    path: "assets/images/placeholder.jpg",
+                    fit: BoxFit.fill,
                   ),
-                  SizedBox(height: 8),
-                  Txt(
-                    "${product.name}",
-                    style: AppTxtStyles().subHeading
-                      ..padding(right: 4)
-                      ..textOverflow(TextOverflow.ellipsis)
-                      ..maxLines(1)
-                      ..bold(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(6),
                   ),
-                ],
+                  child: _futureImgFile,
+                ),
+              ),
+              Txt(
+                "${product.name}",
+                style: AppTxtStyles().body
+                  ..padding(right: 4)
+                  ..textOverflow(TextOverflow.ellipsis)
+                  ..maxLines(1),
               ),
               Row(
                 textDirection: TextDirection.rtl,
@@ -105,18 +97,20 @@ class ProductListItem extends StatelessWidget {
                 ],
               ),
               ProductListItemCounter(
-                hieght: 36,
+                hieght: 28,
                 defaultValue: product.amount * product.step,
                 step: product.step,
                 unit: "${product.productUnit}",
                 onIncrease: (value) {
                   basketNotifier.addToBasket(
+                    context,
                     productId: product.id,
                     amount: 1,
                   );
                 },
                 onDecrease: (value) {
                   basketNotifier.removeFromBasket(
+                    context,
                     productId: product.id,
                     amount: 1,
                   );
@@ -195,7 +189,7 @@ class ProductListItem extends StatelessWidget {
           letterSpacing: 0.5,
           fontFamily: 'Yekan',
           fontWeight: FontWeight.bold,
-          fontSize: 14,
+          fontSize: 12,
         ),
       ),
     );
@@ -210,11 +204,16 @@ class ProductListItem extends StatelessWidget {
       _generateDiscountedRate(),
       style: AppTxtStyles().subHeading
         ..bold()
+        ..padding(horizontal: 8, vertical: 4)
         ..textDirection(TextDirection.ltr)
         ..textColor(Colors.red)
         ..background.color(Colors.red.withOpacity(0.1))
-        ..borderRadius(topLeft: 4, bottomLeft: 4, topRight: 24, bottomRight: 24)
-        ..padding(horizontal: 12, vertical: 8),
+        ..borderRadius(
+          topLeft: 4,
+          bottomLeft: 4,
+          topRight: 24,
+          bottomRight: 24,
+        ),
     );
   }
 
