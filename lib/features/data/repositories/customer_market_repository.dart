@@ -13,9 +13,11 @@ import '../../data/data_sources/customer_market/customer_market_local_data_sourc
 import '../../data/data_sources/customer_market/customer_market_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/comments_result_model.dart';
+import '../models/main_category_detail_result_model.dart';
 import '../models/market_detail_result_model.dart';
 import '../models/nearby_markets_result_model.dart';
 import '../models/photos_result_model.dart';
+import '../models/sub_category_detail_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerMarketRepository {
@@ -122,6 +124,44 @@ class CustomerMarketRepository {
       var result = await _remoteDataSource.addComment(comment, point, marketId);
 
       return result != null ? Right(result) : Left(ApiFailure("failed to add"));
+    }
+  }
+
+  Future<Either<Failure, MainCategoryDetailResultModel>> mainCategoryDetail({
+    required String marketId,
+    required String mainCategoryId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.getMainCategoryDetail(
+        userToken,
+        marketId,
+        mainCategoryId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, SubCategoryDetailResultModel>> subCategoryDetail({
+    required String marketId,
+    required String subCategoryId,
+    required int page,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.getSubCategoryDetail(
+        userToken,
+        marketId,
+        subCategoryId,
+        page,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 }
