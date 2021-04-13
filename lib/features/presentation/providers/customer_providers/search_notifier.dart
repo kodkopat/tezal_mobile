@@ -1,36 +1,79 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/progress_dialog.dart';
+import '../../../data/models/search_result_model.dart';
 import '../../../data/repositories/customer_search_repository.dart';
 
 class SearchNotifier extends ChangeNotifier {
-  SearchNotifier(
-    this.context, {
+  static SearchNotifier? _instance;
+
+  factory SearchNotifier(
+    CustomerSearchRepository customerSearchRepo,
+  ) {
+    if (_instance == null) {
+      _instance = SearchNotifier._privateConstructor(
+        customerSearchRepo: customerSearchRepo,
+      );
+    }
+
+    return _instance!;
+  }
+
+  SearchNotifier._privateConstructor({
     required this.customerSearchRepo,
   });
 
-  final BuildContext context;
   final CustomerSearchRepository customerSearchRepo;
 
-  bool loading = true;
+  String? searchTermsErrorMsg;
+  List<String> searchTerms = [];
 
-  List<String> _searchTerms = [];
-
-  List<String> get searchTerms => _searchTerms;
-
-  void fetchSearchTerms() async {
+  Future<void> fetchSearchTerms(BuildContext context) async {
     var result = await customerSearchRepo.searchTerms(context);
 
     result.fold(
-      (left) {
-        return null;
-      },
-      (right) {
-        _searchTerms.addAll(right.data);
-      },
+      (left) => searchTermsErrorMsg = left.message,
+      (right) => searchTerms = right.data,
     );
 
-    loading = false;
+    notifyListeners();
+  }
 
+  Future<void> clearSearchTerms(BuildContext context) async {
+    var result = await customerSearchRepo.clearSearchTerms(context);
+
+    result.fold(
+      (left) => null,
+      (right) => refresh(),
+    );
+  }
+
+  String? searchErrorMsg;
+  List<Market>? searchResultList;
+
+  Future<void> search(BuildContext context, String term) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    notifyListeners();
+
+    var result = await customerSearchRepo.search(
+      context,
+      term: term,
+    );
+
+    result.fold(
+      (left) => searchErrorMsg = left.message,
+      (right) => searchResultList = right.data.markets,
+    );
+
+    prgDialog.hide();
+    notifyListeners();
+  }
+
+  void refresh() async {
+    searchTermsErrorMsg = null;
+    searchTerms = [];
     notifyListeners();
   }
 }
