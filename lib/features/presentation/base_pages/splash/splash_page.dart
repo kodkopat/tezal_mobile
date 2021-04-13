@@ -1,6 +1,8 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:sailor/sailor.dart';
 
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
@@ -36,7 +38,10 @@ class _SplashPageState extends State<SplashPage> {
 
     switch (userType) {
       case _AppUserType.Customer:
-        Routes.sailor(DashBoardPage.route);
+        Routes.sailor.navigate(
+          DashBoardPage.route,
+          navigationType: NavigationType.pushReplace,
+        );
         break;
       case _AppUserType.Market:
         // Routes.sailor(CustomerDashBoardPage.route);
