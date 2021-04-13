@@ -5,127 +5,122 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
-import '../../../../core/widgets/image_view.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
+import '../../../../core/widgets/modal_location_error.dart';
 import '../../../../features/presentation/providers/customer_providers/market_notifier.dart';
-import '../../../data/repositories/customer_campaign_repository.dart';
-import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_widgets/market_list/markets_list.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/campaign_notifier.dart';
+import '../../providers/customer_providers/location_notifier.dart';
+import 'widgets/campaigns_slider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   static const route = "/customer_home";
 
   @override
-  _HomePageState createState() => _HomePageState();
-}
+  Widget build(BuildContext context) {
+    var marketNotifier = Provider.of<MarketNotifier>(
+      context,
+      listen: false,
+    );
 
-class _HomePageState extends State<HomePage> {
-  final campaignRepo = CustomerCampaignRepository();
-  final marketRepo = CustomerMarketRepository();
-
-  bool campaignsLoading = true;
-  List<String> campaignPhotos = [];
-
-  void fetchCampaignPhotos() async {
-    var campaignsEigher = await campaignRepo.campaignes;
-    campaignsEigher.fold(
-      (l) => null,
-      (r) async {
-        var campaignIds = r.data.map((e) => e.id).toList();
-        print("campaignIds length: ${campaignIds.length}\n");
-        for (int i = 0; i < campaignIds.length; i++) {
-          var campaignsPhotoEigher = await campaignRepo.campaignPhoto(
-            campaignId: campaignIds[i],
-          );
-          campaignsPhotoEigher.fold(
-            (l) => null,
-            (r) {
-              campaignPhotos.add(r.data.photos.first);
-            },
-          );
+    // Provider.of<CampaignNotifier>(context, listen: false).fetchCampaigns();
+    var campaignsConsumer = Consumer<CampaignNotifier>(
+      builder: (context, provider, child) {
+        if (provider.campaigns == null) {
+          provider.fetchCampaigns();
         }
+
+        return provider.campaignLoading
+            ? AppLoading(color: AppTheme.customerPrimary)
+            : provider.campaigns == null
+                ? provider.campaignErrorMsg == null
+                    ? SizedBox()
+                    : Txt(provider.campaignErrorMsg!,
+                        style: AppTxtStyles().body..alignment.center())
+                : Padding(
+                    padding: EdgeInsets.only(top: 16, bottom: 4),
+                    child: CampaignSlider(campaigns: provider.campaigns!),
+                  );
       },
     );
 
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    fetchCampaignPhotos();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var consumer = Consumer<MarketNotifier>(
+    var marketsConsumer = Consumer<MarketNotifier>(
       builder: (context, provider, child) {
-        if (provider.nearByMarkets == null &&
-            provider.nearByMarketsErrorMsg == null) {
+        if (provider.nearByMarkets == null) {
           provider.fetchNearbyMarkets(context);
         }
 
         return provider.nearByMarketsLoading
             ? AppLoading(color: AppTheme.customerPrimary)
-            : provider.nearByMarketsErrorMsg != null
-                ? Txt(
-                    provider.nearByMarketsErrorMsg!,
-                    style: AppTxtStyles().body..alignment.center(),
-                  )
-                : provider.nearByMarkets!.isEmpty
-                    ? Txt(
-                        "لیست فروشگاه‌ها خالی است",
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
-                    : SingleChildScrollView(
-                        padding: EdgeInsets.symmetric(vertical: 8),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            MarketsList(
-                              markets: provider.nearByMarkets!,
-                              repository: marketRepo,
-                            ),
-                            SizedBox(height: 8),
-                            if (provider.enableLoadMoreData!)
-                              LoadMoreBtn(
-                                onTap: () {
-                                  provider.fetchNearbyMarkets(context);
-                                },
-                              )
-                          ],
+            : provider.nearByMarkets == null
+                ? provider.nearByMarketsErrorMsg == null
+                    ? Txt("خطای بارگذاری لیست",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.nearByMarketsErrorMsg!,
+                        style: AppTxtStyles().body..alignment.center())
+                : SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        MarketsList(
+                          markets: provider.nearByMarkets!,
+                          repository: provider.customerMarketRepo,
                         ),
-                      );
+                        SizedBox(height: 8),
+                        if (provider.enableLoadMoreData!)
+                          LoadMoreBtn(onTap: () {
+                            provider.fetchNearbyMarkets(context);
+                          })
+                      ],
+                    ),
+                  );
       },
     );
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: SimpleAppBar(context).create(
-          text: "خانه",
-          showBasketBtn: true,
-        ),
-        body: RefreshIndicator(
-          onRefresh: () async {
-            await marketRepo.updateNearByMarkets();
-            return Future<void>.value();
-          },
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const SizedBox(height: 16),
-                ProductImageView(images: campaignPhotos),
-                const SizedBox(height: 8),
-                consumer,
-              ],
-            ),
-          ),
-        ),
-      ),
+    return Consumer<LocationNotifier>(
+      builder: (context, provider, child) {
+        if (provider.currentLocation == null) {
+          provider.fetechLocation(context);
+        }
+
+        return provider.loading
+            ? AppLoading(color: AppTheme.customerPrimary)
+            : provider.currentLocation == null
+                ? LocationErrorModal(
+                    onTryAgainBtnTap: () {
+                      provider.fetechLocation(context);
+                    },
+                  )
+                : Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Scaffold(
+                      appBar: SimpleAppBar(context).create(
+                        text: "خانه",
+                        showBasketBtn: true,
+                      ),
+                      body: RefreshIndicator(
+                        onRefresh: () async {
+                          provider.fetechLocation(context);
+                          await marketNotifier.customerMarketRepo
+                              .updateNearByMarkets();
+                          return Future<void>.value();
+                        },
+                        child: SingleChildScrollView(
+                          padding: EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              campaignsConsumer,
+                              marketsConsumer,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+      },
     );
   }
 }
