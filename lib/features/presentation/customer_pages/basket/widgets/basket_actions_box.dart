@@ -3,7 +3,6 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tezal/features/presentation/customer_pages/payment_method_selector/payment_method_selector.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
@@ -12,6 +11,7 @@ import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../../providers/customer_providers/order_notifier.dart';
 import '../../address_selector/address_selector_page.dart';
+import '../../payment_method_selector/payment_method_selector.dart';
 
 class BasketActionsBox extends StatelessWidget {
   const BasketActionsBox({
@@ -53,7 +53,7 @@ class BasketActionsBox extends StatelessWidget {
                 style: AppTxtStyles().body..bold(),
               ),
               Txt(
-                "${basket.data.marketName}",
+                "${basket.data!.marketName}",
                 style: AppTxtStyles().body,
               ),
             ],
@@ -159,7 +159,7 @@ class BasketActionsBox extends StatelessWidget {
     return CustomRichText(
       title: "قیمت محصولات: ",
       text: _generatePriceText(
-        basket.data.totalPrice,
+        basket.data!.totalPrice,
       ),
     );
   }
@@ -168,7 +168,7 @@ class BasketActionsBox extends StatelessWidget {
     return CustomRichText(
       title: "تخفیف محصولات: ",
       text: _generatePriceText(
-        basket.data.totalDiscountedPrice,
+        basket.data!.totalDiscountedPrice,
       ),
     );
   }
@@ -177,7 +177,7 @@ class BasketActionsBox extends StatelessWidget {
     return CustomRichText(
       title: "هزینه ارسال: ",
       text: _generatePriceText(
-        basket.data.deliveryCost,
+        basket.data!.deliveryCost,
       ),
     );
   }
@@ -186,7 +186,7 @@ class BasketActionsBox extends StatelessWidget {
     return CustomRichText(
       title: "مبلغ قابل پرداخت: ",
       text: _generatePriceText(
-        basket.data.payable,
+        basket.data!.payablePrice,
       ),
     );
   }
