@@ -1,53 +1,65 @@
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../../../core/themes/app_theme.dart';
-import '../../../../core/widgets/loading.dart';
-import '../../../data/models/search_result_model.dart';
-import '../../../data/repositories/customer_market_repository.dart';
-import '../../../data/repositories/customer_search_repository.dart';
+import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/search_notifier.dart';
 import 'widgets/search_box.dart';
 import 'widgets/search_market_list.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchPage extends StatelessWidget {
   static const route = "/customer_search";
 
-  @override
-  _SearchPageState createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  final searchRepo = CustomerSearchRepository();
-  final marketRepo = CustomerMarketRepository();
-
   final searchCtrl = TextEditingController();
-  var onSearchTap;
-
-  List<Market> markets = [];
-  List<String> searchTerms = [];
-
-  bool loading = true;
-
-  void initializeState() async {
-    var result = await searchRepo.searchTerms(context);
-    result.fold(
-      (l) => null,
-      (r) {
-        searchTerms = r.data;
-      },
-    );
-
-    setState(() => loading = false);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    initializeState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    var searchTermsConsumer = Consumer<SearchNotifier>(
+      builder: (context, provider, child) {
+        if (provider.searchTerms.isEmpty) {
+          provider.fetchSearchTerms(context);
+        }
+
+        return SearchBox(
+          controller: searchCtrl,
+          terms: provider.searchTerms,
+          onSearchTap: () async {
+            if (searchCtrl.text.trim().isNotEmpty) {
+              await provider.search(
+                context,
+                searchCtrl.text,
+              );
+            }
+          },
+        );
+      },
+    );
+
+    var searchConsumer = Consumer<SearchNotifier>(
+      builder: (context, provider, child) {
+        return provider.searchResultList == null
+            ? provider.searchErrorMsg == null
+                ? Txt(
+                    "نام محصول مورد نظر خود را جستجو کنید",
+                    style: AppTxtStyles().body..alignment.center(),
+                  )
+                : Txt(
+                    provider.searchErrorMsg,
+                    style: AppTxtStyles().body..alignment.center(),
+                  )
+            : Expanded(
+                child: SingleChildScrollView(
+                  padding: EdgeInsets.only(top: 48),
+                  child: SearchMarketList(
+                    markets: provider.searchResultList!,
+                  ),
+                ),
+              );
+      },
+    );
+
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -55,48 +67,13 @@ class _SearchPageState extends State<SearchPage> {
           text: "جستجو",
           showBasketBtn: true,
         ),
-        body: loading
-            ? AppLoading(color: AppTheme.customerPrimary)
-            : Stack(
-                textDirection: TextDirection.rtl,
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      padding: EdgeInsets.only(top: 48),
-                      child: SearchMarketList(markets: markets),
-                    ),
-                  ),
-                  SearchBox(
-                    controller: searchCtrl,
-                    onSearchTap: () async {
-                      if (searchCtrl.text.trim().isEmpty) {
-                        return;
-                      }
-
-                      var result = await searchRepo.search(
-                        context,
-                        term: searchCtrl.text,
-                      );
-
-                      result.fold(
-                        (l) => null,
-                        (r) {
-                          if (markets != null) {
-                            markets.clear();
-                            markets.addAll(r.data.markets);
-                          } else {
-                            markets = r.data.markets;
-                          }
-
-                          setState(() {});
-                        },
-                      );
-                    },
-                    terms: searchTerms,
-                  ),
-                ],
-              ),
+        body: Stack(
+          textDirection: TextDirection.rtl,
+          children: [
+            searchConsumer,
+            searchTermsConsumer,
+          ],
+        ),
       ),
     );
   }
