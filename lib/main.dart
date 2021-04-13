@@ -10,17 +10,22 @@ import 'core/themes/app_theme.dart';
 import 'features/data/repositories/auth_repository.dart';
 import 'features/data/repositories/customer_address_repository.dart';
 import 'features/data/repositories/customer_basket_repository.dart';
+import 'features/data/repositories/customer_campaign_repository.dart';
 import 'features/data/repositories/customer_market_repository.dart';
 import 'features/data/repositories/customer_order_repository.dart';
 import 'features/data/repositories/customer_product_repository.dart';
 import 'features/data/repositories/customer_repository.dart';
+import 'features/data/repositories/customer_search_repository.dart';
 import 'features/data/repositories/customer_wallet_repository.dart';
 import 'features/presentation/providers/customer_providers/address_notifier.dart';
 import 'features/presentation/providers/customer_providers/basket_notifier.dart';
+import 'features/presentation/providers/customer_providers/campaign_notifier.dart';
+import 'features/presentation/providers/customer_providers/location_notifier.dart';
 import 'features/presentation/providers/customer_providers/market_notifier.dart';
 import 'features/presentation/providers/customer_providers/order_notifier.dart';
 import 'features/presentation/providers/customer_providers/product_notifier.dart';
 import 'features/presentation/providers/customer_providers/profile_notifier.dart';
+import 'features/presentation/providers/customer_providers/search_notifier.dart';
 import 'features/presentation/providers/customer_providers/wallet_notifier.dart';
 
 Future<void> main() async {
@@ -133,6 +138,14 @@ class _AppState extends State<App> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (ctx) => LocationNotifier(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CampaignNotifier(
+            CustomerCampaignRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
           create: (ctx) => MarketNotifier(
             CustomerMarketRepository(),
           ),
@@ -150,6 +163,11 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(
           create: (ctx) => WalletNotifier(
             CustomerWalletRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => SearchNotifier(
+            CustomerSearchRepository(),
           ),
         ),
         ChangeNotifierProvider(
