@@ -358,7 +358,7 @@ packages:
     source: hosted
     version: "4.1.7"
   google_maps_flutter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: google_maps_flutter
       url: "https://pub.dartlang.org"
@@ -448,13 +448,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.2"
-  latlng:
-    dependency: "direct main"
-    description:
-      name: latlng
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.0"
   logging:
     dependency: transitive
     description:
