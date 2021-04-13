@@ -32,7 +32,7 @@ class MarketsListItem extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..margin(vertical: 8)
-        ..padding(horizontal: 8, top: 8, bottom: 16)
+        ..padding(horizontal: 8, top: 8, bottom: 8)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)
         ..boxShadow(
@@ -54,8 +54,8 @@ class MarketsListItem extends StatelessWidget {
                 children: [
                   Parent(
                     style: ParentStyle()
-                      ..width(96)
-                      ..height(96)
+                      ..width(80)
+                      ..height(80)
                       ..borderRadius(all: 8)
                       ..background.image(
                         alignment: Alignment.center,
@@ -77,9 +77,8 @@ class MarketsListItem extends StatelessWidget {
                     children: [
                       Txt(
                         "${market.name}",
-                        style: AppTxtStyles().heading..bold(),
+                        style: AppTxtStyles().body..bold(),
                       ),
-                      SizedBox(height: 4),
                       if (market.openAt != null) _fieldWorkingTime,
                       _fieldPhone,
                       _fieldAddress,
@@ -90,7 +89,7 @@ class MarketsListItem extends StatelessWidget {
               Divider(
                 color: Colors.black12,
                 thickness: 0.5,
-                height: 32,
+                height: 16,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -140,7 +139,7 @@ class MarketsListItem extends StatelessWidget {
     );
   }
 
-  Widget get _verticalDivider => SizedBox(
+  Widget get _verticalDivider => const SizedBox(
         height: 40,
         child: VerticalDivider(
           color: Colors.black12,
