@@ -39,7 +39,7 @@ class CategoryListItem extends StatelessWidget {
           ),
         ),
         ProductList(
-          products: category.products,
+          products: category.products!,
         ),
       ],
     );
