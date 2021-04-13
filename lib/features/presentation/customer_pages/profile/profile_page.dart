@@ -17,39 +17,25 @@ import '../profile_edit/edit_profile_page.dart';
 import 'widgets/profile_info_box.dart';
 import 'widgets/profile_menu.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   static const route = "/customer_profile";
 
   @override
-  _ProfilePageState createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  final authRepo = AuthRepository();
-  ProfileNotifier? profileNotifier;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    profileNotifier ??= Provider.of<ProfileNotifier>(context, listen: false);
+    var authRepo = AuthRepository();
 
     var consumer = Consumer<ProfileNotifier>(
       builder: (context, provider, child) {
-        if (provider.loading && provider.errorMsg == null) {
+        if (provider.customerProfile == null) {
           provider.fetchInfo();
         }
 
         return provider.loading
             ? AppLoading(color: AppTheme.customerPrimary)
-            : provider.errorMsg != null
-                ? Txt(
-                    "${provider.errorMsg}",
-                    style: AppTxtStyles().body,
-                  )
+            : provider.customerProfile == null
+                ? provider.errorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات", style: AppTxtStyles().body)
+                    : Txt("${provider.errorMsg!}", style: AppTxtStyles().body)
                 : ProfileInfoBox(
                     profileInfo: provider.customerProfile!,
                     onEditBtnTap: () {
