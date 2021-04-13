@@ -298,38 +298,35 @@ class ProductDetailPage extends StatelessWidget {
 
     print("productId: ${productDetail.data!.id}\n");
 
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
-        future: provider.customerProductRepo.productComments(
-          productId: productDetail.data!.id,
-          page: 1,
-        ),
-        successBuilder: (context, data) {
-          return data!.fold(
-            (left) => Txt(
-              left.message,
-              style: AppTxtStyles().body..alignment.center(),
-            ),
-            (right) {
-              print("productCommentsRight: ${right.toJson()}\n");
-              return CommentList(
-                comments: right.data!.comments!.sublist(0, 3),
-                showAllCommentOnTap: () {
-                  Routes.sailor.navigate(
-                    ProductCommentsPage.route,
-                    params: {"productId": productDetail.data!.id},
-                  );
-                },
-                enableHeader: right.data!.comments!.isNotEmpty,
-              );
-            },
-          );
-        },
-        errorBuilder: (context, data) {
-          return AppLoading(color: AppTheme.customerPrimary);
-        },
+    return CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
+      future: provider.customerProductRepo.productComments(
+        productId: productDetail.data!.id,
+        page: 1,
       ),
+      successBuilder: (context, data) {
+        return data!.fold(
+          (left) => Txt(
+            left.message,
+            style: AppTxtStyles().body..alignment.center(),
+          ),
+          (right) {
+            print("productCommentsRight: ${right.toJson()}\n");
+            return CommentList(
+              comments: right.data!.comments!.sublist(0, 3),
+              showAllCommentOnTap: () {
+                Routes.sailor.navigate(
+                  ProductCommentsPage.route,
+                  params: {"productId": productDetail.data!.id},
+                );
+              },
+              enableHeader: right.data!.comments!.isNotEmpty,
+            );
+          },
+        );
+      },
+      errorBuilder: (context, data) {
+        return AppLoading(color: AppTheme.customerPrimary);
+      },
     );
   }
 }
