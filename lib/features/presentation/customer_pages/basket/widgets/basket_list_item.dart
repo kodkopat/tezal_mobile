@@ -70,7 +70,7 @@ class BasketListItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Txt(
-                          "${basketItem.productName}",
+                          "${basketItem.name}",
                           style: AppTxtStyles().subHeading..bold(),
                         ),
                         Parent(
@@ -132,18 +132,18 @@ class BasketListItem extends StatelessWidget {
             unit: "${basketItem.productUnit}",
             step: basketItem.step,
             onIncrease: (value) async {
-              await basketNotifier.customerBasketRepo.addProductToBasket(
+              await basketNotifier.addToBasket(
+                context,
                 productId: basketItem.id,
                 amount: 1,
               );
-              basketNotifier.refresh();
             },
             onDecrease: (value) async {
-              await basketNotifier.customerBasketRepo.removeProductToBasket(
+              await basketNotifier.removeFromBasket(
+                context,
                 productId: basketItem.id,
                 amount: 1,
               );
-              basketNotifier.refresh();
             },
           ),
         ],
