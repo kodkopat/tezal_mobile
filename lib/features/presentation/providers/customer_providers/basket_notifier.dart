@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/models/basket_result_model.dart';
 import '../../../data/repositories/customer_basket_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
@@ -37,10 +38,14 @@ class BasketNotifier extends ChangeNotifier {
   List<BasketItem>? basketItemList;
   int? basketCount;
 
-  Future<void> addToBasket({
+  Future<void> addToBasket(
+    BuildContext context, {
     required String productId,
     required int amount,
   }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
     var result = await customerBasketRepo.addProductToBasket(
       productId: productId,
       amount: amount,
@@ -50,12 +55,18 @@ class BasketNotifier extends ChangeNotifier {
       (left) => null,
       (right) => refresh(),
     );
+
+    prgDialog.hide();
   }
 
-  Future<void> removeFromBasket({
+  Future<void> removeFromBasket(
+    BuildContext context, {
     required String productId,
     required int amount,
   }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
     var result = await customerBasketRepo.removeProductToBasket(
       productId: productId,
       amount: amount,
@@ -65,9 +76,14 @@ class BasketNotifier extends ChangeNotifier {
       (left) => null,
       (right) => refresh(),
     );
+
+    prgDialog.hide();
   }
 
-  Future<void> clearBasket() async {
+  Future<void> clearBasket(BuildContext context) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
     var result = await customerBasketRepo.emptyBasket();
     result.fold(
       (left) => errorMsg = left.message,
@@ -77,7 +93,10 @@ class BasketNotifier extends ChangeNotifier {
         basketCount = 0;
       },
     );
+
     notifyListeners();
+
+    prgDialog.hide();
   }
 
   Future<void> fetchBasket() async {
