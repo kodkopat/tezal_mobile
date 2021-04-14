@@ -14,6 +14,7 @@ import '../models/comments_result_model.dart';
 import '../models/liked_products_result_model.dart';
 import '../models/photos_result_model.dart';
 import '../models/product_detail_result_model.dart';
+import '../models/products_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerProductRepository {
@@ -30,7 +31,7 @@ class CustomerProductRepository {
   final CustomerProductLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, dynamic>> productList({
+  Future<Either<Failure, ProductsResultModel>> productList({
     required String marketId,
     required String categoryId,
   }) async {
@@ -38,7 +39,7 @@ class CustomerProductRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       var result = await _remoteDataSource.getAll(marketId, categoryId);
-
+      print("allProducts: ${result.toJson()}\n");
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
