@@ -4,24 +4,12 @@ import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 
+// tip: this class must not be a singleton
+// because it used for any object of ProductListItem
+// then, when it used as singleton in dispose method of
+// widgets, this object will be gone!
 class ProductCommentsNotifier extends ChangeNotifier {
-  static ProductCommentsNotifier? _instance;
-
-  factory ProductCommentsNotifier(
-    CustomerProductRepository customerProductRepo,
-  ) {
-    if (_instance == null) {
-      _instance = ProductCommentsNotifier._privateConstructor(
-        customerProductRepo: customerProductRepo,
-      );
-    }
-
-    return _instance!;
-  }
-
-  ProductCommentsNotifier._privateConstructor({
-    required this.customerProductRepo,
-  });
+  ProductCommentsNotifier(this.customerProductRepo);
 
   final CustomerProductRepository customerProductRepo;
 
