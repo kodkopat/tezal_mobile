@@ -2,12 +2,12 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/all_products_result_model.dart';
 import '../../models/base_api_result_model.dart';
 import '../../models/comments_result_model.dart';
 import '../../models/liked_products_result_model.dart';
 import '../../models/photos_result_model.dart';
 import '../../models/product_detail_result_model.dart';
+import '../../models/products_result_model.dart';
 
 part 'customer_product_remote_data_source.g.dart';
 
@@ -18,9 +18,9 @@ abstract class CustomerProductRemoteDataSource {
 
   static const _apiUrlPrefix = "customer/Product";
 
-  @POST("$_apiUrlPrefix/GetAll")
+  @GET("$_apiUrlPrefix/GetAll")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<AllProductsResultModel> getAll(
+  Future<ProductsResultModel> getAll(
     @Query("MarketId") String marketId,
     @Query("CategoryId") String categoryId,
   );

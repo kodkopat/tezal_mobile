@@ -17,7 +17,7 @@ class _CustomerProductRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<AllProductsResultModel> getAll(marketId, categoryId) async {
+  Future<ProductsResultModel> getAll(marketId, categoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
@@ -25,8 +25,8 @@ class _CustomerProductRemoteDataSource
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<AllProductsResultModel>(Options(
-                method: 'POST',
+        _setStreamType<ProductsResultModel>(Options(
+                method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain'
@@ -36,7 +36,7 @@ class _CustomerProductRemoteDataSource
             .compose(_dio.options, 'customer/Product/GetAll',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AllProductsResultModel.fromJson(_result.data!);
+    final value = ProductsResultModel.fromJson(_result.data!);
     return value;
   }
 
