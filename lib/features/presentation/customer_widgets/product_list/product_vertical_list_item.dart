@@ -56,8 +56,8 @@ class ProductVerticalListItem extends StatelessWidget {
             children: [
               Parent(
                 style: ParentStyle()
-                  ..width(144)
-                  ..height(112)
+                  ..width(80)
+                  ..height(80)
                   ..borderRadius(all: 6)
                   ..background.image(
                     alignment: Alignment.center,
@@ -121,7 +121,7 @@ class ProductVerticalListItem extends StatelessWidget {
             right: 2,
             top: 2,
             child: ProductListItemLikeToggle(
-              defaultValue: product.liked,
+              defaultValue: false /* product.liked */,
               onChange: (value) async {
                 if (value) {
                   productNotifier.likeProduct(
