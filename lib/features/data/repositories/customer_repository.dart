@@ -14,7 +14,16 @@ import '../models/customer_profile_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerRepository {
-  CustomerRepository()
+  static CustomerRepository? _instance;
+
+  factory CustomerRepository() {
+    if (_instance == null) {
+      _instance = CustomerRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerRemoteDataSource(Dio()),
         _localDataSource = CustomerLocalDataSource(),

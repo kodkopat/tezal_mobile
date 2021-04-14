@@ -17,7 +17,16 @@ import '../models/provinces_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerAddressRepository {
-  CustomerAddressRepository()
+  static CustomerAddressRepository? _instance;
+
+  factory CustomerAddressRepository() {
+    if (_instance == null) {
+      _instance = CustomerAddressRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerAddressRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerAddressRemoteDataSource(Dio()),
         _localDataSource = CustomerAddressLocalDataSource(),

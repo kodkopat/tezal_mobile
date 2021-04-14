@@ -15,7 +15,16 @@ import '../models/order_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerOrderRepository {
-  CustomerOrderRepository()
+  static CustomerOrderRepository? _instance;
+
+  factory CustomerOrderRepository() {
+    if (_instance == null) {
+      _instance = CustomerOrderRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerOrderRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerOrderRemoteDataSource(Dio()),
         _localDataSource = CustomerOrderLocalDataSource(),

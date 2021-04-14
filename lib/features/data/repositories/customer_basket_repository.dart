@@ -15,7 +15,16 @@ import '../models/payment_info_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerBasketRepository {
-  CustomerBasketRepository()
+  static CustomerBasketRepository? _instance;
+
+  factory CustomerBasketRepository() {
+    if (_instance == null) {
+      _instance = CustomerBasketRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerBasketRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerBasketRemoteDataSource(Dio()),
         _localDataSource = CustomerBasketLocalDataSource(),

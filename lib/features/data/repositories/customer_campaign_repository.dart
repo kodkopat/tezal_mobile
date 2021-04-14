@@ -14,7 +14,16 @@ import '../models/photos_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerCampaignRepository {
-  CustomerCampaignRepository()
+  static CustomerCampaignRepository? _instance;
+
+  factory CustomerCampaignRepository() {
+    if (_instance == null) {
+      _instance = CustomerCampaignRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerCampaignRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerCampaignRemoteDataSource(Dio()),
         _localDataSource = CustomerCampaignLocalDataSource(),

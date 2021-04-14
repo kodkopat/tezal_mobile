@@ -13,7 +13,16 @@ import '../models/photo_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerCategoryRepository {
-  CustomerCategoryRepository()
+  static CustomerCategoryRepository? _instance;
+
+  factory CustomerCategoryRepository() {
+    if (_instance == null) {
+      _instance = CustomerCategoryRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerCategoryRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerCategoryRemoteDataSource(Dio()),
         _localDataSource = CustomerCategoryLocalDataSource(),

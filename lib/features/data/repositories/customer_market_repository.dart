@@ -21,7 +21,16 @@ import '../models/sub_category_detail_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerMarketRepository {
-  CustomerMarketRepository()
+  static CustomerMarketRepository? _instance;
+
+  factory CustomerMarketRepository() {
+    if (_instance == null) {
+      _instance = CustomerMarketRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerMarketRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerMarketRemoteDataSource(Dio()),
         _localDataSource = CustomerMarketLocalDataSource(),

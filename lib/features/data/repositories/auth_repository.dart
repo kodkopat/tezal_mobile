@@ -13,7 +13,16 @@ import '../models/agreement_result_model.dart';
 import '../models/base_api_result_model.dart';
 
 class AuthRepository {
-  AuthRepository()
+  static AuthRepository? _instance;
+
+  factory AuthRepository() {
+    if (_instance == null) {
+      _instance = AuthRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  AuthRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = AuthRemoteDataSource(Dio()),
         _localDataSource = AuthLocalDataSource();

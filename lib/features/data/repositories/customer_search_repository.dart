@@ -17,7 +17,16 @@ import '../models/search_terms_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerSearchRepository {
-  CustomerSearchRepository()
+  static CustomerSearchRepository? _instance;
+
+  factory CustomerSearchRepository() {
+    if (_instance == null) {
+      _instance = CustomerSearchRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerSearchRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerSearchRemoteDataSource(Dio()),
         _localDataSource = CustomerSearchLocalDataSource(),

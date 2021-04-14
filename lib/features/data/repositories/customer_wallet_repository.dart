@@ -15,7 +15,16 @@ import '../models/wallet_load_balance_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerWalletRepository {
-  CustomerWalletRepository()
+  static CustomerWalletRepository? _instance;
+
+  factory CustomerWalletRepository() {
+    if (_instance == null) {
+      _instance = CustomerWalletRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerWalletRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerWalletRemoteDataSource(Dio()),
         _localDataSource = CustomerWalletLocalDataSource(),

@@ -18,7 +18,16 @@ import '../models/products_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerProductRepository {
-  CustomerProductRepository()
+  static CustomerProductRepository? _instance;
+
+  factory CustomerProductRepository() {
+    if (_instance == null) {
+      _instance = CustomerProductRepository._privateConstructor();
+    }
+    return _instance!;
+  }
+
+  CustomerProductRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerProductRemoteDataSource(Dio()),
         _localDataSource = CustomerProductLocalDataSource(),
@@ -39,7 +48,7 @@ class CustomerProductRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       var result = await _remoteDataSource.getAll(marketId, categoryId);
-      print("allProducts: ${result.toJson()}\n");
+
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
