@@ -41,7 +41,9 @@ class ProductsPage extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                     : Txt(provider.productsErrorMsg!,
                         style: AppTxtStyles().body..alignment.center())
-                : ProductVerticalList(products: provider.products!);
+                : SingleChildScrollView(
+                    child: ProductVerticalList(products: provider.products!),
+                  );
       },
     );
 
