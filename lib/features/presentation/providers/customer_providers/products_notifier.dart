@@ -16,22 +16,17 @@ class ProductsNotifier extends ChangeNotifier {
     required String marketId,
     required String categoryId,
   }) async {
-    try {
-      var result = await customerProductRepo.productList(
-        marketId: marketId,
-        categoryId: categoryId,
-      );
+    var result = await customerProductRepo.productList(
+      marketId: marketId,
+      categoryId: categoryId,
+    );
 
-      result.fold(
-        (left) => productsErrorMsg = left.message,
-        (right) {
-          products = right.data;
-        },
-      );
-    } catch (error) {
-      print("fetchProducts error: $error\n");
-    }
+    result.fold(
+      (left) => productsErrorMsg = left.message,
+      (right) => products = right.data!,
+    );
 
+    productsLoading = false;
     notifyListeners();
   }
 }
