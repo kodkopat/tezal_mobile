@@ -50,7 +50,7 @@ class _CampaignSliderState extends State<CampaignSlider> {
                 },
                 itemBuilder: (context, index) {
                   if (index == 0) {
-                    return MapBox(height: boxHeight);
+                    return SizedBox() /* MapBox(height: boxHeight) */;
                   }
 
                   return CampaignSliderItem(
