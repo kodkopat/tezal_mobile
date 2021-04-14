@@ -14,6 +14,7 @@ import '../../features/presentation/customer_pages/address_detail/address_detail
 import '../../features/presentation/customer_pages/address_save/address_save_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
 import '../../features/presentation/customer_pages/basket/basket_page.dart';
+import '../../features/presentation/customer_pages/category/category_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
@@ -23,12 +24,14 @@ import '../../features/presentation/customer_pages/order_detail/order_detail_pag
 import '../../features/presentation/customer_pages/orders/orders_page.dart';
 import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
 import '../../features/presentation/customer_pages/product_detail/product_detail_page.dart';
+import '../../features/presentation/customer_pages/products/produtct_page.dart';
 import '../../features/presentation/customer_pages/profile/profile_page.dart';
 import '../../features/presentation/customer_pages/profile_edit/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/search/search_page.dart';
 import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
 import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
 import '../../features/presentation/providers/customer_providers/product_comments_notifier.dart';
+import '../../features/presentation/providers/customer_providers/products_notifier.dart';
 
 class Routes {
   static final sailor = Sailor();
@@ -114,6 +117,59 @@ class Routes {
           params: [
             SailorParam<String>(
               name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: CategoryPage.route,
+          builder: (ctx, args, map) {
+            final marketId = map.param<String>("marketId");
+            final mainCategoryId = map.param<String>("mainCategoryId");
+
+            return CategoryPage(
+              marketId: marketId,
+              mainCategoryId: mainCategoryId,
+            );
+          },
+          params: [
+            SailorParam<String>(
+              name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+            SailorParam<String>(
+              name: "mainCategoryId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: ProductsPage.route,
+          builder: (ctx, args, map) {
+            final marketId = map.param<String>("marketId");
+            final categoryId = map.param<String>("categoryId");
+
+            return ChangeNotifierProvider(
+              create: (ctx) => ProductsNotifier(
+                CustomerProductRepository(),
+              ),
+              child: ProductsPage(
+                marketId: marketId,
+                categoryId: categoryId,
+              ),
+            );
+          },
+          params: [
+            SailorParam<String>(
+              name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+            SailorParam<String>(
+              name: "categoryId",
               isRequired: true,
               defaultValue: "",
             ),
