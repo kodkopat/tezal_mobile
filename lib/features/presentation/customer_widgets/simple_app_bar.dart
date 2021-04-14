@@ -30,7 +30,7 @@ class SimpleAppBar {
               style: ParentStyle()
                 ..width(48)
                 ..height(48)
-                ..margin(right: 4)
+                ..margin(all: 4)
                 ..borderRadius(all: 24)
                 ..ripple(true),
               child: Icon(
