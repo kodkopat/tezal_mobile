@@ -15,11 +15,11 @@ import '../../../data/models/product_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
 import '../../providers/customer_providers/product_notifier.dart';
-import 'product_list_item_counter.dart';
-import 'product_list_item_like_toggle.dart';
+import 'product_counter.dart';
+import 'product_like_toggle.dart';
 
-class ProductListItem extends StatelessWidget {
-  ProductListItem({
+class ProductHorizontalListItem extends StatelessWidget {
+  ProductHorizontalListItem({
     required this.product,
     required this.onTap,
   });
