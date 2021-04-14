@@ -2,14 +2,21 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market_detail_result_model.dart';
+import '../../customer_pages/category/category_page.dart';
+import '../../customer_pages/products/produtct_page.dart';
 import 'category_list_item.dart';
 
 class CategoryList extends StatelessWidget {
-  const CategoryList({required this.categories});
+  const CategoryList({
+    required this.categories,
+    required this.marketId,
+  });
 
   final List<Category> categories;
+  final String marketId;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +33,24 @@ class CategoryList extends StatelessWidget {
             itemBuilder: (context, index) {
               return CategoryListItem(
                 category: categories[index],
+                onCategoryTap: () {
+                  Routes.sailor.navigate(
+                    CategoryPage.route,
+                    params: {
+                      "marketId": marketId,
+                      "mainCategoryId": "${categories[index].id}",
+                    },
+                  );
+                },
+                onSeeAllTap: () {
+                  Routes.sailor.navigate(
+                    ProductsPage.route,
+                    params: {
+                      "marketId": marketId,
+                      "categoryId": "${categories[index].id}",
+                    },
+                  );
+                },
               );
             },
           );

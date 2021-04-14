@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market_detail_result_model.dart';
-import '../product_list/product_list.dart';
+import '../product_list/product_horizontal_list.dart';
 
 class CategoryListItem extends StatelessWidget {
-  const CategoryListItem({required this.category});
+  const CategoryListItem({
+    required this.category,
+    required this.onCategoryTap,
+    required this.onSeeAllTap,
+  });
 
   final Category category;
+  final void Function() onCategoryTap;
+  final void Function() onSeeAllTap;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +30,12 @@ class CategoryListItem extends StatelessWidget {
             children: [
               Txt(
                 "${category.name}",
+                gesture: Gestures()..onTap(onCategoryTap),
                 style: AppTxtStyles().body..bold(),
               ),
               Txt(
                 "مشاهده همه محصولات \u00BB",
-                gesture: Gestures()..onTap(() {}),
+                gesture: Gestures()..onTap(onSeeAllTap),
                 style: AppTxtStyles().footNote
                   ..borderRadius(all: 4)
                   ..margin(top: 2)
@@ -38,7 +45,7 @@ class CategoryListItem extends StatelessWidget {
             ],
           ),
         ),
-        ProductList(
+        ProductHorizontalList(
           products: category.products!,
         ),
       ],
