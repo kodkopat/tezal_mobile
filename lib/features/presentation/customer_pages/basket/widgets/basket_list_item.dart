@@ -14,7 +14,7 @@ import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/basket_result_model.dart';
 import '../../../../data/models/photos_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../../customer_widgets/product_list/product_list_item_counter.dart';
+import '../../../customer_widgets/product_list/product_counter.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 
 class BasketListItem extends StatelessWidget {
