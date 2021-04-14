@@ -8,8 +8,8 @@ import '../../../../core/exceptions/failure.dart';
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
-import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/carousel_image_slider.dart';
+import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/comments_result_model.dart';
 import '../../../data/models/market_detail_result_model.dart';
@@ -128,7 +128,10 @@ class MarketDetailPage extends StatelessWidget {
   }
 
   Widget _sectionCategories(List<Category> categories) {
-    return CategoryList(categories: categories);
+    return CategoryList(
+      categories: categories,
+      marketId: marketId,
+    );
   }
 
   Widget _sectionComments() {
