@@ -17,6 +17,48 @@ class _CustomerCategoryRemoteDataSource
   String? baseUrl;
 
   @override
+  Future<MainCategoryResultModel> getMainCategories() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MainCategoryResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain'
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Category/GetMainCategories',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MainCategoryResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<SubCategoryResultModel> getSubCategories(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'Id': id};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<SubCategoryResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain'
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'customer/Category/GetSubCategories',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = SubCategoryResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<PhotoResultModel> getMainCategoryPhoto(token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};

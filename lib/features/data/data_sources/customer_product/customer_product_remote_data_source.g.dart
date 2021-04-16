@@ -17,7 +17,8 @@ class _CustomerProductRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<ProductsResultModel> getAll(marketId, categoryId) async {
+  Future<ProductsResultModel> getProductsInSubCategory(
+      marketId, categoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
@@ -33,7 +34,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/GetAll',
+            .compose(_dio.options, 'customer/Product/GetProductsInSubCategory',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProductsResultModel.fromJson(_result.data!);

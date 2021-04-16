@@ -18,9 +18,9 @@ abstract class CustomerProductRemoteDataSource {
 
   static const _apiUrlPrefix = "customer/Product";
 
-  @GET("$_apiUrlPrefix/GetAll")
+  @GET("$_apiUrlPrefix/GetProductsInSubCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<ProductsResultModel> getAll(
+  Future<ProductsResultModel> getProductsInSubCategory(
     @Query("MarketId") String marketId,
     @Query("CategoryId") String categoryId,
   );
