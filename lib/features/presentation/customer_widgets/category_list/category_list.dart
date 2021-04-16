@@ -1,22 +1,22 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:tezal/features/presentation/customer_pages/market_category/market_category.dart';
 
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market_detail_result_model.dart';
-import '../../customer_pages/category/category_page.dart';
 import '../../customer_pages/products/produtct_page.dart';
 import 'category_list_item.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({
-    required this.categories,
     required this.marketId,
+    required this.categories,
   });
 
-  final List<Category> categories;
   final String marketId;
+  final List<Category> categories;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,10 @@ class CategoryList extends StatelessWidget {
                 category: categories[index],
                 onCategoryTap: () {
                   Routes.sailor.navigate(
-                    CategoryPage.route,
+                    MarketCategoryPage.route,
                     params: {
                       "marketId": marketId,
-                      "mainCategoryId": "${categories[index].id}",
+                      "marketCategories": categories,
                     },
                   );
                 },
