@@ -11,6 +11,7 @@ import 'features/data/repositories/auth_repository.dart';
 import 'features/data/repositories/customer_address_repository.dart';
 import 'features/data/repositories/customer_basket_repository.dart';
 import 'features/data/repositories/customer_campaign_repository.dart';
+import 'features/data/repositories/customer_category_repository.dart';
 import 'features/data/repositories/customer_market_repository.dart';
 import 'features/data/repositories/customer_order_repository.dart';
 import 'features/data/repositories/customer_product_repository.dart';
@@ -20,6 +21,7 @@ import 'features/data/repositories/customer_wallet_repository.dart';
 import 'features/presentation/providers/customer_providers/address_notifier.dart';
 import 'features/presentation/providers/customer_providers/basket_notifier.dart';
 import 'features/presentation/providers/customer_providers/campaign_notifier.dart';
+import 'features/presentation/providers/customer_providers/category_notifier.dart';
 import 'features/presentation/providers/customer_providers/location_notifier.dart';
 import 'features/presentation/providers/customer_providers/market_notifier.dart';
 import 'features/presentation/providers/customer_providers/order_notifier.dart';
@@ -143,6 +145,11 @@ class _AppState extends State<App> {
         ChangeNotifierProvider(
           create: (ctx) => CampaignNotifier(
             CustomerCampaignRepository(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => CategoryNotifier(
+            CustomerCategoryRepository(),
           ),
         ),
         ChangeNotifierProvider(
