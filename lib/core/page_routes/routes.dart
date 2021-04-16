@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
+import '../../features/data/models/market_detail_result_model.dart';
 import '../../features/data/repositories/customer_product_repository.dart';
 import '../../features/presentation/base_pages/confirm_registration/confirm_registration.dart';
 import '../../features/presentation/base_pages/confirm_reset_password/confirm_reset_password.dart';
@@ -18,6 +19,7 @@ import '../../features/presentation/customer_pages/category/category_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
+import '../../features/presentation/customer_pages/market_category/market_category.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
 import '../../features/presentation/customer_pages/order_detail/order_detail_page.dart';
@@ -28,6 +30,7 @@ import '../../features/presentation/customer_pages/products/produtct_page.dart';
 import '../../features/presentation/customer_pages/profile/profile_page.dart';
 import '../../features/presentation/customer_pages/profile_edit/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/search/search_page.dart';
+import '../../features/presentation/customer_pages/sub_category/sub_category_page.dart';
 import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
 import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
 import '../../features/presentation/providers/customer_providers/product_comments_notifier.dart';
@@ -123,14 +126,13 @@ class Routes {
           ],
         ),
         SailorRoute(
-          name: CategoryPage.route,
+          name: MarketCategoryPage.route,
           builder: (ctx, args, map) {
             final marketId = map.param<String>("marketId");
-            final mainCategoryId = map.param<String>("mainCategoryId");
-
-            return CategoryPage(
+            final categories = map.param<List<Category>>("marketCategories");
+            return MarketCategoryPage(
               marketId: marketId,
-              mainCategoryId: mainCategoryId,
+              categories: categories,
             );
           },
           params: [
@@ -139,6 +141,24 @@ class Routes {
               isRequired: true,
               defaultValue: "",
             ),
+            SailorParam<List<Category>>(
+              name: "marketCategories",
+              isRequired: true,
+              defaultValue: [],
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: CategoryPage.route,
+          builder: (ctx, args, map) => CategoryPage(),
+        ),
+        SailorRoute(
+          name: SubCategoryPage.route,
+          builder: (ctx, args, map) {
+            final mainCategoryId = map.param<String>("mainCategoryId");
+            return SubCategoryPage(mainCategoryId: mainCategoryId);
+          },
+          params: [
             SailorParam<String>(
               name: "mainCategoryId",
               isRequired: true,
