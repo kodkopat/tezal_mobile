@@ -47,12 +47,10 @@ class MarketDetailPage extends StatelessWidget {
           var result = data as Either<Failure, MarketDetailResultModel>;
 
           return result.fold(
-            (left) {
-              return Txt(
-                left.message,
-                style: AppTxtStyles().body..alignment.center(),
-              );
-            },
+            (left) => Txt(
+              left.message,
+              style: AppTxtStyles().body..alignment.center(),
+            ),
             (right) => _listOfSections(right),
           );
         },
@@ -129,8 +127,8 @@ class MarketDetailPage extends StatelessWidget {
 
   Widget _sectionCategories(List<Category> categories) {
     return CategoryList(
-      categories: categories,
       marketId: marketId,
+      categories: categories,
     );
   }
 
