@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -12,12 +13,14 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
-import '../../../data/repositories/customer_product_repository.dart';
+import '../../customer_widgets/custom_rich_text.dart';
+import '../../customer_widgets/product_list/product_counter.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
 import '../../providers/customer_providers/product_notifier.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
 
+// ignore: must_be_immutable
 class ProductVerticalListItem extends StatelessWidget {
   ProductVerticalListItem({
     required this.product,
@@ -26,15 +29,16 @@ class ProductVerticalListItem extends StatelessWidget {
 
   final ProductResultModel product;
   final void Function() onTap;
-  final _customerProductRepo = CustomerProductRepository();
+
+  late ProductNotifier productNotifier;
+  late BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    var productNotifier = Provider.of<ProductNotifier>(context, listen: false);
-    var basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
+    productNotifier = Provider.of<ProductNotifier>(context, listen: false);
+    basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
 
     return Parent(
-      gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 8)
@@ -47,18 +51,19 @@ class ProductVerticalListItem extends StatelessWidget {
           spread: 0,
         )
         ..ripple(true),
-      child: Stack(
+      child: Column(
+        textDirection: TextDirection.rtl,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
+          Row(
             textDirection: TextDirection.rtl,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Parent(
                 style: ParentStyle()
-                  ..width(80)
-                  ..height(80)
-                  ..borderRadius(all: 6)
+                  ..width(96)
+                  ..height(96)
+                  ..borderRadius(all: 8)
                   ..background.image(
                     alignment: Alignment.center,
                     path: "assets/images/placeholder.jpg",
@@ -66,74 +71,99 @@ class ProductVerticalListItem extends StatelessWidget {
                   ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(
-                    Radius.circular(6),
+                    Radius.circular(8),
                   ),
                   child: _futureImgFile,
                 ),
               ),
-              Txt(
-                "${product.name}",
-                style: AppTxtStyles().body
-                  ..padding(right: 4)
-                  ..textOverflow(TextOverflow.ellipsis)
-                  ..maxLines(1),
-              ),
-              Row(
-                textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      _fieldOriginalPrice(),
-                      _fieldDiscountedPrice(),
-                    ],
-                  ),
-                  _fieldDiscountedRate(),
-                ],
-              ),
-              ProductListItemCounter(
-                hieght: 28,
-                defaultValue: product.amount * product.step,
-                step: product.step,
-                unit: "${product.productUnit}",
-                onIncrease: (value) {
-                  basketNotifier.addToBasket(
-                    context,
-                    productId: product.id,
-                    amount: 1,
-                  );
-                },
-                onDecrease: (value) {
-                  basketNotifier.removeFromBasket(
-                    context,
-                    productId: product.id,
-                    amount: 1,
-                  );
-                },
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Txt(
+                          "${product.name}",
+                          style: AppTxtStyles().subHeading..bold(),
+                        ),
+                        ProductListItemLikeToggle(
+                          defaultValue: product.liked,
+                          onChange: (value) async {
+                            if (value) {
+                              // productNotifier.likeProduct(
+                              //   productId: product.id,
+                              // );
+                            } else {
+                              // productNotifier.unlikeProduct(
+                              //   productId: product.id,
+                              // );
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          textDirection: TextDirection.rtl,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (_generateDiscountedRate().isNotEmpty)
+                              _fieldTotalPrice(),
+                            _fieldTotalDiscountedPrice(),
+                          ],
+                        ),
+                        _fieldDiscountedRate(),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          Positioned(
-            right: 2,
-            top: 2,
-            child: ProductListItemLikeToggle(
-              defaultValue: false /* product.liked */,
-              onChange: (value) async {
-                if (value) {
-                  productNotifier.likeProduct(
-                    productId: product.id,
-                  );
-                } else {
-                  productNotifier.unlikeProduct(
-                    productId: product.id,
-                  );
-                }
-              },
-            ),
+          SizedBox(height: 12),
+          Row(
+            textDirection: TextDirection.rtl,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _fieldOriginalPrice,
+              _verticalDivider,
+              _fieldDiscountedPrice,
+              _verticalDivider,
+              _fieldTotalDiscount,
+            ],
+          ),
+          SizedBox(height: 12),
+          ProductListItemCounter(
+            hieght: 32,
+            defaultValue: product.amount * product.step,
+            unit: "${product.productUnit}",
+            step: product.step,
+            onIncrease: (value) async {
+              await basketNotifier.addToBasket(
+                context,
+                productId: product.id,
+                amount: 1,
+              );
+            },
+            onDecrease: (value) async {
+              await basketNotifier.removeFromBasket(
+                context,
+                productId: product.id,
+                amount: 1,
+              );
+            },
           ),
         ],
       ),
@@ -142,16 +172,15 @@ class ProductVerticalListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: _customerProductRepo.productphoto(
+      future: basketNotifier.customerProductRepo.productphoto(
         id: product.id,
-        multi: true,
+        multi: false,
       ),
       successBuilder: (context, data) {
         return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
             base64Decode(r.data.photos.first),
-            fit: BoxFit.fill,
           ),
         );
       },
@@ -159,12 +188,21 @@ class ProductVerticalListItem extends StatelessWidget {
     );
   }
 
-  Widget _fieldOriginalPrice() {
+  Widget get _verticalDivider => SizedBox(
+        height: 40,
+        child: VerticalDivider(
+          color: Colors.black12,
+          thickness: 0.5,
+          width: 0,
+        ),
+      );
+
+  Widget _fieldTotalPrice() {
     return RichText(
       textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
-        text: _generateOriginalPrice(),
+        text: _generateTotalPrice(),
         style: TextStyle(
           decoration: TextDecoration.lineThrough,
           color: Colors.black54,
@@ -177,21 +215,61 @@ class ProductVerticalListItem extends StatelessWidget {
     );
   }
 
-  Widget _fieldDiscountedPrice() {
+  String _generateTotalPrice() {
+    var priceTxt;
+    if (product.totalPrice == null) {
+      priceTxt = " ذکر نشده ";
+    } else if (product.totalPrice == 0) {
+      priceTxt = " رایگان ";
+    } else {
+      var temp;
+      if ("${product.totalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(product.totalPrice);
+      } else {
+        temp = "${product.totalPrice}";
+      }
+
+      priceTxt = " $temp " + "تومان";
+    }
+
+    return priceTxt;
+  }
+
+  Widget _fieldTotalDiscountedPrice() {
     return RichText(
       textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
-        text: _generateDiscountedPrice(),
+        text: _generateTotalDiscountedPrice(),
         style: TextStyle(
           color: Colors.green,
           letterSpacing: 0.5,
           fontFamily: 'Yekan',
           fontWeight: FontWeight.bold,
-          fontSize: 12,
+          fontSize: 14,
         ),
       ),
     );
+  }
+
+  String _generateTotalDiscountedPrice() {
+    var priceTxt;
+    if (product.totalDiscountedPrice == null) {
+      priceTxt = " ذکر نشده ";
+    } else if (product.totalDiscountedPrice == 0) {
+      priceTxt = " رایگان ";
+    } else {
+      var temp;
+      if ("${product.totalDiscountedPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(product.totalDiscountedPrice);
+      } else {
+        temp = "${product.totalDiscountedPrice}";
+      }
+
+      priceTxt = " $temp " + "تومان";
+    }
+
+    return priceTxt;
   }
 
   Widget _fieldDiscountedRate() {
@@ -203,25 +281,33 @@ class ProductVerticalListItem extends StatelessWidget {
       _generateDiscountedRate(),
       style: AppTxtStyles().subHeading
         ..bold()
-        ..padding(horizontal: 8, vertical: 4)
         ..textDirection(TextDirection.ltr)
         ..textColor(Colors.red)
         ..background.color(Colors.red.withOpacity(0.1))
-        ..borderRadius(
-          topLeft: 4,
-          bottomLeft: 4,
-          topRight: 24,
-          bottomRight: 24,
-        ),
+        ..borderRadius(topLeft: 4, bottomLeft: 4, topRight: 24, bottomRight: 24)
+        ..padding(horizontal: 12, vertical: 8),
     );
   }
+
+  String _generateDiscountedRate() {
+    num discountRateTxt =
+        100 - (product.discountedPrice) * 100 / (product.originalPrice);
+    if (discountRateTxt < 1)
+      return "";
+    else
+      return "${discountRateTxt.toStringAsFixed(1)}٪";
+  }
+
+  Widget get _fieldOriginalPrice => CustomRichText(
+        title: "قیمت هر واحد" + "\n",
+        text: _generateOriginalPrice(),
+        textAlign: TextAlign.center,
+      );
 
   String _generateOriginalPrice() {
     var priceTxt;
     if (product.originalPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (product.originalPrice == 0) {
-      priceTxt = " رایگان ";
+      priceTxt = "-";
     } else {
       var temp;
       if ("${product.originalPrice}".length >= 3) {
@@ -235,19 +321,24 @@ class ProductVerticalListItem extends StatelessWidget {
 
     return priceTxt;
   }
+
+  Widget get _fieldDiscountedPrice => CustomRichText(
+        title: "تخفیف هر واحد" + "\n",
+        text: _generateDiscountedPrice(),
+        textAlign: TextAlign.center,
+      );
 
   String _generateDiscountedPrice() {
     var priceTxt;
-    if (product.discountedPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (product.discountedPrice == 0) {
-      priceTxt = " رایگان ";
+    if (product.originalPrice == null || product.discountedPrice == null) {
+      priceTxt = "-";
     } else {
       var temp;
-      if ("${product.originalPrice}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(product.originalPrice);
+      if ("${product.originalPrice - product.discountedPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000")
+            .format(product.originalPrice - product.discountedPrice);
       } else {
-        temp = "${product.originalPrice}";
+        temp = "${product.originalPrice - product.discountedPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
@@ -256,13 +347,27 @@ class ProductVerticalListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  String _generateDiscountedRate() {
-    var discountRateTxt;
-    if (product.discountRate == null || product.discountRate == 0) {
-      discountRateTxt = "";
+  Widget get _fieldTotalDiscount => CustomRichText(
+        title: "سود کل خرید" + "\n",
+        text: _generateTotalDiscount(),
+        textAlign: TextAlign.center,
+      );
+
+  String _generateTotalDiscount() {
+    var priceTxt;
+    if (product.totalDiscount == null) {
+      priceTxt = "-";
     } else {
-      discountRateTxt = "${(product.discountRate * 100).toStringAsFixed(0)}٪";
+      var temp;
+      if ("${product.totalDiscount}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(product.totalDiscount);
+      } else {
+        temp = "${product.totalDiscount}";
+      }
+
+      priceTxt = " $temp " + "تومان";
     }
-    return discountRateTxt;
+
+    return priceTxt;
   }
 }
