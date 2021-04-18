@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sailor/sailor.dart';
 
 import '../../features/data/models/market_detail_result_model.dart';
+import '../../features/data/repositories/customer_market_repository.dart';
+import '../../features/data/repositories/customer_order_repository.dart';
 import '../../features/data/repositories/customer_product_repository.dart';
 import '../../features/presentation/base_pages/confirm_registration/confirm_registration.dart';
 import '../../features/presentation/base_pages/confirm_reset_password/confirm_reset_password.dart';
@@ -15,13 +17,14 @@ import '../../features/presentation/customer_pages/address_detail/address_detail
 import '../../features/presentation/customer_pages/address_save/address_save_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
 import '../../features/presentation/customer_pages/basket/basket_page.dart';
-import '../../features/presentation/customer_pages/category/category_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
 import '../../features/presentation/customer_pages/market_category/market_category.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
+import '../../features/presentation/customer_pages/market_main_category/market_main_category.dart';
+import '../../features/presentation/customer_pages/market_sub_category/market_sub_category.dart';
 import '../../features/presentation/customer_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/customer_pages/orders/orders_page.dart';
 import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
@@ -30,10 +33,13 @@ import '../../features/presentation/customer_pages/products/produtct_page.dart';
 import '../../features/presentation/customer_pages/profile/profile_page.dart';
 import '../../features/presentation/customer_pages/profile_edit/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/search/search_page.dart';
-import '../../features/presentation/customer_pages/sub_category/sub_category_page.dart';
 import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
 import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
+import '../../features/presentation/providers/customer_providers/market_comments_notifier.dart';
+import '../../features/presentation/providers/customer_providers/market_detail_provider.dart';
+import '../../features/presentation/providers/customer_providers/order_detail_notifier.dart';
 import '../../features/presentation/providers/customer_providers/product_comments_notifier.dart';
+import '../../features/presentation/providers/customer_providers/product_details_notifier.dart';
 import '../../features/presentation/providers/customer_providers/products_notifier.dart';
 
 class Routes {
@@ -115,7 +121,21 @@ class Routes {
           name: MarketDetailPage.route,
           builder: (ctx, args, map) {
             final marketId = map.param<String>("marketId");
-            return MarketDetailPage(marketId: marketId);
+
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (ctx) =>
+                      MarketDetailNotifier(CustomerMarketRepository()),
+                ),
+                ChangeNotifierProvider(
+                  create: (ctx) => MarketCommentsNotifier(
+                    CustomerMarketRepository(),
+                  ),
+                )
+              ],
+              child: MarketDetailPage(marketId: marketId),
+            );
           },
           params: [
             SailorParam<String>(
@@ -149,16 +169,37 @@ class Routes {
           ],
         ),
         SailorRoute(
-          name: CategoryPage.route,
-          builder: (ctx, args, map) => CategoryPage(),
-        ),
-        SailorRoute(
-          name: SubCategoryPage.route,
+          name: MarketMainCategoryPage.route,
           builder: (ctx, args, map) {
-            final mainCategoryId = map.param<String>("mainCategoryId");
-            return SubCategoryPage(mainCategoryId: mainCategoryId);
+            final marketId = map.param<String>("marketId");
+            return MarketMainCategoryPage(
+              marketId: marketId,
+            );
           },
           params: [
+            SailorParam<String>(
+              name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: MarketSubCategoryPage.route,
+          builder: (ctx, args, map) {
+            final marketId = map.param<String>("marketId");
+            final mainCategoryId = map.param<String>("mainCategoryId");
+            return MarketSubCategoryPage(
+              marketId: marketId,
+              mainCategoryId: mainCategoryId,
+            );
+          },
+          params: [
+            SailorParam<String>(
+              name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
             SailorParam<String>(
               name: "mainCategoryId",
               isRequired: true,
@@ -199,12 +240,26 @@ class Routes {
           name: ProductDetailPage.route,
           builder: (ctx, args, map) {
             final productId = map.param<String>("productId");
+            final marketDetailNotifier =
+                map.param<MarketDetailNotifier>("marketDetailNotifier");
 
-            return ChangeNotifierProvider(
-              create: (ctx) => ProductCommentsNotifier(
-                CustomerProductRepository(),
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (ctx) => ProductCommentsNotifier(
+                    CustomerProductRepository(),
+                  ),
+                ),
+                ChangeNotifierProvider(
+                  create: (ctx) => ProductDetailNotifier(
+                    CustomerProductRepository(),
+                  ),
+                ),
+              ],
+              child: ProductDetailPage(
+                productId: productId,
+                marketDetailNotifier: marketDetailNotifier,
               ),
-              child: ProductDetailPage(productId: productId),
             );
           },
           params: [
@@ -212,6 +267,11 @@ class Routes {
               name: "productId",
               isRequired: true,
               defaultValue: "",
+            ),
+            SailorParam<MarketDetailNotifier>(
+              name: "marketDetailNotifier",
+              isRequired: true,
+              defaultValue: null,
             ),
           ],
         ),
@@ -239,7 +299,13 @@ class Routes {
           name: MarketCommentsPage.route,
           builder: (ctx, args, map) {
             final marketId = map.param<String>("marketId");
-            return MarketCommentsPage(marketId: marketId);
+
+            return ChangeNotifierProvider(
+              create: (ctx) => MarketCommentsNotifier(
+                CustomerMarketRepository(),
+              ),
+              child: MarketCommentsPage(marketId: marketId),
+            );
           },
           params: [
             SailorParam<String>(
@@ -265,7 +331,14 @@ class Routes {
           name: OrderDetailPage.route,
           builder: (ctx, args, map) {
             final orderId = map.param<String>("orderId");
-            return OrderDetailPage(orderId: orderId);
+
+            return ChangeNotifierProvider(
+              create: (ctx) => OrderDetailNotifier(
+                CustomerOrderRepository(),
+                CustomerProductRepository(),
+              ),
+              child: OrderDetailPage(orderId: orderId),
+            );
           },
           params: [
             SailorParam<String>(
