@@ -9,13 +9,13 @@ import 'comment_list_item.dart';
 class CommentList extends StatelessWidget {
   const CommentList({
     required this.comments,
-    required this.showAllCommentOnTap,
-    required this.enableHeader,
+    this.showAllCommentOnTap,
+    this.enableHeader,
   });
 
   final List<Comment> comments;
-  final void Function() showAllCommentOnTap;
-  final bool enableHeader;
+  final void Function()? showAllCommentOnTap;
+  final bool? enableHeader;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CommentList extends StatelessWidget {
       textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (enableHeader)
+        if (enableHeader ?? false)
           Padding(
             padding: EdgeInsets.fromLTRB(0, 16, 4, 0),
             child: Row(
@@ -36,7 +36,7 @@ class CommentList extends StatelessWidget {
                 ),
                 Txt(
                   "مشاهده همه نظرات \u00BB",
-                  gesture: Gestures()..onTap(showAllCommentOnTap),
+                  gesture: Gestures()..onTap(showAllCommentOnTap ?? () {}),
                   style: AppTxtStyles().footNote
                     ..margin(top: 2)
                     ..padding(horizontal: 4, vertical: 2)
@@ -49,6 +49,7 @@ class CommentList extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           itemCount: comments.length,
+          scrollDirection: Axis.vertical,
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) => CommentListItem(
             comment: comments[index],

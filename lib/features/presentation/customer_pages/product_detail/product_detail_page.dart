@@ -22,23 +22,48 @@ import '../../customer_widgets/product_list/product_counter.dart';
 import '../../customer_widgets/product_list/product_like_toggle.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
+import '../../providers/customer_providers/market_detail_provider.dart';
 import '../../providers/customer_providers/product_comments_notifier.dart';
+import '../../providers/customer_providers/product_details_notifier.dart';
 import '../product_comments/product_comments_page.dart';
 
 // ignore: must_be_immutable
 class ProductDetailPage extends StatelessWidget {
   static const route = "/customer_product_detail";
 
-  ProductDetailPage({required this.productId});
+  ProductDetailPage({
+    required this.productId,
+    this.marketDetailNotifier,
+  });
 
   final String productId;
+  final MarketDetailNotifier? marketDetailNotifier;
 
   final _customerProductRepo = CustomerProductRepository();
   BasketNotifier? basketNotifier;
 
   @override
   Widget build(BuildContext context) {
+    print("marketDetailNotifier: $marketDetailNotifier\n");
     basketNotifier ??= Provider.of<BasketNotifier>(context, listen: false);
+
+    var consumer = Consumer<ProductDetailNotifier>(
+      builder: (context, provider, child) {
+        if (provider.productDetails == null) {
+          provider.fetchProductDetail(productId: productId);
+        }
+
+        return provider.productLoading
+            ? AppLoading(color: AppTheme.customerPrimary)
+            : provider.productDetails == null
+                ? provider.productErrorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.productErrorMsg,
+                        style: AppTxtStyles().body..alignment.center())
+                : _listOfSections(context, provider.productDetails!);
+      },
+    );
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
@@ -46,27 +71,7 @@ class ProductDetailPage extends StatelessWidget {
         showBackBtn: true,
         showBasketBtn: true,
       ),
-      body: CustomFutureBuilder(
-        future: _customerProductRepo.productDetail(
-          id: productId,
-        ),
-        successBuilder: (context, data) {
-          var result = data as Either<Failure, ProductDetailResultModel>;
-
-          return result.fold(
-            (left) => Txt(
-              left.message,
-              style: AppTxtStyles().body..alignment.center(),
-            ),
-            (right) => _listOfSections(context, right),
-          );
-        },
-        errorBuilder: (context, error) {
-          return AppLoading(
-            color: AppTheme.customerPrimary,
-          );
-        },
-      ),
+      body: consumer,
     );
   }
 
@@ -117,6 +122,7 @@ class ProductDetailPage extends StatelessWidget {
                 productId: productDetail.data!.id,
                 amount: 1,
               );
+              marketDetailNotifier!.refresh();
             },
             onDecrease: (value) {
               basketNotifier!.removeFromBasket(
@@ -124,6 +130,7 @@ class ProductDetailPage extends StatelessWidget {
                 productId: productDetail.data!.id,
                 amount: 1,
               );
+              marketDetailNotifier!.refresh();
             },
           ),
           _sectionComments(context, productDetail),

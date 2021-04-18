@@ -7,6 +7,7 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/search_result_model.dart';
 import '../../../customer_widgets/product_list/product_horizontal_list.dart';
 import '../../market_detail/market_detail_page.dart';
+import '../../product_detail/product_detail_page.dart';
 
 class SearchMarketListItem extends StatelessWidget {
   const SearchMarketListItem({required this.market});
@@ -49,6 +50,15 @@ class SearchMarketListItem extends StatelessWidget {
         ),
         ProductHorizontalList(
           products: market.products,
+          onItemTap: (index) {
+            Routes.sailor.navigate(
+              ProductDetailPage.route,
+              params: {
+                "productId": market.products[index].id,
+                // "marketDetailNotifier": marketDetailNotifier,
+              },
+            );
+          },
         ),
       ],
     );
