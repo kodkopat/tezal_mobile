@@ -9,9 +9,9 @@ import '../../../data/repositories/customer_market_repository.dart';
 // then, when it used as singleton in dispose method of
 // widgets, this object will be gone!
 class MarketCommentsNotifier extends ChangeNotifier {
-  MarketCommentsNotifier(this.customerMarketRepository);
+  MarketCommentsNotifier(this.customerMarketRepo);
 
-  final CustomerMarketRepository customerMarketRepository;
+  final CustomerMarketRepository customerMarketRepo;
 
   bool marketCommentsLoading = true;
   String? marketCommentsErrorMsg;
@@ -21,12 +21,12 @@ class MarketCommentsNotifier extends ChangeNotifier {
   int? latestPageIndex;
   List<Comment>? marketComments;
 
-  Future<void> fetchProductComments(
+  Future<void> fetchMarketComments(
     BuildContext context, {
     required String marketId,
   }) async {
     if (marketCommentsTotalCount == null) {
-      var result = await customerMarketRepository.marketComments(
+      var result = await customerMarketRepo.marketComments(
         marketId: marketId,
         page: 1,
       );
@@ -48,7 +48,7 @@ class MarketCommentsNotifier extends ChangeNotifier {
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await customerMarketRepository.marketComments(
+      var result = await customerMarketRepo.marketComments(
         marketId: marketId,
         page: latestPageIndex! + 1,
       );
