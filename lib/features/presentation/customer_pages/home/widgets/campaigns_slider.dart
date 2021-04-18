@@ -3,9 +3,9 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/widgets/map_box.dart';
 import '../../../../data/models/campaign_result_model.dart';
 import 'campaign_slider_item.dart';
-import 'map_box.dart';
 
 class CampaignSlider extends StatefulWidget {
   const CampaignSlider({required this.campaigns});
@@ -41,7 +41,7 @@ class _CampaignSliderState extends State<CampaignSlider> {
                 Radius.circular(8),
               ),
               child: PageView.builder(
-                pageSnapping: true,
+                scrollDirection: Axis.horizontal,
                 itemCount: widget.campaigns.length + 1,
                 onPageChanged: (value) {
                   setState(() {
@@ -49,8 +49,8 @@ class _CampaignSliderState extends State<CampaignSlider> {
                   });
                 },
                 itemBuilder: (context, index) {
-                  if (index == 0) {
-                    return SizedBox() /* MapBox(height: boxHeight) */;
+                  if (index == widget.campaigns.length) {
+                    return MapBox(height: boxHeight);
                   }
 
                   return CampaignSliderItem(
