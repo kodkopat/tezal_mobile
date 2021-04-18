@@ -1,12 +1,11 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/features/presentation/customer_pages/market_category/market_category.dart';
 
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market_detail_result_model.dart';
-import '../../customer_pages/products/produtct_page.dart';
+import '../../customer_pages/market_main_category/market_main_category.dart';
 import 'category_list_item.dart';
 
 class CategoryList extends StatelessWidget {
@@ -35,20 +34,8 @@ class CategoryList extends StatelessWidget {
                 category: categories[index],
                 onCategoryTap: () {
                   Routes.sailor.navigate(
-                    MarketCategoryPage.route,
-                    params: {
-                      "marketId": marketId,
-                      "marketCategories": categories,
-                    },
-                  );
-                },
-                onSeeAllTap: () {
-                  Routes.sailor.navigate(
-                    ProductsPage.route,
-                    params: {
-                      "marketId": marketId,
-                      "categoryId": "${categories[index].id}",
-                    },
+                    MarketMainCategoryPage.route,
+                    params: {"marketId": marketId},
                   );
                 },
               );
