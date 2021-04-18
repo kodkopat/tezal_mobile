@@ -9,7 +9,7 @@ class PhotoResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory PhotoResultModel.fromJson(Map<String, dynamic> json) =>
       PhotoResultModel(
@@ -21,7 +21,7 @@ class PhotoResultModel {
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
