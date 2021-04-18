@@ -7,7 +7,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../basket/basket_page.dart';
-import '../../category/category_page.dart';
+
 import '../../home/home_page.dart';
 import '../../profile/profile_page.dart';
 import '../../search/search_page.dart';
@@ -103,18 +103,12 @@ class _BottomNavigationBarList {
     ),
     __BottomNavigationBarListItem(
       index: 2,
-      label: "دسته‌بندی",
-      iconData: Feather.grid,
-      widget: CategoryPage(),
-    ),
-    __BottomNavigationBarListItem(
-      index: 3,
       label: "سبد خرید",
       iconData: Feather.shopping_cart,
       widget: BasketPage(),
     ),
     __BottomNavigationBarListItem(
-      index: 4,
+      index: 3,
       label: "پروفایل",
       iconData: Feather.user,
       widget: ProfilePage(),
