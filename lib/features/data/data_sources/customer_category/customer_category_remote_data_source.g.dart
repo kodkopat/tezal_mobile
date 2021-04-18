@@ -17,9 +17,9 @@ class _CustomerCategoryRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<MainCategoryResultModel> getMainCategories() async {
+  Future<MainCategoryResultModel> getMainCategories(marketId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'MarketId': marketId};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<MainCategoryResultModel>(Options(
@@ -38,9 +38,13 @@ class _CustomerCategoryRemoteDataSource
   }
 
   @override
-  Future<SubCategoryResultModel> getSubCategories(id) async {
+  Future<SubCategoryResultModel> getSubCategories(
+      marketId, mainCategoryId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
+    final queryParameters = <String, dynamic>{
+      r'MarketId': marketId,
+      r'MainCategoryId': mainCategoryId
+    };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SubCategoryResultModel>(Options(

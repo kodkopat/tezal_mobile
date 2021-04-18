@@ -17,12 +17,15 @@ abstract class CustomerCategoryRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetMainCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<MainCategoryResultModel> getMainCategories();
+  Future<MainCategoryResultModel> getMainCategories(
+    @Query("MarketId") String marketId,
+  );
 
   @GET("$_apiUrlPrefix/GetSubCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoryResultModel> getSubCategories(
-    @Query("Id") String id,
+    @Query("MarketId") String marketId,
+    @Query("MainCategoryId") String mainCategoryId,
   );
 
   @GET("$_apiUrlPrefix/GetMainCategoryPhoto")
