@@ -11,12 +11,14 @@ class ActionBtn extends StatelessWidget {
     required this.onTap,
     this.background,
     this.textColor,
+    this.height,
   });
 
   final String text;
   final void Function() onTap;
   final Color? background;
   final Color? textColor;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class ActionBtn extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: AppTxtStyles().body
         ..bold()
-        ..height(48)
+        ..height(height ?? 48)
         ..textColor(textColor ?? AppTheme.white)
         ..alignmentContent.center(true)
         ..background.color(background ?? AppTheme.red)
