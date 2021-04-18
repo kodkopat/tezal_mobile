@@ -159,9 +159,9 @@ class BasketListItem extends StatelessWidget {
       ),
       successBuilder: (context, data) {
         return data!.fold(
-          (l) => SizedBox(),
-          (r) => Image.memory(
-            base64Decode(r.data.photos.first),
+          (left) => SizedBox(),
+          (right) => Image.memory(
+            base64Decode(right.data.photos.first),
           ),
         );
       },
