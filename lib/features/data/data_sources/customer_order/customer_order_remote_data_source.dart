@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/base_api_result_model.dart';
 import '../../models/older_orders_result_model.dart';
 import '../../models/order_detail_result_model.dart';
 import '../../models/order_result_model.dart';
@@ -25,7 +26,7 @@ abstract class CustomerOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/Cancel")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> cancel(
+  Future<BaseApiResultModel> cancel(
     @Header("token") String token,
   );
 
@@ -64,7 +65,7 @@ abstract class CustomerOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/AddToBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> addToBasket(
+  Future<BaseApiResultModel> addToBasket(
     @Header("token") String token,
     @Query("Id") String id,
   );
