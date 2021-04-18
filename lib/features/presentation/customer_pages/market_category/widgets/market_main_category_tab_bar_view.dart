@@ -2,9 +2,11 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/product_result_model.dart';
 import '../../../customer_widgets/product_list/product_vertical_list_.dart';
+import '../../product_detail/product_detail_page.dart';
 import 'market_sub_category_list.dart';
 
 class MarketMainCategoryTabBarView extends StatefulWidget {
@@ -68,6 +70,15 @@ class _MarketMainCategoryTabBarViewState
                 child: SingleChildScrollView(
                   child: ProductVerticalList(
                     products: subCategoryProducts,
+                    onItemTap: (index) {
+                      Routes.sailor.navigate(
+                        ProductDetailPage.route,
+                        params: {
+                          "productId": subCategoryProducts[index].id,
+                          // "marketDetailNotifier": marketDetailNotifier,
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
