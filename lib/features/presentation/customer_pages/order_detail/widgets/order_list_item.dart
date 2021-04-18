@@ -1,9 +1,12 @@
 import 'dart:convert';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/exceptions/failure.dart';
@@ -12,87 +15,150 @@ import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/order_detail_result_model.dart';
 import '../../../../data/models/photos_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../../providers/customer_providers/order_notifier.dart';
+import '../../../providers/customer_providers/order_detail_notifier.dart';
 
 class OrderListItem extends StatelessWidget {
   OrderListItem({
     required this.orderItem,
-    required this.orderNotifier,
+    required this.orderDetailNotifier,
   });
 
   final OrderItem orderItem;
-  final OrderNotifier orderNotifier;
+  final OrderDetailNotifier orderDetailNotifier;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      textDirection: TextDirection.rtl,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          textDirection: TextDirection.rtl,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Parent(
-              style: ParentStyle()
-                ..width(96)
-                ..height(96)
-                ..borderRadius(all: 8)
-                ..background.image(
-                  alignment: Alignment.center,
-                  path: "assets/images/placeholder.jpg",
-                  fit: BoxFit.fill,
-                ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(8),
-                ),
-                child: _futureImgFile,
-              ),
-            ),
-            SizedBox(width: 8),
-            Expanded(
-              child: Column(
-                textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Txt(
-                    "${orderItem.productName}",
-                    style: AppTxtStyles().subHeading..bold(),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      child: Column(
+        textDirection: TextDirection.rtl,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            textDirection: TextDirection.rtl,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Parent(
+                style: ParentStyle()
+                  ..width(96)
+                  ..height(96)
+                  ..borderRadius(all: 8)
+                  ..background.image(
+                    alignment: Alignment.center,
+                    path: "assets/images/placeholder.jpg",
+                    fit: BoxFit.fill,
                   ),
-                  SizedBox(height: 4),
-                  Row(
-                    textDirection: TextDirection.rtl,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      _fieldOriginalPrice(),
-                      _fieldDiscountedRate(),
-                    ],
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
                   ),
-                  _fieldDiscountPrice(),
-                  _fieldDiscountedPrice(),
-                ],
+                  child: _futureImgFile,
+                ),
               ),
-            ),
-          ],
-        ),
-        SizedBox(height: 16),
-      ],
+              SizedBox(width: 8),
+              Expanded(
+                child: Column(
+                  textDirection: TextDirection.rtl,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Txt(
+                          "${orderItem.productName}",
+                          style: AppTxtStyles().subHeading..bold(),
+                        ),
+                        Parent(
+                          gesture: Gestures()..onTap(() {}),
+                          style: ParentStyle()
+                            ..width(48)
+                            ..height(48)
+                            ..borderRadius(all: 24)
+                            ..ripple(true),
+                          child: Icon(
+                            Feather.message_square,
+                            color: Colors.black26,
+                            size: 24,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16),
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          textDirection: TextDirection.rtl,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            if (_generateDiscountedRate().isNotEmpty)
+                              _fieldTotalPrice(),
+                            _fieldTotalDiscountedPrice(),
+                          ],
+                        ),
+                        _fieldDiscountedRate(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12),
+          Row(
+            textDirection: TextDirection.rtl,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _fieldOriginalPrice,
+              _verticalDivider,
+              _fieldDiscountedPrice,
+              _verticalDivider,
+              _fieldTotalDiscount,
+            ],
+          ),
+          SizedBox(height: 12),
+          /* ProductListItemCounter(
+            hieght: 32,
+            defaultValue: orderItem.amount * orderItem.step,
+            unit: "${orderItem.productUnit}",
+            step: orderItem.step,
+            onIncrease: (value) async {
+              await basketNotifier.addToBasket(
+                context,
+                productId: orderItem.id,
+                amount: 1,
+              );
+            },
+            onDecrease: (value) async {
+              await basketNotifier.removeFromBasket(
+                context,
+                productId: orderItem.id,
+                amount: 1,
+              );
+            },
+          ), */
+        ],
+      ),
     );
   }
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: orderNotifier.customerProductRepo.productphoto(
+      future: orderDetailNotifier.customerProductRepo.productphoto(
         id: orderItem.id,
         multi: false,
       ),
       successBuilder: (context, data) {
         return data!.fold(
-          (l) => SizedBox(),
-          (r) => Image.memory(
-            base64Decode(r.data.photos.first),
+          (left) => SizedBox(),
+          (right) => Image.memory(
+            base64Decode(right.data.photos.first),
           ),
         );
       },
@@ -100,26 +166,89 @@ class OrderListItem extends StatelessWidget {
     );
   }
 
-  Widget _fieldOriginalPrice() {
-    return CustomRichText(
-      title: "قیمت: ",
-      text: _generateOriginalPrice(),
-      dashedLineText: true,
+  Widget get _verticalDivider => SizedBox(
+        height: 40,
+        child: VerticalDivider(
+          color: Colors.black12,
+          thickness: 0.5,
+          width: 0,
+        ),
+      );
+
+  Widget _fieldTotalPrice() {
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateTotalPrice(),
+        style: TextStyle(
+          decoration: TextDecoration.lineThrough,
+          color: Colors.black54,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.w500,
+          fontSize: 10,
+        ),
+      ),
     );
   }
 
-  Widget _fieldDiscountPrice() {
-    return CustomRichText(
-      title: "تخفیف:",
-      text: _generateDiscountPrice(),
+  String _generateTotalPrice() {
+    var priceTxt;
+    if (orderItem.totalPrice == null) {
+      priceTxt = " ذکر نشده ";
+    } else if (orderItem.totalPrice == 0) {
+      priceTxt = " رایگان ";
+    } else {
+      var temp;
+      if ("${orderItem.totalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(orderItem.totalPrice);
+      } else {
+        temp = "${orderItem.totalPrice}";
+      }
+
+      priceTxt = " $temp " + "تومان";
+    }
+
+    return priceTxt;
+  }
+
+  Widget _fieldTotalDiscountedPrice() {
+    return RichText(
+      textDirection: TextDirection.rtl,
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateTotalDiscountedPrice(),
+        style: TextStyle(
+          color: Colors.green,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
     );
   }
 
-  Widget _fieldDiscountedPrice() {
-    return CustomRichText(
-      title: "قیمت نهایی:",
-      text: _generateDiscountedPrice(),
-    );
+  String _generateTotalDiscountedPrice() {
+    var priceTxt;
+    if (orderItem.totalDiscountedPrice == null) {
+      priceTxt = " ذکر نشده ";
+    } else if (orderItem.totalDiscountedPrice == 0) {
+      priceTxt = " رایگان ";
+    } else {
+      var temp;
+      if ("${orderItem.totalDiscountedPrice}".length >= 3) {
+        temp =
+            intl.NumberFormat("#,000").format(orderItem.totalDiscountedPrice);
+      } else {
+        temp = "${orderItem.totalDiscountedPrice}";
+      }
+
+      priceTxt = " $temp " + "تومان";
+    }
+
+    return priceTxt;
   }
 
   Widget _fieldDiscountedRate() {
@@ -129,22 +258,35 @@ class OrderListItem extends StatelessWidget {
 
     return Txt(
       _generateDiscountedRate(),
-      style: AppTxtStyles().footNote
-        ..width(36)
-        ..fontSize(10)
+      style: AppTxtStyles().subHeading
+        ..bold()
         ..textDirection(TextDirection.ltr)
-        ..textColor(Colors.white)
-        ..background.color(Colors.red)
-        ..borderRadius(all: 4),
+        ..textColor(Colors.red)
+        ..background.color(Colors.red.withOpacity(0.1))
+        ..borderRadius(topLeft: 4, bottomLeft: 4, topRight: 24, bottomRight: 24)
+        ..padding(horizontal: 12, vertical: 8),
     );
   }
+
+  String _generateDiscountedRate() {
+    num discountRateTxt =
+        100 - (orderItem.discountedPrice) * 100 / (orderItem.originalPrice);
+    if (discountRateTxt < 1)
+      return "";
+    else
+      return "${discountRateTxt.toStringAsFixed(1)}٪";
+  }
+
+  Widget get _fieldOriginalPrice => CustomRichText(
+        title: "قیمت هر واحد" + "\n",
+        text: _generateOriginalPrice(),
+        textAlign: TextAlign.center,
+      );
 
   String _generateOriginalPrice() {
     var priceTxt;
     if (orderItem.originalPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (orderItem.originalPrice == 0) {
-      priceTxt = " رایگان ";
+      priceTxt = "-";
     } else {
       var temp;
       if ("${orderItem.originalPrice}".length >= 3) {
@@ -159,36 +301,24 @@ class OrderListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  String _generateDiscountPrice() {
-    var priceTxt;
-    if (orderItem.discountedPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else {
-      var temp;
-      if ("${orderItem.discountedPrice}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(orderItem.discountedPrice);
-      } else {
-        temp = "${orderItem.discountedPrice}";
-      }
-
-      priceTxt = " $temp " + "تومان";
-    }
-
-    return priceTxt;
-  }
+  Widget get _fieldDiscountedPrice => CustomRichText(
+        title: "تخفیف هر واحد" + "\n",
+        text: _generateDiscountedPrice(),
+        textAlign: TextAlign.center,
+      );
 
   String _generateDiscountedPrice() {
     var priceTxt;
-    if (orderItem.discountedPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (orderItem.discountedPrice == 0) {
-      priceTxt = " رایگان ";
+    if (orderItem.originalPrice == null || orderItem.discountedPrice == null) {
+      priceTxt = "-";
     } else {
       var temp;
-      if ("${orderItem.discountedPrice}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(orderItem.discountedPrice);
+      if ("${orderItem.originalPrice - orderItem.discountedPrice}".length >=
+          3) {
+        temp = intl.NumberFormat("#,000")
+            .format(orderItem.originalPrice - orderItem.discountedPrice);
       } else {
-        temp = "${orderItem.discountedPrice}";
+        temp = "${orderItem.originalPrice - orderItem.discountedPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
@@ -197,12 +327,27 @@ class OrderListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  String _generateDiscountedRate() {
-    num discountRateTxt =
-        100 - (orderItem.discountedPrice) * 100 / (orderItem.originalPrice);
-    if (discountRateTxt < 1)
-      return "0٪";
-    else
-      return "${discountRateTxt.toStringAsFixed(1)}٪";
+  Widget get _fieldTotalDiscount => CustomRichText(
+        title: "سود کل خرید" + "\n",
+        text: _generateTotalDiscount(),
+        textAlign: TextAlign.center,
+      );
+
+  String _generateTotalDiscount() {
+    var priceTxt;
+    if (orderItem.totalDiscount == null) {
+      priceTxt = "-";
+    } else {
+      var temp;
+      if ("${orderItem.totalDiscount}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(orderItem.totalDiscount);
+      } else {
+        temp = "${orderItem.totalDiscount}";
+      }
+
+      priceTxt = " $temp " + "تومان";
+    }
+
+    return priceTxt;
   }
 }
