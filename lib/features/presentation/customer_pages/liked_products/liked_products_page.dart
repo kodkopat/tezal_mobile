@@ -7,7 +7,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/product_notifier.dart';
+import '../../providers/customer_providers/liked_product_notifier.dart';
 import 'widgets/liked_product_list.dart';
 
 class LikedProductsPage extends StatelessWidget {
@@ -15,7 +15,7 @@ class LikedProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<ProductNotifier>(
+    var consumer = Consumer<LikedProductNotifier>(
       builder: (context, provider, child) {
         if (provider.likedProductsResultModel == null &&
             provider.likedProductsErrorMsg == null) {

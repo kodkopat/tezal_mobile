@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/page_routes/routes.dart';
 import '../../../../data/models/liked_products_result_model.dart';
-import '../../../providers/customer_providers/product_notifier.dart';
+import '../../../providers/customer_providers/liked_product_notifier.dart';
 import '../../product_detail/product_detail_page.dart';
 import 'liked_product_list_item.dart';
 
@@ -13,7 +13,7 @@ class LikedProductList extends StatelessWidget {
   });
 
   final List<LikedProduct> likedProducts;
-  final ProductNotifier productNotifier;
+  final LikedProductNotifier productNotifier;
 
   @override
   Widget build(BuildContext context) {
