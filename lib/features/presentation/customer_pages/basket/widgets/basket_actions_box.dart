@@ -1,11 +1,14 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
+import '../../../../../core/widgets/action_btn.dart';
 import '../../../../data/models/basket_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
@@ -46,136 +49,148 @@ class BasketActionsBox extends StatelessWidget {
         children: [
           Row(
             textDirection: TextDirection.rtl,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Txt(
-                "خرید از فروشگاه: ",
-                style: AppTxtStyles().body..bold(),
+              Column(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    textDirection: TextDirection.rtl,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Txt(
+                        "خرید از فروشگاه ",
+                        style: AppTxtStyles().body
+                          ..textAlign.right()
+                          ..bold(),
+                      ),
+                      Txt(
+                        "${basket.data!.marketName}",
+                        style: AppTxtStyles().body,
+                      ),
+                    ],
+                  ),
+                  _fieldDeliveryCost,
+                ],
               ),
-              Txt(
-                "${basket.data!.marketName}",
-                style: AppTxtStyles().body,
+              Parent(
+                gesture: Gestures()
+                  ..onTap(() async {
+                    await basketNotifier.clearBasket(context);
+                  }),
+                style: ParentStyle()
+                  ..width(48)
+                  ..height(48)
+                  ..borderRadius(all: 24)
+                  ..ripple(true),
+                child: Icon(
+                  Feather.trash_2,
+                  color: Colors.black26,
+                  size: 24,
+                ),
               ),
             ],
           ),
           Divider(
             color: Colors.black12,
             thickness: 0.5,
-            height: 16,
-          ),
-          _fieldTotalPrice,
-          SizedBox(height: 4),
-          _fieldTotalDiscount,
-          SizedBox(height: 4),
-          _fieldDeliveryCost,
-          SizedBox(height: 4),
-          _fieldPayableCost,
-          Divider(
-            color: Colors.black12,
-            thickness: 0.5,
-            height: 16,
+            height: 24,
           ),
           Row(
             textDirection: TextDirection.rtl,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(
-                flex: 1,
-                child: Txt(
-                  "ثبت خرید",
-                  gesture: Gestures()
-                    ..onTap(() async {
-                      final returedData = await showModalBottomSheet(
-                        context: context,
-                        elevation: 16,
-                        isDismissible: false,
-                        isScrollControlled: true,
-                        barrierColor: Colors.transparent,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) {
-                          return FractionallySizedBox(
-                            heightFactor: 0.75,
-                            child: AddressesSelectorPage(),
-                          );
-                        },
-                      );
-
-                      var map = returedData as Map<String, dynamic>;
-                      if (map["result"]) {
-                        await showModalBottomSheet(
-                          context: context,
-                          elevation: 16,
-                          isDismissible: false,
-                          isScrollControlled: true,
-                          barrierColor: Colors.transparent,
-                          backgroundColor: Colors.transparent,
-                          builder: (context) {
-                            return FractionallySizedBox(
-                              heightFactor: 0.75,
-                              child: PaymentMethodSelectorPage(),
-                            );
-                          },
-                        );
-
-                        basketNotifier.refresh();
-                        orderNotifier.refresh();
-                      }
-                    }),
-                  style: AppTxtStyles().body
-                    ..textColor(AppTheme.customerPrimary)
-                    ..borderRadius(all: 4)
-                    ..background.color(
-                      AppTheme.customerPrimary.withOpacity(0.2),
-                    )
-                    ..padding(vertical: 8)
-                    ..ripple(true),
-                ),
-              ),
-              SizedBox(width: 8),
-              Expanded(
-                flex: 1,
-                child: Txt(
-                  "خالی کردن سبد",
-                  gesture: Gestures()
-                    ..onTap(() async {
-                      await basketNotifier.clearBasket(context);
-                    }),
-                  style: AppTxtStyles().body
-                    ..textColor(Colors.red)
-                    ..borderRadius(all: 4)
-                    ..background.color(Colors.red.withOpacity(0.2))
-                    ..padding(vertical: 8)
-                    ..ripple(true),
-                ),
-              ),
+              Expanded(flex: 1, child: _fieldTotalPrice),
+              _verticalDivider,
+              Expanded(flex: 1, child: _fieldTotalDiscount),
+              _verticalDivider,
+              Expanded(flex: 1, child: _fieldPayableCost),
             ],
+          ),
+          Divider(
+            color: Colors.black12,
+            thickness: 0.5,
+            height: 24,
+          ),
+          ActionBtn(
+            text: "ادامه فرآیند خرید",
+            textColor: Colors.white,
+            background: AppTheme.customerPrimary,
+            height: 42,
+            onTap: () async {
+              final returedData = await showModalBottomSheet(
+                context: context,
+                elevation: 16,
+                isDismissible: false,
+                isScrollControlled: true,
+                barrierColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+                builder: (context) => FractionallySizedBox(
+                  heightFactor: 0.75,
+                  child: AddressesSelectorPage(),
+                ),
+              );
+
+              var map = returedData as Map<String, dynamic>;
+              if (map["result"]) {
+                await showModalBottomSheet(
+                  context: context,
+                  elevation: 16,
+                  isDismissible: false,
+                  isScrollControlled: true,
+                  barrierColor: Colors.transparent,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => FractionallySizedBox(
+                    heightFactor: 0.75,
+                    child: PaymentMethodSelectorPage(),
+                  ),
+                );
+
+                basketNotifier.refresh();
+                orderNotifier.refresh(context);
+              }
+            },
           ),
         ],
       ),
     );
   }
 
+  Widget get _verticalDivider => SizedBox(
+        height: 40,
+        child: VerticalDivider(
+          color: Colors.black12,
+          thickness: 0.5,
+          width: 0,
+        ),
+      );
+
   Widget get _fieldTotalPrice {
     return CustomRichText(
-      title: "قیمت محصولات: ",
+      title: "قیمت محصولات" + "\n",
       text: _generatePriceText(
         basket.data!.totalPrice,
       ),
+      textAlign: TextAlign.center,
     );
   }
 
   Widget get _fieldTotalDiscount {
     return CustomRichText(
-      title: "تخفیف محصولات: ",
+      title: "تخفیف محصولات" + "\n",
       text: _generatePriceText(
-        basket.data!.totalDiscountedPrice,
+        basket.data!.totalPrice - basket.data!.totalDiscountedPrice,
       ),
+      textAlign: TextAlign.center,
     );
   }
 
   Widget get _fieldDeliveryCost {
     return CustomRichText(
-      title: "هزینه ارسال: ",
+      title: "هزینه ارسال",
       text: _generatePriceText(
         basket.data!.deliveryCost,
       ),
@@ -184,18 +199,17 @@ class BasketActionsBox extends StatelessWidget {
 
   Widget get _fieldPayableCost {
     return CustomRichText(
-      title: "مبلغ قابل پرداخت: ",
+      title: "مبلغ قابل پرداخت" + "\n",
       text: _generatePriceText(
         basket.data!.payablePrice,
       ),
+      textAlign: TextAlign.center,
     );
   }
 
-  String _generatePriceText(int price) {
+  String _generatePriceText(num price) {
     var text;
-    if (price == null) {
-      text = " ذکر نشده ";
-    } else if (price == 0) {
+    if (price == 0) {
       text = " رایگان ";
     } else {
       var temp;
