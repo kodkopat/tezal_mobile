@@ -37,22 +37,29 @@ class CustomerCategoryRepository {
   final CustomerCategoryLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, MainCategoryResultModel>> mainCategories() async {
+  Future<Either<Failure, MainCategoryResultModel>> mainCategories({
+    required String marketId,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getMainCategories();
+      var result = await _remoteDataSource.getMainCategories(marketId);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, SubCategoryResultModel>> subCategories(
-      {required String mainCategoryId}) async {
+  Future<Either<Failure, SubCategoryResultModel>> subCategories({
+    required String marketId,
+    required String mainCategoryId,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getSubCategories(mainCategoryId);
+      var result = await _remoteDataSource.getSubCategories(
+        marketId,
+        mainCategoryId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

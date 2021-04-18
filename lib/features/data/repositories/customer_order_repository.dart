@@ -9,6 +9,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_order/customer_order_local_data_source.dart';
 import '../data_sources/customer_order/customer_order_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
 import '../models/older_orders_result_model.dart';
 import '../models/order_detail_result_model.dart';
 import '../models/order_result_model.dart';
@@ -49,6 +50,22 @@ class CustomerOrderRepository {
         userToken,
         paymentType,
         addressId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> addOrderToBasket({
+    required String orderId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.addToBasket(
+        userToken,
+        orderId,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
