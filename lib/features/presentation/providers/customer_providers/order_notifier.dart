@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/models/older_orders_result_model.dart';
-import '../../../data/models/order_detail_result_model.dart';
 import '../../../data/models/order_result_model.dart';
 import '../../../data/repositories/customer_order_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
@@ -33,29 +33,48 @@ class OrderNotifier extends ChangeNotifier {
 
   bool olderOrdersLoading = true;
   String? olderOrdersErrorMsg;
-  OlderOrdersResultModel? olderOrdersResultModel;
-  Future<void> fetchOlderOrders() async {
-    var result = await customerOrderRepo.olderOrders(page: 1);
-    result.fold(
-      (left) => olderOrdersErrorMsg = left.message,
-      (right) => olderOrdersResultModel = right,
-    );
 
-    olderOrdersLoading = false;
-    notifyListeners();
-  }
+  bool? enableLoadMoreData;
+  int? olderOrdersTotalCount;
+  int? latestPageIndex;
+  List<Order>? olderOrders;
 
-  bool orderDetailLoading = true;
-  String? orderDetailErrorMsg;
-  OrderDetailResultModel? orderDetailResultModel;
-  Future<void> fetchOrderDetail({required String orderId}) async {
-    var result = await customerOrderRepo.orderDetail(id: orderId);
-    result.fold(
-      (left) => orderDetailErrorMsg = left.message,
-      (right) => orderDetailResultModel = right,
-    );
+  Future<void> fetchOlderOrders(BuildContext context) async {
+    if (olderOrdersTotalCount == null) {
+      var result = await customerOrderRepo.olderOrders(page: 1);
 
-    orderDetailLoading = false;
+      result.fold(
+        (left) => olderOrdersErrorMsg = left.message,
+        (right) {
+          olderOrdersTotalCount = right.data!.total;
+          latestPageIndex = right.data!.page;
+          olderOrders = right.data!.orders!;
+          enableLoadMoreData = olderOrdersTotalCount != olderOrders!.length;
+        },
+      );
+      olderOrdersLoading = false;
+    } else {
+      if (olderOrdersTotalCount == 0) return;
+
+      var prgDialog = AppProgressDialog(context).instance;
+      prgDialog.show();
+
+      var result = await customerOrderRepo.olderOrders(
+        page: latestPageIndex! + 1,
+      );
+
+      result.fold(
+        (left) => olderOrdersErrorMsg = left.message,
+        (right) {
+          olderOrdersTotalCount = right.data!.total;
+          latestPageIndex = right.data!.page;
+          olderOrders!.addAll(right.data!.orders!);
+          enableLoadMoreData = olderOrdersTotalCount != olderOrders!.length;
+        },
+      );
+
+      prgDialog.hide();
+    }
     notifyListeners();
   }
 
@@ -80,7 +99,15 @@ class OrderNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refresh() async {
-    await fetchOlderOrders();
+  void refresh(BuildContext context) async {
+    olderOrdersLoading = true;
+    notifyListeners();
+
+    enableLoadMoreData = null;
+    olderOrdersTotalCount = null;
+    latestPageIndex = null;
+    olderOrders = null;
+
+    await fetchOlderOrders(context);
   }
 }
