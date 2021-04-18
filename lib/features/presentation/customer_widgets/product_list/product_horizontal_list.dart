@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/page_routes/routes.dart';
 import '../../../data/models/product_result_model.dart';
-import '../../customer_pages/product_detail/product_detail_page.dart';
 import 'product_horizontal_list_item.dart';
 
 class ProductHorizontalList extends StatelessWidget {
-  const ProductHorizontalList({required this.products});
+  const ProductHorizontalList({
+    required this.products,
+    required this.onItemTap,
+  });
 
   final List<ProductResultModel> products;
+  final void Function(int) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +24,7 @@ class ProductHorizontalList extends StatelessWidget {
         itemBuilder: (context, index) {
           return ProductHorizontalListItem(
             product: products[index],
-            onTap: () {
-              Routes.sailor.navigate(
-                ProductDetailPage.route,
-                params: {"productId": products[index].id},
-              );
-            },
+            onTap: () => onItemTap(index),
           );
         },
       ),

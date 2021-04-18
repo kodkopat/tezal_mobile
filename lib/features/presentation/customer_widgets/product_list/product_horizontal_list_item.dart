@@ -14,7 +14,7 @@ import '../../../data/models/photos_result_model.dart';
 import '../../../data/models/product_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/product_notifier.dart';
+import '../../providers/customer_providers/liked_product_notifier.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
 
@@ -30,7 +30,8 @@ class ProductHorizontalListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var productNotifier = Provider.of<ProductNotifier>(context, listen: false);
+    var productNotifier =
+        Provider.of<LikedProductNotifier>(context, listen: false);
     var basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
 
     return Parent(

@@ -16,7 +16,7 @@ import '../../../data/models/product_result_model.dart';
 import '../../customer_widgets/custom_rich_text.dart';
 import '../../customer_widgets/product_list/product_counter.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/product_notifier.dart';
+import '../../providers/customer_providers/liked_product_notifier.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
 
@@ -30,12 +30,12 @@ class ProductVerticalListItem extends StatelessWidget {
   final ProductResultModel product;
   final void Function() onTap;
 
-  late ProductNotifier productNotifier;
+  late LikedProductNotifier productNotifier;
   late BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    productNotifier = Provider.of<ProductNotifier>(context, listen: false);
+    productNotifier = Provider.of<LikedProductNotifier>(context, listen: false);
     basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
 
     return Parent(
