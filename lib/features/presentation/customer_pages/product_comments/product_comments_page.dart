@@ -3,7 +3,6 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/load_more_btn.dart';
@@ -40,16 +39,7 @@ class ProductCommentsPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CommentList(
-                          comments: provider.productComments!,
-                          showAllCommentOnTap: () {
-                            Routes.sailor.navigate(
-                              ProductCommentsPage.route,
-                              params: {"productId": productId},
-                            );
-                          },
-                          enableHeader: provider.productComments!.isNotEmpty,
-                        ),
+                        CommentList(comments: provider.productComments!),
                         const SizedBox(height: 8),
                         if (provider.enableLoadMoreData!)
                           LoadMoreBtn(onTap: () {
@@ -65,7 +55,7 @@ class ProductCommentsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "نظرات کاربران",
+        text: "نظرات محصول",
         showBackBtn: true,
       ),
       body: consumer,
