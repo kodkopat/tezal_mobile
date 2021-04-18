@@ -9,7 +9,7 @@ class OrderDetailResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory OrderDetailResultModel.fromJson(Map<String, dynamic> json) =>
       OrderDetailResultModel(
@@ -21,7 +21,7 @@ class OrderDetailResultModel {
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 

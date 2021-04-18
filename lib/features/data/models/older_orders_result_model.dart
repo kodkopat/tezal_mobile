@@ -9,7 +9,7 @@ class OlderOrdersResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory OlderOrdersResultModel.fromJson(Map<String, dynamic> json) =>
       OlderOrdersResultModel(
@@ -21,7 +21,7 @@ class OlderOrdersResultModel {
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
@@ -34,7 +34,7 @@ class Data {
 
   final page;
   final total;
-  final orders;
+  final List<Order>? orders;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         page: json["page"],
@@ -54,7 +54,7 @@ class Data {
         "orders": orders == null
             ? null
             : List<dynamic>.from(
-                orders.map(
+                orders!.map(
                   (x) => x.toJson(),
                 ),
               ),
