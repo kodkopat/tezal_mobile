@@ -25,7 +25,7 @@ import 'features/presentation/providers/customer_providers/category_notifier.dar
 import 'features/presentation/providers/customer_providers/location_notifier.dart';
 import 'features/presentation/providers/customer_providers/market_notifier.dart';
 import 'features/presentation/providers/customer_providers/order_notifier.dart';
-import 'features/presentation/providers/customer_providers/product_notifier.dart';
+import 'features/presentation/providers/customer_providers/liked_product_notifier.dart';
 import 'features/presentation/providers/customer_providers/profile_notifier.dart';
 import 'features/presentation/providers/customer_providers/search_notifier.dart';
 import 'features/presentation/providers/customer_providers/wallet_notifier.dart';
@@ -178,7 +178,7 @@ class _AppState extends State<App> {
           ),
         ),
         ChangeNotifierProvider(
-          create: (ctx) => ProductNotifier(
+          create: (ctx) => LikedProductNotifier(
             CustomerProductRepository(),
           ),
         ),
