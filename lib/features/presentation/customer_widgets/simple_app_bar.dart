@@ -32,11 +32,14 @@ class SimpleAppBar {
                 ..height(48)
                 ..margin(all: 4)
                 ..borderRadius(all: 24)
+                ..alignmentContent.center()
                 ..ripple(true),
-              child: Icon(
-                Feather.arrow_right,
+              child: Image.asset(
+                "assets/images/ic_arrow_right.png",
+                fit: BoxFit.contain,
                 color: Colors.white,
-                size: 24,
+                width: 24,
+                height: 24,
               ),
             )
           : SizedBox(),
@@ -68,11 +71,14 @@ class SimpleAppBar {
                       ..height(48)
                       ..margin(left: 4)
                       ..borderRadius(all: 24)
+                      ..alignmentContent.center()
                       ..ripple(true),
-                    child: Icon(
-                      Feather.shopping_cart,
+                    child: Image.asset(
+                      "assets/images/ic_shop_cart.png",
+                      fit: BoxFit.contain,
                       color: Colors.white,
-                      size: 24,
+                      width: 24,
+                      height: 24,
                     ),
                   ),
                   Positioned(
@@ -86,10 +92,11 @@ class SimpleAppBar {
                         style: TxtStyle()
                           ..minWidth(16)
                           ..height(16)
-                          ..padding(horizontal: 4)
+                          ..padding(horizontal: 4, top: 1)
                           ..borderRadius(all: 8)
-                          ..background.color(Colors.red)
+                          ..background.color(AppTheme.customerAccent)
                           ..fontSize(10)
+                          ..bold()
                           ..textColor(Colors.white)
                           ..textAlign.center(),
                       ),
