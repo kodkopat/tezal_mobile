@@ -48,7 +48,7 @@ class BasketListItem extends StatelessWidget {
                   ..borderRadius(all: 8)
                   ..background.image(
                     alignment: Alignment.center,
-                    path: "assets/images/placeholder.jpg",
+                    path: "assets/images/img_placeholder.jpg",
                     fit: BoxFit.fill,
                   ),
                 child: ClipRRect(
@@ -79,11 +79,14 @@ class BasketListItem extends StatelessWidget {
                             ..width(48)
                             ..height(48)
                             ..borderRadius(all: 24)
+                            ..alignmentContent.center()
                             ..ripple(true),
-                          child: Icon(
-                            Feather.trash_2,
+                          child: Image.asset(
+                            "assets/images/ic_delete.png",
+                            fit: BoxFit.contain,
                             color: Colors.black26,
-                            size: 24,
+                            width: 24,
+                            height: 24,
                           ),
                         ),
                       ],

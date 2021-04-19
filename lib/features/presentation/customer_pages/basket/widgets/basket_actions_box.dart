@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
+import 'package:tezal/core/page_routes/routes.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
@@ -15,6 +16,7 @@ import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../../providers/customer_providers/order_notifier.dart';
 import '../../address_selector/address_selector_page.dart';
 import '../../payment_method_selector/payment_method_selector.dart';
+import 'modal_empty_basket.dart';
 
 class BasketActionsBox extends StatelessWidget {
   const BasketActionsBox({
@@ -78,17 +80,36 @@ class BasketActionsBox extends StatelessWidget {
               Parent(
                 gesture: Gestures()
                   ..onTap(() async {
-                    await basketNotifier.clearBasket(context);
+                    showDialog(
+                      context: context,
+                      useSafeArea: true,
+                      barrierDismissible: true,
+                      barrierColor: Colors.black.withOpacity(0.2),
+                      builder: (context) {
+                        return EmptyBasketModal(
+                          onAccept: () async {
+                            await basketNotifier.clearBasket(context);
+                            Routes.sailor.pop();
+                          },
+                          onDiscard: () {
+                            Routes.sailor.pop();
+                          },
+                        );
+                      },
+                    );
                   }),
                 style: ParentStyle()
                   ..width(48)
                   ..height(48)
                   ..borderRadius(all: 24)
+                  ..alignmentContent.center()
                   ..ripple(true),
-                child: Icon(
-                  Feather.trash_2,
+                child: Image.asset(
+                  "assets/images/ic_delete.png",
+                  fit: BoxFit.contain,
                   color: Colors.black26,
-                  size: 24,
+                  width: 24,
+                  height: 24,
                 ),
               ),
             ],
