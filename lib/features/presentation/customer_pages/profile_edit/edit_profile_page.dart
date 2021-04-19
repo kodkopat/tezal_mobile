@@ -1,4 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
+import 'dart:io';
+
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -13,6 +16,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/profile_notifier.dart';
+import 'widgets/modal_image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/customer_edit_profile";
@@ -25,6 +29,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final formKey = GlobalKey<FormState>();
 
   var profileNotifier;
+
+  String? imagePath;
 
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -66,6 +72,51 @@ class _EditProfilePageState extends State<EditProfilePage> {
           ),
           child: Column(
             children: [
+              Parent(
+                gesture: Gestures()
+                  ..onTap(() async {
+                    var result = await showModalBottomSheet(
+                      context: context,
+                      elevation: 16,
+                      isDismissible: true,
+                      barrierColor: Colors.transparent,
+                      backgroundColor: Colors.transparent,
+                      builder: (context) => ImagePickerModal(),
+                    );
+
+                    if (result != null) {
+                      var map = result as Map<String, dynamic>;
+                      setState(() {
+                        imagePath = map["imagePath"];
+                      });
+                    }
+                  }),
+                style: ParentStyle()
+                  ..width(96)
+                  ..height(96)
+                  ..borderRadius(all: 48)
+                  ..alignmentContent.center()
+                  ..ripple(true),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(48),
+                  ),
+                  child: imagePath == null
+                      ? Image.asset(
+                          "assets/images/img_profile_placeholder.png",
+                          fit: BoxFit.contain,
+                          width: 96,
+                          height: 96,
+                        )
+                      : Image.file(
+                          File(imagePath!),
+                          fit: BoxFit.contain,
+                          width: 96,
+                          height: 96,
+                        ),
+                ),
+              ),
+              const SizedBox(height: 8),
               CustomTextInput(
                 controller: nameCtrl,
                 validator: AppValidators.name,
