@@ -68,4 +68,11 @@ class AppValidators {
             ? errorTxt
             : null;
   }
+
+  static String? comment(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
+    String emptyTxt = "\u26b9 متن نظر الزامی است";
+
+    return emptyCondition ? emptyTxt : null;
+  }
 }
