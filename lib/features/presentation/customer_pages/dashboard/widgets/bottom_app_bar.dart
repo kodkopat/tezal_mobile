@@ -1,13 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../basket/basket_page.dart';
-
 import '../../home/home_page.dart';
 import '../../profile/profile_page.dart';
 import '../../search/search_page.dart';
@@ -43,6 +40,10 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
                   ? AppTheme.customerPrimary
                   : AppTheme.black;
 
+              var iconPath = item.index == currentIndex
+                  ? item.activeIconPath
+                  : item.inactiveIconPath;
+
               return Expanded(
                 flex: 1,
                 child: GestureDetector(
@@ -56,10 +57,12 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        item.iconData,
+                      Image.asset(
+                        iconPath,
+                        fit: BoxFit.contain,
                         color: color,
-                        size: 24,
+                        width: 24,
+                        height: 24,
                       ),
                       const SizedBox(height: 4),
                       Txt(
@@ -92,25 +95,29 @@ class _BottomNavigationBarList {
     __BottomNavigationBarListItem(
       index: 0,
       label: "خانه",
-      iconData: Feather.home,
+      activeIconPath: "assets/images/ic_home_filled.png",
+      inactiveIconPath: "assets/images/ic_home.png",
       widget: HomePage(),
     ),
     __BottomNavigationBarListItem(
       index: 1,
       label: "جستجو",
-      iconData: Feather.search,
+      activeIconPath: "assets/images/ic_search_filled.png",
+      inactiveIconPath: "assets/images/ic_search.png",
       widget: SearchPage(),
     ),
     __BottomNavigationBarListItem(
       index: 2,
       label: "سبد خرید",
-      iconData: Feather.shopping_cart,
+      activeIconPath: "assets/images/ic_shop_cart_filled.png",
+      inactiveIconPath: "assets/images/ic_shop_cart.png",
       widget: BasketPage(),
     ),
     __BottomNavigationBarListItem(
       index: 3,
       label: "پروفایل",
-      iconData: Feather.user,
+      activeIconPath: "assets/images/ic_user_filled.png",
+      inactiveIconPath: "assets/images/ic_user.png",
       widget: ProfilePage(),
     ),
   ];
@@ -120,12 +127,14 @@ class __BottomNavigationBarListItem {
   __BottomNavigationBarListItem({
     required this.index,
     required this.label,
-    required this.iconData,
+    required this.activeIconPath,
+    required this.inactiveIconPath,
     required this.widget,
   });
 
   final int index;
   final String label;
-  final IconData iconData;
+  final String activeIconPath;
+  final String inactiveIconPath;
   final Widget widget;
 }
