@@ -37,7 +37,7 @@ class CampaignSliderItem extends StatelessWidget {
         ..height(height)
         ..background.image(
           alignment: Alignment.center,
-          path: "assets/images/placeholder.jpg",
+          path: "assets/images/img_placeholder.jpg",
           fit: BoxFit.fill,
         ),
       child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(

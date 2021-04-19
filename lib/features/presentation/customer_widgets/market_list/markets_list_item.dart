@@ -59,7 +59,7 @@ class MarketsListItem extends StatelessWidget {
                       ..borderRadius(all: 8)
                       ..background.image(
                         alignment: Alignment.center,
-                        path: "assets/images/placeholder.jpg",
+                        path: "assets/images/img_placeholder.jpg",
                         fit: BoxFit.fill,
                       ),
                     child: ClipRRect(

@@ -68,7 +68,7 @@ class _CarouselImageSliderState extends State<CarouselImageSlider> {
                       ..height(boxHeight)
                       ..background.image(
                         alignment: Alignment.center,
-                        path: "assets/images/placeholder.jpg",
+                        path: "assets/images/img_placeholder.jpg",
                         fit: BoxFit.fill,
                       ),
                     child: Image.memory(
