@@ -60,8 +60,8 @@ class TransactionListItem extends StatelessWidget {
       _generateTransactionPriceText(),
       style: AppTxtStyles().subHeading
         ..textColor(
-          "${walletDetail.amount}".contains("-") ? Colors.red : Colors.green,
-        ),
+            "${walletDetail.amount}".contains("-") ? Colors.red : Colors.green)
+        ..bold(),
     );
   }
 
