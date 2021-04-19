@@ -1,11 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../../../core/page_routes/routes.dart';
-import '../../../../core/styles/txt_styles.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_pages/dashboard/dashboard_page.dart';
 
@@ -18,6 +17,9 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final repository = AuthRepository();
+  VideoPlayerController videoPlayerController = VideoPlayerController.asset(
+    "assets/videos/tezal_splash_animation.mp4",
+  );
 
   void initializeState() async {
     final _authRepository = AuthRepository();
@@ -50,25 +52,47 @@ class _SplashPageState extends State<SplashPage> {
         // Routes.sailor(CustomerDashBoardPage.route);
         break;
     }
+
+    // videoPlayerController.addListener(() {
+    //   var playerValue = videoPlayerController.value;
+    //   if (playerValue.position == playerValue.duration) {
+
+    //   }
+    // });
   }
 
   @override
   void initState() {
     super.initState();
-    initializeState();
+    // videoPlayerController.setLooping(true);
+    videoPlayerController
+      ..initialize().then((value) {
+        setState(() {});
+        videoPlayerController.play();
+      });
+
+    videoPlayerController.addListener(() {
+      var playerValue = videoPlayerController.value;
+      if (playerValue.position == playerValue.duration) {
+        initializeState();
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Txt(
-          "خوش آمدید",
-          style: AppTxtStyles().body,
-        ),
-      ),
+      body: videoPlayerController.value.isInitialized
+          ? VideoPlayer(videoPlayerController)
+          : Container(),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    videoPlayerController.dispose();
   }
 }
 
