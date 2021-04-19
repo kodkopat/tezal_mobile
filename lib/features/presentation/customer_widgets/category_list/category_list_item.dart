@@ -21,13 +21,31 @@ class CategoryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Txt(
-          "${category.name}",
-          gesture: Gestures()..onTap(onCategoryTap),
-          style: AppTxtStyles().body
-            ..padding(left: 4, right: 20, top: 16, bottom: 8)
-            ..bold(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Txt(
+              "${category.name}",
+              gesture: Gestures()..onTap(onCategoryTap),
+              style: AppTxtStyles().body
+                ..margin(right: 20, top: 16, bottom: 8)
+                ..padding(all: 4)
+                ..borderRadius(all: 4)
+                ..ripple(true)
+                ..bold(),
+            ),
+            Txt(
+              "مشاهده محصولات دسته‌بندی \u00BB",
+              gesture: Gestures()..onTap(onCategoryTap),
+              style: AppTxtStyles().footNote
+                ..margin(left: 16, top: 18, bottom: 8)
+                ..padding(all: 4)
+                ..borderRadius(all: 4)
+                ..ripple(true),
+            ),
+          ],
         ),
         ProductHorizontalList(
           products: category.products!,
