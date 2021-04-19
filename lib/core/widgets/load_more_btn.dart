@@ -15,7 +15,6 @@ class LoadMoreBtn extends StatelessWidget {
       "بارگذاری موارد بیشتر",
       gesture: Gestures()..onTap(onTap),
       style: AppTxtStyles().body
-        ..bold()
         ..width(160)
         ..height(48)
         ..textColor(Colors.black87)

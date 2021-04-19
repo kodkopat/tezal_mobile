@@ -11,6 +11,7 @@ class CustomTextInput extends StatelessWidget {
     this.keyboardType,
     this.textDirection,
     this.maxLength,
+    this.maxLine,
     this.obscureText,
   });
 
@@ -20,6 +21,7 @@ class CustomTextInput extends StatelessWidget {
   final TextInputType? keyboardType;
   final TextDirection? textDirection;
   final int? maxLength;
+  final int? maxLine;
   final bool? obscureText;
 
   @override
@@ -51,9 +53,9 @@ class CustomTextInput extends StatelessWidget {
               ..fontSize(14)
               ..bold(),
           ),
-        if (label != null) SizedBox(height: 2),
+        if (label != null) SizedBox(height: 4),
         TextFormField(
-          maxLines: 1,
+          maxLines: maxLine ?? 1,
           obscureText: obscureText ?? false,
           controller: controller,
           validator: validator,
@@ -70,7 +72,7 @@ class CustomTextInput extends StatelessWidget {
           ],
           decoration: InputDecoration(
             filled: true,
-            fillColor: Color(0xffF0F0F0),
+            fillColor: Color(0xffEFEFEF),
             border: outlineInputBorder,
             enabledBorder: outlineInputBorder,
             focusedBorder: outlineInputBorder,
