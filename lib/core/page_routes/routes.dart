@@ -2,7 +2,7 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
-import '../../features/data/models/market_detail_result_model.dart';
+import '../../features/data/models/order_detail_result_model.dart';
 import '../../features/data/repositories/customer_market_repository.dart';
 import '../../features/data/repositories/customer_order_repository.dart';
 import '../../features/data/repositories/customer_product_repository.dart';
@@ -20,13 +20,14 @@ import '../../features/presentation/customer_pages/basket/basket_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
-import '../../features/presentation/customer_pages/market_category/market_category.dart';
+import '../../features/presentation/customer_pages/market_comment/market_comment_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
 import '../../features/presentation/customer_pages/market_main_category/market_main_category.dart';
 import '../../features/presentation/customer_pages/market_sub_category/market_sub_category.dart';
 import '../../features/presentation/customer_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/customer_pages/orders/orders_page.dart';
+import '../../features/presentation/customer_pages/product_comment/product_comment_page.dart';
 import '../../features/presentation/customer_pages/product_comments/product_comments_page.dart';
 import '../../features/presentation/customer_pages/product_detail/product_detail_page.dart';
 import '../../features/presentation/customer_pages/products/produtct_page.dart';
@@ -142,29 +143,6 @@ class Routes {
               name: "marketId",
               isRequired: true,
               defaultValue: "",
-            ),
-          ],
-        ),
-        SailorRoute(
-          name: MarketCategoryPage.route,
-          builder: (ctx, args, map) {
-            final marketId = map.param<String>("marketId");
-            final categories = map.param<List<Category>>("marketCategories");
-            return MarketCategoryPage(
-              marketId: marketId,
-              categories: categories,
-            );
-          },
-          params: [
-            SailorParam<String>(
-              name: "marketId",
-              isRequired: true,
-              defaultValue: "",
-            ),
-            SailorParam<List<Category>>(
-              name: "marketCategories",
-              isRequired: true,
-              defaultValue: [],
             ),
           ],
         ),
@@ -296,6 +274,31 @@ class Routes {
           ],
         ),
         SailorRoute(
+          name: ProductCommentPage.route,
+          builder: (ctx, args, map) {
+            final orderItem = map.param<OrderItem>("orderItem");
+            final orderDetailNotifier =
+                map.param<OrderDetailNotifier>("orderDetailNotifier");
+
+            return ProductCommentPage(
+              orderItem: orderItem,
+              orderDetailNotifier: orderDetailNotifier,
+            );
+          },
+          params: [
+            SailorParam<OrderItem>(
+              name: "orderItem",
+              isRequired: true,
+              defaultValue: null,
+            ),
+            SailorParam<OrderDetailNotifier>(
+              name: "orderDetailNotifier",
+              isRequired: true,
+              defaultValue: null,
+            ),
+          ],
+        ),
+        SailorRoute(
           name: MarketCommentsPage.route,
           builder: (ctx, args, map) {
             final marketId = map.param<String>("marketId");
@@ -310,6 +313,20 @@ class Routes {
           params: [
             SailorParam<String>(
               name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+          ],
+        ),
+        SailorRoute(
+          name: MarketCommentPage.route,
+          builder: (ctx, args, map) {
+            final marketName = map.param<String>("marketName");
+            return MarketCommentPage(marketName: marketName);
+          },
+          params: [
+            SailorParam<String>(
+              name: "marketName",
               isRequired: true,
               defaultValue: "",
             ),
