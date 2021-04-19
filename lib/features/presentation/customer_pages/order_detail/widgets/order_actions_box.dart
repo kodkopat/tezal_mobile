@@ -13,6 +13,7 @@ import '../../../../data/models/order_detail_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../../providers/customer_providers/order_detail_notifier.dart';
+import '../../market_comment/market_comment_page.dart';
 
 class OrderActionsBox extends StatelessWidget {
   const OrderActionsBox({
@@ -74,16 +75,25 @@ class OrderActionsBox extends StatelessWidget {
                 ],
               ),
               Parent(
-                gesture: Gestures()..onTap(() {}),
+                gesture: Gestures()
+                  ..onTap(() {
+                    Routes.sailor.navigate(
+                      MarketCommentPage.route,
+                      params: {"marketName": "${orderDetail.data!.marketName}"},
+                    );
+                  }),
                 style: ParentStyle()
                   ..width(48)
                   ..height(48)
                   ..borderRadius(all: 24)
+                  ..alignmentContent.center()
                   ..ripple(true),
-                child: Icon(
-                  Feather.message_square,
+                child: Image.asset(
+                  "assets/images/ic_comment.png",
+                  fit: BoxFit.contain,
                   color: Colors.black26,
-                  size: 24,
+                  width: 24,
+                  height: 24,
                 ),
               ),
             ],

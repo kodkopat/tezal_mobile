@@ -33,14 +33,10 @@ class OrderDetailPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.orderDetailResultModel == null
                 ? provider.orderDetailErrorMsg == null
-                    ? Txt(
-                        "خطای بارگذاری جزئیات سفارش",
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
-                    : Txt(
-                        provider.orderDetailErrorMsg!,
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
+                    ? Txt("خطای بارگذاری جزئیات سفارش",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.orderDetailErrorMsg!,
+                        style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
                     child: Column(
                       children: [
@@ -49,7 +45,6 @@ class OrderDetailPage extends StatelessWidget {
                               provider.orderDetailResultModel!.data?.items,
                           orderDetailNotifier: provider,
                         ),
-                        SizedBox(height: 8),
                         OrderActionsBox(
                           orderDetail: provider.orderDetailResultModel!,
                           orderDetailNotifier: provider,

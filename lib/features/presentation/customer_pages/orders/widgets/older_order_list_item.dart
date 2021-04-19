@@ -70,7 +70,9 @@ class OlderOrderListItem extends StatelessWidget {
   Widget get _fieldOrderPriceText {
     return Txt(
       _generateOrderPriceText(),
-      style: AppTxtStyles().subHeading..textColor(Colors.black),
+      style: AppTxtStyles().subHeading
+        ..textColor(Colors.black87)
+        ..bold(),
     );
   }
 

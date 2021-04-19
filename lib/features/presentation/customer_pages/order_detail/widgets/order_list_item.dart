@@ -10,21 +10,25 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/exceptions/failure.dart';
+import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/order_detail_result_model.dart';
 import '../../../../data/models/photos_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../providers/customer_providers/order_detail_notifier.dart';
+import '../../product_comment/product_comment_page.dart';
 
 class OrderListItem extends StatelessWidget {
   OrderListItem({
     required this.orderItem,
     required this.orderDetailNotifier,
+    required this.showCommentOption,
   });
 
   final OrderItem orderItem;
   final OrderDetailNotifier orderDetailNotifier;
+  final bool showCommentOption;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class OrderListItem extends StatelessWidget {
                   ..borderRadius(all: 8)
                   ..background.image(
                     alignment: Alignment.center,
-                    path: "assets/images/placeholder.jpg",
+                    path: "assets/images/img_placeholder.jpg",
                     fit: BoxFit.fill,
                   ),
                 child: ClipRRect(
@@ -70,19 +74,32 @@ class OrderListItem extends StatelessWidget {
                           "${orderItem.productName}",
                           style: AppTxtStyles().subHeading..bold(),
                         ),
-                        Parent(
-                          gesture: Gestures()..onTap(() {}),
-                          style: ParentStyle()
-                            ..width(48)
-                            ..height(48)
-                            ..borderRadius(all: 24)
-                            ..ripple(true),
-                          child: Icon(
-                            Feather.message_square,
-                            color: Colors.black26,
-                            size: 24,
+                        if (showCommentOption)
+                          Parent(
+                            gesture: Gestures()
+                              ..onTap(() {
+                                Routes.sailor.navigate(
+                                  ProductCommentPage.route,
+                                  params: {
+                                    "orderItem": orderItem,
+                                    "orderDetailNotifier": orderDetailNotifier,
+                                  },
+                                );
+                              }),
+                            style: ParentStyle()
+                              ..width(48)
+                              ..height(48)
+                              ..borderRadius(all: 24)
+                              ..alignmentContent.center()
+                              ..ripple(true),
+                            child: Image.asset(
+                              "assets/images/ic_comment.png",
+                              fit: BoxFit.contain,
+                              color: Colors.black26,
+                              width: 24,
+                              height: 24,
+                            ),
                           ),
-                        ),
                       ],
                     ),
                     SizedBox(height: 16),

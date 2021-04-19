@@ -20,7 +20,7 @@ class OrderList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Parent(
       style: ParentStyle()
-        ..margin(horizontal: 16, vertical: 8)
+        ..margin(horizontal: 16, vertical: 16)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)
         ..boxShadow(
@@ -32,12 +32,13 @@ class OrderList extends StatelessWidget {
       child: ListView.separated(
         shrinkWrap: true,
         itemCount: orderItems.length,
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16),
         physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return OrderListItem(
             orderItem: orderItems[index],
             orderDetailNotifier: orderDetailNotifier,
+            showCommentOption: true,
           );
         },
         separatorBuilder: (context, index) {
