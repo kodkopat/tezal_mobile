@@ -9,13 +9,14 @@ import '../../../../../core/styles/txt_styles.dart';
 class ProfileMenuItem extends StatelessWidget {
   ProfileMenuItem({
     required this.text,
-    required this.iconData,
+    required this.iconPath,
     required this.onTap,
     this.showChevron,
   });
 
   final String text;
-  final IconData iconData;
+  // final IconData iconData;
+  final String iconPath;
   final void Function() onTap;
   final bool? showChevron;
 
@@ -35,10 +36,12 @@ class ProfileMenuItem extends StatelessWidget {
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(
-                iconData,
+              Image.asset(
+                iconPath,
+                fit: BoxFit.contain,
                 color: Colors.black,
-                size: 24,
+                width: 24,
+                height: 24,
               ),
               SizedBox(width: 16),
               Txt(
@@ -50,10 +53,12 @@ class ProfileMenuItem extends StatelessWidget {
             ],
           ),
           if (showChevron ?? true)
-            Icon(
-              Feather.chevron_left,
+            Image.asset(
+              "assets/images/ic_chevron_left.png",
+              fit: BoxFit.contain,
               color: Colors.black,
-              size: 16,
+              width: 16,
+              height: 16,
             ),
         ],
       ),

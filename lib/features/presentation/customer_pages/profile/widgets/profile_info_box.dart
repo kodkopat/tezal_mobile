@@ -44,14 +44,17 @@ class ProfileInfoBox extends StatelessWidget {
                 children: [
                   Parent(
                     style: ParentStyle()
-                      ..width(36)
-                      ..height(36)
+                      ..width(48)
+                      ..height(48)
                       ..borderRadius(all: 8)
+                      ..alignmentContent.center()
                       ..background.color(Color(0xffEFEFEF)),
-                    child: Icon(
-                      Feather.user,
+                    child: Image.asset(
+                      "assets/images/ic_user.png",
+                      fit: BoxFit.contain,
                       color: Colors.black,
-                      size: 18,
+                      width: 24,
+                      height: 24,
                     ),
                   ),
                   SizedBox(width: 8),
@@ -64,14 +67,17 @@ class ProfileInfoBox extends StatelessWidget {
               Parent(
                 gesture: Gestures()..onTap(onEditBtnTap),
                 style: ParentStyle()
-                  ..width(36)
-                  ..height(36)
-                  ..borderRadius(all: 18)
+                  ..width(48)
+                  ..height(48)
+                  ..borderRadius(all: 24)
+                  ..alignmentContent.center()
                   ..ripple(true),
-                child: Icon(
-                  Feather.edit_2,
+                child: Image.asset(
+                  "assets/images/ic_edit.png",
+                  fit: BoxFit.contain,
                   color: Colors.black,
-                  size: 18,
+                  width: 24,
+                  height: 24,
                 ),
               )
             ],
