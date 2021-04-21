@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -27,182 +30,33 @@ class MapBox extends StatefulWidget {
 }
 
 class _MapBoxState extends State<MapBox> {
-  var _controller = Completer<GoogleMapController>();
+  // var _controller = Completer<GoogleMapController>();
   late GoogleMapController mapController;
 
   late BitmapDescriptor pinLocationIcon;
   Set<Marker> markers = {};
 
+  late Marker pinMarker;
   late LatLng pinPosition;
   late CameraPosition initialLocation;
   late String mapStyle;
   bool loading = true;
 
   void initializeState() async {
-    mapStyle = ''' [
-  {
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#f5f5f5"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.icon",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#f5f5f5"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#bdbdbd"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#eeeeee"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#e5e5e5"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#ffffff"
-      }
-    ]
-  },
-  {
-    "featureType": "road.arterial",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#757575"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#dadada"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#616161"
-      }
-    ]
-  },
-  {
-    "featureType": "road.local",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.line",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#e5e5e5"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#eeeeee"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#c9c9c9"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#9e9e9e"
-      }
-    ]
-  }
-]''';
+    Uint8List marketIconBytes = await getBytesFromAsset(
+      "assets/images/ic_location_marker.png",
+    );
 
-    pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(devicePixelRatio: 2.5),
-      'assets/destination_map_marker.png',
+    var markerIcon = BitmapDescriptor.fromBytes(marketIconBytes);
+
+    pinMarker = Marker(
+      visible: true,
+      icon: markerIcon,
+      markerId: MarkerId("marketId"),
+      position: LatLng(
+        double.parse(widget.latitude!),
+        double.parse(widget.longitude!),
+      ),
     );
 
     Position position;
@@ -263,26 +117,29 @@ class _MapBoxState extends State<MapBox> {
           child: loading
               ? AppLoading(color: AppTheme.customerPrimary)
               : GoogleMap(
-                  mapType: MapType.hybrid,
+                  mapType: MapType.normal,
                   initialCameraPosition: initialLocation,
+                  markers: <Marker>{
+                    pinMarker,
+                  },
                   onMapCreated: (GoogleMapController controller) {
-                    _controller.complete(controller);
                     mapController = controller;
-                    mapController.setMapStyle(mapStyle);
-
-                    setState(() {
-                      markers.add(
-                        Marker(
-                          markerId: MarkerId("marketId"),
-                          position: pinPosition,
-                          icon: pinLocationIcon,
-                        ),
-                      );
-                    });
                   },
                 ),
         ),
       ),
     );
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(
+      data.buffer.asUint8List(),
+      targetWidth: 100,
+    );
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
   }
 }
