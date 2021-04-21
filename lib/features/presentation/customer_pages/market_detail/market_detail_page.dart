@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/exceptions/failure.dart';
@@ -36,6 +37,11 @@ class MarketDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     marketCommentsNotifier =
         Provider.of<MarketCommentsNotifier>(context, listen: false);
+
+    MarketDetailNotifier marketDetailNotifier =
+        Provider.of<MarketDetailNotifier>(context, listen: false);
+
+    Get.put<MarketDetailNotifier>(marketDetailNotifier);
 
     var consumer = Consumer<MarketDetailNotifier>(
       builder: (context, provider, child) {

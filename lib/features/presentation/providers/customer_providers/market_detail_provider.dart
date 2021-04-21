@@ -31,10 +31,7 @@ class MarketDetailNotifier extends ChangeNotifier {
   }
 
   Future<void> refresh() async {
-    marketDetailLoading = true;
-    marketDetailErrorMsg = null;
     marketDetail = null;
-
-    await fetchMarketDetail(marketId: this.marketId!);
+    notifyListeners();
   }
 }
