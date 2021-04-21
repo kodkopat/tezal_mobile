@@ -1,34 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 import 'app_localizations.dart';
+import 'core/consts/consts.dart';
 import 'core/page_routes/routes.dart';
 import 'core/services/location.dart';
 import 'core/themes/app_theme.dart';
+import 'features/base_providers.dart';
+import 'features/customer_providers.dart';
 import 'features/data/repositories/auth_repository.dart';
-import 'features/data/repositories/customer_address_repository.dart';
-import 'features/data/repositories/customer_basket_repository.dart';
-import 'features/data/repositories/customer_campaign_repository.dart';
-import 'features/data/repositories/customer_category_repository.dart';
-import 'features/data/repositories/customer_market_repository.dart';
-import 'features/data/repositories/customer_order_repository.dart';
-import 'features/data/repositories/customer_product_repository.dart';
-import 'features/data/repositories/customer_repository.dart';
-import 'features/data/repositories/customer_search_repository.dart';
-import 'features/data/repositories/customer_wallet_repository.dart';
-import 'features/presentation/providers/customer_providers/address_notifier.dart';
-import 'features/presentation/providers/customer_providers/basket_notifier.dart';
-import 'features/presentation/providers/customer_providers/campaign_notifier.dart';
-import 'features/presentation/providers/customer_providers/category_notifier.dart';
-import 'features/presentation/providers/customer_providers/location_notifier.dart';
-import 'features/presentation/providers/customer_providers/market_notifier.dart';
-import 'features/presentation/providers/customer_providers/order_notifier.dart';
-import 'features/presentation/providers/customer_providers/liked_product_notifier.dart';
-import 'features/presentation/providers/customer_providers/profile_notifier.dart';
-import 'features/presentation/providers/customer_providers/search_notifier.dart';
-import 'features/presentation/providers/customer_providers/wallet_notifier.dart';
+import 'features/delivery_providers.dart';
+import 'features/market_providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -67,47 +53,39 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final _authRepository = AuthRepository();
-
-  Key key = UniqueKey();
   _AppUserType? userType;
+  late String fontFamily;
+  late TextDirection textDirection;
+  late Locale locale;
 
-  void restartApp() {
-    _authRepository.userType.then((value) {
-      if (value.isNotEmpty) {
-        setState(() {
-          key = UniqueKey();
-          userType = _AppUserTypeParser.fromString(value);
-        });
-      }
-    });
+  Future<void> initializeState() async {
+    LocationService.setSavedLocation();
+    userType = widget.userType;
+
+    String? languageCode =
+        await FlutterSecureStorage().read(key: storageKeyLocalCode);
+
+    var tempLocale = languageCode == null ? Locale(languageCode) : Locale('fa');
+
+    locale = AppLocalizations(tempLocale).locale;
+
+    if (locale.languageCode == 'fa') {
+      fontFamily = 'Yekan';
+      textDirection = TextDirection.rtl;
+    } else {
+      fontFamily = 'Arial';
+      textDirection = TextDirection.ltr;
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    LocationService.setSavedLocation();
-    userType = widget.userType;
+    initializeState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var deligates = [
-      AppLocalizations.delegate,
-      GlobalCupertinoLocalizations.delegate,
-      GlobalMaterialLocalizations.delegate,
-      GlobalWidgetsLocalizations.delegate,
-    ];
-
-    var locale = Locale("fa", "IR");
-    // var locale = Locale("en", "US");
-
-    String fontFamily = locale.languageCode == 'fa' ? 'Yekan' : 'Arial';
-    var supportedLocales = [
-      Locale("en", "US"),
-      Locale("fa", "IR"),
-    ];
-
     var themeData;
     switch (userType) {
       case _AppUserType.Customer:
@@ -124,78 +102,41 @@ class _AppState extends State<App> {
         break;
     }
 
-    var materialApp = MaterialApp(
-      title: 'TezAl Market',
-      theme: themeData,
-      debugShowCheckedModeBanner: false,
-      // routing setting
-      navigatorKey: Routes.sailor.navigatorKey,
-      onGenerateRoute: Routes.sailor.generator(),
-      // localization settings
-      supportedLocales: supportedLocales,
-      localizationsDelegates: deligates,
-      locale: locale,
+    var mainWidget = Directionality(
+      textDirection: textDirection,
+      child: MaterialApp(
+        title: 'Tezal Market',
+        theme: themeData,
+        debugShowCheckedModeBanner: false,
+        // routing setting
+        navigatorKey: Routes.sailor.navigatorKey,
+        onGenerateRoute: Routes.sailor.generator(),
+        builder: (context, child) => Directionality(
+          textDirection: textDirection,
+          child: child!,
+        ),
+        // localization settings
+        localizationsDelegates: [
+          AppLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale("en"),
+          Locale("fa"),
+          Locale("tr"),
+        ],
+        locale: locale,
+      ),
     );
 
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (ctx) => LocationNotifier(),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => CampaignNotifier(
-            CustomerCampaignRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => CategoryNotifier(
-            CustomerCategoryRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => MarketNotifier(
-            CustomerMarketRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => ProfileNotifier(
-            CustomerRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => AddressNotifier(
-            CustomerAddressRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => WalletNotifier(
-            CustomerWalletRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => SearchNotifier(
-            CustomerSearchRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => LikedProductNotifier(
-            CustomerProductRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => BasketNotifier(
-            CustomerBasketRepository(),
-            CustomerProductRepository(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (ctx) => OrderNotifier(
-            CustomerOrderRepository(),
-            CustomerProductRepository(),
-          ),
-        ),
-      ],
-      child: materialApp,
+      providers: baseProviders
+        ..addAll(customerProviders)
+        ..addAll(marketProviders)
+        ..addAll(deliveryProviders),
+      child: mainWidget,
     );
   }
 }
