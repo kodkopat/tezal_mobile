@@ -2,10 +2,12 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/services/location.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/map_box.dart';
 import '../../../../data/models/campaign_result_model.dart';
 import 'campaign_slider_item.dart';
+import 'pick_location_combo_box.dart';
 
 class CampaignSlider extends StatefulWidget {
   const CampaignSlider({required this.campaigns});
@@ -18,7 +20,37 @@ class CampaignSlider extends StatefulWidget {
 
 class _CampaignSliderState extends State<CampaignSlider> {
   int selectedImage = 0;
-  double boxHeight = 188;
+  double boxHeight = 200;
+  late Widget mapBox;
+  bool loading = true;
+
+  void initializeState() async {
+    var position = await LocationService.getSavedLocation();
+
+    mapBox = Stack(
+      children: [
+        MapBox(
+          height: boxHeight,
+          latitude: "${position.latitude}",
+          longitude: "${position.longitude}",
+        ),
+        Align(
+          alignment: Alignment.topCenter,
+          child: PickLocationComboBox(),
+        ),
+      ],
+    );
+
+    setState(() {
+      loading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    initializeState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,21 +74,19 @@ class _CampaignSliderState extends State<CampaignSlider> {
               ),
               child: PageView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: widget.campaigns.length + 1,
+                itemCount: loading ? 0 : widget.campaigns.length + 1,
                 onPageChanged: (value) {
                   setState(() {
                     selectedImage = value;
                   });
                 },
                 itemBuilder: (context, index) {
-                  if (index == widget.campaigns.length) {
-                    return MapBox(height: boxHeight);
-                  }
-
-                  return CampaignSliderItem(
-                    campaign: widget.campaigns[index - 1],
-                    height: boxHeight,
-                  );
+                  return index == widget.campaigns.length
+                      ? mapBox
+                      : CampaignSliderItem(
+                          campaign: widget.campaigns[index],
+                          height: boxHeight,
+                        );
                 },
               ),
             ),
