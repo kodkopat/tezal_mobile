@@ -54,19 +54,7 @@ class ProfilePage extends StatelessWidget {
           successBuilder: (context, data) {
             print("userToken= $data\n");
             if (data == null || data.isEmpty) {
-              return Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24),
-                  child: ActionBtn(
-                    text: "ورود / ثبت‌نام",
-                    onTap: () async {
-                      Routes.sailor(LoginPage.route);
-                    },
-                    background: AppTheme.customerPrimary,
-                    textColor: Colors.white,
-                  ),
-                ),
-              );
+              return _basketEmptyState();
             } else {
               return SingleChildScrollView(
                 child: Column(
@@ -82,6 +70,43 @@ class ProfilePage extends StatelessWidget {
             return AppLoading(color: AppTheme.customerPrimary);
           },
         ),
+      ),
+    );
+  }
+
+  Widget _basketEmptyState() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Parent(
+            style: ParentStyle()
+              ..width(80)
+              ..alignmentContent.center(),
+            child: AspectRatio(
+              aspectRatio: 1 / 2,
+              child: Image.asset(
+                "assets/images/img_tezal_logo.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Txt(
+            "برای دسترسی به اطلاعات حساب کاربری،\n"
+            " ابتدا وارد شوید",
+            style: AppTxtStyles().footNote..alignment.center(),
+          ),
+          SizedBox(height: 16),
+          ActionBtn(
+            text: "ورود به حساب کاربری",
+            onTap: () async {
+              Routes.sailor(LoginPage.route);
+            },
+            background: AppTheme.customerPrimary,
+            textColor: Colors.white,
+          ),
+        ],
       ),
     );
   }
