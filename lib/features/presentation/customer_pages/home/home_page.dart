@@ -12,7 +12,7 @@ import '../../../../features/presentation/providers/customer_providers/market_no
 import '../../customer_widgets/market_list/markets_list.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/campaign_notifier.dart';
-import '../../providers/customer_providers/location_notifier.dart';
+import '../../providers/base_providers/location_notifier.dart';
 import 'widgets/campaigns_slider.dart';
 
 class HomePage extends StatelessWidget {

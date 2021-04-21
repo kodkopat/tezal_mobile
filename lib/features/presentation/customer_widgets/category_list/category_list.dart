@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market_detail_result_model.dart';
-import '../../customer_pages/market_main_category/market_main_category.dart';
+import '../../customer_pages/market_category/market_category.dart';
 import 'category_list_item.dart';
 
 class CategoryList extends StatelessWidget {
@@ -33,9 +33,16 @@ class CategoryList extends StatelessWidget {
               return CategoryListItem(
                 category: categories[index],
                 onCategoryTap: () {
+                  // Routes.sailor.navigate(
+                  //   MarketMainCategoryPage.route,
+                  //   params: {"marketId": marketId},
+                  // );
                   Routes.sailor.navigate(
-                    MarketMainCategoryPage.route,
-                    params: {"marketId": marketId},
+                    MarketCategoryPage.route,
+                    params: {
+                      "marketId": marketId,
+                      "marketCategories": categories,
+                    },
                   );
                 },
               );

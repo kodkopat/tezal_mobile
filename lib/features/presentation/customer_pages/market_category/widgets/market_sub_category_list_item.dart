@@ -24,19 +24,20 @@ class MarketSubCategoryListItem extends StatelessWidget {
       style: AppTxtStyles().footNote
         ..alignmentContent.center()
         ..margin(horizontal: 4)
-        ..padding(horizontal: 8)
+        ..padding(horizontal: 16)
         ..textColor(selected ? Colors.white : AppTheme.customerPrimary)
         ..background
             .color(selected ? AppTheme.customerPrimary : Colors.transparent)
         ..borderRadius(all: 8)
         ..border(
-          all: 1,
+          all: 1.5,
           style: BorderStyle.solid,
           color: selected
               ? AppTheme.customerPrimary
               : AppTheme.customerPrimary.withOpacity(0.2),
         )
-        ..ripple(true),
+        ..ripple(true)
+        ..bold(),
     );
   }
 }

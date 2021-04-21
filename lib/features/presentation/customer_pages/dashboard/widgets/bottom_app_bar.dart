@@ -26,12 +26,15 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
   @override
   // ignore: must_call_super
   Widget build(BuildContext context) {
+    print("textDirection: ${Directionality.of(context)}\n");
+
     return BottomAppBar(
       child: Parent(
         style: ParentStyle()
           ..height(56)
           ..padding(horizontal: 8),
         child: Row(
+          textDirection: Directionality.of(context),
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: _BottomNavigationBarList.items.map(

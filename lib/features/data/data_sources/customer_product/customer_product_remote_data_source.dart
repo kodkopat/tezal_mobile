@@ -21,6 +21,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/GetProductsInSubCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getProductsInSubCategory(
+    @Header("token") String token,
     @Query("MarketId") String marketId,
     @Query("CategoryId") String categoryId,
   );

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/routes.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../about_us/about_us_page.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';
@@ -36,15 +37,8 @@ class _ProfileMenu {
   );
 
   static List<Widget> items(BuildContext context) => [
-        // ProfileMenuItem(
-        //   text: "اطلاعات شخصی",
-        // iconData: Feather.user,
-        //   onTap: () {},
-        // ),
-
         ProfileMenuItem(
           text: "آدرس‌های من",
-          // iconData: Feather.map_pin,
           iconPath: "assets/images/ic_location.png",
           onTap: () {
             Routes.sailor(AddressesPage.route);
@@ -52,7 +46,6 @@ class _ProfileMenu {
         ),
         ProfileMenuItem(
           text: "کیف پول من",
-          // iconData: Feather.credit_card,
           iconPath: "assets/images/ic_wallet.png",
           onTap: () {
             Routes.sailor(WalletPage.route);
@@ -60,7 +53,6 @@ class _ProfileMenu {
         ),
         ProfileMenuItem(
           text: "سفارشات قبلی",
-          // iconData: Feather.shopping_bag,
           iconPath: "assets/images/ic_shop_basket.png",
           onTap: () {
             Routes.sailor(OrdersPage.route);
@@ -68,47 +60,27 @@ class _ProfileMenu {
         ),
         ProfileMenuItem(
           text: "محصولات مورد علاقه",
-          // iconData: Feather.heart,
           iconPath: "assets/images/ic_heart.png",
           onTap: () {
             Routes.sailor(LikedProductsPage.route);
           },
         ),
         _divider,
-
-        // ProfileMenuItem(
-        //   text: "پشتیبانی",
-        // iconData: Feather.life_buoy,
-        //   onTap: () {},
-        // ),
-
-        // ProfileMenuItem(
-        //   text: "قوانین و مقررات",
-        // iconData: Feather.file_text,
-        //   onTap: () {},
-        // ),
-
         ProfileMenuItem(
           text: "تنظیمات",
-          // iconData: Feather.settings,
           iconPath: "assets/images/ic_setting.png",
           onTap: () {},
         ),
-
         ProfileMenuItem(
           text: "درباره ما",
-          // iconData: Feather.info,
           iconPath: "assets/images/ic_info.png",
-
           onTap: () {
             Routes.sailor(AboutUsPage.route);
           },
         ),
         _divider,
-
         ProfileMenuItem(
           text: "خروج از حساب کاربری",
-          // iconData: Feather.log_out,
           iconPath: "assets/images/ic_log_out.png",
           showChevron: false,
           onTap: () {
@@ -122,11 +94,20 @@ class _ProfileMenu {
                   onAccept: () async {
                     var secureStorage = FlutterSecureStorage();
                     await secureStorage.deleteAll();
+
+                    var basketNotifier = Provider.of<BasketNotifier>(
+                      context,
+                      listen: false,
+                    );
+
+                    basketNotifier.refresh();
+
                     Routes.sailor.pop();
                     Routes.sailor.navigate(
                       "/",
                       navigationType: NavigationType.pushReplace,
                     );
+                    Phoenix.rebirth(context);
                   },
                   onDiscard: () {
                     Routes.sailor.pop();

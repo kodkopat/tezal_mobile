@@ -18,7 +18,7 @@ class _CustomerProductRemoteDataSource
 
   @override
   Future<ProductsResultModel> getProductsInSubCategory(
-      marketId, categoryId) async {
+      token, marketId, categoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
@@ -30,7 +30,8 @@ class _CustomerProductRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'token': token
                 },
                 extra: _extra,
                 contentType: 'application/json')

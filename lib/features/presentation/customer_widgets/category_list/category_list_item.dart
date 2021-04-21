@@ -54,7 +54,6 @@ class CategoryListItem extends StatelessWidget {
               ProductDetailPage.route,
               params: {
                 "productId": category.products![index].id,
-                // "marketDetailNotifier": marketDetailNotifier,
               },
             );
           },

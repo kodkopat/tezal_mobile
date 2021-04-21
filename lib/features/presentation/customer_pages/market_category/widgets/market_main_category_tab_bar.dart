@@ -28,8 +28,8 @@ class MarketMainCategoryTabBar extends StatelessWidget {
         isScrollable: true,
         labelColor: Colors.white,
         indicatorWeight: 2,
-        indicatorColor: Colors.yellow,
-        indicatorSize: TabBarIndicatorSize.label,
+        indicatorColor: AppTheme.customerAccent,
+        indicatorSize: TabBarIndicatorSize.tab,
         unselectedLabelColor: Colors.white,
         tabs: textList.map((title) {
           return MarketMainCategoryTabBarItem(

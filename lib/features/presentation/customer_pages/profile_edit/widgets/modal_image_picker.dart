@@ -1,10 +1,9 @@
 // ignore: import_of_legacy_library_into_null_safe
-
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tezal/core/page_routes/routes.dart';
 
+import '../../../../../core/page_routes/routes.dart';
 import 'image_picker_list_item.dart';
 
 class ImagePickerModal extends StatelessWidget {

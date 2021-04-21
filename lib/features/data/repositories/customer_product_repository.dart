@@ -47,9 +47,12 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userToken = await _authRepo.userToken;
       var result = await _remoteDataSource.getProductsInSubCategory(
-          marketId, categoryId);
-      print("productList: ${result.toJson()}\n");
+        userToken,
+        marketId,
+        categoryId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

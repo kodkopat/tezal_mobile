@@ -81,7 +81,8 @@ class _MarketCategoryPageState extends State<MarketCategoryPage>
                     controller: tabController,
                     children: widget.categories.map((category) {
                       return MarketMainCategoryTabBarView(
-                        products: category.products!,
+                        marketId: widget.marketId,
+                        mainCategoryId: category.id,
                       );
                     }).toList(),
                   ),
