@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
@@ -31,20 +32,15 @@ import '../product_comments/product_comments_page.dart';
 class ProductDetailPage extends StatelessWidget {
   static const route = "/customer_product_detail";
 
-  ProductDetailPage({
-    required this.productId,
-    this.marketDetailNotifier,
-  });
+  ProductDetailPage({required this.productId});
 
   final String productId;
-  final MarketDetailNotifier? marketDetailNotifier;
 
   final _customerProductRepo = CustomerProductRepository();
   BasketNotifier? basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    print("marketDetailNotifier: $marketDetailNotifier\n");
     basketNotifier ??= Provider.of<BasketNotifier>(context, listen: false);
 
     var consumer = Consumer<ProductDetailNotifier>(
@@ -122,7 +118,10 @@ class ProductDetailPage extends StatelessWidget {
                 productId: productDetail.data!.id,
                 amount: 1,
               );
-              marketDetailNotifier!.refresh();
+
+              MarketDetailNotifier marketDetailNotifier =
+                  Get.find<MarketDetailNotifier>();
+              marketDetailNotifier.refresh();
             },
             onDecrease: (value) {
               basketNotifier!.removeFromBasket(
@@ -130,7 +129,10 @@ class ProductDetailPage extends StatelessWidget {
                 productId: productDetail.data!.id,
                 amount: 1,
               );
-              marketDetailNotifier!.refresh();
+
+              MarketDetailNotifier marketDetailNotifier =
+                  Get.find<MarketDetailNotifier>();
+              marketDetailNotifier.refresh();
             },
           ),
           _sectionComments(context, productDetail),
