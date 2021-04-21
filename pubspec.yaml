@@ -33,6 +33,8 @@ dependencies:
   data_connection_checker: ^0.3.4
   # used to: state management
   provider: ^5.0.0
+  # used to: service locator
+  get: ^4.1.4
   # used to: launch urls
   url_launcher: ^5.7.10
   # used to: access location service
@@ -62,6 +64,8 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
   # used to: currency format
   intl: ^0.17.0
+  # used to: restart services
+  flutter_phoenix: ^1.0.0
   tuple: ^2.0.0
   build: ^2.0.0
 
