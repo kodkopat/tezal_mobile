@@ -2,6 +2,7 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
+import '../../features/data/models/market_detail_result_model.dart';
 import '../../features/data/models/order_detail_result_model.dart';
 import '../../features/data/repositories/customer_market_repository.dart';
 import '../../features/data/repositories/customer_order_repository.dart';
@@ -20,6 +21,7 @@ import '../../features/presentation/customer_pages/basket/basket_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
+import '../../features/presentation/customer_pages/market_category/market_category.dart';
 import '../../features/presentation/customer_pages/market_comment/market_comment_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
@@ -147,6 +149,31 @@ class Routes {
           ],
         ),
         SailorRoute(
+          name: MarketCategoryPage.route,
+          builder: (ctx, args, map) {
+            final marketId = map.param<String>("marketId");
+            final marketCategories =
+                map.param<List<Category>>("marketCategories");
+
+            return MarketCategoryPage(
+              marketId: marketId,
+              categories: marketCategories,
+            );
+          },
+          params: [
+            SailorParam<String>(
+              name: "marketId",
+              isRequired: true,
+              defaultValue: "",
+            ),
+            SailorParam<List<Category>>(
+              name: "marketCategories",
+              isRequired: true,
+              defaultValue: [],
+            ),
+          ],
+        ),
+        SailorRoute(
           name: MarketMainCategoryPage.route,
           builder: (ctx, args, map) {
             final marketId = map.param<String>("marketId");
@@ -218,8 +245,6 @@ class Routes {
           name: ProductDetailPage.route,
           builder: (ctx, args, map) {
             final productId = map.param<String>("productId");
-            final marketDetailNotifier =
-                map.param<MarketDetailNotifier>("marketDetailNotifier");
 
             return MultiProvider(
               providers: [
@@ -234,10 +259,7 @@ class Routes {
                   ),
                 ),
               ],
-              child: ProductDetailPage(
-                productId: productId,
-                marketDetailNotifier: marketDetailNotifier,
-              ),
+              child: ProductDetailPage(productId: productId),
             );
           },
           params: [
@@ -245,11 +267,6 @@ class Routes {
               name: "productId",
               isRequired: true,
               defaultValue: "",
-            ),
-            SailorParam<MarketDetailNotifier>(
-              name: "marketDetailNotifier",
-              isRequired: true,
-              defaultValue: null,
             ),
           ],
         ),
