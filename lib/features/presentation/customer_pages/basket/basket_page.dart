@@ -26,14 +26,8 @@ class BasketPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.basketItemList == null
                 ? provider.errorMsg == null
-                    ? Txt(
-                        "سبد خرید محصولات شما خالی است",
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
-                    : Txt(
-                        "${provider.errorMsg!}",
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
+                    ? _basketEmptyState()
+                    : _basketErrorState("${provider.errorMsg!}")
                 : SingleChildScrollView(
                     child: Column(
                       children: [
@@ -58,6 +52,54 @@ class BasketPage extends StatelessWidget {
         appBar: SimpleAppBar(context).create(text: "سبد خرید"),
         body: consumer,
       ),
+    );
+  }
+
+  Widget _basketEmptyState() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Parent(
+          style: ParentStyle()
+            ..width(80)
+            ..alignmentContent.center(),
+          child: AspectRatio(
+            aspectRatio: 1 / 2,
+            child: Image.asset(
+              "assets/images/img_tezal_logo.png",
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        Txt(
+          "هنوز کالایی را به سبد خرید خود اضافه نکرده‌اید",
+          style: AppTxtStyles().footNote..alignment.center(),
+        ),
+      ],
+    );
+  }
+
+  Widget _basketErrorState(String errorText) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Parent(
+          style: ParentStyle()
+            ..width(80)
+            ..alignmentContent.center(),
+          child: AspectRatio(
+            aspectRatio: 1 / 2,
+            child: Image.asset(
+              "assets/images/img_tezal_logo.png",
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+        Txt(
+          errorText,
+          style: AppTxtStyles().footNote..alignment.center(),
+        ),
+      ],
     );
   }
 }
