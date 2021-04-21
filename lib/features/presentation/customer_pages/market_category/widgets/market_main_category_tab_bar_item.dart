@@ -16,8 +16,9 @@ class MarketMainCategoryTabBarItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Txt(
       text,
-      style: AppTxtStyles().body..textColor(Colors.white),
-      // gesture: Gestures()..onTap(onTap),
+      style: AppTxtStyles().body
+        ..textColor(Colors.white)
+        ..bold(),
     );
   }
 }

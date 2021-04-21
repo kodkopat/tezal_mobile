@@ -1,18 +1,22 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:tezal/core/widgets/loading.dart';
 
-import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/product_result_model.dart';
-import '../../../customer_widgets/product_list/product_vertical_list_.dart';
-import '../../product_detail/product_detail_page.dart';
+import '../../../../data/models/sub_category_result_model.dart';
+import '../../../../data/repositories/customer_category_repository.dart';
 import 'market_sub_category_list.dart';
+import 'market_sub_category_view.dart';
 
 class MarketMainCategoryTabBarView extends StatefulWidget {
-  MarketMainCategoryTabBarView({required this.products});
+  MarketMainCategoryTabBarView({
+    required this.marketId,
+    required this.mainCategoryId,
+  });
 
-  final List<ProductResultModel> products;
+  final String marketId;
+  final String mainCategoryId;
 
   @override
   _MarketMainCategoryTabBarViewState createState() =>
@@ -21,36 +25,44 @@ class MarketMainCategoryTabBarView extends StatefulWidget {
 
 class _MarketMainCategoryTabBarViewState
     extends State<MarketMainCategoryTabBarView> {
+  SubCategoryResultModel? subCategoryResultModel;
   bool loading = true;
 
   List<String> subCategoryNameList = [];
   List<String> subCategoryIdList = [];
   int subCategoryListSelectedIndex = 0;
-  List<ProductResultModel> subCategoryProducts = [];
 
-  void initializeState() async {
-    widget.products.forEach((product) {
-      subCategoryIdList.add(product.subCategoryId);
-      subCategoryNameList.add(product.subCategoryName);
+  void initializeState(BuildContext context) async {
+    var customerCategoryRepo = CustomerCategoryRepository();
+    var result = await customerCategoryRepo.subCategories(
+      marketId: widget.marketId,
+      mainCategoryId: widget.mainCategoryId,
+    );
 
-      if (product.subCategoryId == widget.products[0].subCategoryId) {
-        subCategoryProducts.add(product);
-      }
-    });
+    result.fold(
+      (left) => null,
+      (right) {
+        print("subCategories: ${right.toJson()}\n");
+        right.data!.forEach((subCategory) {
+          subCategoryIdList.add(subCategory.id);
+          subCategoryNameList.add(subCategory.name);
+        });
 
-    setState(() => loading = false);
+        setState(() => loading = false);
+      },
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    initializeState();
+    initializeState(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Txt("انتظار", style: AppTxtStyles().footNote)
+        ? Center(child: AppLoading())
         : Column(
             children: [
               MarketSubCategoryList(
@@ -67,19 +79,10 @@ class _MarketMainCategoryTabBarViewState
                 },
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: ProductVerticalList(
-                    products: subCategoryProducts,
-                    onItemTap: (index) {
-                      Routes.sailor.navigate(
-                        ProductDetailPage.route,
-                        params: {
-                          "productId": subCategoryProducts[index].id,
-                          // "marketDetailNotifier": marketDetailNotifier,
-                        },
-                      );
-                    },
-                  ),
+                child: MarketSubCategoryView(
+                  marketId: widget.marketId,
+                  subCategoryId:
+                      subCategoryIdList[subCategoryListSelectedIndex],
                 ),
               ),
             ],
