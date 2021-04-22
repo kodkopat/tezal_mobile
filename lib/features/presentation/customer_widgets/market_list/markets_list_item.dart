@@ -45,11 +45,9 @@ class MarketsListItem extends StatelessWidget {
       child: Stack(
         children: [
           Column(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                textDirection: TextDirection.rtl,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Parent(
@@ -71,7 +69,6 @@ class MarketsListItem extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Column(
-                    textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -103,9 +100,10 @@ class MarketsListItem extends StatelessWidget {
               ),
             ],
           ),
-          Positioned(
-            left: 0,
-            top: 0,
+          Align(
+            alignment: Directionality.of(context) == TextDirection.ltr
+                ? Alignment.topRight
+                : Alignment.topLeft,
             child: Txt(
               "${market.situation}",
               style: TxtStyle()
