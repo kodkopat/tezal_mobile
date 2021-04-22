@@ -1,0 +1,24 @@
+{
+    "appName":"Tezal",
+
+    "bottomAppBarItemHome":"Home",
+    "bottomAppBarItemSearch":"Search",
+    "bottomAppBarItemBasket":"Basket",
+    "bottomAppBarItemProfile":"Profile",
+
+    "profileMenuItemAddresses":"Addresses",
+    "profileMenuItemWallet":"Wallet",
+    "profileMenuItemOrders":"Orders",
+    "profileMenuItemLikedProducts":"Liked Products",
+    "profileMenuItemSettings":"Settings",
+    "profileMenuItemAboutUs":"About Us",
+    "profileMenuItemLogOut":"Log Out",
+
+    "pageLoginAppBar":"Login",
+    "pageSignUpAppBar":"SignUp",
+
+    "pageHomeAppBar":"Home",
+    "pageSearchAppBar":"Search",
+    "pageBasketAppBar":"Basket",
+    "pageProfileAppBar":"Profile"
+}

@@ -8,14 +8,14 @@
 
     "profileMenuItemAddresses":"آدرس‌های من",
     "profileMenuItemWallet":"کیف پول من",
-    "profileMenuItemOrders":"سفارشات ثبلی",
+    "profileMenuItemOrders":"سفارشات قبلی",
     "profileMenuItemLikedProducts":"محصولات مورد علاقه",
     "profileMenuItemSettings":"تنظیمات",
     "profileMenuItemAboutUs":"درباره ما",
     "profileMenuItemLogOut":"خروج از حساب کاربری",
 
-    "pageLoginAppBar":"Login",
-    "pageSignUpAppBar":"Sign Up",
+    "pageLoginAppBar":"ورود",
+    "pageSignUpAppBar":"ثبت‌نام",
 
     "pageHomeAppBar":"خانه",
     "pageSearchAppBar":"جستجو",
