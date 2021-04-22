@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/laguages.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/search_notifier.dart';
@@ -64,7 +65,7 @@ class SearchPage extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: SimpleAppBar(context).create(
-          text: "جستجو",
+          text: Lang.of(context).pageSearchAppBar,
           showBasketBtn: true,
         ),
         body: Stack(

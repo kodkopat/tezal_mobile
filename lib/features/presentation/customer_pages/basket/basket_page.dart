@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/laguages.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
@@ -49,7 +50,9 @@ class BasketPage extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: SimpleAppBar(context).create(text: "سبد خرید"),
+        appBar: SimpleAppBar(context).create(
+          text: Lang.of(context).pageBasketAppBar,
+        ),
         body: consumer,
       ),
     );

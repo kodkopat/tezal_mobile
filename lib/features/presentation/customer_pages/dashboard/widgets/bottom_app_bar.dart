@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/languages/laguages.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../basket/basket_page.dart';
@@ -37,7 +38,7 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
           textDirection: Directionality.of(context),
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: _BottomNavigationBarList.items.map(
+          children: _BottomNavigationBarList.items(context).map(
             (item) {
               var color = item.index == currentIndex
                   ? AppTheme.customerPrimary
@@ -94,36 +95,36 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
 }
 
 class _BottomNavigationBarList {
-  static final items = [
-    __BottomNavigationBarListItem(
-      index: 0,
-      label: "خانه",
-      activeIconPath: "assets/images/ic_home_filled.png",
-      inactiveIconPath: "assets/images/ic_home.png",
-      widget: HomePage(),
-    ),
-    __BottomNavigationBarListItem(
-      index: 1,
-      label: "جستجو",
-      activeIconPath: "assets/images/ic_search_filled.png",
-      inactiveIconPath: "assets/images/ic_search.png",
-      widget: SearchPage(),
-    ),
-    __BottomNavigationBarListItem(
-      index: 2,
-      label: "سبد خرید",
-      activeIconPath: "assets/images/ic_shop_cart_filled.png",
-      inactiveIconPath: "assets/images/ic_shop_cart.png",
-      widget: BasketPage(),
-    ),
-    __BottomNavigationBarListItem(
-      index: 3,
-      label: "پروفایل",
-      activeIconPath: "assets/images/ic_user_filled.png",
-      inactiveIconPath: "assets/images/ic_user.png",
-      widget: ProfilePage(),
-    ),
-  ];
+  static List<__BottomNavigationBarListItem> items(BuildContext context) => [
+        __BottomNavigationBarListItem(
+          index: 0,
+          label: Lang.of(context).bottomAppBarItemHome,
+          activeIconPath: "assets/images/ic_home_filled.png",
+          inactiveIconPath: "assets/images/ic_home.png",
+          widget: HomePage(),
+        ),
+        __BottomNavigationBarListItem(
+          index: 1,
+          label: Lang.of(context).bottomAppBarItemSearch,
+          activeIconPath: "assets/images/ic_search_filled.png",
+          inactiveIconPath: "assets/images/ic_search.png",
+          widget: SearchPage(),
+        ),
+        __BottomNavigationBarListItem(
+          index: 2,
+          label: Lang.of(context).bottomAppBarItemBasket,
+          activeIconPath: "assets/images/ic_shop_cart_filled.png",
+          inactiveIconPath: "assets/images/ic_shop_cart.png",
+          widget: BasketPage(),
+        ),
+        __BottomNavigationBarListItem(
+          index: 3,
+          label: Lang.of(context).bottomAppBarItemProfile,
+          activeIconPath: "assets/images/ic_user_filled.png",
+          inactiveIconPath: "assets/images/ic_user.png",
+          widget: ProfilePage(),
+        ),
+      ];
 }
 
 class __BottomNavigationBarListItem {

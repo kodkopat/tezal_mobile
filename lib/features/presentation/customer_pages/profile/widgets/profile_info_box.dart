@@ -30,15 +30,12 @@ class ProfileInfoBox extends StatelessWidget {
         )
         ..ripple(true),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
-                textDirection: TextDirection.rtl,
                 children: [
                   Parent(
                     style: ParentStyle()
@@ -126,7 +123,6 @@ class ProfileInfoBox extends StatelessWidget {
     );
 
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         children: [

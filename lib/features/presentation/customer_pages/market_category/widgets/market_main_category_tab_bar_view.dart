@@ -1,9 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:tezal/core/widgets/loading.dart';
 
-import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/widgets/loading.dart';
 import '../../../../data/models/sub_category_result_model.dart';
 import '../../../../data/repositories/customer_category_repository.dart';
 import 'market_sub_category_list.dart';

@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tezal/core/languages/laguages.dart';
 
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
@@ -45,31 +46,30 @@ class ProfilePage extends StatelessWidget {
       },
     );
 
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
-        appBar: SimpleAppBar(context).create(text: "حساب کاربری"),
-        body: CustomFutureBuilder<String>(
-          future: authRepo.userToken,
-          successBuilder: (context, data) {
-            print("userToken= $data\n");
-            if (data == null || data.isEmpty) {
-              return _basketEmptyState();
-            } else {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    consumer,
-                    ProfileMenu(),
-                  ],
-                ),
-              );
-            }
-          },
-          errorBuilder: (context, error) {
-            return AppLoading(color: AppTheme.customerPrimary);
-          },
-        ),
+    return Scaffold(
+      appBar: SimpleAppBar(context).create(
+        text: Lang.of(context).pageProfileAppBar,
+      ),
+      body: CustomFutureBuilder<String>(
+        future: authRepo.userToken,
+        successBuilder: (context, data) {
+          print("userToken= $data\n");
+          if (data == null || data.isEmpty) {
+            return _basketEmptyState();
+          } else {
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  consumer,
+                  ProfileMenu(),
+                ],
+              ),
+            );
+          }
+        },
+        errorBuilder: (context, error) {
+          return AppLoading(color: AppTheme.customerPrimary);
+        },
       ),
     );
   }

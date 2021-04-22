@@ -11,8 +11,10 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          SimpleAppBar(context).create(text: "درباره ما", showBackBtn: true),
+      appBar: SimpleAppBar(context).create(
+        text: "درباره ما",
+        showBackBtn: true,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: Column(

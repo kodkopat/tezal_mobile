@@ -6,12 +6,14 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
+import '../../../../../core/languages/laguages.dart';
 import '../../../../../core/page_routes/routes.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../about_us/about_us_page.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';
 import '../../orders/orders_page.dart';
+import '../../settings/settings_page.dart';
 import '../../wallet/wallet_page.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
@@ -38,28 +40,28 @@ class _ProfileMenu {
 
   static List<Widget> items(BuildContext context) => [
         ProfileMenuItem(
-          text: "آدرس‌های من",
+          text: Lang.of(context).profileMenuItemAddresses,
           iconPath: "assets/images/ic_location.png",
           onTap: () {
             Routes.sailor(AddressesPage.route);
           },
         ),
         ProfileMenuItem(
-          text: "کیف پول من",
+          text: Lang.of(context).profileMenuItemWallet,
           iconPath: "assets/images/ic_wallet.png",
           onTap: () {
             Routes.sailor(WalletPage.route);
           },
         ),
         ProfileMenuItem(
-          text: "سفارشات قبلی",
+          text: Lang.of(context).profileMenuItemOrders,
           iconPath: "assets/images/ic_shop_basket.png",
           onTap: () {
             Routes.sailor(OrdersPage.route);
           },
         ),
         ProfileMenuItem(
-          text: "محصولات مورد علاقه",
+          text: Lang.of(context).profileMenuItemLikedProducts,
           iconPath: "assets/images/ic_heart.png",
           onTap: () {
             Routes.sailor(LikedProductsPage.route);
@@ -67,12 +69,14 @@ class _ProfileMenu {
         ),
         _divider,
         ProfileMenuItem(
-          text: "تنظیمات",
+          text: Lang.of(context).profileMenuItemSettings,
           iconPath: "assets/images/ic_setting.png",
-          onTap: () {},
+          onTap: () {
+            Routes.sailor(SettingsPage.route);
+          },
         ),
         ProfileMenuItem(
-          text: "درباره ما",
+          text: Lang.of(context).profileMenuItemAboutUs,
           iconPath: "assets/images/ic_info.png",
           onTap: () {
             Routes.sailor(AboutUsPage.route);
@@ -80,8 +84,10 @@ class _ProfileMenu {
         ),
         _divider,
         ProfileMenuItem(
-          text: "خروج از حساب کاربری",
-          iconPath: "assets/images/ic_log_out.png",
+          text: Lang.of(context).profileMenuItemLogOut,
+          iconPath: Directionality.of(context) == TextDirection.ltr
+              ? "assets/images/ic_log_out_left.png"
+              : "assets/images/ic_log_out_right.png",
           showChevron: false,
           onTap: () {
             showDialog(

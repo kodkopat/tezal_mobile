@@ -21,7 +21,6 @@ class SimpleAppBar {
   }) {
     return AppBar(
       automaticallyImplyLeading: false,
-
       leading: (showBackBtn ?? false)
           ? Parent(
               gesture: Gestures()..onTap(() => Routes.sailor.pop()),
@@ -33,7 +32,9 @@ class SimpleAppBar {
                 ..alignmentContent.center()
                 ..ripple(true),
               child: Image.asset(
-                "assets/images/ic_arrow_right.png",
+                Directionality.of(context) == TextDirection.ltr
+                    ? "assets/images/ic_arrow_left.png"
+                    : "assets/images/ic_arrow_right.png",
                 fit: BoxFit.contain,
                 color: Colors.white,
                 width: 24,
@@ -46,7 +47,6 @@ class SimpleAppBar {
       title: Txt(
         text,
         style: AppTxtStyles().subHeading
-          // ..margin(right: showBackBtn ?? false ? 4 : 16)
           ..textColor(AppTheme.white)
           ..textOverflow(TextOverflow.ellipsis)
           ..maxLines(1)
@@ -67,7 +67,7 @@ class SimpleAppBar {
                     style: ParentStyle()
                       ..width(48)
                       ..height(48)
-                      ..margin(left: 4)
+                      ..margin(horizontal: 4)
                       ..borderRadius(all: 24)
                       ..alignmentContent.center()
                       ..ripple(true),
