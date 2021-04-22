@@ -8,14 +8,12 @@ import '../../models/search_terms_result_model.dart';
 
 part 'customer_search_remote_data_source.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi(baseUrl: customerBaseApiUrl)
 abstract class CustomerSearchRemoteDataSource {
   factory CustomerSearchRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerSearchRemoteDataSource;
 
-  static const _apiUrlPrefix = "customer/Search";
-
-  @GET("$_apiUrlPrefix/Search")
+  @GET("Search")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SearchResultModel> search(
     @Header("token") String token,
@@ -25,7 +23,7 @@ abstract class CustomerSearchRemoteDataSource {
     @Query("Term") String term,
   );
 
-  @GET("$_apiUrlPrefix/GetSearchTerms")
+  @GET("GetSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SearchTermsResultModel> getSearchTerms(
     @Header("token") String token,
@@ -34,7 +32,7 @@ abstract class CustomerSearchRemoteDataSource {
     @Header("longitude") String longitude,
   );
 
-  @GET("$_apiUrlPrefix/ClearSearchTerms")
+  @GET("ClearSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> clearSearchTerms(
     @Header("token") String token,

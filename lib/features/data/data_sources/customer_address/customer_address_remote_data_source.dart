@@ -10,24 +10,22 @@ import '../../models/provinces_result_model.dart';
 
 part 'customer_address_remote_data_source.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi(baseUrl: customerBaseApiUrl)
 abstract class CustomerAddressRemoteDataSource {
   factory CustomerAddressRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerAddressRemoteDataSource;
 
-  static const _apiUrlPrefix = "customer/Address";
-
-  @GET("$_apiUrlPrefix/GetProvince")
+  @GET("GetProvince")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProvincesResultModel> getProvince();
 
-  @GET("$_apiUrlPrefix/GetCity")
+  @GET("GetCity")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CitiesResultModel> getCity(
     @Query("provinceId") String provinceId,
   );
 
-  @POST("$_apiUrlPrefix/save")
+  @POST("save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> save(
     @Header("token") String token,
@@ -40,7 +38,7 @@ abstract class CustomerAddressRemoteDataSource {
     @Field() String longitude,
   );
 
-  @POST("$_apiUrlPrefix/save")
+  @POST("save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> edit(
     @Header("token") String token,
@@ -54,28 +52,28 @@ abstract class CustomerAddressRemoteDataSource {
     @Field() String longitude,
   );
 
-  @GET("$_apiUrlPrefix/SetDefaultAddress")
+  @GET("SetDefaultAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> setdefaultAddress(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/RemoveAddress")
+  @GET("RemoveAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeAddress(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/getAddress")
+  @GET("getAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressResultModel> getAddress(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/getAddressess")
+  @GET("getAddressess")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressesResultModel> getAddresses(
     @Header("token") String token,

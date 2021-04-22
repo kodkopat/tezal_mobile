@@ -12,14 +12,12 @@ import '../../models/sub_category_detail_result_model.dart';
 
 part 'customer_market_remote_data_source.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi(baseUrl: customerBaseApiUrl)
 abstract class CustomerMarketRemoteDataSource {
   factory CustomerMarketRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerMarketRemoteDataSource;
 
-  static const _apiUrlPrefix = "customer/Market";
-
-  @GET("$_apiUrlPrefix/GetNearByMarkets")
+  @GET("GetNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<NearByMarketsResultModel> getNearByMarkets(
     @Header("token") String token,
@@ -30,33 +28,33 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("page") int page,
   );
 
-  @GET("$_apiUrlPrefix/UpdateNearByMarkets")
+  @GET("UpdateNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> updateNearByMarkets(
     @Header("token") String token,
   );
 
-  @GET("$_apiUrlPrefix/GetMarketDetail")
+  @GET("GetMarketDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketDetailResultModel> getMarketDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetPhoto")
+  @GET("GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetComments")
+  @GET("GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getListComment(
     @Query("MarketId") String marketId,
     @Query("Page") int page,
   );
 
-  @GET("$_apiUrlPrefix/AddComment")
+  @GET("AddComment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> addComment(
     @Field() String comment,
@@ -64,7 +62,7 @@ abstract class CustomerMarketRemoteDataSource {
     @Field() String marketId,
   );
 
-  @GET("$_apiUrlPrefix/GetMainCategoryDetail")
+  @GET("GetMainCategoryDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MainCategoryDetailResultModel> getMainCategoryDetail(
     @Header("token") String token,
@@ -72,7 +70,7 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("MainCategoryId") String mainCategoryId,
   );
 
-  @GET("$_apiUrlPrefix/GetSubCategoryDetail")
+  @GET("GetSubCategoryDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoryDetailResultModel> getSubCategoryDetail(
     @Header("token") String token,

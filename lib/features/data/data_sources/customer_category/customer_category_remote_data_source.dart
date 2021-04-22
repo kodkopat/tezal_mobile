@@ -8,34 +8,32 @@ import '../../models/sub_category_result_model.dart';
 
 part 'customer_category_remote_data_source.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi(baseUrl: customerBaseApiUrl)
 abstract class CustomerCategoryRemoteDataSource {
   factory CustomerCategoryRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerCategoryRemoteDataSource;
 
-  static const _apiUrlPrefix = "customer/Category";
-
-  @GET("$_apiUrlPrefix/GetMainCategories")
+  @GET("GetMainCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MainCategoryResultModel> getMainCategories(
     @Query("MarketId") String marketId,
   );
 
-  @GET("$_apiUrlPrefix/GetSubCategories")
+  @GET("GetSubCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoryResultModel> getSubCategories(
     @Query("MarketId") String marketId,
     @Query("MainCategoryId") String mainCategoryId,
   );
 
-  @GET("$_apiUrlPrefix/GetMainCategoryPhoto")
+  @GET("GetMainCategoryPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getMainCategoryPhoto(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetSubCategoryPhoto")
+  @GET("GetSubCategoryPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getSubCategoryPhoto(
     @Header("token") String token,

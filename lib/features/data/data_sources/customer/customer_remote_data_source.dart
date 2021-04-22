@@ -7,19 +7,18 @@ import '../../models/customer_profile_result_model.dart';
 
 part 'customer_remote_data_source.g.dart';
 
-@RestApi(baseUrl: apiBaseUrl)
+@RestApi(baseUrl: customerBaseApiUrl)
 abstract class CustomerRemoteDataSource {
   factory CustomerRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerRemoteDataSource;
-  static const _apiUrlPrefix = "customer/Customer";
 
-  @GET("$_apiUrlPrefix/GetCustomerProfile")
+  @GET("GetCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CustomerProfileResultModel> getCustomerProfile(
     @Header("token") String token,
   );
 
-  @POST("$_apiUrlPrefix/ChangeCustomerProfile")
+  @POST("ChangeCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeCustomerProfile(
     @Header("token") String token,
