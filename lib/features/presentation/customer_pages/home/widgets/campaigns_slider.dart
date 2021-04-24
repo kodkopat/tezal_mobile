@@ -7,7 +7,6 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/map_box.dart';
 import '../../../../data/models/campaign_result_model.dart';
 import 'campaign_slider_item.dart';
-import 'pick_location_combo_box.dart';
 
 class CampaignSlider extends StatefulWidget {
   const CampaignSlider({required this.campaigns});
@@ -27,18 +26,10 @@ class _CampaignSliderState extends State<CampaignSlider> {
   void initializeState() async {
     var position = await LocationService.getSavedLocation();
 
-    mapBox = Stack(
-      children: [
-        MapBox(
-          height: boxHeight,
-          latitude: "${position.latitude}",
-          longitude: "${position.longitude}",
-        ),
-        Align(
-          alignment: Alignment.topCenter,
-          child: PickLocationComboBox(),
-        ),
-      ],
+    mapBox = MapBox(
+      height: boxHeight,
+      latitude: "${position.latitude}",
+      longitude: "${position.longitude}",
     );
 
     setState(() {
@@ -59,36 +50,30 @@ class _CampaignSliderState extends State<CampaignSlider> {
         Parent(
           style: ParentStyle()
             ..background.color(Colors.white)
-            ..borderRadius(all: 8)
             ..boxShadow(
-              color: Colors.black.withOpacity(0.2),
-              offset: Offset(0, 4.0),
-              blur: 8,
+              color: Colors.black12,
+              offset: Offset(0, 3.0),
+              blur: 6,
               spread: 0,
             ),
           child: SizedBox(
             height: boxHeight,
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8),
-              ),
-              child: PageView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: loading ? 0 : widget.campaigns.length + 1,
-                onPageChanged: (value) {
-                  setState(() {
-                    selectedImage = value;
-                  });
-                },
-                itemBuilder: (context, index) {
-                  return index == widget.campaigns.length
-                      ? mapBox
-                      : CampaignSliderItem(
-                          campaign: widget.campaigns[index],
-                          height: boxHeight,
-                        );
-                },
-              ),
+            child: PageView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: loading ? 0 : widget.campaigns.length + 1,
+              onPageChanged: (value) {
+                setState(() {
+                  selectedImage = value;
+                });
+              },
+              itemBuilder: (context, index) {
+                return index == widget.campaigns.length
+                    ? mapBox
+                    : CampaignSliderItem(
+                        campaign: widget.campaigns[index],
+                        height: boxHeight,
+                      );
+              },
             ),
           ),
         ),

@@ -15,6 +15,7 @@ import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/base_providers/location_notifier.dart';
 import '../../providers/customer_providers/campaign_notifier.dart';
 import 'widgets/campaigns_slider.dart';
+import 'widgets/home_combo_box.dart';
 
 class HomePage extends StatelessWidget {
   static const route = "/customer_home";
@@ -26,7 +27,6 @@ class HomePage extends StatelessWidget {
       listen: false,
     );
 
-    // Provider.of<CampaignNotifier>(context, listen: false).fetchCampaigns();
     var campaignsConsumer = Consumer<CampaignNotifier>(
       builder: (context, provider, child) {
         if (provider.campaigns == null) {
@@ -40,10 +40,7 @@ class HomePage extends StatelessWidget {
                     ? SizedBox()
                     : Txt(provider.campaignErrorMsg!,
                         style: AppTxtStyles().body..alignment.center())
-                : Padding(
-                    padding: EdgeInsets.only(top: 16, bottom: 4),
-                    child: CampaignSlider(campaigns: provider.campaigns!),
-                  );
+                : CampaignSlider(campaigns: provider.campaigns!);
       },
     );
 
@@ -100,22 +97,30 @@ class HomePage extends StatelessWidget {
                       text: Lang.of(context).pageHomeAppBar,
                       showBasketBtn: true,
                     ),
-                    body: RefreshIndicator(
-                      onRefresh: () async {
-                        provider.fetechLocation(context);
-                        await marketNotifier.customerMarketRepo
-                            .updateNearByMarkets();
-                        return Future<void>.value();
-                      },
-                      child: SingleChildScrollView(
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          children: [
-                            campaignsConsumer,
-                            marketsConsumer,
-                          ],
+                    body: Stack(
+                      children: [
+                        SingleChildScrollView(
+                          padding: EdgeInsets.only(top: 48),
+                          child: Column(
+                            children: [
+                              campaignsConsumer,
+                              RefreshIndicator(
+                                onRefresh: () async {
+                                  provider.fetechLocation(context);
+                                  await marketNotifier.customerMarketRepo
+                                      .updateNearByMarkets();
+                                  return Future<void>.value();
+                                },
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: marketsConsumer,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
+                        HomeComboBox(),
+                      ],
                     ),
                   );
       },
