@@ -6,13 +6,18 @@ import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/search_result_model.dart';
 import '../../../customer_widgets/product_list/product_horizontal_list.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../market_detail/market_detail_page.dart';
 import '../../product_detail/product_detail_page.dart';
 
 class SearchMarketListItem extends StatelessWidget {
-  const SearchMarketListItem({required this.market});
+  SearchMarketListItem({
+    required this.market,
+    required this.basketNotifier,
+  });
 
   final Market market;
+  final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +62,16 @@ class SearchMarketListItem extends StatelessWidget {
                 "productId": market.products[index].id,
                 // "marketDetailNotifier": marketDetailNotifier,
               },
+            );
+          },
+          onItemAddToBasket: (index) {
+            basketNotifier.addToBasket(
+              productId: market.products[index].id,
+            );
+          },
+          onItemRemoveFromBasket: (index) {
+            basketNotifier.removeFromBasket(
+              productId: market.products[index].id,
             );
           },
         ),

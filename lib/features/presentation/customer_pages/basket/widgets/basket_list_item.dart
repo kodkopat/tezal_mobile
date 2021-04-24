@@ -19,11 +19,15 @@ import '../../../providers/customer_providers/basket_notifier.dart';
 class BasketListItem extends StatelessWidget {
   BasketListItem({
     required this.basketItem,
+    required this.onAddToBasket,
+    required this.onRemoveFromBasket,
     required this.onRemoveItem,
     required this.basketNotifier,
   });
 
   final BasketItem basketItem;
+  final void Function() onAddToBasket;
+  final void Function() onRemoveFromBasket;
   final void Function() onRemoveItem;
   final BasketNotifier basketNotifier;
   final productCounterKey = GlobalKey<ProductListItemCounterState>();
@@ -131,22 +135,10 @@ class BasketListItem extends StatelessWidget {
           ProductListItemCounter(
             hieght: 32,
             defaultValue: basketItem.amount * basketItem.step,
-            unit: "${basketItem.productUnit}",
             step: basketItem.step,
-            onIncrease: (value) async {
-              await basketNotifier.addToBasket(
-                context,
-                productId: basketItem.id,
-                amount: 1,
-              );
-            },
-            onDecrease: (value) async {
-              await basketNotifier.removeFromBasket(
-                context,
-                productId: basketItem.id,
-                amount: 1,
-              );
-            },
+            unit: "${basketItem.productUnit}",
+            onIncrease: onAddToBasket,
+            onDecrease: onRemoveFromBasket,
           ),
         ],
       ),

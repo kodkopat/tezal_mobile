@@ -35,6 +35,16 @@ class BasketPage extends StatelessWidget {
                         BasketList(
                           basketItems: provider.basketItemList!,
                           basketNotifier: provider,
+                          onItemAddToBasket: (index) {
+                            provider.addToBasket(
+                              productId: provider.basketItemList![index].id,
+                            );
+                          },
+                          onItemRemoveFromBasket: (index) {
+                            provider.removeFromBasket(
+                              productId: provider.basketItemList![index].id,
+                            );
+                          },
                         ),
                         SizedBox(height: 8),
                         BasketActionsBox(

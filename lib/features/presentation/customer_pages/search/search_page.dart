@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../core/languages/laguages.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/basket_notifier.dart';
 import '../../providers/customer_providers/search_notifier.dart';
 import 'widgets/search_box.dart';
 import 'widgets/search_market_list.dart';
@@ -14,9 +15,12 @@ class SearchPage extends StatelessWidget {
   static const route = "/customer_search";
 
   final searchCtrl = TextEditingController();
+  late final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
+    basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
+
     var searchTermsConsumer = Consumer<SearchNotifier>(
       builder: (context, provider, child) {
         if (provider.searchTerms.isEmpty) {
@@ -55,6 +59,7 @@ class SearchPage extends StatelessWidget {
                   padding: EdgeInsets.only(top: 48),
                   child: SearchMarketList(
                     markets: provider.searchResultList!,
+                    basketNotifier: basketNotifier,
                   ),
                 ),
               );

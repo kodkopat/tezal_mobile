@@ -20,6 +20,7 @@ import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/market_list/markets_list_item.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/basket_notifier.dart';
 import '../../providers/customer_providers/market_comments_notifier.dart';
 import '../../providers/customer_providers/market_detail_provider.dart';
 import '../market_comments/market_comments_page.dart';
@@ -32,21 +33,26 @@ class MarketDetailPage extends StatelessWidget {
 
   final String marketId;
   late final MarketCommentsNotifier marketCommentsNotifier;
+  late final MarketDetailNotifier marketDetailNotifier;
+  late final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    marketCommentsNotifier =
-        Provider.of<MarketCommentsNotifier>(context, listen: false);
+    marketCommentsNotifier = Provider.of<MarketCommentsNotifier>(
+      context,
+      listen: false,
+    );
 
-    MarketDetailNotifier marketDetailNotifier =
-        Provider.of<MarketDetailNotifier>(context, listen: false);
-
-    Get.put<MarketDetailNotifier>(marketDetailNotifier);
+    basketNotifier = Provider.of<BasketNotifier>(
+      context,
+      listen: false,
+    );
 
     var consumer = Consumer<MarketDetailNotifier>(
       builder: (context, provider, child) {
         if (provider.marketDetail == null) {
           provider.fetchMarketDetail(marketId: marketId);
+          Get.put<MarketDetailNotifier>(provider);
         }
 
         return provider.marketDetailLoading
@@ -150,6 +156,7 @@ class MarketDetailPage extends StatelessWidget {
     return CategoryList(
       marketId: marketId,
       categories: categories,
+      basketNotifier: basketNotifier,
     );
   }
 

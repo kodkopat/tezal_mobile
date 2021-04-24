@@ -1,10 +1,12 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market_detail_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/customer_providers/basket_notifier.dart';
 import 'widgets/market_main_category_tab_bar.dart';
 import 'widgets/market_main_category_tab_bar_view.dart';
 
@@ -25,6 +27,7 @@ class MarketCategoryPage extends StatefulWidget {
 
 class _MarketCategoryPageState extends State<MarketCategoryPage>
     with TickerProviderStateMixin {
+  BasketNotifier? basketNotifier;
   late TabController tabController;
 
   bool loading = true;
@@ -54,6 +57,8 @@ class _MarketCategoryPageState extends State<MarketCategoryPage>
 
   @override
   Widget build(BuildContext context) {
+    basketNotifier ??= Provider.of<BasketNotifier>(context, listen: false);
+
     return Scaffold(
       appBar: SimpleAppBar(context).create(
         text: "دسته‌بندی",
@@ -83,6 +88,7 @@ class _MarketCategoryPageState extends State<MarketCategoryPage>
                       return MarketMainCategoryTabBarView(
                         marketId: widget.marketId,
                         mainCategoryId: category.id,
+                        basketNotifier: basketNotifier!,
                       );
                     }).toList(),
                   ),

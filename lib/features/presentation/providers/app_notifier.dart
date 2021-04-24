@@ -27,6 +27,7 @@ class AppNotifier extends ChangeNotifier {
   AppNotifier._privateConstructor({required this.authRepo});
 
   bool loading = true;
+
   AppUserType? userType;
   Locale? locale;
   String? fontFamily;

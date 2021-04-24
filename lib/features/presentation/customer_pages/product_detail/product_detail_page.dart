@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
@@ -23,7 +22,6 @@ import '../../customer_widgets/product_list/product_counter.dart';
 import '../../customer_widgets/product_list/product_like_toggle.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/market_detail_provider.dart';
 import '../../providers/customer_providers/product_comments_notifier.dart';
 import '../../providers/customer_providers/product_details_notifier.dart';
 import '../product_comments/product_comments_page.dart';
@@ -32,9 +30,15 @@ import '../product_comments/product_comments_page.dart';
 class ProductDetailPage extends StatelessWidget {
   static const route = "/customer_product_detail";
 
-  ProductDetailPage({required this.productId});
+  ProductDetailPage({
+    required this.productId,
+    required this.onAddToBasket,
+    required this.onRemoveFromBasket,
+  });
 
   final String productId;
+  final void Function() onAddToBasket;
+  final void Function() onRemoveFromBasket;
 
   final _customerProductRepo = CustomerProductRepository();
   BasketNotifier? basketNotifier;
@@ -112,28 +116,8 @@ class ProductDetailPage extends StatelessWidget {
             defaultValue: productDetail.data!.amount * productDetail.data!.step,
             step: productDetail.data!.step,
             unit: "${productDetail.data!.productUnit}",
-            onIncrease: (value) {
-              basketNotifier!.addToBasket(
-                context,
-                productId: productDetail.data!.id,
-                amount: 1,
-              );
-
-              MarketDetailNotifier marketDetailNotifier =
-                  Get.find<MarketDetailNotifier>();
-              marketDetailNotifier.refresh();
-            },
-            onDecrease: (value) {
-              basketNotifier!.removeFromBasket(
-                context,
-                productId: productDetail.data!.id,
-                amount: 1,
-              );
-
-              MarketDetailNotifier marketDetailNotifier =
-                  Get.find<MarketDetailNotifier>();
-              marketDetailNotifier.refresh();
-            },
+            onIncrease: onAddToBasket,
+            onDecrease: onRemoveFromBasket,
           ),
           _sectionComments(context, productDetail),
           SizedBox(height: 16),

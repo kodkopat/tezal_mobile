@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../core/styles/txt_styles.dart';
+import '../../../../core/widgets/loading.dart';
 
 class ProductListItemCounter extends StatefulWidget {
   ProductListItemCounter({
@@ -19,8 +20,8 @@ class ProductListItemCounter extends StatefulWidget {
   final num defaultValue;
   final num step;
   final String unit;
-  final void Function(num) onIncrease;
-  final void Function(num) onDecrease;
+  final void Function() onIncrease;
+  final void Function() onDecrease;
   final double hieght;
 
   @override
@@ -30,6 +31,7 @@ class ProductListItemCounter extends StatefulWidget {
 class ProductListItemCounterState extends State<ProductListItemCounter>
     with AutomaticKeepAliveClientMixin<ProductListItemCounter> {
   num counter = 0;
+  bool loading = false;
 
   @override
   void initState() {
@@ -69,25 +71,28 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                   child: _CounterIcon(
                     iconData: Feather.plus,
                     height: widget.hieght,
-                    onTap: _increament,
+                    onTap: loading ? () {} : _increament,
                     iconSize: 14,
                   ),
                 ),
                 Expanded(
                   flex: 2,
-                  child: Txt(
-                    (counter).toStringAsFixed(widget.step is double ? 1 : 0) +
-                        " ${widget.unit} ",
-                    gesture: Gestures()..onTap(() {}),
-                    style: AppTxtStyles().footNote,
-                  ),
+                  child: loading
+                      ? AppLoading(color: Colors.black, size: 16)
+                      : Txt(
+                          (counter).toStringAsFixed(
+                                  widget.step is double ? 1 : 0) +
+                              " ${widget.unit} ",
+                          gesture: Gestures()..onTap(() {}),
+                          style: AppTxtStyles().footNote,
+                        ),
                 ),
                 Expanded(
                   flex: 1,
                   child: _CounterIcon(
                     iconData: Feather.minus,
                     height: widget.hieght,
-                    onTap: _decreament,
+                    onTap: loading ? () {} : _decreament,
                     iconSize: 14,
                   ),
                 ),
@@ -96,17 +101,21 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
     );
   }
 
-  void _increament() {
+  void _increament() async {
+    setState(() => loading = true);
     counter = counter + widget.step;
-    widget.onIncrease(counter);
-    setState(() {});
+    widget.onIncrease();
+    await Future.delayed(Duration(milliseconds: 1000));
+    setState(() => loading = false);
   }
 
-  void _decreament() {
+  void _decreament() async {
     if (counter == 0) return;
+    setState(() => loading = true);
+    widget.onDecrease();
+    await Future.delayed(Duration(milliseconds: 1000));
     counter = counter - widget.step;
-    widget.onDecrease(counter);
-    setState(() {});
+    setState(() => loading = false);
   }
 
   @override

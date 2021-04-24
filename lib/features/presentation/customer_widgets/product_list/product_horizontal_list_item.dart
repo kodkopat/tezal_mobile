@@ -22,10 +22,14 @@ class ProductHorizontalListItem extends StatelessWidget {
   ProductHorizontalListItem({
     required this.product,
     required this.onTap,
+    required this.onAddToBasket,
+    required this.onRemoveFromBasket,
   });
 
   final ProductResultModel product;
   final void Function() onTap;
+  final void Function() onAddToBasket;
+  final void Function() onRemoveFromBasket;
   final _customerProductRepo = CustomerProductRepository();
 
   @override
@@ -102,20 +106,8 @@ class ProductHorizontalListItem extends StatelessWidget {
                 defaultValue: product.amount * product.step,
                 step: product.step,
                 unit: "${product.productUnit}",
-                onIncrease: (value) {
-                  basketNotifier.addToBasket(
-                    context,
-                    productId: product.id,
-                    amount: 1,
-                  );
-                },
-                onDecrease: (value) {
-                  basketNotifier.removeFromBasket(
-                    context,
-                    productId: product.id,
-                    amount: 1,
-                  );
-                },
+                onIncrease: onAddToBasket,
+                onDecrease: onRemoveFromBasket,
               ),
             ],
           ),

@@ -7,10 +7,14 @@ class ProductVerticalList extends StatelessWidget {
   const ProductVerticalList({
     required this.products,
     required this.onItemTap,
+    required this.onItemAddToBasket,
+    required this.onItemRemoveFromBasket,
   });
 
   final List<ProductResultModel> products;
   final void Function(int) onItemTap;
+  final void Function(int) onItemAddToBasket;
+  final void Function(int) onItemRemoveFromBasket;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,8 @@ class ProductVerticalList extends StatelessWidget {
         return ProductVerticalListItem(
           product: products[index],
           onTap: () => onItemTap(index),
+          onAddToBasket: () => onItemAddToBasket(index),
+          onRemoveFromBasket: () => onItemRemoveFromBasket(index),
         );
       },
     );

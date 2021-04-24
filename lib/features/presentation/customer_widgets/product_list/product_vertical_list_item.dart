@@ -25,20 +25,31 @@ class ProductVerticalListItem extends StatelessWidget {
   ProductVerticalListItem({
     required this.product,
     required this.onTap,
+    required this.onAddToBasket,
+    required this.onRemoveFromBasket,
   });
 
   final ProductResultModel product;
   final void Function() onTap;
-
+  final void Function() onAddToBasket;
+  final void Function() onRemoveFromBasket;
   late LikedProductNotifier productNotifier;
   late BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    productNotifier = Provider.of<LikedProductNotifier>(context, listen: false);
-    basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
+    productNotifier = Provider.of<LikedProductNotifier>(
+      context,
+      listen: false,
+    );
+
+    basketNotifier = Provider.of<BasketNotifier>(
+      context,
+      listen: false,
+    );
 
     return Parent(
+      gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 8)
@@ -148,22 +159,10 @@ class ProductVerticalListItem extends StatelessWidget {
           ProductListItemCounter(
             hieght: 32,
             defaultValue: product.amount * product.step,
-            unit: "${product.productUnit}",
             step: product.step,
-            onIncrease: (value) async {
-              await basketNotifier.addToBasket(
-                context,
-                productId: product.id,
-                amount: 1,
-              );
-            },
-            onDecrease: (value) async {
-              await basketNotifier.removeFromBasket(
-                context,
-                productId: product.id,
-                amount: 1,
-              );
-            },
+            unit: "${product.productUnit}",
+            onIncrease: onAddToBasket,
+            onDecrease: onRemoveFromBasket,
           ),
         ],
       ),
@@ -178,9 +177,9 @@ class ProductVerticalListItem extends StatelessWidget {
       ),
       successBuilder: (context, data) {
         return data!.fold(
-          (l) => SizedBox(),
-          (r) => Image.memory(
-            base64Decode(r.data.photos.first),
+          (left) => SizedBox(),
+          (right) => Image.memory(
+            base64Decode(right.data.photos.first),
           ),
         );
       },

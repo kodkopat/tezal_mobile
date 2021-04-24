@@ -38,17 +38,16 @@ class BasketNotifier extends ChangeNotifier {
   List<BasketItem>? basketItemList;
   int? basketCount;
 
-  Future<void> addToBasket(
-    BuildContext context, {
+  Future<void> addToBasket({
     required String productId,
-    required int amount,
+    int? amount,
   }) async {
-    var prgDialog = AppProgressDialog(context).instance;
-    prgDialog.show();
+    // var prgDialog = AppProgressDialog(context).instance;
+    // prgDialog.show();
 
     var result = await customerBasketRepo.addProductToBasket(
       productId: productId,
-      amount: amount,
+      amount: amount ?? 1,
     );
 
     result.fold(
@@ -56,20 +55,19 @@ class BasketNotifier extends ChangeNotifier {
       (right) => refresh(),
     );
 
-    prgDialog.hide();
+    // prgDialog.hide();
   }
 
-  Future<void> removeFromBasket(
-    BuildContext context, {
+  Future<void> removeFromBasket({
     required String productId,
-    required int amount,
+    int? amount,
   }) async {
-    var prgDialog = AppProgressDialog(context).instance;
-    prgDialog.show();
+    // var prgDialog = AppProgressDialog(context).instance;
+    // prgDialog.show();
 
     var result = await customerBasketRepo.removeProductToBasket(
       productId: productId,
-      amount: amount,
+      amount: amount ?? 1,
     );
 
     result.fold(
@@ -77,7 +75,7 @@ class BasketNotifier extends ChangeNotifier {
       (right) => refresh(),
     );
 
-    prgDialog.hide();
+    // prgDialog.hide();
   }
 
   Future<void> clearBasket(BuildContext context) async {

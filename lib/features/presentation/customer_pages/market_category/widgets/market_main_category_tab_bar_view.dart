@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../data/models/sub_category_result_model.dart';
 import '../../../../data/repositories/customer_category_repository.dart';
+import '../../../providers/customer_providers/basket_notifier.dart';
 import 'market_sub_category_list.dart';
 import 'market_sub_category_view.dart';
 
@@ -11,10 +12,12 @@ class MarketMainCategoryTabBarView extends StatefulWidget {
   MarketMainCategoryTabBarView({
     required this.marketId,
     required this.mainCategoryId,
+    required this.basketNotifier,
   });
 
   final String marketId;
   final String mainCategoryId;
+  final BasketNotifier basketNotifier;
 
   @override
   _MarketMainCategoryTabBarViewState createState() =>
@@ -22,7 +25,8 @@ class MarketMainCategoryTabBarView extends StatefulWidget {
 }
 
 class _MarketMainCategoryTabBarViewState
-    extends State<MarketMainCategoryTabBarView> {
+    extends State<MarketMainCategoryTabBarView>
+    with AutomaticKeepAliveClientMixin<MarketMainCategoryTabBarView> {
   SubCategoryResultModel? subCategoryResultModel;
   bool loading = true;
 
@@ -58,6 +62,7 @@ class _MarketMainCategoryTabBarViewState
   }
 
   @override
+  // ignore: must_call_super
   Widget build(BuildContext context) {
     return loading
         ? Center(child: AppLoading())
@@ -81,9 +86,13 @@ class _MarketMainCategoryTabBarViewState
                   marketId: widget.marketId,
                   subCategoryId:
                       subCategoryIdList[subCategoryListSelectedIndex],
+                  basketNotifier: widget.basketNotifier,
                 ),
               ),
             ],
           );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

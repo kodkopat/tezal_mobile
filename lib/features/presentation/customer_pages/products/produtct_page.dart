@@ -54,6 +54,8 @@ class ProductsPage extends StatelessWidget {
                           },
                         );
                       },
+                      onItemAddToBasket: (index) {},
+                      onItemRemoveFromBasket: (index) {},
                     ),
                   );
       },
