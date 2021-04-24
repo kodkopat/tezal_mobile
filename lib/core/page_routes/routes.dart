@@ -250,6 +250,9 @@ class Routes {
           name: ProductDetailPage.route,
           builder: (ctx, args, map) {
             final productId = map.param<String>("productId");
+            final onAddToBasket = map.param<void Function()>("onAddToBasket");
+            final onRemoveFromBasket =
+                map.param<void Function()>("onRemoveFromBasket");
 
             return MultiProvider(
               providers: [
@@ -264,7 +267,11 @@ class Routes {
                   ),
                 ),
               ],
-              child: ProductDetailPage(productId: productId),
+              child: ProductDetailPage(
+                productId: productId,
+                onAddToBasket: onAddToBasket,
+                onRemoveFromBasket: onRemoveFromBasket,
+              ),
             );
           },
           params: [
@@ -272,6 +279,16 @@ class Routes {
               name: "productId",
               isRequired: true,
               defaultValue: "",
+            ),
+            SailorParam<void Function()>(
+              name: "onAddToBasket",
+              isRequired: true,
+              defaultValue: () {},
+            ),
+            SailorParam<void Function()>(
+              name: "onRemoveFromBasket",
+              isRequired: true,
+              defaultValue: () {},
             ),
           ],
         ),
