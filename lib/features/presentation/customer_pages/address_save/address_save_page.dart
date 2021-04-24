@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:google_map_location_picker/google_map_location_picker.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/page_routes/routes.dart';
@@ -16,6 +17,7 @@ import '../../../data/models/cities_result_model.dart';
 import '../../../data/models/provinces_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/address_notifier.dart';
+import 'widgets/custom_location_picker.dart';
 
 class AddressSavePage extends StatefulWidget {
   static const route = "/customer_address_save";
@@ -47,7 +49,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
   late var addressCtrl;
   late var descCtrl;
 
-  late LocationResult locationResult;
+  late LatLng locationResult;
 
   late String selectedProvinceId;
   late List<Province> provincesList;
@@ -125,8 +127,8 @@ class _AddressSavePageState extends State<AddressSavePage> {
             description: descCtrl.text,
             isDefault: false,
             cityId: selectedCityId,
-            latitude: "${locationResult.latLng.latitude}",
-            longitude: "${locationResult.latLng.longitude}",
+            latitude: "${locationResult.latitude}",
+            longitude: "${locationResult.longitude}",
           );
 
           Routes.sailor.pop();
@@ -138,8 +140,8 @@ class _AddressSavePageState extends State<AddressSavePage> {
             description: descCtrl.text,
             isDefault: false,
             cityId: selectedCityId,
-            latitude: "${locationResult.latLng.latitude}",
-            longitude: "${locationResult.latLng.longitude}",
+            latitude: "${locationResult.latitude}",
+            longitude: "${locationResult.longitude}",
           );
 
           Routes.sailor.pop();
@@ -147,20 +149,26 @@ class _AddressSavePageState extends State<AddressSavePage> {
       }
     };
 
-    locationResult = await showLocationPicker(
-      context,
-      "AIzaSyBbJbAPiVw28tsQTjo5NTj4VEJh_dXWIqI",
-      hintText: "جستجوی موقعیت",
-      resultCardAlignment: Alignment.bottomCenter,
-      resultCardPadding: EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 8,
-      ),
-      resultCardConfirmIcon: Icon(
-        Feather.check,
-        color: Colors.white,
-        size: 24,
-      ),
+    // locationResult = await showLocationPicker(
+    //   context,
+    //   "AIzaSyBbJbAPiVw28tsQTjo5NTj4VEJh_dXWIqI",
+    //   hintText: "جستجوی موقعیت",
+    //   resultCardAlignment: Alignment.bottomCenter,
+    //   resultCardPadding: EdgeInsets.symmetric(
+    //     horizontal: 16,
+    //     vertical: 8,
+    //   ),
+    //   resultCardConfirmIcon: Icon(
+    //     Feather.check,
+    //     color: Colors.white,
+    //     size: 24,
+    //   ),
+    // );
+    locationResult = await showDialog(
+      context: context,
+      builder: (context) {
+        return CustomLocationPicker();
+      },
     );
 
     setState(() => loading = false);
