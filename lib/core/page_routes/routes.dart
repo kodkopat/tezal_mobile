@@ -18,6 +18,7 @@ import '../../features/presentation/customer_pages/address_detail/address_detail
 import '../../features/presentation/customer_pages/address_save/address_save_page.dart';
 import '../../features/presentation/customer_pages/addresses/addresses_page.dart';
 import '../../features/presentation/customer_pages/basket/basket_page.dart';
+import '../../features/presentation/customer_pages/contacts/contacts_page.dart';
 import '../../features/presentation/customer_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/customer_pages/home/home_page.dart';
 import '../../features/presentation/customer_pages/liked_products/liked_products_page.dart';
@@ -93,6 +94,10 @@ class Routes {
   static void createCustomerRoutes() {
     sailor.addRoutes(
       [
+        SailorRoute(
+          name: ContactsPage.route,
+          builder: (ctx, args, map) => ContactsPage(),
+        ),
         SailorRoute(
           name: DashBoardPage.route,
           builder: (ctx, args, map) => DashBoardPage(),
