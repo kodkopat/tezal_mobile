@@ -11,6 +11,7 @@ import '../data_sources/customer/customer_local_data_source.dart';
 import '../data_sources/customer/customer_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/customer_profile_result_model.dart';
+import '../models/photo_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerRepository {
@@ -51,6 +52,7 @@ class CustomerRepository {
   Future<Either<Failure, BaseApiResultModel>> editCustomerProfile({
     required String name,
     required String email,
+    required String photo,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -60,6 +62,39 @@ class CustomerRepository {
         userToken,
         name,
         email,
+        photo,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, PhotoResultModel>> profilePhoto({
+    required String id,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.getPhoto(
+        userToken,
+        id,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> share({
+    required List<String> contactPhoneNumbers,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+      var result = await _remoteDataSource.share(
+        userToken,
+        contactPhoneNumbers,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
