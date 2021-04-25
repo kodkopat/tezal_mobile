@@ -30,14 +30,10 @@ class WalletPage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.walletInfoResultModel == null
                 ? provider.infoErrorMsg == null
-                    ? Txt(
-                        "خطای بارگذاری اطلاعات",
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
-                    : Txt(
-                        provider.infoErrorMsg!,
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
+                    ? Txt("خطای بارگذاری اطلاعات",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.infoErrorMsg!,
+                        style: AppTxtStyles().body..alignment.center())
                 : Parent(
                     style: ParentStyle()..padding(all: 24),
                     child: Column(
