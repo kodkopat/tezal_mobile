@@ -43,10 +43,12 @@ class ProfileNotifier extends ChangeNotifier {
   Future<void> editInfo({
     required String name,
     required String email,
+    required String photo,
   }) async {
     var result = await customerRepo.editCustomerProfile(
       name: name,
       email: email,
+      photo: photo,
     );
 
     result.fold(

@@ -33,6 +33,7 @@ class HomeComboBox extends StatelessWidget {
                       )
                     : HomeComboBoxDropDown(
                         addresses: provider.addressList!,
+                        addressNotifier: provider,
                       );
       },
     );

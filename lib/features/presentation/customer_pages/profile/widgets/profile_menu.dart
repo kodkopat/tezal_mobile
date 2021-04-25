@@ -11,6 +11,7 @@ import '../../../../../core/page_routes/routes.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../about_us/about_us_page.dart';
 import '../../addresses/addresses_page.dart';
+import '../../contacts/contacts_page.dart';
 import '../../liked_products/liked_products_page.dart';
 import '../../orders/orders_page.dart';
 import '../../settings/settings_page.dart';
@@ -68,6 +69,14 @@ class _ProfileMenu {
           },
         ),
         _divider,
+        ProfileMenuItem(
+          text: "معرفی اپلیکیشن به دوستان"
+          /* Lang.of(context).profileMenuItemSettings */,
+          iconPath: "assets/images/ic_send.png",
+          onTap: () {
+            Routes.sailor(ContactsPage.route);
+          },
+        ),
         ProfileMenuItem(
           text: Lang.of(context).profileMenuItemSettings,
           iconPath: "assets/images/ic_setting.png",

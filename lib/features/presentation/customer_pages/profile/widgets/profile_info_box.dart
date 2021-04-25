@@ -54,7 +54,7 @@ class ProfileInfoBox extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Txt(
-                    "${profileInfo.data.name}",
+                    "${profileInfo.data!.name}",
                     style: AppTxtStyles().subHeading..bold(),
                   ),
                 ],
@@ -91,7 +91,7 @@ class ProfileInfoBox extends StatelessWidget {
 
   Widget get _fieldEmail => richText(
         title: "ایمیل",
-        text: " ${profileInfo.data.email} ",
+        text: " ${profileInfo.data!.email} ",
       );
 
   Widget get _fieldPhone => richText(
@@ -101,10 +101,10 @@ class ProfileInfoBox extends StatelessWidget {
 
   String _generatePhoneText() {
     var phoneText;
-    if (profileInfo.data.phone == null) {
+    if (profileInfo.data!.phone == null) {
       phoneText = " ناموجود ";
     } else {
-      phoneText = " ${profileInfo.data.phone} ";
+      phoneText = " ${profileInfo.data!.phone} ";
     }
 
     return phoneText;
