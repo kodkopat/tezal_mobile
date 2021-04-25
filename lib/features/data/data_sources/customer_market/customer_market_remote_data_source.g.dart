@@ -9,7 +9,7 @@ part of 'customer_market_remote_data_source.dart';
 class _CustomerMarketRemoteDataSource
     implements CustomerMarketRemoteDataSource {
   _CustomerMarketRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -38,7 +38,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/GetNearByMarkets',
+            .compose(_dio.options, 'Market/GetNearByMarkets',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = NearByMarketsResultModel.fromJson(_result.data!);
@@ -60,7 +60,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/UpdateNearByMarkets',
+            .compose(_dio.options, 'Market/UpdateNearByMarkets',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -82,7 +82,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/GetMarketDetail',
+            .compose(_dio.options, 'Market/GetMarketDetail',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = MarketDetailResultModel.fromJson(_result.data!);
@@ -103,7 +103,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/GetPhoto',
+            .compose(_dio.options, 'Market/GetPhoto',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PhotosResultModel.fromJson(_result.data!);
@@ -127,7 +127,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/GetComments',
+            .compose(_dio.options, 'Market/GetComments',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommentsResultModel.fromJson(_result.data!);
@@ -147,7 +147,7 @@ class _CustomerMarketRemoteDataSource
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'customer/Market/AddComment',
+        .compose(_dio.options, 'Market/AddComment',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
@@ -173,7 +173,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/GetMainCategoryDetail',
+            .compose(_dio.options, 'Market/GetMainCategoryDetail',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = MainCategoryDetailResultModel.fromJson(_result.data!);
@@ -200,7 +200,7 @@ class _CustomerMarketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Market/GetSubCategoryDetail',
+            .compose(_dio.options, 'Market/GetSubCategoryDetail',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SubCategoryDetailResultModel.fromJson(_result.data!);

@@ -9,7 +9,7 @@ part of 'customer_campaign_remote_data_source.dart';
 class _CustomerCampaignRemoteDataSource
     implements CustomerCampaignRemoteDataSource {
   _CustomerCampaignRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _CustomerCampaignRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Campaign/Getall',
+            .compose(_dio.options, 'Campaign/Getall',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CampaignResultModel.fromJson(_result.data!);
@@ -52,7 +52,7 @@ class _CustomerCampaignRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Campaign/GetPhoto',
+            .compose(_dio.options, 'Campaign/GetPhoto',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PhotosResultModel.fromJson(_result.data!);

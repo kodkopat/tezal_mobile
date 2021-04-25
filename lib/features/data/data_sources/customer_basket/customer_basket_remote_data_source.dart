@@ -13,32 +13,32 @@ abstract class CustomerBasketRemoteDataSource {
   factory CustomerBasketRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerBasketRemoteDataSource;
 
-  @GET("EmptyBasket")
+  @GET("Basket/EmptyBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> emptyBasket(
     @Header("token") String token,
   );
 
-  @GET("GetBasket")
+  @GET("Basket/GetBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BasketResultModel> getBasket(
     @Header("token") String token,
   );
 
-  @GET("GetPaymentInfo")
+  @GET("Basket/GetPaymentInfo")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PaymentInfoResultModel> getPaymentInfo(
     @Header("token") String token,
   );
 
-  @GET("SelectAddress")
+  @GET("Basket/SelectAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> selectAddress(
     @Header("token") String token,
     @Query("Id") String addressId,
   );
 
-  @POST("AddProductToBasket")
+  @POST("Basket/AddProductToBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> addProductToBasket(
     @Header("token") String token,
@@ -46,7 +46,7 @@ abstract class CustomerBasketRemoteDataSource {
     @Field() int amount,
   );
 
-  @POST("RemoveProductFromBasket")
+  @POST("Basket/RemoveProductFromBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeProductFromBasket(
     @Header("token") String token,
@@ -54,13 +54,13 @@ abstract class CustomerBasketRemoteDataSource {
     @Field() int amount,
   );
 
-  @GET("getBasketCount")
+  @GET("Basket/getBasketCount")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> getBasketCount(
     @Header("token") String token,
   );
 
-  @GET("UpdateBasket")
+  @GET("Basket/UpdateBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> updateBasket(
     @Header("token") String token,

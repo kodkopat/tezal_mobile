@@ -14,7 +14,7 @@ abstract class CustomerOrderRemoteDataSource {
   factory CustomerOrderRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerOrderRemoteDataSource;
 
-  @GET("Save")
+  @GET("Order/Save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrderResultModel> save(
     @Header("token") String token,
@@ -22,46 +22,46 @@ abstract class CustomerOrderRemoteDataSource {
     @Query("AddressId") String addressId,
   );
 
-  @GET("Cancel")
+  @GET("Order/Cancel")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> cancel(
     @Header("token") String token,
   );
 
-  @GET("Returned")
+  @GET("Order/Returned")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> returned(
     @Header("token") String token,
   );
 
-  @GET("Rate")
+  @GET("Order/Rate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> rate(
     @Header("token") String token,
   );
 
-  @GET("GetOlderOrders")
+  @GET("Order/GetOlderOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OlderOrdersResultModel> getOlderOrders(
     @Header("token") String token,
     @Header("page") int page,
   );
 
-  @GET("GetDetail")
+  @GET("Order/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrderDetailResultModel> getDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("getPayment")
+  @GET("Order/getPayment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getPayment(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("AddToBasket")
+  @GET("Order/AddToBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> addToBasket(
     @Header("token") String token,

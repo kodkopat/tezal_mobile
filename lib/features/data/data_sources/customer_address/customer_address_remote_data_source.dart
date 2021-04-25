@@ -15,17 +15,17 @@ abstract class CustomerAddressRemoteDataSource {
   factory CustomerAddressRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerAddressRemoteDataSource;
 
-  @GET("GetProvince")
+  @GET("Address/GetProvince")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProvincesResultModel> getProvince();
 
-  @GET("GetCity")
+  @GET("Address/GetCity")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CitiesResultModel> getCity(
     @Query("provinceId") String provinceId,
   );
 
-  @POST("save")
+  @POST("Address/save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> save(
     @Header("token") String token,
@@ -38,7 +38,7 @@ abstract class CustomerAddressRemoteDataSource {
     @Field() String longitude,
   );
 
-  @POST("save")
+  @POST("Address/save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> edit(
     @Header("token") String token,
@@ -52,28 +52,28 @@ abstract class CustomerAddressRemoteDataSource {
     @Field() String longitude,
   );
 
-  @GET("SetDefaultAddress")
+  @GET("Address/SetDefaultAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> setdefaultAddress(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("RemoveAddress")
+  @GET("Address/RemoveAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeAddress(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("getAddress")
+  @GET("Address/getAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressResultModel> getAddress(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("getAddressess")
+  @GET("Address/getAddressess")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressesResultModel> getAddresses(
     @Header("token") String token,

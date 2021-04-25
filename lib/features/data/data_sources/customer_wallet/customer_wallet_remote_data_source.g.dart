@@ -9,7 +9,7 @@ part of 'customer_wallet_remote_data_source.dart';
 class _CustomerWalletRemoteDataSource
     implements CustomerWalletRemoteDataSource {
   _CustomerWalletRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _CustomerWalletRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Wallet/GetWalletInfo',
+            .compose(_dio.options, 'Wallet/GetWalletInfo',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = WalletInfoResultModel.fromJson(_result.data!);
@@ -53,7 +53,7 @@ class _CustomerWalletRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Wallet/GetWalletDetail',
+            .compose(_dio.options, 'Wallet/GetWalletDetail',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = WalletDetailResultModel.fromJson(_result.data!);
@@ -75,7 +75,7 @@ class _CustomerWalletRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Wallet/LoadBalance',
+            .compose(_dio.options, 'Wallet/LoadBalance',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = WalletLoadBalanceResultModel.fromJson(_result.data!);
@@ -98,7 +98,7 @@ class _CustomerWalletRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Wallet/LoadBalanceConfirmation',
+            .compose(_dio.options, 'Wallet/LoadBalanceConfirmation',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = WalletLoadBalanceResultModel.fromJson(_result.data!);

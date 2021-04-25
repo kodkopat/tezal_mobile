@@ -9,7 +9,7 @@ part of 'customer_search_remote_data_source.dart';
 class _CustomerSearchRemoteDataSource
     implements CustomerSearchRemoteDataSource {
   _CustomerSearchRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -35,7 +35,7 @@ class _CustomerSearchRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Search/Search',
+            .compose(_dio.options, 'Search/Search',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SearchResultModel.fromJson(_result.data!);
@@ -61,7 +61,7 @@ class _CustomerSearchRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Search/GetSearchTerms',
+            .compose(_dio.options, 'Search/GetSearchTerms',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SearchTermsResultModel.fromJson(_result.data!);
@@ -87,7 +87,7 @@ class _CustomerSearchRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Search/ClearSearchTerms',
+            .compose(_dio.options, 'Search/ClearSearchTerms',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);

@@ -16,20 +16,20 @@ abstract class AuthRemoteDataSource {
   factory AuthRemoteDataSource(Dio dio, {String? baseUrl}) =
       _AuthRemoteDataSource;
 
-  @POST("Login")
+  @POST("User/Login")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LoginResultModel> login(
     @Field() String username,
     @Field() String password,
   );
 
-  @POST("CheckToken")
+  @POST("User/CheckToken")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CheckTokenResultModel> checkToken(
     @Field() String token,
   );
 
-  @POST("Register")
+  @POST("User/Register")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<RegisterResultModel> register(
     @Field("Name") String name,
@@ -37,20 +37,20 @@ abstract class AuthRemoteDataSource {
     @Field("Password") String pass,
   );
 
-  @POST("ConfirmRegistration")
+  @POST("User/ConfirmRegistration")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CheckSmsResultModel> confirmRegistration(
     @Field() String id,
     @Field() String sms,
   );
 
-  @GET("ResetPasswordRequest")
+  @GET("User/ResetPasswordRequest")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> resetPasswordRequest(
     @Query("Phone") String phone,
   );
 
-  @GET("ResetPassword")
+  @GET("User/ResetPassword")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> resetPassword(
     @Query("Phone") String phone,
@@ -59,11 +59,11 @@ abstract class AuthRemoteDataSource {
     @Query("PasswordRepeat") String passwordRepeat,
   );
 
-  @GET("getPrivacyText")
+  @GET("User/getPrivacyText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AgreementResultModel> getPrivacyText();
 
-  @GET("getRulesText")
+  @GET("User/getRulesText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AgreementResultModel> getRulesText();
 }

@@ -9,7 +9,7 @@ part of 'customer_category_remote_data_source.dart';
 class _CustomerCategoryRemoteDataSource
     implements CustomerCategoryRemoteDataSource {
   _CustomerCategoryRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -30,7 +30,7 @@ class _CustomerCategoryRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Category/GetMainCategories',
+            .compose(_dio.options, 'Category/GetMainCategories',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = MainCategoryResultModel.fromJson(_result.data!);
@@ -55,7 +55,7 @@ class _CustomerCategoryRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Category/GetSubCategories',
+            .compose(_dio.options, 'Category/GetSubCategories',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SubCategoryResultModel.fromJson(_result.data!);
@@ -77,7 +77,7 @@ class _CustomerCategoryRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Category/GetMainCategoryPhoto',
+            .compose(_dio.options, 'Category/GetMainCategoryPhoto',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PhotoResultModel.fromJson(_result.data!);
@@ -99,7 +99,7 @@ class _CustomerCategoryRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Category/GetSubCategoryPhoto',
+            .compose(_dio.options, 'Category/GetSubCategoryPhoto',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PhotoResultModel.fromJson(_result.data!);

@@ -9,7 +9,7 @@ part of 'customer_address_remote_data_source.dart';
 class _CustomerAddressRemoteDataSource
     implements CustomerAddressRemoteDataSource {
   _CustomerAddressRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -30,7 +30,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/GetProvince',
+            .compose(_dio.options, 'Address/GetProvince',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProvincesResultModel.fromJson(_result.data!);
@@ -51,7 +51,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/GetCity',
+            .compose(_dio.options, 'Address/GetCity',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CitiesResultModel.fromJson(_result.data!);
@@ -82,7 +82,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/save',
+            .compose(_dio.options, 'Address/save',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -114,7 +114,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/save',
+            .compose(_dio.options, 'Address/save',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -136,7 +136,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/SetDefaultAddress',
+            .compose(_dio.options, 'Address/SetDefaultAddress',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -158,7 +158,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/RemoveAddress',
+            .compose(_dio.options, 'Address/RemoveAddress',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -180,7 +180,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/getAddress',
+            .compose(_dio.options, 'Address/getAddress',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AddressResultModel.fromJson(_result.data!);
@@ -202,7 +202,7 @@ class _CustomerAddressRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Address/getAddressess',
+            .compose(_dio.options, 'Address/getAddressess',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = AddressesResultModel.fromJson(_result.data!);

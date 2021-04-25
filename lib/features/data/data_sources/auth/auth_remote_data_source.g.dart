@@ -8,7 +8,7 @@ part of 'auth_remote_data_source.dart';
 
 class _AuthRemoteDataSource implements AuthRemoteDataSource {
   _AuthRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/shared/';
   }
 
   final Dio _dio;

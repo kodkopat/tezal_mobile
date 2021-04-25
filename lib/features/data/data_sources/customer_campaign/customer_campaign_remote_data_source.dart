@@ -12,13 +12,13 @@ abstract class CustomerCampaignRemoteDataSource {
   factory CustomerCampaignRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerCampaignRemoteDataSource;
 
-  @GET("Getall")
+  @GET("Campaign/Getall")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CampaignResultModel> getall(
     @Header("token") String token,
   );
 
-  @GET("GetPhoto")
+  @GET("Campaign/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String campaignId,

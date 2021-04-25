@@ -13,27 +13,27 @@ abstract class CustomerWalletRemoteDataSource {
   factory CustomerWalletRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerWalletRemoteDataSource;
 
-  @GET("GetWalletInfo")
+  @GET("Wallet/GetWalletInfo")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletInfoResultModel> getWalletInfo(
     @Header("token") String token,
   );
 
-  @GET("GetWalletDetail")
+  @GET("Wallet/GetWalletDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletDetailResultModel> getWalletDetail(
     @Header("token") String token,
     @Query("page") int page,
   );
 
-  @GET("LoadBalance")
+  @GET("Wallet/LoadBalance")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletLoadBalanceResultModel> loadBalance(
     @Header("token") String token,
     @Query("amount") double amount,
   );
 
-  @GET("LoadBalanceConfirmation")
+  @GET("Wallet/LoadBalanceConfirmation")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletLoadBalanceResultModel> loadBalanceConfirmation(
     @Header("token") String token,

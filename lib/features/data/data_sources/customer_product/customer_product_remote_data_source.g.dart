@@ -9,7 +9,7 @@ part of 'customer_product_remote_data_source.dart';
 class _CustomerProductRemoteDataSource
     implements CustomerProductRemoteDataSource {
   _CustomerProductRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -35,7 +35,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/GetProductsInSubCategory',
+            .compose(_dio.options, 'Product/GetProductsInSubCategory',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProductsResultModel.fromJson(_result.data!);
@@ -57,7 +57,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/GetDetail',
+            .compose(_dio.options, 'Product/GetDetail',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = ProductDetailResultModel.fromJson(_result.data!);
@@ -78,7 +78,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/GetPhoto',
+            .compose(_dio.options, 'Product/GetPhoto',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PhotosResultModel.fromJson(_result.data!);
@@ -100,7 +100,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/Like',
+            .compose(_dio.options, 'Product/Like',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -122,7 +122,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/Unlike',
+            .compose(_dio.options, 'Product/Unlike',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -144,7 +144,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/GetLikedProducts',
+            .compose(_dio.options, 'Product/GetLikedProducts',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = LikedProductsResultModel.fromJson(_result.data!);
@@ -168,7 +168,7 @@ class _CustomerProductRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Product/GetComments',
+            .compose(_dio.options, 'Product/GetComments',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CommentsResultModel.fromJson(_result.data!);
@@ -188,7 +188,7 @@ class _CustomerProductRemoteDataSource
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'customer/Product/AddComment',
+        .compose(_dio.options, 'Product/AddComment',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

@@ -17,7 +17,7 @@ abstract class CustomerMarketRemoteDataSource {
   factory CustomerMarketRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerMarketRemoteDataSource;
 
-  @GET("GetNearByMarkets")
+  @GET("Market/GetNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<NearByMarketsResultModel> getNearByMarkets(
     @Header("token") String token,
@@ -28,33 +28,33 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("page") int page,
   );
 
-  @GET("UpdateNearByMarkets")
+  @GET("Market/UpdateNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> updateNearByMarkets(
     @Header("token") String token,
   );
 
-  @GET("GetMarketDetail")
+  @GET("Market/GetMarketDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketDetailResultModel> getMarketDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("GetPhoto")
+  @GET("Market/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
   );
 
-  @GET("GetComments")
+  @GET("Market/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getListComment(
     @Query("MarketId") String marketId,
     @Query("Page") int page,
   );
 
-  @GET("AddComment")
+  @GET("Market/AddComment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> addComment(
     @Field() String comment,
@@ -62,7 +62,7 @@ abstract class CustomerMarketRemoteDataSource {
     @Field() String marketId,
   );
 
-  @GET("GetMainCategoryDetail")
+  @GET("Market/GetMainCategoryDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MainCategoryDetailResultModel> getMainCategoryDetail(
     @Header("token") String token,
@@ -70,7 +70,7 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("MainCategoryId") String mainCategoryId,
   );
 
-  @GET("GetSubCategoryDetail")
+  @GET("Market/GetSubCategoryDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoryDetailResultModel> getSubCategoryDetail(
     @Header("token") String token,

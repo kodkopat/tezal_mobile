@@ -12,13 +12,13 @@ abstract class CustomerRemoteDataSource {
   factory CustomerRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerRemoteDataSource;
 
-  @GET("GetCustomerProfile")
+  @GET("Customer/GetCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CustomerProfileResultModel> getCustomerProfile(
     @Header("token") String token,
   );
 
-  @POST("ChangeCustomerProfile")
+  @POST("Customer/ChangeCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeCustomerProfile(
     @Header("token") String token,

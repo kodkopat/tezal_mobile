@@ -8,7 +8,7 @@ part of 'customer_remote_data_source.dart';
 
 class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
   _CustomerRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -30,7 +30,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Customer/GetCustomerProfile',
+            .compose(_dio.options, 'Customer/GetCustomerProfile',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = CustomerProfileResultModel.fromJson(_result.data!);
@@ -52,7 +52,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Customer/ChangeCustomerProfile',
+            .compose(_dio.options, 'Customer/ChangeCustomerProfile',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);

@@ -16,7 +16,7 @@ abstract class CustomerProductRemoteDataSource {
   factory CustomerProductRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerProductRemoteDataSource;
 
-  @GET("GetProductsInSubCategory")
+  @GET("Product/GetProductsInSubCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getProductsInSubCategory(
     @Header("token") String token,
@@ -24,48 +24,48 @@ abstract class CustomerProductRemoteDataSource {
     @Query("CategoryId") String categoryId,
   );
 
-  @GET("GetDetail")
+  @GET("Product/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductDetailResultModel> getDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("GetPhoto")
+  @GET("Product/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
     @Query("Multi") bool multi,
   );
 
-  @GET("Like")
+  @GET("Product/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("Unlike")
+  @GET("Product/Unlike")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> unlike(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("GetLikedProducts")
+  @GET("Product/GetLikedProducts")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LikedProductsResultModel> getLikedProducts(
     @Header("token") String token,
   );
 
-  @GET("GetComments")
+  @GET("Product/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(
     @Query("productId") String productId,
     @Query("Page") int page,
   );
 
-  @GET("AddComment")
+  @GET("Product/AddComment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> addComment();
 }

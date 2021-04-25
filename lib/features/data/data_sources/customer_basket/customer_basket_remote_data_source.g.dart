@@ -9,7 +9,7 @@ part of 'customer_basket_remote_data_source.dart';
 class _CustomerBasketRemoteDataSource
     implements CustomerBasketRemoteDataSource {
   _CustomerBasketRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -31,7 +31,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/EmptyBasket',
+            .compose(_dio.options, 'Basket/EmptyBasket',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -53,7 +53,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/GetBasket',
+            .compose(_dio.options, 'Basket/GetBasket',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BasketResultModel.fromJson(_result.data!);
@@ -75,7 +75,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/GetPaymentInfo',
+            .compose(_dio.options, 'Basket/GetPaymentInfo',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PaymentInfoResultModel.fromJson(_result.data!);
@@ -97,7 +97,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/SelectAddress',
+            .compose(_dio.options, 'Basket/SelectAddress',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -119,7 +119,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/AddProductToBasket',
+            .compose(_dio.options, 'Basket/AddProductToBasket',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -141,7 +141,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/RemoveProductFromBasket',
+            .compose(_dio.options, 'Basket/RemoveProductFromBasket',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -163,7 +163,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/getBasketCount',
+            .compose(_dio.options, 'Basket/getBasketCount',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -185,7 +185,7 @@ class _CustomerBasketRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Basket/UpdateBasket',
+            .compose(_dio.options, 'Basket/UpdateBasket',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);

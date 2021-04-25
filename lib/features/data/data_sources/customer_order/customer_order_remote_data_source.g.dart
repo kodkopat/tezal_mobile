@@ -8,7 +8,7 @@ part of 'customer_order_remote_data_source.dart';
 
 class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   _CustomerOrderRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://178.157.14.77/api/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;
@@ -33,7 +33,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Order/Save',
+            .compose(_dio.options, 'Order/Save',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OrderResultModel.fromJson(_result.data!);
@@ -55,7 +55,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Order/Cancel',
+            .compose(_dio.options, 'Order/Cancel',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
@@ -76,7 +76,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'customer/Order/Returned',
+        .compose(_dio.options, 'Order/Returned',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
@@ -97,7 +97,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'customer/Order/Rate',
+        .compose(_dio.options, 'Order/Rate',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
@@ -120,7 +120,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Order/GetOlderOrders',
+            .compose(_dio.options, 'Order/GetOlderOrders',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OlderOrdersResultModel.fromJson(_result.data!);
@@ -142,7 +142,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Order/GetDetail',
+            .compose(_dio.options, 'Order/GetDetail',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = OrderDetailResultModel.fromJson(_result.data!);
@@ -163,7 +163,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'customer/Order/getPayment',
+        .compose(_dio.options, 'Order/getPayment',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
@@ -185,7 +185,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'customer/Order/AddToBasket',
+            .compose(_dio.options, 'Order/AddToBasket',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);
