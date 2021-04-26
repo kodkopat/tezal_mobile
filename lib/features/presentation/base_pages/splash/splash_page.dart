@@ -5,6 +5,8 @@ import 'package:sailor/sailor.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../core/page_routes/routes.dart';
+import '../../../../features/presentation/base_pages/encourage_login/encourage_login_page.dart';
+import '../../../data/models/app_user_type.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_pages/dashboard/dashboard_page.dart';
 
@@ -17,13 +19,13 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final repository = AuthRepository();
-  VideoPlayerController videoPlayerController = VideoPlayerController.asset(
+  var videoPlayerController = VideoPlayerController.asset(
     "assets/videos/tezal_splash_animation.mp4",
   );
 
   void initializeState() async {
     final _authRepository = AuthRepository();
-    _AppUserType userType;
+    AppUserType? userType;
 
     final userId = await repository.userId;
     print("userId = $userId\n");
@@ -33,38 +35,34 @@ class _SplashPageState extends State<SplashPage> {
 
     final value = await _authRepository.userType;
     if (value != null && value.isNotEmpty) {
-      userType = _AppUserTypeParser.fromString(value);
-    } else {
-      userType = _AppUserType.Customer;
+      userType = AppUserTypeParser.fromString(value);
     }
+
+    late String navigationDestination;
 
     switch (userType) {
-      case _AppUserType.Customer:
-        Routes.sailor.navigate(
-          DashBoardPage.route,
-          navigationType: NavigationType.pushReplace,
-        );
+      case AppUserType.Customer:
+        navigationDestination = DashBoardPage.route;
         break;
-      case _AppUserType.Market:
-        // Routes.sailor(CustomerDashBoardPage.route);
+      case AppUserType.Market:
+        // navigationDestination = DashBoardPage.route;
         break;
-      case _AppUserType.Delivery:
-        // Routes.sailor(CustomerDashBoardPage.route);
+      case AppUserType.Delivery:
+        // navigationDestination = DashBoardPage.route;
         break;
+      default:
+        navigationDestination = EncourageLoginPage.route;
     }
 
-    // videoPlayerController.addListener(() {
-    //   var playerValue = videoPlayerController.value;
-    //   if (playerValue.position == playerValue.duration) {
-
-    //   }
-    // });
+    Routes.sailor.navigate(
+      navigationDestination,
+      navigationType: NavigationType.pushReplace,
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    // videoPlayerController.setLooping(true);
     videoPlayerController
       ..initialize().then((value) {
         setState(() {});
@@ -93,32 +91,5 @@ class _SplashPageState extends State<SplashPage> {
   void dispose() {
     super.dispose();
     videoPlayerController.dispose();
-  }
-}
-
-enum _AppUserType {
-  Customer,
-  Market,
-  Delivery,
-}
-
-class _AppUserTypeParser {
-  static const _customerKey = "customer";
-  static const _marketKey = "market";
-  static const _deliveryKey = "delivery";
-
-  static _AppUserType fromString(String userType) {
-    if (userType.trim().isEmpty) return _AppUserType.Customer;
-
-    switch (userType.toLowerCase()) {
-      case _customerKey:
-        return _AppUserType.Customer;
-      case _marketKey:
-        return _AppUserType.Market;
-      case _deliveryKey:
-        return _AppUserType.Delivery;
-      default:
-        return _AppUserType.Customer;
-    }
   }
 }
