@@ -7,6 +7,7 @@ import '../../features/data/models/customer/order_detail_result_model.dart';
 import '../../features/data/repositories/customer_market_repository.dart';
 import '../../features/data/repositories/customer_order_repository.dart';
 import '../../features/data/repositories/customer_product_repository.dart';
+import '../../features/presentation/base_pages/encourage_login/encourage_login_page.dart';
 import '../../features/presentation/base_pages/confirm_registration/confirm_registration.dart';
 import '../../features/presentation/base_pages/confirm_reset_password/confirm_reset_password.dart';
 import '../../features/presentation/base_pages/login/login_page.dart';
@@ -56,6 +57,10 @@ class Routes {
         SailorRoute(
           name: SplashPage.route,
           builder: (ctx, args, map) => SplashPage(),
+        ),
+        SailorRoute(
+          name: EncourageLoginPage.route,
+          builder: (ctx, args, map) => EncourageLoginPage(),
         ),
         SailorRoute(
           name: LoginPage.route,
