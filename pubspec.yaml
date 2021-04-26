@@ -67,7 +67,7 @@ dependencies:
   # used to: restart services
   flutter_phoenix: ^1.0.0
   # used to: access user contacts
-  # contacts_service: ^0.4.6
+  flutter_contacts: ^1.0.0
   # used to: tuple
   tuple: ^2.0.0
   build: ^2.0.0
