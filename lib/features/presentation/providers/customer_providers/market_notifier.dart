@@ -44,9 +44,9 @@ class MarketNotifier extends ChangeNotifier {
         (left) => nearByMarketsErrorMsg = left.message,
         (right) {
           NearByMarketsResultModel model = right;
-          nearyByMarketsTotalCount = model.data.total;
-          latestPageIndex = right.data.page;
-          nearByMarkets = right.data.markets;
+          nearyByMarketsTotalCount = model.data!.total;
+          latestPageIndex = right.data!.page;
+          nearByMarkets = right.data!.markets;
           enableLoadMoreData =
               nearyByMarketsTotalCount != nearByMarkets!.length;
         },
@@ -65,8 +65,8 @@ class MarketNotifier extends ChangeNotifier {
         (right) {
           // nearByMarketsResultModel = right;
           // nearyByMarketsTotalCount = right.data!.total;
-          latestPageIndex = right.data.page;
-          nearByMarkets!.addAll(right.data.markets);
+          latestPageIndex = right.data!.page;
+          nearByMarkets!.addAll(right.data!.markets!);
           enableLoadMoreData =
               nearyByMarketsTotalCount != nearByMarkets!.length;
         },
