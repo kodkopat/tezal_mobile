@@ -55,6 +55,13 @@ class CustomerMarketRepository {
       var lang = Localizations.localeOf(context).languageCode;
       var position = await LocationService.getSavedLocation();
 
+      /* print("userToken: $userToken\n");
+      print("lang: $lang\n");
+      print("latitude: ${position.latitude}\n");
+      print("longitude: ${position.longitude}\n");
+      print("maxDistance: $maxDistance\n");
+      print("longitude: $page\n"); */
+
       var result = await _remoteDataSource.getNearByMarkets(
         userToken,
         lang,
@@ -63,6 +70,8 @@ class CustomerMarketRepository {
         maxDistance,
         page,
       );
+
+      // print("getNearByMarkets: ${result.toJson()}\n");
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

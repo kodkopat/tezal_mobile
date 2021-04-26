@@ -22,15 +22,10 @@ class HomeComboBox extends StatelessWidget {
         return provider.listLoading
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.listErrorMsg != null
-                ? Txt(
-                    provider.listErrorMsg!,
-                    style: AppTxtStyles().body..alignment.center(),
-                  )
+                ? SizedBox()
                 : provider.addressList!.isEmpty
-                    ? Txt(
-                        "لیست آدرس‌های شما خالی است",
-                        style: AppTxtStyles().body..alignment.center(),
-                      )
+                    ? Txt("لیست آدرس‌های شما خالی است",
+                        style: AppTxtStyles().body..alignment.center())
                     : HomeComboBoxDropDown(
                         addresses: provider.addressList!,
                         addressNotifier: provider,

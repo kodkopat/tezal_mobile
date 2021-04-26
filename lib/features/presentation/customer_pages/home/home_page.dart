@@ -37,7 +37,8 @@ class HomePage extends StatelessWidget {
             ? AppLoading(color: AppTheme.customerPrimary)
             : provider.campaigns == null
                 ? provider.campaignErrorMsg == null
-                    ? SizedBox()
+                    ? Txt("خطای بارگذاری لیست",
+                        style: AppTxtStyles().body..alignment.center())
                     : Txt(provider.campaignErrorMsg!,
                         style: AppTxtStyles().body..alignment.center())
                 : CampaignSlider(campaigns: provider.campaigns!);
@@ -58,22 +59,19 @@ class HomePage extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                     : Txt(provider.nearByMarketsErrorMsg!,
                         style: AppTxtStyles().body..alignment.center())
-                : SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        MarketsList(
-                          markets: provider.nearByMarkets!,
-                          repository: provider.customerMarketRepo,
-                        ),
-                        SizedBox(height: 8),
-                        if (provider.enableLoadMoreData!)
-                          LoadMoreBtn(onTap: () {
-                            provider.fetchNearbyMarkets(context);
-                          })
-                      ],
-                    ),
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      MarketsList(
+                        markets: provider.nearByMarkets!,
+                        repository: provider.customerMarketRepo,
+                      ),
+                      SizedBox(height: 8),
+                      if (provider.enableLoadMoreData!)
+                        LoadMoreBtn(onTap: () {
+                          provider.fetchNearbyMarkets(context);
+                        })
+                    ],
                   );
       },
     );
@@ -97,30 +95,22 @@ class HomePage extends StatelessWidget {
                       text: Lang.of(context).pageHomeAppBar,
                       showBasketBtn: true,
                     ),
-                    body: Stack(
-                      children: [
-                        SingleChildScrollView(
-                          padding: EdgeInsets.only(top: 48),
-                          child: Column(
-                            children: [
-                              campaignsConsumer,
-                              RefreshIndicator(
-                                onRefresh: () async {
-                                  provider.fetechLocation(context);
-                                  await marketNotifier.customerMarketRepo
-                                      .updateNearByMarkets();
-                                  return Future<void>.value();
-                                },
-                                child: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  child: marketsConsumer,
-                                ),
-                              ),
-                            ],
-                          ),
+                    body: RefreshIndicator(
+                      onRefresh: () async {
+                        provider.fetechLocation(context);
+                        await marketNotifier.customerMarketRepo
+                            .updateNearByMarkets();
+                        return Future<void>.value();
+                      },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            HomeComboBox(),
+                            campaignsConsumer,
+                            marketsConsumer,
+                          ],
                         ),
-                        HomeComboBox(),
-                      ],
+                      ),
                     ),
                   );
       },

@@ -9,19 +9,19 @@ class NearByMarketsResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory NearByMarketsResultModel.fromJson(Map<String, dynamic> json) =>
       NearByMarketsResultModel(
         success: json["success"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data,
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
@@ -34,19 +34,30 @@ class Data {
 
   final page;
   final total;
-  final markets;
+  final List<Market>? markets;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         page: json["page"],
         total: json["total"],
-        markets:
-            List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
+        markets: json["markets"] == null
+            ? null
+            : List<Market>.from(
+                json["markets"].map(
+                  (x) => Market.fromJson(x),
+                ),
+              ),
       );
 
   Map<String, dynamic> toJson() => {
         "page": page,
         "total": total,
-        "markets": List<dynamic>.from(markets.map((x) => x.toJson())),
+        "markets": markets == null
+            ? null
+            : List<dynamic>.from(
+                markets!.map(
+                  (x) => x.toJson(),
+                ),
+              ),
       };
 }
 
