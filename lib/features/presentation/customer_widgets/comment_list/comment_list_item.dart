@@ -2,7 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/models/comments_result_model.dart';
+import '../../../data/models/customer/comments_result_model.dart';
 
 class CommentListItem extends StatelessWidget {
   const CommentListItem({

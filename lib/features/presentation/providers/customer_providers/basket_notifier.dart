@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/basket_result_model.dart';
+import '../../../data/models/customer/basket_result_model.dart';
 import '../../../data/repositories/customer_basket_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 

@@ -2,9 +2,9 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/wallet_detail_result_model.dart';
-import '../../models/wallet_info_result_model.dart';
-import '../../models/wallet_load_balance_result_model.dart';
+import '../../models/customer/wallet_detail_result_model.dart';
+import '../../models/customer/wallet_info_result_model.dart';
+import '../../models/customer/wallet_load_balance_result_model.dart';
 
 part 'customer_wallet_remote_data_source.g.dart';
 

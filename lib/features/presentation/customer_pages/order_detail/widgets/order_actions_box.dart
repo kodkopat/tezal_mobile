@@ -7,7 +7,7 @@ import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/action_btn.dart';
-import '../../../../data/models/order_detail_result_model.dart';
+import '../../../../data/models/customer/order_detail_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../../providers/customer_providers/order_detail_notifier.dart';

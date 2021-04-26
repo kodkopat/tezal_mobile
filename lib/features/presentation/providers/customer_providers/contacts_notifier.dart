@@ -1,6 +1,5 @@
-// ignore: import_of_legacy_library_into_null_safe
-// import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_contacts/flutter_contacts.dart';
 
 class ContactsNotifier extends ChangeNotifier {
   static ContactsNotifier? _instance;
@@ -17,11 +16,17 @@ class ContactsNotifier extends ChangeNotifier {
 
   bool loading = true;
   String? errorMsg;
-  Iterable<String>? contacts;
+  List<Contact>? contacts;
 
   Future<void> fetchContacts() async {
-    // contacts = await ContactsService.getContacts();
-    loading = false;
-    notifyListeners();
+    if (await FlutterContacts.requestPermission()) {
+      contacts = await FlutterContacts.getContacts(
+        withProperties: true,
+        withPhoto: true,
+      );
+
+      loading = false;
+      notifyListeners();
+    }
   }
 }

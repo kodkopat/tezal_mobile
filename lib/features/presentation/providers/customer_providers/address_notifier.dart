@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/address_result_model.dart' hide Address;
-import '../../../data/models/addresses_result_model.dart';
-import '../../../data/models/cities_result_model.dart';
-import '../../../data/models/provinces_result_model.dart';
+import '../../../data/models/customer/address_result_model.dart' hide Address;
+import '../../../data/models/customer/addresses_result_model.dart';
+import '../../../data/models/customer/cities_result_model.dart';
+import '../../../data/models/customer/provinces_result_model.dart';
 import '../../../data/repositories/customer_address_repository.dart';
 
 class AddressNotifier extends ChangeNotifier {

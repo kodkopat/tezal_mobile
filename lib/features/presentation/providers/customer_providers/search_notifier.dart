@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/search_result_model.dart';
+import '../../../data/models/customer/search_result_model.dart';
 import '../../../data/repositories/customer_search_repository.dart';
 
 class SearchNotifier extends ChangeNotifier {

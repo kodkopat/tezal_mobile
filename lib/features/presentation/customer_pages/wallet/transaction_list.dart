@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/dashed_line_painter.dart';
-import '../../../../features/data/models/wallet_detail_result_model.dart'
+import '../../../../features/data/models/customer/wallet_detail_result_model.dart'
     as wallet;
 import 'transaction_list_item.dart';
 

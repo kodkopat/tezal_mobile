@@ -11,7 +11,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../data/models/main_category_result_model.dart';
+import '../../../data/models/customer/main_category_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/category_notifier.dart';
 import '../market_sub_category/market_sub_category.dart';

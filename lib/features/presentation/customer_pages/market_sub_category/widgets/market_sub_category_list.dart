@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/sub_category_result_model.dart';
+import '../../../../data/models/customer/sub_category_result_model.dart';
 import '../../../providers/customer_providers/category_notifier.dart';
 import 'market_sub_category_list_item.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../data/models/market_detail_result_model.dart';
+import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
 import 'widgets/market_main_category_tab_bar.dart';

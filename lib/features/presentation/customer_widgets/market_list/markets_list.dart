@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/page_routes/routes.dart';
-import '../../../data/models/nearby_markets_result_model.dart';
+import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_pages/market_detail/market_detail_page.dart';
 import 'markets_list_item.dart';

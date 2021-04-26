@@ -2,12 +2,12 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/http.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/agreement_result_model.dart';
-import '../../models/base_api_result_model.dart';
-import '../../models/check_sms_result_model.dart';
-import '../../models/check_token_result_model.dart';
-import '../../models/login_result_model.dart';
-import '../../models/register_result_model.dart';
+import '../../models/customer/agreement_result_model.dart';
+import '../../models/customer/base_api_result_model.dart';
+import '../../models/customer/check_sms_result_model.dart';
+import '../../models/customer/check_token_result_model.dart';
+import '../../models/customer/login_result_model.dart';
+import '../../models/customer/register_result_model.dart';
 
 part 'auth_remote_data_source.g.dart';
 

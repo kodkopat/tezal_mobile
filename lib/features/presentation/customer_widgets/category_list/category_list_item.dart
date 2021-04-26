@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../core/page_routes/routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../data/models/market_detail_result_model.dart';
+import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../customer_pages/product_detail/product_detail_page.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
 import '../../providers/customer_providers/market_detail_provider.dart';

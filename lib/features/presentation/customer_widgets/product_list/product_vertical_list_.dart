@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/product_result_model.dart';
+import '../../../data/models/customer/product_result_model.dart';
 import 'product_vertical_list_item.dart';
 
 class ProductVerticalList extends StatelessWidget {

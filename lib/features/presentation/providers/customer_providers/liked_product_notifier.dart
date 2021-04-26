@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/liked_products_result_model.dart';
+import '../../../data/models/customer/liked_products_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 
 class LikedProductNotifier extends ChangeNotifier {

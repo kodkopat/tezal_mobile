@@ -2,8 +2,8 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/campaign_result_model.dart';
-import '../../models/photos_result_model.dart';
+import '../../models/customer/campaign_result_model.dart';
+import '../../models/customer/photos_result_model.dart';
 
 part 'customer_campaign_remote_data_source.g.dart';
 

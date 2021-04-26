@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/page_routes/routes.dart';
 import '../../../../../core/widgets/dashed_line_painter.dart';
-import '../../../../data/models/older_orders_result_model.dart';
+import '../../../../data/models/customer/older_orders_result_model.dart';
 import '../../order_detail/order_detail_page.dart';
 import 'older_order_list_item.dart';
 

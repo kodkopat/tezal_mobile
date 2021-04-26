@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/services/location.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/map_box.dart';
-import '../../../../data/models/campaign_result_model.dart';
+import '../../../../data/models/customer/campaign_result_model.dart';
 import 'campaign_slider_item.dart';
 
 class CampaignSlider extends StatefulWidget {

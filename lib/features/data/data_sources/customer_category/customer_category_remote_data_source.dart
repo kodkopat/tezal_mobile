@@ -2,9 +2,9 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/main_category_result_model.dart';
-import '../../models/photo_result_model.dart';
-import '../../models/sub_category_result_model.dart';
+import '../../models/customer/main_category_result_model.dart';
+import '../../models/customer/photo_result_model.dart';
+import '../../models/customer/sub_category_result_model.dart';
 
 part 'customer_category_remote_data_source.g.dart';
 

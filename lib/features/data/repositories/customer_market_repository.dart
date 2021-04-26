@@ -11,13 +11,13 @@ import '../../../core/exceptions/failure.dart';
 import '../../../core/services/location.dart';
 import '../../data/data_sources/customer_market/customer_market_local_data_source.dart';
 import '../../data/data_sources/customer_market/customer_market_remote_data_source.dart';
-import '../models/base_api_result_model.dart';
-import '../models/comments_result_model.dart';
-import '../models/main_category_detail_result_model.dart';
-import '../models/market_detail_result_model.dart';
-import '../models/nearby_markets_result_model.dart';
-import '../models/photos_result_model.dart';
-import '../models/sub_category_detail_result_model.dart';
+import '../models/customer/base_api_result_model.dart';
+import '../models/customer/comments_result_model.dart';
+import '../models/customer/main_category_detail_result_model.dart';
+import '../models/customer/market_detail_result_model.dart';
+import '../models/customer/nearby_markets_result_model.dart';
+import '../models/customer/photos_result_model.dart';
+import '../models/customer/sub_category_detail_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerMarketRepository {

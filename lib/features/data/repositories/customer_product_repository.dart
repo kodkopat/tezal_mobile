@@ -9,12 +9,12 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../../data/data_sources/customer_product/customer_product_local_data_source.dart';
 import '../../data/data_sources/customer_product/customer_product_remote_data_source.dart';
-import '../models/base_api_result_model.dart';
-import '../models/comments_result_model.dart';
-import '../models/liked_products_result_model.dart';
-import '../models/photos_result_model.dart';
-import '../models/product_detail_result_model.dart';
-import '../models/products_result_model.dart';
+import '../models/customer/base_api_result_model.dart';
+import '../models/customer/comments_result_model.dart';
+import '../models/customer/liked_products_result_model.dart';
+import '../models/customer/photos_result_model.dart';
+import '../models/customer/product_detail_result_model.dart';
+import '../models/customer/products_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerProductRepository {

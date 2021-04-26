@@ -11,7 +11,7 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../../core/widgets/loading.dart';
-import '../../../../data/models/products_result_model.dart';
+import '../../../../data/models/customer/products_result_model.dart';
 import '../../../../data/repositories/customer_product_repository.dart';
 import '../../../customer_widgets/product_list/product_vertical_list_.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';

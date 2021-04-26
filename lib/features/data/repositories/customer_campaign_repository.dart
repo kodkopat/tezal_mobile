@@ -9,8 +9,8 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_campaign/customer_campaign_local_data_source.dart';
 import '../data_sources/customer_campaign/customer_campaign_remote_data_source.dart';
-import '../models/campaign_result_model.dart';
-import '../models/photos_result_model.dart';
+import '../models/customer/campaign_result_model.dart';
+import '../models/customer/photos_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerCampaignRepository {

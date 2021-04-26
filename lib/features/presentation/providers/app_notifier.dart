@@ -6,7 +6,7 @@ import '../../../app_localizations.dart';
 import '../../../core/consts/consts.dart';
 import '../../../core/services/location.dart';
 import '../../../core/themes/app_theme.dart';
-import '../../data/models/app_user_type.dart';
+import '../../data/models/customer/app_user_type.dart';
 import '../../data/repositories/auth_repository.dart';
 
 class AppNotifier extends ChangeNotifier {

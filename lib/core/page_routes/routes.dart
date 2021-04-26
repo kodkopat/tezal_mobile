@@ -2,8 +2,8 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
-import '../../features/data/models/market_detail_result_model.dart';
-import '../../features/data/models/order_detail_result_model.dart';
+import '../../features/data/models/customer/market_detail_result_model.dart';
+import '../../features/data/models/customer/order_detail_result_model.dart';
 import '../../features/data/repositories/customer_market_repository.dart';
 import '../../features/data/repositories/customer_order_repository.dart';
 import '../../features/data/repositories/customer_product_repository.dart';

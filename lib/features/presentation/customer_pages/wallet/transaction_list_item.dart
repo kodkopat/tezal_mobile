@@ -2,7 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:tezal/features/data/models/wallet_detail_result_model.dart'
+import 'package:tezal/features/data/models/customer/wallet_detail_result_model.dart'
     as wallet;
 import 'package:tezal/features/presentation/customer_widgets/custom_rich_text.dart';
 

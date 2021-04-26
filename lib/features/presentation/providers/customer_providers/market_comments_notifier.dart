@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/comments_result_model.dart';
+import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 
 // tip: this class must not be a singleton

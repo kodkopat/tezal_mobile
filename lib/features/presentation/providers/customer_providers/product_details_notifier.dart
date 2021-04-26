@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/product_detail_result_model.dart';
+import '../../../data/models/customer/product_detail_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 
 class ProductDetailNotifier extends ChangeNotifier {

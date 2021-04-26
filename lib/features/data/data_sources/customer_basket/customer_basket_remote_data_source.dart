@@ -2,9 +2,9 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/base_api_result_model.dart';
-import '../../models/basket_result_model.dart';
-import '../../models/payment_info_result_model.dart';
+import '../../models/customer/base_api_result_model.dart';
+import '../../models/customer/basket_result_model.dart';
+import '../../models/customer/payment_info_result_model.dart';
 
 part 'customer_basket_remote_data_source.g.dart';
 

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/loading.dart';
-import '../../../../data/models/sub_category_result_model.dart';
+import '../../../../data/models/customer/sub_category_result_model.dart';
 import '../../../../data/repositories/customer_category_repository.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import 'market_sub_category_list.dart';

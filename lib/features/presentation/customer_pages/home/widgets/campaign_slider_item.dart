@@ -9,8 +9,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
-import '../../../../data/models/campaign_result_model.dart';
-import '../../../../data/models/photos_result_model.dart';
+import '../../../../data/models/customer/campaign_result_model.dart';
+import '../../../../data/models/customer/photos_result_model.dart';
 import '../../../providers/customer_providers/campaign_notifier.dart';
 
 class CampaignSliderItem extends StatelessWidget {

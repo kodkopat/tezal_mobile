@@ -9,11 +9,11 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_address/customer_address_local_data_source.dart';
 import '../data_sources/customer_address/customer_address_remote_data_source.dart';
-import '../models/address_result_model.dart';
-import '../models/addresses_result_model.dart';
-import '../models/base_api_result_model.dart';
-import '../models/cities_result_model.dart';
-import '../models/provinces_result_model.dart';
+import '../models/customer/address_result_model.dart';
+import '../models/customer/addresses_result_model.dart';
+import '../models/customer/base_api_result_model.dart';
+import '../models/customer/cities_result_model.dart';
+import '../models/customer/provinces_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerAddressRepository {

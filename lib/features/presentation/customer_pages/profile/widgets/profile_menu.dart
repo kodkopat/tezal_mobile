@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// ignore: import_of_legacy_library_into_null_safe
+// import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
@@ -72,8 +74,10 @@ class _ProfileMenu {
         ProfileMenuItem(
           text: "معرفی اپلیکیشن به دوستان"
           /* Lang.of(context).profileMenuItemSettings */,
-          iconPath: "assets/images/ic_send.png",
-          onTap: () {
+          iconPath: Directionality.of(context) == TextDirection.ltr
+              ? "assets/images/ic_send_left.png"
+              : "assets/images/ic_send_right.png",
+          onTap: () async {
             Routes.sailor(ContactsPage.route);
           },
         ),

@@ -2,11 +2,11 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/address_result_model.dart';
-import '../../models/addresses_result_model.dart';
-import '../../models/base_api_result_model.dart';
-import '../../models/cities_result_model.dart';
-import '../../models/provinces_result_model.dart';
+import '../../models/customer/address_result_model.dart';
+import '../../models/customer/addresses_result_model.dart';
+import '../../models/customer/base_api_result_model.dart';
+import '../../models/customer/cities_result_model.dart';
+import '../../models/customer/provinces_result_model.dart';
 
 part 'customer_address_remote_data_source.g.dart';
 

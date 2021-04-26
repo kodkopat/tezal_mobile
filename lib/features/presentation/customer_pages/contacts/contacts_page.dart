@@ -21,7 +21,7 @@ class ContactsPage extends StatelessWidget {
 
         return provider.contacts == null
             ? provider.errorMsg == null
-                ? Txt("خطای بارگذاری اطلاعات",
+                ? Txt("در حال بارگذاری...",
                     style: AppTxtStyles().body..alignment.center())
                 : Txt(provider.errorMsg,
                     style: AppTxtStyles().body..alignment.center())

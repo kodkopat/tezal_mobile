@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../data/models/comments_result_model.dart';
+import '../../../data/models/customer/comments_result_model.dart';
 import 'comment_list_item.dart';
 
 class CommentList extends StatelessWidget {

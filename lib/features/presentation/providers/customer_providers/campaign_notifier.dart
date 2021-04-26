@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/campaign_result_model.dart';
+import '../../../data/models/customer/campaign_result_model.dart';
 import '../../../data/repositories/customer_campaign_repository.dart';
 
 class CampaignNotifier extends ChangeNotifier {

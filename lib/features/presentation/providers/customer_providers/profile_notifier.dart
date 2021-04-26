@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/customer_profile_result_model.dart';
+import '../../../data/models/customer/customer_profile_result_model.dart';
 import '../../../data/repositories/customer_repository.dart';
 
 class ProfileNotifier extends ChangeNotifier {

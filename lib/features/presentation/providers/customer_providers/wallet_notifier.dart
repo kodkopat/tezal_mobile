@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/wallet_detail_result_model.dart';
-import '../../../data/models/wallet_info_result_model.dart';
+import '../../../data/models/customer/wallet_detail_result_model.dart';
+import '../../../data/models/customer/wallet_info_result_model.dart';
 import '../../../data/repositories/customer_wallet_repository.dart';
 
 class WalletNotifier extends ChangeNotifier {

@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/customer_profile_result_model.dart';
+import '../../../../data/models/customer/customer_profile_result_model.dart';
 
 class ProfileInfoBox extends StatelessWidget {
   const ProfileInfoBox({

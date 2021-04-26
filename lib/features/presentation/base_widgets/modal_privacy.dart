@@ -11,7 +11,7 @@ import '../../../core/styles/txt_styles.dart';
 import '../../../core/themes/app_theme.dart';
 import '../../../core/widgets/custom_future_builder.dart';
 import '../../../core/widgets/loading.dart';
-import '../../data/models/agreement_result_model.dart';
+import '../../data/models/customer/agreement_result_model.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../customer_widgets/simple_app_bar.dart';
 

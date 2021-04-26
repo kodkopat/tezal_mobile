@@ -9,9 +9,9 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_basket/customer_basket_local_data_source.dart';
 import '../data_sources/customer_basket/customer_basket_remote_data_source.dart';
-import '../models/base_api_result_model.dart';
-import '../models/basket_result_model.dart';
-import '../models/payment_info_result_model.dart';
+import '../models/customer/base_api_result_model.dart';
+import '../models/customer/basket_result_model.dart';
+import '../models/customer/payment_info_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerBasketRepository {

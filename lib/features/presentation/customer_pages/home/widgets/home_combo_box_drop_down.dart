@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/addresses_result_model.dart';
+import '../../../../data/models/customer/addresses_result_model.dart';
 import '../../../providers/customer_providers/address_notifier.dart';
 import 'home_combo_box_drop_down_item.dart';
 

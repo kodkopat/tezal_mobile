@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/market_detail_result_model.dart';
+import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 
 class MarketDetailNotifier extends ChangeNotifier {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/models/order_detail_result_model.dart';
+import '../../../data/models/customer/base_api_result_model.dart';
+import '../../../data/models/customer/order_detail_result_model.dart';
 import '../../../data/repositories/customer_order_repository.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 

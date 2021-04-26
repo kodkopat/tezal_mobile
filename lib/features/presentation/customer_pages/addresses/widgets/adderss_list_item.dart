@@ -6,7 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../../../data/models/addresses_result_model.dart';
+import '../../../../data/models/customer/addresses_result_model.dart';
 
 class AddressListItem extends StatelessWidget {
   const AddressListItem({

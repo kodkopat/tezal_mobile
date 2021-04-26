@@ -2,10 +2,10 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/base_api_result_model.dart';
-import '../../models/older_orders_result_model.dart';
-import '../../models/order_detail_result_model.dart';
-import '../../models/order_result_model.dart';
+import '../../models/customer/base_api_result_model.dart';
+import '../../models/customer/older_orders_result_model.dart';
+import '../../models/customer/order_detail_result_model.dart';
+import '../../models/customer/order_result_model.dart';
 
 part 'customer_order_remote_data_source.g.dart';
 

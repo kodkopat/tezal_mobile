@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/nearby_markets_result_model.dart';
+import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 
 class MarketNotifier extends ChangeNotifier {
