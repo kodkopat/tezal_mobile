@@ -16,20 +16,22 @@ abstract class AuthRemoteDataSource {
   factory AuthRemoteDataSource(Dio dio, {String? baseUrl}) =
       _AuthRemoteDataSource;
 
-  @POST("User/Login")
+  static const _apiUrlPrefix = "User";
+
+  @POST("$_apiUrlPrefix/Login")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LoginResultModel> login(
     @Field() String username,
     @Field() String password,
   );
 
-  @POST("User/CheckToken")
+  @POST("$_apiUrlPrefix/CheckToken")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CheckTokenResultModel> checkToken(
     @Field() String token,
   );
 
-  @POST("User/Register")
+  @POST("$_apiUrlPrefix/Register")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<RegisterResultModel> register(
     @Field("Name") String name,
@@ -37,20 +39,20 @@ abstract class AuthRemoteDataSource {
     @Field("Password") String pass,
   );
 
-  @POST("User/ConfirmRegistration")
+  @POST("$_apiUrlPrefix/ConfirmRegistration")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CheckSmsResultModel> confirmRegistration(
     @Field() String id,
     @Field() String sms,
   );
 
-  @GET("User/ResetPasswordRequest")
+  @GET("$_apiUrlPrefix/ResetPasswordRequest")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> resetPasswordRequest(
     @Query("Phone") String phone,
   );
 
-  @GET("User/ResetPassword")
+  @GET("$_apiUrlPrefix/ResetPassword")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> resetPassword(
     @Query("Phone") String phone,
@@ -59,11 +61,11 @@ abstract class AuthRemoteDataSource {
     @Query("PasswordRepeat") String passwordRepeat,
   );
 
-  @GET("User/getPrivacyText")
+  @GET("$_apiUrlPrefix/getPrivacyText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AgreementResultModel> getPrivacyText();
 
-  @GET("User/getRulesText")
+  @GET("$_apiUrlPrefix/getRulesText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AgreementResultModel> getRulesText();
 }

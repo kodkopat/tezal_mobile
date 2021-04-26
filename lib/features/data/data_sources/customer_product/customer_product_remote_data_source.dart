@@ -16,7 +16,9 @@ abstract class CustomerProductRemoteDataSource {
   factory CustomerProductRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerProductRemoteDataSource;
 
-  @GET("Product/GetProductsInSubCategory")
+  static const _apiUrlPrefix = "Product";
+
+  @GET("$_apiUrlPrefix/GetProductsInSubCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getProductsInSubCategory(
     @Header("token") String token,
@@ -24,48 +26,48 @@ abstract class CustomerProductRemoteDataSource {
     @Query("CategoryId") String categoryId,
   );
 
-  @GET("Product/GetDetail")
+  @GET("$_apiUrlPrefix/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductDetailResultModel> getDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("Product/GetPhoto")
+  @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String id,
     @Query("Multi") bool multi,
   );
 
-  @GET("Product/Like")
+  @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("Product/Unlike")
+  @GET("$_apiUrlPrefix/Unlike")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> unlike(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("Product/GetLikedProducts")
+  @GET("$_apiUrlPrefix/GetLikedProducts")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LikedProductsResultModel> getLikedProducts(
     @Header("token") String token,
   );
 
-  @GET("Product/GetComments")
+  @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(
     @Query("productId") String productId,
     @Query("Page") int page,
   );
 
-  @GET("Product/AddComment")
+  @GET("$_apiUrlPrefix/AddComment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> addComment();
 }

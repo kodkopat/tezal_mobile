@@ -12,13 +12,15 @@ abstract class CustomerCampaignRemoteDataSource {
   factory CustomerCampaignRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerCampaignRemoteDataSource;
 
-  @GET("Campaign/Getall")
+  static const _apiUrlPrefix = "Campaign";
+
+  @GET("$_apiUrlPrefix/Getall")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CampaignResultModel> getall(
     @Header("token") String token,
   );
 
-  @GET("Campaign/GetPhoto")
+  @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
     @Query("Id") String campaignId,

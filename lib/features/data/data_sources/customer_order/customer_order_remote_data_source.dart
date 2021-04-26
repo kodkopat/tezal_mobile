@@ -14,7 +14,9 @@ abstract class CustomerOrderRemoteDataSource {
   factory CustomerOrderRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerOrderRemoteDataSource;
 
-  @GET("Order/Save")
+  static const _apiUrlPrefix = "Order";
+
+  @GET("$_apiUrlPrefix/Save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrderResultModel> save(
     @Header("token") String token,
@@ -22,46 +24,46 @@ abstract class CustomerOrderRemoteDataSource {
     @Query("AddressId") String addressId,
   );
 
-  @GET("Order/Cancel")
+  @GET("$_apiUrlPrefix/Cancel")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> cancel(
     @Header("token") String token,
   );
 
-  @GET("Order/Returned")
+  @GET("$_apiUrlPrefix/Returned")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> returned(
     @Header("token") String token,
   );
 
-  @GET("Order/Rate")
+  @GET("$_apiUrlPrefix/Rate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> rate(
     @Header("token") String token,
   );
 
-  @GET("Order/GetOlderOrders")
+  @GET("$_apiUrlPrefix/GetOlderOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OlderOrdersResultModel> getOlderOrders(
     @Header("token") String token,
     @Header("page") int page,
   );
 
-  @GET("Order/GetDetail")
+  @GET("$_apiUrlPrefix/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrderDetailResultModel> getDetail(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("Order/getPayment")
+  @GET("$_apiUrlPrefix/getPayment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getPayment(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @GET("Order/AddToBasket")
+  @GET("$_apiUrlPrefix/AddToBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> addToBasket(
     @Header("token") String token,

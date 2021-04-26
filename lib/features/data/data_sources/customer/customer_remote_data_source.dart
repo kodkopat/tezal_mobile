@@ -13,13 +13,15 @@ abstract class CustomerRemoteDataSource {
   factory CustomerRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerRemoteDataSource;
 
-  @GET("Customer/GetCustomerProfile")
+  static const _apiUrlPrefix = "Customer";
+
+  @GET("$_apiUrlPrefix/GetCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CustomerProfileResultModel> getCustomerProfile(
     @Header("token") String token,
   );
 
-  @POST("Customer/ChangeCustomerProfile")
+  @POST("$_apiUrlPrefix/ChangeCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeCustomerProfile(
     @Header("token") String token,
@@ -28,14 +30,14 @@ abstract class CustomerRemoteDataSource {
     @Field() String photo,
   );
 
-  @GET("Customer/getphoto")
+  @GET("$_apiUrlPrefix/getphoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getPhoto(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
-  @POST("Customer/Share")
+  @POST("$_apiUrlPrefix/Share")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> share(
     @Header("token") String token,

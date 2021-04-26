@@ -13,7 +13,9 @@ abstract class CustomerSearchRemoteDataSource {
   factory CustomerSearchRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerSearchRemoteDataSource;
 
-  @GET("Search/Search")
+  static const _apiUrlPrefix = "Search";
+
+  @GET("$_apiUrlPrefix/Search")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SearchResultModel> search(
     @Header("token") String token,
@@ -23,7 +25,7 @@ abstract class CustomerSearchRemoteDataSource {
     @Query("Term") String term,
   );
 
-  @GET("Search/GetSearchTerms")
+  @GET("$_apiUrlPrefix/GetSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SearchTermsResultModel> getSearchTerms(
     @Header("token") String token,
@@ -32,7 +34,7 @@ abstract class CustomerSearchRemoteDataSource {
     @Header("longitude") String longitude,
   );
 
-  @GET("Search/ClearSearchTerms")
+  @GET("$_apiUrlPrefix/ClearSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> clearSearchTerms(
     @Header("token") String token,

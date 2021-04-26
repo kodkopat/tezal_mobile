@@ -13,27 +13,29 @@ abstract class CustomerWalletRemoteDataSource {
   factory CustomerWalletRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerWalletRemoteDataSource;
 
-  @GET("Wallet/GetWalletInfo")
+  static const _apiUrlPrefix = "Wallet";
+
+  @GET("$_apiUrlPrefix/GetWalletInfo")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletInfoResultModel> getWalletInfo(
     @Header("token") String token,
   );
 
-  @GET("Wallet/GetWalletDetail")
+  @GET("$_apiUrlPrefix/GetWalletDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletDetailResultModel> getWalletDetail(
     @Header("token") String token,
     @Query("page") int page,
   );
 
-  @GET("Wallet/LoadBalance")
+  @GET("$_apiUrlPrefix/LoadBalance")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletLoadBalanceResultModel> loadBalance(
     @Header("token") String token,
     @Query("amount") double amount,
   );
 
-  @GET("Wallet/LoadBalanceConfirmation")
+  @GET("$_apiUrlPrefix/LoadBalanceConfirmation")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletLoadBalanceResultModel> loadBalanceConfirmation(
     @Header("token") String token,

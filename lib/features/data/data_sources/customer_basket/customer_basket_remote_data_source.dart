@@ -13,32 +13,34 @@ abstract class CustomerBasketRemoteDataSource {
   factory CustomerBasketRemoteDataSource(Dio dio, {String? baseUrl}) =
       _CustomerBasketRemoteDataSource;
 
-  @GET("Basket/EmptyBasket")
+  static const _apiUrlPrefix = "Basket";
+
+  @GET("$_apiUrlPrefix/EmptyBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> emptyBasket(
     @Header("token") String token,
   );
 
-  @GET("Basket/GetBasket")
+  @GET("$_apiUrlPrefix/GetBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BasketResultModel> getBasket(
     @Header("token") String token,
   );
 
-  @GET("Basket/GetPaymentInfo")
+  @GET("$_apiUrlPrefix/GetPaymentInfo")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PaymentInfoResultModel> getPaymentInfo(
     @Header("token") String token,
   );
 
-  @GET("Basket/SelectAddress")
+  @GET("$_apiUrlPrefix/SelectAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> selectAddress(
     @Header("token") String token,
     @Query("Id") String addressId,
   );
 
-  @POST("Basket/AddProductToBasket")
+  @POST("$_apiUrlPrefix/AddProductToBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> addProductToBasket(
     @Header("token") String token,
@@ -46,7 +48,7 @@ abstract class CustomerBasketRemoteDataSource {
     @Field() int amount,
   );
 
-  @POST("Basket/RemoveProductFromBasket")
+  @POST("$_apiUrlPrefix/RemoveProductFromBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeProductFromBasket(
     @Header("token") String token,
@@ -54,13 +56,13 @@ abstract class CustomerBasketRemoteDataSource {
     @Field() int amount,
   );
 
-  @GET("Basket/getBasketCount")
+  @GET("$_apiUrlPrefix/getBasketCount")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> getBasketCount(
     @Header("token") String token,
   );
 
-  @GET("Basket/UpdateBasket")
+  @GET("$_apiUrlPrefix/UpdateBasket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> updateBasket(
     @Header("token") String token,
