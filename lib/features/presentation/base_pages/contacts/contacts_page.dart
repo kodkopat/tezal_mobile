@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/contacts_notifier.dart';
+import '../../providers/base_providers/contacts_notifier.dart';
 import 'widgets/contact_list.dart';
 
 class ContactsPage extends StatelessWidget {

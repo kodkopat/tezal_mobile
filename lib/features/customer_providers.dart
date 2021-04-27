@@ -15,7 +15,6 @@ import 'presentation/providers/customer_providers/address_notifier.dart';
 import 'presentation/providers/customer_providers/basket_notifier.dart';
 import 'presentation/providers/customer_providers/campaign_notifier.dart';
 import 'presentation/providers/customer_providers/category_notifier.dart';
-import 'presentation/providers/customer_providers/contacts_notifier.dart';
 import 'presentation/providers/customer_providers/liked_product_notifier.dart';
 import 'presentation/providers/customer_providers/market_notifier.dart';
 import 'presentation/providers/customer_providers/order_notifier.dart';
@@ -24,9 +23,6 @@ import 'presentation/providers/customer_providers/search_notifier.dart';
 import 'presentation/providers/customer_providers/wallet_notifier.dart';
 
 List<SingleChildWidget> customerProviders = [
-  ChangeNotifierProvider(
-    create: (ctx) => ContactsNotifier(),
-  ),
   ChangeNotifierProvider(
     create: (ctx) => CampaignNotifier(
       CustomerCampaignRepository(),

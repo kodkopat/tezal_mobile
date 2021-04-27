@@ -66,7 +66,7 @@ class _ContactListItemState extends State<ContactListItem>
                         ..maxLines(3),
                     ),
                     Txt(
-                      _generateContactNumber(),
+                      "${widget.contact.phones.first.number}",
                       style: AppTxtStyles().footNote
                         ..textAlign.start()
                         ..textColor(Colors.black54),
@@ -88,15 +88,6 @@ class _ContactListItemState extends State<ContactListItem>
         ],
       ),
     );
-  }
-
-  String _generateContactNumber() {
-    String numbers = "";
-    widget.contact.phones.forEach((element) {
-      numbers = numbers + "${element.number}\n";
-    });
-
-    return numbers;
   }
 
   @override
