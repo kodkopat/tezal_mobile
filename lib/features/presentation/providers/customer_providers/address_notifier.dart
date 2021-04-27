@@ -28,6 +28,7 @@ class AddressNotifier extends ChangeNotifier {
   final CustomerAddressRepository customerAddressRepo;
 
   String? selectedOrderAddressId;
+  Address? defaultAddress;
 
   bool listLoading = true;
   String? listErrorMsg;
@@ -66,6 +67,7 @@ class AddressNotifier extends ChangeNotifier {
         addressList = addressesResultModel!.data;
         addressList!.forEach((e) {
           if (e.isDefault) {
+            defaultAddress = e;
             selectedOrderAddressId = e.id;
           }
         });
@@ -121,7 +123,15 @@ class AddressNotifier extends ChangeNotifier {
     );
     result.fold(
       (left) => null,
-      (right) => refresh(),
+      (right) {
+        if (defaultAddress != null) {
+          if (defaultAddress!.id == addressId) {
+            defaultAddress = null;
+          }
+        }
+
+        refresh();
+      },
     );
   }
 
