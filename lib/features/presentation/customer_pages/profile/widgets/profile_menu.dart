@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -114,10 +113,8 @@ class _ProfileMenu {
                     var secureStorage = FlutterSecureStorage();
                     await secureStorage.deleteAll();
 
-                    var basketNotifier = Provider.of<BasketNotifier>(
-                      context,
-                      listen: false,
-                    );
+                    var basketNotifier =
+                        Provider.of<BasketNotifier>(context, listen: false);
 
                     basketNotifier.refresh();
 
@@ -126,7 +123,8 @@ class _ProfileMenu {
                       "/",
                       navigationType: NavigationType.pushReplace,
                     );
-                    Phoenix.rebirth(context);
+
+                    // Phoenix.rebirth(context);
                   },
                   onDiscard: () {
                     Routes.sailor.pop();

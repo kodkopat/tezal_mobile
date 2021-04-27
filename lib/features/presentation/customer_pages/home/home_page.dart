@@ -101,14 +101,19 @@ class HomePage extends StatelessWidget {
                             .updateNearByMarkets();
                         return Future<void>.value();
                       },
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            HomeComboBox(),
-                            campaignsConsumer,
-                            marketsConsumer,
-                          ],
-                        ),
+                      child: Stack(
+                        children: [
+                          SingleChildScrollView(
+                            padding: EdgeInsets.only(top: 48),
+                            child: Column(
+                              children: [
+                                campaignsConsumer,
+                                marketsConsumer,
+                              ],
+                            ),
+                          ),
+                          HomeComboBox(),
+                        ],
                       ),
                     ),
                   );

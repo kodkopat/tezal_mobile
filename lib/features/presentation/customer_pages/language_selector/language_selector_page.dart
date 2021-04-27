@@ -1,6 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +97,7 @@ class _LanguagesSelectorPageState extends State<LanguagesSelectorPage> {
                           "/",
                           navigationType: NavigationType.pushReplace,
                         );
-                        Phoenix.rebirth(context);
+                        // Phoenix.rebirth(context);
                       },
                       background: AppTheme.customerPrimary,
                       textColor: Colors.white,

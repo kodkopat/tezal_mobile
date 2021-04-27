@@ -3,7 +3,6 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../providers/customer_providers/address_notifier.dart';
 import 'home_combo_box_drop_down.dart';
@@ -13,22 +12,24 @@ class HomeComboBox extends StatelessWidget {
   Widget build(BuildContext context) {
     var consumer = Consumer<AddressNotifier>(
       builder: (context, provider, child) {
-        if (provider.addressesResultModel == null &&
-            provider.listErrorMsg == null) {
+        if (provider.addressList == null) {
           provider.fetchAddresses();
         }
 
         return provider.listLoading
             ? AppLoading()
-            : provider.listErrorMsg != null
-                ? SizedBox()
-                : provider.addressList!.isEmpty
-                    ? Txt("لیست آدرس‌های شما خالی است",
-                        style: AppTxtStyles().body..alignment.center())
-                    : HomeComboBoxDropDown(
-                        addresses: provider.addressList!,
-                        addressNotifier: provider,
-                      );
+            : provider.addressList == null
+                ? provider.listErrorMsg == null
+                    ? SizedBox()
+                    : SizedBox()
+                : HomeComboBoxDropDown(
+                    addresses: provider.addressList!,
+                    defaultAddress: provider.defaultAddress,
+                    addressNotifier: provider,
+                  );
+
+        // Txt("لیست آدرس‌های شما خالی است",
+        //       style: AppTxtStyles().body..alignment.center())
       },
     );
 
