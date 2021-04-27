@@ -65,7 +65,7 @@ dependencies:
   # used to: currency format
   intl: ^0.17.0
   # used to: restart services
-  flutter_phoenix: ^1.0.0
+  # flutter_phoenix: ^1.0.0
   # used to: access user contacts
   flutter_contacts: ^1.0.0
   # used to: tuple
