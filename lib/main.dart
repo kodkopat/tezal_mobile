@@ -4,7 +4,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'app_localizations.dart';
-import 'core/page_routes/routes.dart';
+import 'core/page_routes/base_routes.dart';
+import 'core/page_routes/customer_routes.dart' as customer_routes;
+import 'core/page_routes/delivery_routes.dart' as delivery_routes;
+import 'core/page_routes/market_routes.dart' as market_routes;
 import 'features/base_providers.dart';
 import 'features/customer_providers.dart';
 import 'features/data/repositories/auth_repository.dart';
@@ -19,10 +22,10 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
   ]); // prevent application rotation
 
-  Routes.createRoutes();
-  Routes.createCustomerRoutes();
-  Routes.createMarketRoutes();
-  Routes.createDeliveryRoutes();
+  createBaseRoutes(Routes.sailor);
+  customer_routes.createCustomerRoutes(Routes.sailor);
+  delivery_routes.createDeliveryRoutes(Routes.sailor);
+  market_routes.createMarketRoutes(Routes.sailor);
 
   runApp(
     App(),
