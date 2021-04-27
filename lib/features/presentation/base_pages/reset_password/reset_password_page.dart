@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
@@ -84,8 +83,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ActionBtn(
                         text: "ثبت درخواست",
                         onTap: onSubmitBtnTap,
-                        background: AppTheme.customerPrimary,
-                        textColor: Colors.white,
                       ),
                       const SizedBox(height: 16),
                       Visibility(

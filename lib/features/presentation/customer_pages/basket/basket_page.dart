@@ -3,9 +3,8 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/languages/laguages.dart';
+import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
@@ -24,7 +23,7 @@ class BasketPage extends StatelessWidget {
         }
 
         return provider.loading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.basketItemList == null
                 ? provider.errorMsg == null
                     ? _basketEmptyState()

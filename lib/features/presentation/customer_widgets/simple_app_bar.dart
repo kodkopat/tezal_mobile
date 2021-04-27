@@ -3,9 +3,8 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/page_routes/routes.dart';
+import '../../../core/page_routes/base_routes.dart';
 import '../../../core/styles/txt_styles.dart';
-import '../../../core/themes/app_theme.dart';
 import '../customer_pages/basket/basket_page.dart';
 import '../providers/customer_providers/basket_notifier.dart';
 
@@ -47,7 +46,7 @@ class SimpleAppBar {
       title: Txt(
         text,
         style: AppTxtStyles().subHeading
-          ..textColor(AppTheme.white)
+          ..textColor(Colors.white)
           ..textOverflow(TextOverflow.ellipsis)
           ..maxLines(1)
           ..bold(),
@@ -92,7 +91,7 @@ class SimpleAppBar {
                           ..height(16)
                           ..padding(horizontal: 4, top: 1)
                           ..borderRadius(all: 8)
-                          ..background.color(AppTheme.customerAccent)
+                          ..background.color(Theme.of(context).accentColor)
                           ..fontSize(10)
                           ..bold()
                           ..textColor(Colors.white)

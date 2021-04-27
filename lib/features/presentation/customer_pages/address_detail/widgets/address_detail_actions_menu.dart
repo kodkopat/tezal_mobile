@@ -4,7 +4,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
-import '../../../../../core/page_routes/routes.dart';
+import '../../../../../core/page_routes/base_routes.dart';
 import '../../../providers/customer_providers/address_notifier.dart';
 import '../../address_save/address_save_page.dart';
 import 'address_detail_actions_menu_item.dart';

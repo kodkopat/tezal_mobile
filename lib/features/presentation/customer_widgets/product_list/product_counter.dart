@@ -78,7 +78,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                 Expanded(
                   flex: 2,
                   child: loading
-                      ? AppLoading(color: Colors.black, size: 16)
+                      ? AppLoading(size: 16)
                       : Txt(
                           (counter).toStringAsFixed(
                                   widget.step is double ? 1 : 0) +

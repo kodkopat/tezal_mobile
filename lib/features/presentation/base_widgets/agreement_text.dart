@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/themes/app_theme.dart';
 import 'modal_privacy.dart';
 import 'modal_rules.dart';
 
@@ -27,7 +26,7 @@ class AgreementText extends StatelessWidget {
           ),
           TextSpan(
             text: " شرایط و قوانین ",
-            style: textStyle.copyWith(color: AppTheme.customerPrimary),
+            style: textStyle.copyWith(color: Theme.of(context).primaryColor),
             recognizer: TapGestureRecognizer()
               ..onTap = () => onRulesTap(context),
           ),
@@ -37,7 +36,7 @@ class AgreementText extends StatelessWidget {
           ),
           TextSpan(
             text: " حریم خصوصی ",
-            style: textStyle.copyWith(color: AppTheme.customerPrimary),
+            style: textStyle.copyWith(color: Theme.of(context).primaryColor),
             recognizer: TapGestureRecognizer()
               ..onTap = () => onPrivacyTap(context),
           ),

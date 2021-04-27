@@ -11,7 +11,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../services/location.dart';
-import '../themes/app_theme.dart';
 import 'loading.dart';
 
 class MapBox extends StatefulWidget {
@@ -115,7 +114,7 @@ class _MapBoxState extends State<MapBox> {
             Radius.circular(8),
           ),
           child: loading
-              ? AppLoading(color: AppTheme.customerPrimary)
+              ? AppLoading()
               : GoogleMap(
                   mapType: MapType.normal,
                   initialCameraPosition: initialLocation,

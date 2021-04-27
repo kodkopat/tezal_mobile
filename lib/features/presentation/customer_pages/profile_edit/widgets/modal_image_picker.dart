@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../../../core/page_routes/routes.dart';
+import '../../../../../core/page_routes/base_routes.dart';
 import 'image_picker_list_item.dart';
 
 class ImagePickerModal extends StatelessWidget {

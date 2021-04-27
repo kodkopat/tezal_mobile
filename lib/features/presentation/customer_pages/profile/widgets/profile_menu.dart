@@ -8,12 +8,12 @@ import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
-import '../../../../../core/languages/laguages.dart';
-import '../../../../../core/page_routes/routes.dart';
+import '../../../../../core/languages/language.dart';
+import '../../../../../core/page_routes/base_routes.dart';
+import '../../../base_pages/about_us/about_us_page.dart';
+import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
-import '../../about_us/about_us_page.dart';
 import '../../addresses/addresses_page.dart';
-import '../../contacts/contacts_page.dart';
 import '../../liked_products/liked_products_page.dart';
 import '../../orders/orders_page.dart';
 import '../../settings/settings_page.dart';

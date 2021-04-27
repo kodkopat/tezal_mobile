@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
-import '../../core/page_routes/routes.dart';
+import '../../core/page_routes/base_routes.dart';
 import '../../core/styles/txt_styles.dart';
 import '../themes/app_theme.dart';
 

@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../customer_pages/product_detail/product_detail_page.dart';

@@ -4,11 +4,11 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:tezal/core/page_routes/routes.dart';
-import 'package:tezal/core/themes/app_theme.dart';
-import 'package:tezal/core/widgets/action_btn.dart';
 
+import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/services/location.dart';
+import '../../../../../core/themes/app_theme.dart';
+import '../../../../../core/widgets/action_btn.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../customer_widgets/simple_app_bar.dart';
 

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
@@ -30,7 +29,7 @@ class OrderDetailPage extends StatelessWidget {
         }
 
         return provider.orderDetailLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.orderDetailResultModel == null
                 ? provider.orderDetailErrorMsg == null
                     ? Txt("خطای بارگذاری جزئیات سفارش",

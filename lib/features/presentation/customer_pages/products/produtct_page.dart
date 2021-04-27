@@ -3,9 +3,8 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/product_list/product_vertical_list_.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -35,7 +34,7 @@ class ProductsPage extends StatelessWidget {
         }
 
         return provider.productsLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.products == null
                 ? provider.productsErrorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../providers/customer_providers/address_notifier.dart';
 import 'home_combo_box_drop_down.dart';
@@ -20,7 +19,7 @@ class HomeComboBox extends StatelessWidget {
         }
 
         return provider.listLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.listErrorMsg != null
                 ? SizedBox()
                 : provider.addressList!.isEmpty

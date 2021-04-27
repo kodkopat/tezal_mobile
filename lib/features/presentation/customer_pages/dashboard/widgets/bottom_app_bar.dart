@@ -2,9 +2,8 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/languages/laguages.dart';
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/themes/app_theme.dart';
 import '../../basket/basket_page.dart';
 import '../../home/home_page.dart';
 import '../../profile/profile_page.dart';
@@ -41,8 +40,8 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
           children: _BottomNavigationBarList.items(context).map(
             (item) {
               var color = item.index == currentIndex
-                  ? AppTheme.customerPrimary
-                  : AppTheme.black;
+                  ? Theme.of(context).primaryColor
+                  : Colors.black;
 
               var iconPath = item.index == currentIndex
                   ? item.activeIconPath

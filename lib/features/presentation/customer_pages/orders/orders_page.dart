@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -23,7 +22,7 @@ class OrdersPage extends StatelessWidget {
         }
 
         return provider.olderOrdersLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.olderOrders == null
                 ? provider.olderOrdersErrorMsg == null
                     ? Txt("لیست سفارشات شما خالی است",

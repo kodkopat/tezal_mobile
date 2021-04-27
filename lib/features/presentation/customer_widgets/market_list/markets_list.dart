@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_pages/market_detail/market_detail_page.dart';

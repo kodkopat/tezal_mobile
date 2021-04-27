@@ -2,9 +2,9 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tezal/core/languages/laguages.dart';
+import 'package:tezal/core/languages/language.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -32,7 +32,7 @@ class ProfilePage extends StatelessWidget {
         }
 
         return provider.loading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.customerProfile == null
                 ? provider.errorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات", style: AppTxtStyles().body)
@@ -55,7 +55,7 @@ class ProfilePage extends StatelessWidget {
         successBuilder: (context, data) {
           print("userToken= $data\n");
           if (data == null || data.isEmpty) {
-            return _basketEmptyState();
+            return _profileEmptyState();
           } else {
             return SingleChildScrollView(
               child: Column(
@@ -68,13 +68,13 @@ class ProfilePage extends StatelessWidget {
           }
         },
         errorBuilder: (context, error) {
-          return AppLoading(color: AppTheme.customerPrimary);
+          return AppLoading();
         },
       ),
     );
   }
 
-  Widget _basketEmptyState() {
+  Widget _profileEmptyState() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 24),
       child: Column(

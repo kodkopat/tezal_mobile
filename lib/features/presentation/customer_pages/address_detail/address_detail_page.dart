@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/address_notifier.dart';
@@ -28,7 +27,7 @@ class AddressDetailPage extends StatelessWidget {
         }
 
         return provider.detailLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.detailErrorMsg != null
                 ? Txt(
                     provider.detailErrorMsg!,

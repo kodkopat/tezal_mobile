@@ -83,7 +83,7 @@ class LocationErrorModal extends StatelessWidget {
                       ..background.color(AppTheme.customerPrimary)
                       ..ripple(
                         true,
-                        splashColor: AppTheme.red.withOpacity(0.1),
+                        splashColor: Colors.green.withOpacity(0.1),
                       ),
                     child: Txt(
                       "تلاش مجدد",

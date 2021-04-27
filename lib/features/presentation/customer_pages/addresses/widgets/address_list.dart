@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/page_routes/routes.dart';
+import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../data/models/customer/addresses_result_model.dart';
 import '../../address_detail/address_detail_page.dart';
 import 'adderss_list_item.dart';

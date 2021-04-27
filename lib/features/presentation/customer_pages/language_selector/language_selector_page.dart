@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:sailor/sailor.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';

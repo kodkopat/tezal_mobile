@@ -7,9 +7,8 @@ import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
 import '../../../../core/exceptions/failure.dart';
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/carousel_image_slider.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
@@ -54,7 +53,7 @@ class ProductDetailPage extends StatelessWidget {
         }
 
         return provider.productLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.productDetails == null
                 ? provider.productErrorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
@@ -318,7 +317,7 @@ class ProductDetailPage extends StatelessWidget {
         );
       },
       errorBuilder: (context, data) {
-        return AppLoading(color: AppTheme.customerPrimary);
+        return AppLoading();
       },
     );
   }

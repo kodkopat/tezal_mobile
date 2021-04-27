@@ -3,13 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AppLoading extends StatelessWidget {
-  AppLoading({
-    this.size,
-    this.color,
-  });
+  AppLoading({this.size});
 
   final double? size;
-  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +15,7 @@ class AppLoading extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return DecoratedBox(
             decoration: BoxDecoration(
-              color: color ?? Colors.white,
+              color: Theme.of(context).primaryColor,
               shape: BoxShape.circle,
             ),
           );

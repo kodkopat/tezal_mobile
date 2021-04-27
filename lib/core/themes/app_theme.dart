@@ -9,33 +9,26 @@ class AppTheme {
   final BuildContext context;
   final bool isDarkTheme;
 
-  static final red = Color(0xffFF6161);
-  static final green = Color(0xff16C682);
-  static final blue = Color(0xff3D74FA);
-  static final yellow = Color(0xffF9C158);
-  static final black = Color(0xff000000);
-  static final white = Color(0xffFFFFFF);
-
   static final icons = Color(0xff4F4F4F);
   static final headTitle = Color(0xff4F4F4F);
   static final subTitle = Color(0xff828282);
   static final forms = Color(0xffE0E0E0);
   static final separator = Color(0xffF4F4F4);
 
-  static final customerPrimary = Color(0xff65AF47);
-  static final customerPrimaryDark = Color(0xff65AF47);
-  static final customerPrimaryLight = Color(0xff8EC443);
-  static final customerAccent = Color(0xffFE9429);
+  static final customerPrimary = Colors.green;
+  static final customerPrimaryDark = Colors.green[700];
+  static final customerPrimaryLight = Colors.green[400];
+  static final customerAccent = Colors.orange;
 
-  static final marketPrimary = Color(0xff2424DA);
-  static final marketPrimaryDark = Color(0xff2424DA);
-  static final marketPrimaryLight = Color(0xff2424DA);
-  static final marketAccent = Color(0xff2424DA);
+  static final marketPrimary = Colors.blue;
+  static final marketPrimaryDark = Colors.blue[700];
+  static final marketPrimaryLight = Colors.blue[400];
+  static final marketAccent = Colors.orange;
 
-  static final deliveryPrimary = Color(0xff4B38D3);
-  static final deliveryPrimaryDark = Color(0xff4B38D3);
-  static final deliveryPrimaryLight = Color(0xff4B38D3);
-  static final deliveryAccent = Color(0xff4B38D3);
+  static final deliveryPrimary = Colors.purple;
+  static final deliveryPrimaryDark = Colors.purple[700];
+  static final deliveryPrimaryLight = Colors.purple[400];
+  static final deliveryAccent = Colors.orange;
 
   static ThemeData customerThemeData(String fontFamily) => ThemeData(
         fontFamily: fontFamily,

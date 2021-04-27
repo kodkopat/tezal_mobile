@@ -8,7 +8,6 @@ import 'package:flutter_html/flutter_html.dart';
 
 import '../../../core/exceptions/failure.dart';
 import '../../../core/styles/txt_styles.dart';
-import '../../../core/themes/app_theme.dart';
 import '../../../core/widgets/custom_future_builder.dart';
 import '../../../core/widgets/loading.dart';
 import '../../data/models/customer/agreement_result_model.dart';
@@ -43,7 +42,7 @@ class RulesModal extends StatelessWidget {
             );
           },
           errorBuilder: (context, error) {
-            return AppLoading(color: AppTheme.customerPrimary);
+            return AppLoading();
           },
         ),
       ),

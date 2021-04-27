@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
@@ -27,7 +26,7 @@ class ProductCommentsPage extends StatelessWidget {
         }
 
         return provider.productCommentsLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.productComments == null
                 ? provider.productCommentsErrorMsg == null
                     ? Txt("لیست نظرات خالی است",

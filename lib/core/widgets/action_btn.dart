@@ -3,7 +3,6 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/styles/txt_styles.dart';
-import '../../core/themes/app_theme.dart';
 
 class ActionBtn extends StatelessWidget {
   ActionBtn({
@@ -28,9 +27,9 @@ class ActionBtn extends StatelessWidget {
       style: AppTxtStyles().body
         ..bold()
         ..height(height ?? 48)
-        ..textColor(textColor ?? AppTheme.white)
+        ..textColor(textColor ?? Colors.white)
         ..alignmentContent.center(true)
-        ..background.color(background ?? AppTheme.red)
+        ..background.color(background ?? Colors.green)
         ..borderRadius(all: 12)
         ..boxShadow(
           color: Colors.black.withOpacity(0.2),

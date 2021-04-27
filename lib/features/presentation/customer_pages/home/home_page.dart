@@ -3,9 +3,8 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/languages/laguages.dart';
+import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_location_error.dart';
@@ -34,7 +33,7 @@ class HomePage extends StatelessWidget {
         }
 
         return provider.campaignLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.campaigns == null
                 ? provider.campaignErrorMsg == null
                     ? Txt("خطای بارگذاری لیست",
@@ -52,7 +51,7 @@ class HomePage extends StatelessWidget {
         }
 
         return provider.nearByMarketsLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.nearByMarkets == null
                 ? provider.nearByMarketsErrorMsg == null
                     ? Txt("خطای بارگذاری لیست",
@@ -83,7 +82,7 @@ class HomePage extends StatelessWidget {
         }
 
         return provider.loading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.currentLocation == null
                 ? LocationErrorModal(
                     onTryAgainBtnTap: () {

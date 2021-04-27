@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -27,7 +27,7 @@ class WalletPage extends StatelessWidget {
         }
 
         return provider.infoLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.walletInfoResultModel == null
                 ? provider.infoErrorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
@@ -72,7 +72,7 @@ class WalletPage extends StatelessWidget {
         }
 
         return provider.detailLoading
-            ? AppLoading(color: AppTheme.customerPrimary)
+            ? AppLoading()
             : provider.walletDetailList == null
                 ? provider.detailErrorMsg == null
                     ? Txt("لیست تراکنش‌های شما خالی است",

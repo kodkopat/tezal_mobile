@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:sailor/sailor.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../features/presentation/base_pages/encourage_login/encourage_login_page.dart';
 import '../../../data/models/app_user_type.dart';
 import '../../../data/repositories/auth_repository.dart';
-import '../../customer_pages/dashboard/dashboard_page.dart';
+import '../../customer_pages/dashboard/dashboard_page.dart' as customer;
+import '../../market_pages/dashboard/dashboard_page.dart' as market;
 
 class SplashPage extends StatefulWidget {
   static const route = "/";
@@ -42,10 +43,10 @@ class _SplashPageState extends State<SplashPage> {
 
     switch (userType) {
       case AppUserType.Customer:
-        navigationDestination = DashBoardPage.route;
+        navigationDestination = customer.DashBoardPage.route;
         break;
       case AppUserType.Market:
-        // navigationDestination = DashBoardPage.route;
+        navigationDestination = market.DashBoardPage.route;
         break;
       case AppUserType.Delivery:
         // navigationDestination = DashBoardPage.route;

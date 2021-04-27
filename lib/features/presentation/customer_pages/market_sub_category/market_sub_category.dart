@@ -6,9 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/exceptions/failure.dart';
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/sub_category_result_model.dart';
@@ -68,9 +67,7 @@ class MarketSubCategoryPage extends StatelessWidget {
           );
         },
         errorBuilder: (context, error) {
-          return AppLoading(
-            color: AppTheme.customerPrimary,
-          );
+          return AppLoading();
         },
       ),
     );

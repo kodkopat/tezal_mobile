@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_icons/flutter_icons.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:google_map_location_picker/google_map_location_picker.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -207,7 +203,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
         showBackBtn: true,
       ),
       body: loading
-          ? AppLoading(color: AppTheme.customerPrimary)
+          ? AppLoading()
           : Form(
               key: formKey,
               child: SingleChildScrollView(

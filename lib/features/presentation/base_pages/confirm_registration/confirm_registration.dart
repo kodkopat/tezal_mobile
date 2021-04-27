@@ -1,4 +1,5 @@
 import 'dart:async';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,8 @@ import 'package:progress_dialog/progress_dialog.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
-import '../../../../core/page_routes/routes.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -150,8 +150,6 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
                     ActionBtn(
                       text: "تایید",
                       onTap: onSubmitBtnTap,
-                      background: AppTheme.customerPrimary,
-                      textColor: Colors.white,
                     ),
                     Visibility(
                       visible: errorVisibility,

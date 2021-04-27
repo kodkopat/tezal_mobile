@@ -5,7 +5,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:tezal/core/page_routes/routes.dart';
+import 'package:tezal/core/page_routes/base_routes.dart';
 
 import '../styles/txt_styles.dart';
 
