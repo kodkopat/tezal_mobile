@@ -83,6 +83,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       ActionBtn(
                         text: "ثبت درخواست",
                         onTap: onSubmitBtnTap,
+                        background: Theme.of(context).primaryColor,
                       ),
                       const SizedBox(height: 16),
                       Visibility(

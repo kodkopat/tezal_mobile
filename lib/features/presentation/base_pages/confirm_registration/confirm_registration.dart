@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
@@ -14,6 +15,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/app_notifier.dart';
 
 class ConfirmRegistrationPage extends StatefulWidget {
   static const route = "/confirm_registration";
@@ -186,6 +188,10 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
     }, (r) {
       // App.restart(context);
       timer!.cancel();
+
+      var appNotifier = Provider.of<AppNotifier>(context, listen: false);
+      appNotifier.refresh();
+
       Routes.sailor.pop();
       Routes.sailor.navigate(
         "/",

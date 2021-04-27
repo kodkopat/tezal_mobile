@@ -106,6 +106,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ActionBtn(
                         text: "ایجاد حساب کاربری",
                         onTap: onRegisterBtnTap,
+                        background: Theme.of(context).primaryColor,
                       ),
                       const SizedBox(height: 16),
                       Txt(

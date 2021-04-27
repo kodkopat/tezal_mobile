@@ -130,6 +130,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
                         ActionBtn(
                           text: "ثبت",
                           onTap: onSubmitBtnTap,
+                          background: Theme.of(context).primaryColor,
                         ),
                         const SizedBox(height: 16),
                         Visibility(

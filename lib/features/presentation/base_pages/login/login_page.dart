@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
@@ -14,6 +15,7 @@ import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../base_widgets/agreement_text.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/app_notifier.dart';
 import '../registration/registration_page.dart';
 import '../reset_password/reset_password_page.dart';
 
@@ -97,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                       ActionBtn(
                         text: "ورود به حساب کاربری",
                         onTap: onLoginBtnTap,
+                        background: Theme.of(context).primaryColor,
                       ),
                       const SizedBox(height: 16),
                       Row(
@@ -171,8 +174,9 @@ class _LoginPageState extends State<LoginPage> {
         (r) {
           prgDialog!.hide();
 
-          // App.restart(context);
-          Routes.sailor.pop();
+          var appNotifier = Provider.of<AppNotifier>(context, listen: false);
+          appNotifier.refresh();
+
           Routes.sailor.navigate(
             "/",
             navigationType: NavigationType.pushReplace,
