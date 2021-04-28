@@ -16,30 +16,29 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<dynamic> getOrders(token, latitude, longitude) async {
+  Future<MarketOrdersResultModel> getOrders(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Order/GetOrders',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MarketOrdersResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Order/GetOrders',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MarketOrdersResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<dynamic> getOrderSummary(token, latitude, longitude) async {
+  Future<dynamic> getOrderSummary(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -48,9 +47,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -62,7 +59,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getPostOrderSummary(token, latitude, longitude) async {
+  Future<dynamic> getPostOrderSummary(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -71,9 +68,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -85,7 +80,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getOrderDetail(token, latitude, longitude, id) async {
+  Future<dynamic> getOrderDetail(token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -94,9 +89,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -108,7 +101,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> approveOrder(token, latitude, longitude, id) async {
+  Future<dynamic> approveOrder(token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -117,9 +110,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -131,7 +122,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> rejectOrder(token, latitude, longitude, id) async {
+  Future<dynamic> rejectOrder(token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -140,9 +131,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -154,7 +143,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> prepareOrder(token, latitude, longitude, id) async {
+  Future<dynamic> prepareOrder(token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -163,9 +152,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -177,7 +164,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> returnedOrderApprove(token, latitude, longitude, id) async {
+  Future<dynamic> returnedOrderApprove(token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -186,9 +173,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -200,7 +185,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getReturnOrder(token, latitude, longitude) async {
+  Future<dynamic> getReturnOrder(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -209,9 +194,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')

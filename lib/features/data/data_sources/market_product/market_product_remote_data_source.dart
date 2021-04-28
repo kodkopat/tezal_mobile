@@ -16,16 +16,12 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getMainCategories(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 
   @GET("$_apiUrlPrefix/GetSubCategoriesOfCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getSubCategoriesOfCategory(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("mainCategoryId") String mainCategoryId,
   );
 
@@ -33,8 +29,6 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getProductsOfSubCategory(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("subCategoryId") String subCategoryId,
   );
 
@@ -42,16 +36,12 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getMarketProduct(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 
   @POST("$_apiUrlPrefix/AddToProductMarket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> addToProductMarket(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Field() String productId,
     @Field() double amount,
     @Field() double discountRate,
@@ -65,8 +55,6 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> removeMarketProduct(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("marketProductId") String marketProductId,
   );
 
@@ -74,8 +62,6 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> changeProductMarketAmount(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Field() String unknown,
   );
 }

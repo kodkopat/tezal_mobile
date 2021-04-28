@@ -47,7 +47,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getCustomerProfile(token, latitude, longitude) async {
+  Future<dynamic> getCustomerProfile(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -56,9 +56,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -70,8 +68,8 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> changeMarketProfile(token, latitude, longitude, id, name,
-      phone, telephone, email, address) async {
+  Future<dynamic> changeMarketProfile(
+      token, id, name, phone, telephone, email, address) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {
@@ -87,9 +85,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -101,7 +97,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> openCloseMarket(token, latitude, longitude) async {
+  Future<dynamic> openCloseMarket(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -110,9 +106,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -124,7 +118,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> updateMarketDefaultHours(token, latitude, longitude) async {
+  Future<dynamic> updateMarketDefaultHours(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -133,9 +127,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -147,7 +139,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getMarketDefaultHours(token, latitude, longitude) async {
+  Future<dynamic> getMarketDefaultHours(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -156,9 +148,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -170,8 +160,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getMarketPhotos(
-      token, latitude, longitude, photoId, take, skip) async {
+  Future<dynamic> getMarketPhotos(token, photoId, take, skip) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'photoId': photoId,
@@ -184,9 +173,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -198,7 +185,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> addMarketPhoto(token, latitude, longitude, photo) async {
+  Future<dynamic> addMarketPhoto(token, photo) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'photo': photo};
@@ -207,9 +194,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -221,7 +206,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> removeMarketPhoto(token, latitude, longitude, photoId) async {
+  Future<dynamic> removeMarketPhoto(token, photoId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'photoId': photoId};
     final _data = <String, dynamic>{};
@@ -230,9 +215,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')

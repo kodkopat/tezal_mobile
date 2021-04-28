@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/market/market_orders_result_model.dart';
 
 part 'market_order_remote_data_source.g.dart';
 
@@ -14,34 +15,26 @@ abstract class MarketOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getOrders(
+  Future<MarketOrdersResultModel> getOrders(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 
   @GET("$_apiUrlPrefix/GetOrderSummary")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getOrderSummary(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 
   @GET("$_apiUrlPrefix/GetPostOrderSummary")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getPostOrderSummary(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 
   @GET("$_apiUrlPrefix/GetOrderDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getOrderDetail(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("Id") String id,
   );
 
@@ -49,8 +42,6 @@ abstract class MarketOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> approveOrder(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("Id") String id,
   );
 
@@ -58,8 +49,6 @@ abstract class MarketOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> rejectOrder(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("Id") String id,
   );
 
@@ -67,8 +56,6 @@ abstract class MarketOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> prepareOrder(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("Id") String id,
   );
 
@@ -76,8 +63,6 @@ abstract class MarketOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> returnedOrderApprove(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
     @Query("Id") String id,
   );
 
@@ -85,7 +70,5 @@ abstract class MarketOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getReturnOrder(
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 }

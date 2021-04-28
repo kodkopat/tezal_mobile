@@ -16,7 +16,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<dynamic> getMainCategories(token, latitude, longitude) async {
+  Future<dynamic> getMainCategories(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -25,9 +25,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -39,8 +37,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getSubCategoriesOfCategory(
-      token, latitude, longitude, mainCategoryId) async {
+  Future<dynamic> getSubCategoriesOfCategory(token, mainCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'mainCategoryId': mainCategoryId
@@ -51,9 +48,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -65,8 +60,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getProductsOfSubCategory(
-      token, latitude, longitude, subCategoryId) async {
+  Future<dynamic> getProductsOfSubCategory(token, subCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'subCategoryId': subCategoryId};
     final _data = <String, dynamic>{};
@@ -75,9 +69,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -89,7 +81,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getMarketProduct(token, latitude, longitude) async {
+  Future<dynamic> getMarketProduct(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -98,9 +90,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -112,17 +102,8 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> addToProductMarket(
-      token,
-      latitude,
-      longitude,
-      productId,
-      amount,
-      discountRate,
-      discountedPrice,
-      originalPrice,
-      onSale,
-      description) async {
+  Future<dynamic> addToProductMarket(token, productId, amount, discountRate,
+      discountedPrice, originalPrice, onSale, description) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {
@@ -139,9 +120,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -153,8 +132,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> removeMarketProduct(
-      token, latitude, longitude, marketProductId) async {
+  Future<dynamic> removeMarketProduct(token, marketProductId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'marketProductId': marketProductId
@@ -165,9 +143,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
@@ -179,8 +155,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> changeProductMarketAmount(
-      token, latitude, longitude, unknown) async {
+  Future<dynamic> changeProductMarketAmount(token, unknown) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'unknown': unknown};
@@ -189,9 +164,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'token': token,
-              r'latitude': latitude,
-              r'longitude': longitude
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
