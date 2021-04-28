@@ -35,7 +35,7 @@ class MarketSubCategoryListItem extends StatelessWidget {
         ..background.color(Colors.white)
         ..borderRadius(all: 12)
         ..boxShadow(
-          color: Colors.black.withOpacity(0.1),
+          color: Colors.black12,
           offset: Offset(0, 3.0),
           blur: 6,
           spread: 0,

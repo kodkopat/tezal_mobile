@@ -28,9 +28,9 @@ class LocationErrorModal extends StatelessWidget {
         ..background.color(Theme.of(context).cardColor)
         ..boxShadow(
           color: Colors.black12,
-          offset: Offset(0, 3),
-          spread: 1.0,
-          blur: 6.0,
+          offset: Offset(0, 3.0),
+          blur: 6,
+          spread: 0,
         ),
       child: Material(
         color: Colors.transparent,

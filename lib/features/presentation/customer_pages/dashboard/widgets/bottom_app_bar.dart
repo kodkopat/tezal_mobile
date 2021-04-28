@@ -52,10 +52,11 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
                 child: GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    setState(() {
-                      currentIndex = item.index;
-                      widget.onIndexChanged(item.widget);
-                    });
+                    if (currentIndex != item.index)
+                      setState(() {
+                        currentIndex = item.index;
+                        widget.onIndexChanged(item.widget);
+                      });
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
