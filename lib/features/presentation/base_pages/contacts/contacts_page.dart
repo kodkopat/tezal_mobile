@@ -13,6 +13,8 @@ class ContactsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> phoneNumbers = [];
+
     var consumer = Consumer<ContactsNotifier>(
       builder: (context, provider, child) {
         if (provider.contacts == null) {
@@ -25,7 +27,10 @@ class ContactsPage extends StatelessWidget {
                     style: AppTxtStyles().body..alignment.center())
                 : Txt(provider.errorMsg,
                     style: AppTxtStyles().body..alignment.center())
-            : ContactList(contacts: provider.contacts!);
+            : ContactList(
+                contacts: provider.contacts!,
+                phoneNumbers: phoneNumbers,
+              );
       },
     );
 
@@ -34,7 +39,27 @@ class ContactsPage extends StatelessWidget {
         text: "مخاطبین",
         showBackBtn: true,
       ),
-      body: consumer,
+      body: Column(
+        children: [
+          Expanded(child: consumer),
+          Txt(
+            "ارسال",
+            gesture: Gestures()
+              ..onTap(() {
+                print(phoneNumbers.toString());
+              }),
+            style: AppTxtStyles().body
+              ..bold()
+              ..width(MediaQuery.of(context).size.width)
+              ..height(48)
+              ..textAlign.center()
+              ..alignmentContent.center()
+              ..background.color(Theme.of(context).accentColor)
+              ..textColor(Colors.white)
+              ..ripple(true),
+          ),
+        ],
+      ),
     );
   }
 }

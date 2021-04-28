@@ -6,9 +6,13 @@ import 'package:flutter_contacts/flutter_contacts.dart';
 import 'contact_list_item.dart';
 
 class ContactList extends StatelessWidget {
-  ContactList({required this.contacts});
+  ContactList({
+    required this.contacts,
+    required this.phoneNumbers,
+  });
 
   final List<Contact> contacts;
+  final List<String> phoneNumbers;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +22,13 @@ class ContactList extends StatelessWidget {
         var contact = contacts[index];
         return ContactListItem(
           contact: contact,
-          iconPath: "assets/images/ic_user.png",
-          onTap: () {},
+          onValueChanged: (value) {
+            if (value) {
+              phoneNumbers.add(contact.phones.first.number);
+            } else {
+              phoneNumbers.remove(contact.phones.first.number);
+            }
+          },
         );
       },
       separatorBuilder: (context, index) {

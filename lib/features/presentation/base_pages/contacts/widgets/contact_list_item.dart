@@ -9,13 +9,11 @@ import '../../../../../core/themes/app_theme.dart';
 class ContactListItem extends StatefulWidget {
   ContactListItem({
     required this.contact,
-    required this.iconPath,
-    required this.onTap,
+    required this.onValueChanged,
   });
 
   final Contact contact;
-  final String iconPath;
-  final void Function() onTap;
+  final void Function(bool) onValueChanged;
 
   @override
   _ContactListItemState createState() => _ContactListItemState();
@@ -31,10 +29,11 @@ class _ContactListItemState extends State<ContactListItem>
     return Parent(
       gesture: Gestures()
         ..onTap(() {
-          widget.onTap();
           setState(() {
             checked = !checked;
           });
+
+          widget.onValueChanged(checked);
         }),
       style: ParentStyle()
         ..padding(horizontal: 16, vertical: 8)
@@ -47,7 +46,7 @@ class _ContactListItemState extends State<ContactListItem>
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Image.asset(
-                  widget.iconPath,
+                  "assets/images/ic_user.png",
                   fit: BoxFit.contain,
                   color: Colors.black,
                   width: 24,
