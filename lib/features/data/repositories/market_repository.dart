@@ -69,11 +69,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getCustomerProfile(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -92,11 +90,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.changeMarketProfile(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         id,
         name,
         phone,
@@ -114,11 +110,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.openCloseMarket(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -130,11 +124,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.updateMarketDefaultHours(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -146,11 +138,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getMarketDefaultHours(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -166,11 +156,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getMarketPhotos(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         photoId,
         take,
         skip,
@@ -187,11 +175,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.addMarketPhoto(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         photo,
       );
 
@@ -206,11 +192,9 @@ class MarketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.removeMarketPhoto(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         photoId,
       );
 

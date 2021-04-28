@@ -7,9 +7,9 @@ import 'package:dio/dio.dart';
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
-import '../../../core/services/location.dart';
 import '../data_sources/market_order/market_order_local_data_source.dart';
 import '../data_sources/market_order/market_order_remote_data_source.dart';
+import '../models/market/market_orders_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketOrderRepository {
@@ -35,16 +35,14 @@ class MarketOrderRepository {
   final MarketOrderLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, dynamic>> getOrders() async {
+  Future<Either<Failure, MarketOrdersResultModel>> getOrders() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getOrders(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -56,11 +54,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getOrderSummary(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -72,11 +68,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getPostOrderSummary(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -88,11 +82,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getOrderDetail(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         id,
       );
 
@@ -105,11 +97,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.approveOrder(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         id,
       );
 
@@ -122,11 +112,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.rejectOrder(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         id,
       );
 
@@ -139,11 +127,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.prepareOrder(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         id,
       );
 
@@ -157,11 +143,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.returnedOrderApprove(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
         id,
       );
 
@@ -174,11 +158,9 @@ class MarketOrderRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
+
       var result = await _remoteDataSource.getReturnOrder(
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
