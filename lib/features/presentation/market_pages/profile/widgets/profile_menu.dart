@@ -10,6 +10,7 @@ import '../../../../../core/languages/language.dart';
 import '../../../../../core/page_routes/base_routes.dart';
 import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
+import '../../../base_pages/settings/settings_page.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
@@ -46,13 +47,13 @@ class _ProfileMenu {
             Routes.sailor(ContactsPage.route);
           },
         ),
-        /* ProfileMenuItem(
+        ProfileMenuItem(
           text: Lang.of(context).profileMenuItemSettings,
           iconPath: "assets/images/ic_setting.png",
           onTap: () {
             Routes.sailor(SettingsPage.route);
           },
-        ), */
+        ),
         ProfileMenuItem(
           text: Lang.of(context).profileMenuItemAboutUs,
           iconPath: "assets/images/ic_info.png",
