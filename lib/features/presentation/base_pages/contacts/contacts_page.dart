@@ -54,7 +54,7 @@ class ContactsPage extends StatelessWidget {
               ..height(48)
               ..textAlign.center()
               ..alignmentContent.center()
-              ..background.color(Theme.of(context).accentColor)
+              ..background.color(Theme.of(context).primaryColor)
               ..textColor(Colors.white)
               ..ripple(true),
           ),

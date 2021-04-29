@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/themes/app_theme.dart';
 
 class ContactListItem extends StatefulWidget {
   ContactListItem({
@@ -80,7 +79,7 @@ class _ContactListItemState extends State<ContactListItem>
                 ? "assets/images/ic_check_mark_filled.png"
                 : "assets/images/ic_check_mark_empty.png",
             fit: BoxFit.contain,
-            color: checked ? AppTheme.customerAccent : Colors.black,
+            color: checked ? Theme.of(context).primaryColor : Colors.black,
             width: 20,
             height: 20,
           ),
