@@ -9,6 +9,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_order/market_order_local_data_source.dart';
 import '../data_sources/market_order/market_order_remote_data_source.dart';
+import '../models/customer/base_api_result_model.dart';
 import '../models/market/market_orders_result_model.dart';
 import 'auth_repository.dart';
 
@@ -92,7 +93,8 @@ class MarketOrderRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> approveOrder({required String id}) async {
+  Future<Either<Failure, BaseApiResultModel>> approveOrder(
+      {required String id}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -107,7 +109,8 @@ class MarketOrderRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> rejectOrder({required String id}) async {
+  Future<Either<Failure, BaseApiResultModel>> rejectOrder(
+      {required String id}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
