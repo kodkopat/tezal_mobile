@@ -29,7 +29,6 @@ import '../../features/presentation/customer_pages/products/produtct_page.dart';
 import '../../features/presentation/customer_pages/profile/profile_page.dart';
 import '../../features/presentation/customer_pages/profile_edit/edit_profile_page.dart';
 import '../../features/presentation/customer_pages/search/search_page.dart';
-import '../../features/presentation/customer_pages/settings/settings_page.dart';
 import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
 import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
 import '../../features/presentation/providers/customer_providers/market_comments_notifier.dart';
@@ -61,10 +60,6 @@ void createCustomerRoutes(Sailor sailor) {
       SailorRoute(
         name: ProfilePage.route,
         builder: (ctx, args, map) => ProfilePage(),
-      ),
-      SailorRoute(
-        name: SettingsPage.route,
-        builder: (ctx, args, map) => SettingsPage(),
       ),
       SailorRoute(
         name: EditProfilePage.route,
