@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/customer/base_api_result_model.dart';
 import '../../models/market/market_orders_result_model.dart';
 
 part 'market_order_remote_data_source.g.dart';
@@ -40,14 +41,14 @@ abstract class MarketOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/ApproveOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> approveOrder(
+  Future<BaseApiResultModel> approveOrder(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
   @GET("$_apiUrlPrefix/RejectOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> rejectOrder(
+  Future<BaseApiResultModel> rejectOrder(
     @Header("token") String token,
     @Query("Id") String id,
   );
