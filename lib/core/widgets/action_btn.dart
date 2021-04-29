@@ -29,7 +29,7 @@ class ActionBtn extends StatelessWidget {
         ..height(height ?? 48)
         ..textColor(textColor ?? Colors.white)
         ..alignmentContent.center(true)
-        ..background.color(background ?? Colors.green)
+        ..background.color(background ?? Theme.of(context).primaryColor)
         ..borderRadius(all: 12)
         ..boxShadow(
           color: Colors.black12,
