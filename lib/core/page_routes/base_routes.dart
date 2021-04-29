@@ -1,6 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
-
+import '../../features/presentation/base_pages/settings/settings_page.dart';
 import '../../features/presentation/base_pages/about_us/about_us_page.dart';
 import '../../features/presentation/base_pages/confirm_registration/confirm_registration.dart';
 import '../../features/presentation/base_pages/confirm_reset_password/confirm_reset_password.dart';
@@ -55,6 +55,10 @@ void createBaseRoutes(Sailor sailor) {
             defaultValue: "",
           ),
         ],
+      ),
+      SailorRoute(
+        name: SettingsPage.route,
+        builder: (ctx, args, map) => SettingsPage(),
       ),
       SailorRoute(
         name: ContactsPage.route,
