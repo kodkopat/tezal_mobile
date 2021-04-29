@@ -13,7 +13,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/wallet_notifier.dart';
 import '../wallet_charge/charge_wallet_page.dart';
-import 'transaction_list.dart';
+import 'widgets/transaction_list.dart';
 
 class WalletPage extends StatelessWidget {
   static const route = "/customer_wallet";
@@ -56,8 +56,6 @@ class WalletPage extends StatelessWidget {
                           onTap: () {
                             Routes.sailor(ChargeWalletPage.route);
                           },
-                          background: AppTheme.customerPrimary,
-                          textColor: Colors.white,
                         ),
                       ],
                     ),
