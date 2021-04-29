@@ -100,6 +100,27 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
+  Future<PhotoResultModel> getPhoto(token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'Token': token};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<PhotoResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain'
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'User/GetPhoto',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = PhotoResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<BaseApiResultModel> resetPasswordRequest(phone) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Phone': phone};
