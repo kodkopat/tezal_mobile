@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/market/market_orders_result_model.dart';
+import '../../../../data/models/market/orders_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 
 class OrderDetailListItem extends StatelessWidget {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
-import '../../../data/models/market/market_orders_result_model.dart';
+import '../../../data/models/market/orders_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/order_notifier.dart';
 import '../orders/widgets/order_list_item.dart';

@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../data/models/market/market_orders_result_model.dart';
+import '../../../../data/models/market/orders_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import 'order_list_item_field.dart';
 

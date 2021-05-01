@@ -14,6 +14,7 @@ class OrderDetailActionBox extends StatelessWidget {
   final void Function() onRejectOrder;
 
   final _approveTxtStyle = AppTxtStyles().body
+    ..bold()
     ..height(48)
     ..borderRadius(all: 8)
     ..textColor(Colors.white)
@@ -23,6 +24,7 @@ class OrderDetailActionBox extends StatelessWidget {
     ..ripple(true);
 
   final _rejectTxtStyle = AppTxtStyles().body
+    ..bold()
     ..height(48)
     ..borderRadius(all: 8)
     ..textColor(Colors.white)
