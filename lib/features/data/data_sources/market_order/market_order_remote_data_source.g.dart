@@ -16,12 +16,12 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<MarketOrdersResultModel> getOrders(token) async {
+  Future<OrdersResultModel> getOrders(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<MarketOrdersResultModel>(Options(
+        _setStreamType<OrdersResultModel>(Options(
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             .compose(_dio.options, 'Order/GetOrders',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = MarketOrdersResultModel.fromJson(_result.data!);
+    final value = OrdersResultModel.fromJson(_result.data!);
     return value;
   }
 

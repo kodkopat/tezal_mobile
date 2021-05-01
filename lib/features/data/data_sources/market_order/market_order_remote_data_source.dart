@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/customer/base_api_result_model.dart';
-import '../../models/market/market_orders_result_model.dart';
+import '../../models/market/orders_result_model.dart';
 
 part 'market_order_remote_data_source.g.dart';
 
@@ -16,7 +16,7 @@ abstract class MarketOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<MarketOrdersResultModel> getOrders(
+  Future<OrdersResultModel> getOrders(
     @Header("token") String token,
   );
 

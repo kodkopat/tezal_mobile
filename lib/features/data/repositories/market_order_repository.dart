@@ -10,7 +10,7 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_order/market_order_local_data_source.dart';
 import '../data_sources/market_order/market_order_remote_data_source.dart';
 import '../models/customer/base_api_result_model.dart';
-import '../models/market/market_orders_result_model.dart';
+import '../models/market/orders_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketOrderRepository {
@@ -36,7 +36,7 @@ class MarketOrderRepository {
   final MarketOrderLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, MarketOrdersResultModel>> getOrders() async {
+  Future<Either<Failure, OrdersResultModel>> getOrders() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
