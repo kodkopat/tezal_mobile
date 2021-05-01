@@ -2,6 +2,10 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/market/main_categories_result_model.dart';
+import '../../models/market/market_products_result_model.dart';
+import '../../models/market/sub_categories_result_model.dart';
+import '../../models/market/sub_category_products_result_model.dart';
 
 part 'market_product_remote_data_source.g.dart';
 
@@ -14,27 +18,27 @@ abstract class MarketProductRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetMainCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getMainCategories(
+  Future<MainCategoriesResultModel> getMainCategories(
     @Header("token") String token,
   );
 
   @GET("$_apiUrlPrefix/GetSubCategoriesOfCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getSubCategoriesOfCategory(
+  Future<SubCategoriesResultModel> getSubCategoriesOfCategory(
     @Header("token") String token,
     @Query("mainCategoryId") String mainCategoryId,
   );
 
   @GET("$_apiUrlPrefix/GetProductsOfSubCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getProductsOfSubCategory(
+  Future<SubCategoryProductsResultModel> getProductsOfSubCategory(
     @Header("token") String token,
     @Query("subCategoryId") String subCategoryId,
   );
 
   @GET("$_apiUrlPrefix/GetMarketProduct")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getMarketProduct(
+  Future<MarketProductsResultModel> getMarketProduct(
     @Header("token") String token,
   );
 

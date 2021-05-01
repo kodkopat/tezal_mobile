@@ -9,6 +9,10 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_product/market_product_local_data_source.dart';
 import '../data_sources/market_product/market_product_remote_data_source.dart';
+import '../models/market/main_categories_result_model.dart';
+import '../models/market/market_products_result_model.dart';
+import '../models/market/sub_categories_result_model.dart';
+import '../models/market/sub_category_products_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketProductRepository {
@@ -34,7 +38,7 @@ class MarketProductRepository {
   final MarketProductLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, dynamic>> getMainCategories() async {
+  Future<Either<Failure, MainCategoriesResultModel>> getMainCategories() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -48,7 +52,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> getSubCategoriesOfCategory(
+  Future<Either<Failure, SubCategoriesResultModel>> getSubCategoriesOfCategory(
       {required String mainCategoryId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -64,8 +68,8 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> getProductsOfSubCategory(
-      {required String subCategoryId}) async {
+  Future<Either<Failure, SubCategoryProductsResultModel>>
+      getProductsOfSubCategory({required String subCategoryId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -80,7 +84,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> getMarketProduct() async {
+  Future<Either<Failure, MarketProductsResultModel>> getMarketProduct() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
