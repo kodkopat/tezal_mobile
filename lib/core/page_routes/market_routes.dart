@@ -1,7 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
-import '../../features/data/models/market/market_orders_result_model.dart';
+import '../../features/data/models/market/orders_result_model.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/market_pages/order_detail/order_detail_page.dart';
 
