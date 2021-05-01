@@ -3,10 +3,9 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/themes/app_theme.dart';
 
 class MarketSubCategoryListItem extends StatelessWidget {
-  const MarketSubCategoryListItem({
+  MarketSubCategoryListItem({
     required this.text,
     required this.selected,
     required this.onTap,
@@ -25,16 +24,16 @@ class MarketSubCategoryListItem extends StatelessWidget {
         ..alignmentContent.center()
         ..margin(horizontal: 4)
         ..padding(horizontal: 16)
-        ..textColor(selected ? Colors.white : AppTheme.customerPrimary)
-        ..background
-            .color(selected ? AppTheme.customerPrimary : Colors.transparent)
+        ..textColor(selected ? Colors.white : Theme.of(context).primaryColor)
+        ..background.color(
+            selected ? Theme.of(context).primaryColor : Colors.transparent)
         ..borderRadius(all: 8)
         ..border(
           all: 1.5,
           style: BorderStyle.solid,
           color: selected
-              ? AppTheme.customerPrimary
-              : AppTheme.customerPrimary.withOpacity(0.2),
+              ? Theme.of(context).primaryColor
+              : Theme.of(context).primaryColor.withOpacity(0.2),
         )
         ..ripple(true)
         ..bold(),

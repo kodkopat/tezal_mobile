@@ -2,11 +2,10 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/themes/app_theme.dart';
 import 'market_main_category_tab_bar_item.dart';
 
 class MarketMainCategoryTabBar extends StatelessWidget {
-  const MarketMainCategoryTabBar({
+  MarketMainCategoryTabBar({
     required this.controller,
     required this.textList,
     required this.onItemTap,
@@ -22,13 +21,13 @@ class MarketMainCategoryTabBar extends StatelessWidget {
       style: ParentStyle()
         ..width(MediaQuery.of(context).size.width)
         ..height(48)
-        ..background.color(AppTheme.customerPrimary),
+        ..background.color(Theme.of(context).primaryColor),
       child: TabBar(
         controller: controller,
         isScrollable: true,
         labelColor: Colors.white,
         indicatorWeight: 2,
-        indicatorColor: AppTheme.customerAccent,
+        indicatorColor: Theme.of(context).accentColor,
         indicatorSize: TabBarIndicatorSize.tab,
         unselectedLabelColor: Colors.white,
         tabs: textList.map((title) {

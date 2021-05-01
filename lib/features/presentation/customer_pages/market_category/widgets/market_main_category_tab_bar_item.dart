@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tezal/core/styles/txt_styles.dart';
 
 class MarketMainCategoryTabBarItem extends StatelessWidget {
-  const MarketMainCategoryTabBarItem({
+  MarketMainCategoryTabBarItem({
     required this.text,
     required this.onTap,
   });
