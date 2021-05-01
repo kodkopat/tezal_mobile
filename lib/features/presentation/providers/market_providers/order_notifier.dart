@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/models/customer/base_api_result_model.dart';
-import '../../../data/models/market/market_orders_result_model.dart';
+import '../../../data/models/market/orders_result_model.dart';
 import '../../../data/repositories/market_order_repository.dart';
 
 class OrderNotifier extends ChangeNotifier {
