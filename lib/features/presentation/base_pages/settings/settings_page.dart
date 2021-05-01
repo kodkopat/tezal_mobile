@@ -9,7 +9,10 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SimpleAppBar(context).create(text: "تنظیمات"),
+      appBar: SimpleAppBar(context).create(
+        text: "تنظیمات",
+        showBackBtn: true,
+      ),
       body: SettingsMenu(),
     );
   }
