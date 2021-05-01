@@ -18,10 +18,7 @@ class MarketCategoriesResultModel {
         data: json["data"] == null
             ? null
             : List<MarketCategory>.from(
-                json["data"].map(
-                  (x) => MarketCategory.fromJson(x),
-                ),
-              ),
+                json["data"].map((x) => MarketCategory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,11 +26,7 @@ class MarketCategoriesResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(
-                data.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 

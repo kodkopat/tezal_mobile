@@ -17,11 +17,7 @@ class CitiesResultModel {
         message: json["message"],
         data: json["data"] == null
             ? null
-            : List<City>.from(
-                json["data"].map(
-                  (x) => City.fromJson(x),
-                ),
-              ),
+            : List<City>.from(json["data"].map((x) => City.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,11 +25,7 @@ class CitiesResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(
-                data.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 

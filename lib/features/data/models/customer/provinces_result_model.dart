@@ -18,10 +18,7 @@ class ProvincesResultModel {
         data: json["data"] == null
             ? null
             : List<Province>.from(
-                json["data"].map(
-                  (x) => Province.fromJson(x),
-                ),
-              ),
+                json["data"].map((x) => Province.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,11 +26,7 @@ class ProvincesResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(
-                data.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 

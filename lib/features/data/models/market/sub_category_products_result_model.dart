@@ -2,8 +2,8 @@ import 'package:meta/meta.dart';
 
 import 'product_result_model.dart';
 
-class ProductsResultModel {
-  ProductsResultModel({
+class SubCategoryProductsResultModel {
+  SubCategoryProductsResultModel({
     @required this.success,
     @required this.message,
     @required this.data,
@@ -13,8 +13,8 @@ class ProductsResultModel {
   final message;
   final List<ProductResultModel>? data;
 
-  factory ProductsResultModel.fromJson(Map<String, dynamic> json) =>
-      ProductsResultModel(
+  factory SubCategoryProductsResultModel.fromJson(Map<String, dynamic> json) =>
+      SubCategoryProductsResultModel(
         success: json["success"],
         message: json["message"],
         data: json["data"] == null

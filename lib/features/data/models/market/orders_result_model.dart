@@ -1,11 +1,7 @@
-// To parse this JSON data, do
-//
-//     final marketOrdersResultModel = marketOrdersResultModelFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 
-class MarketOrdersResultModel {
-  MarketOrdersResultModel({
+class OrdersResultModel {
+  OrdersResultModel({
     @required this.success,
     @required this.message,
     @required this.data,
@@ -15,17 +11,14 @@ class MarketOrdersResultModel {
   final message;
   final List<MarketOrder>? data;
 
-  factory MarketOrdersResultModel.fromJson(Map<String, dynamic> json) =>
-      MarketOrdersResultModel(
+  factory OrdersResultModel.fromJson(Map<String, dynamic> json) =>
+      OrdersResultModel(
         success: json["success"],
         message: json["message"],
         data: json["data"] == null
             ? null
             : List<MarketOrder>.from(
-                json["data"].map(
-                  (x) => MarketOrder.fromJson(x),
-                ),
-              ),
+                json["data"].map((x) => MarketOrder.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -33,11 +26,7 @@ class MarketOrdersResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(
-                data!.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
@@ -79,10 +68,7 @@ class MarketOrder {
         items: json["items"] == null
             ? null
             : List<MarketOrderItem>.from(
-                json["items"].map(
-                  (x) => MarketOrderItem.fromJson(x),
-                ),
-              ),
+                json["items"].map((x) => MarketOrderItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,11 +83,7 @@ class MarketOrder {
         "deliveryCost": deliveryCost,
         "items": items == null
             ? null
-            : List<dynamic>.from(
-                items!.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(items!.map((x) => x.toJson())),
       };
 }
 

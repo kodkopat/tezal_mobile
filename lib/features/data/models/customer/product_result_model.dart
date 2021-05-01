@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final productResultModel = productResultModelFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 
 class ProductResultModel {

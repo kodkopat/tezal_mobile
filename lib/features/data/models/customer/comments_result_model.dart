@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final commentsResultModel = commentsResultModelFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 
 class CommentsResultModel {

@@ -36,20 +36,13 @@ class Data {
         address: json["address"] == null
             ? null
             : List<Address>.from(
-                json["address"].map(
-                  (x) => Address.fromJson(x),
-                ),
-              ),
+                json["address"].map((x) => Address.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "address": address == null
             ? null
-            : List<dynamic>.from(
-                address.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(address.map((x) => x.toJson())),
       };
 }
 

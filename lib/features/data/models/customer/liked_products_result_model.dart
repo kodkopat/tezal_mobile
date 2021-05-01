@@ -18,10 +18,7 @@ class LikedProductsResultModel {
         data: json["data"] == null
             ? null
             : List<LikedProduct>.from(
-                json["data"].map(
-                  (x) => LikedProduct.fromJson(x),
-                ),
-              ),
+                json["data"].map((x) => LikedProduct.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,11 +26,7 @@ class LikedProductsResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(
-                data.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(data.map((x) => x.toJson())),
       };
 }
 

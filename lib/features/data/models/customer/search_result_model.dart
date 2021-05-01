@@ -37,21 +37,13 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         markets: json["markets"] == null
             ? null
-            : List<Market>.from(
-                json["markets"].map(
-                  (x) => Market.fromJson(x),
-                ),
-              ),
+            : List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "markets": markets == null
             ? null
-            : List<dynamic>.from(
-                markets.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(markets.map((x) => x.toJson())),
       };
 }
 

@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-class CampaignResultModel {
-  CampaignResultModel({
+class SubCategoriesResultModel {
+  SubCategoriesResultModel({
     @required this.success,
     @required this.message,
     @required this.data,
@@ -9,16 +9,16 @@ class CampaignResultModel {
 
   final success;
   final message;
-  final data;
+  final List<SubCategory>? data;
 
-  factory CampaignResultModel.fromJson(Map<String, dynamic> json) =>
-      CampaignResultModel(
+  factory SubCategoriesResultModel.fromJson(Map<String, dynamic> json) =>
+      SubCategoriesResultModel(
         success: json["success"],
         message: json["message"],
         data: json["data"] == null
             ? null
-            : List<Campaign>.from(
-                json["data"].map((x) => Campaign.fromJson(x))),
+            : List<SubCategory>.from(
+                json["data"].map((x) => SubCategory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -26,12 +26,12 @@ class CampaignResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(data.map((x) => x.toJson())),
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
-class Campaign {
-  Campaign({
+class SubCategory {
+  SubCategory({
     @required this.id,
     @required this.name,
   });
@@ -39,7 +39,7 @@ class Campaign {
   final id;
   final name;
 
-  factory Campaign.fromJson(Map<String, dynamic> json) => Campaign(
+  factory SubCategory.fromJson(Map<String, dynamic> json) => SubCategory(
         id: json["id"],
         name: json["name"],
       );

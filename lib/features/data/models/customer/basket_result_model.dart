@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final basketResultModel = basketResultModelFromJson(jsonString);
-
 import 'package:meta/meta.dart';
 
 class BasketResultModel {
