@@ -36,11 +36,4 @@ abstract class CustomerRemoteDataSource {
     @Header("token") String token,
     @Query("Id") String id,
   );
-
-  @POST("$_apiUrlPrefix/Share")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> share(
-    @Header("token") String token,
-    @Field("[]") List<String> contactNumbers,
-  );
 }
