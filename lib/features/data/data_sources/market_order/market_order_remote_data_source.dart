@@ -18,6 +18,9 @@ abstract class MarketOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrdersResultModel> getOrders(
     @Header("token") String token,
+    @Query("skip") int skip,
+    @Query("take") int take,
+    @Query("status") String status,
   );
 
   @GET("$_apiUrlPrefix/GetOrderSummary")

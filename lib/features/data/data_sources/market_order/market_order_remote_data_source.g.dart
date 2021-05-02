@@ -16,9 +16,13 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<OrdersResultModel> getOrders(token) async {
+  Future<OrdersResultModel> getOrders(token, skip, take, status) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'skip': skip,
+      r'take': take,
+      r'status': status
+    };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrdersResultModel>(Options(
