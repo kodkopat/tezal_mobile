@@ -10,8 +10,7 @@ class DashBoardPage extends StatefulWidget {
   _DashBoardPageState createState() => _DashBoardPageState();
 }
 
-class _DashBoardPageState extends State<DashBoardPage>
-    with AutomaticKeepAliveClientMixin<DashBoardPage> {
+class _DashBoardPageState extends State<DashBoardPage> {
   Widget? currentWidget;
   CustomBottomAppBar? bottomAppBar;
 
@@ -32,14 +31,10 @@ class _DashBoardPageState extends State<DashBoardPage>
   }
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     return Scaffold(
       body: currentWidget,
       bottomNavigationBar: bottomAppBar,
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

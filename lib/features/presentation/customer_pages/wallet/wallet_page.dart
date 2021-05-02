@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
@@ -20,19 +19,18 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var walletNotifier = Provider.of<WalletNotifier>(context, listen: false);
+    walletNotifier.fetchWalletInfo();
+
     var walltInfoConsumer = Consumer<WalletNotifier>(
       builder: (context, provider, child) {
-        if (provider.walletInfoResultModel == null) {
-          provider.fetchWalletInfo();
-        }
-
         return provider.infoLoading
             ? AppLoading()
             : provider.walletInfoResultModel == null
                 ? provider.infoErrorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.infoErrorMsg!,
+                    : Txt(provider.infoErrorMsg,
                         style: AppTxtStyles().body..alignment.center())
                 : Parent(
                     style: ParentStyle()..padding(all: 24),
@@ -63,12 +61,10 @@ class WalletPage extends StatelessWidget {
       },
     );
 
+    walletNotifier.walletDetail();
+
     var walltDetailConsumer = Consumer<WalletNotifier>(
       builder: (context, provider, child) {
-        if (provider.walletDetailList == null) {
-          provider.walletDetail();
-        }
-
         return provider.detailLoading
             ? AppLoading()
             : provider.walletDetailList == null

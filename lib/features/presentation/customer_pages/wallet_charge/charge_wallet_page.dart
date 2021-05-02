@@ -76,7 +76,7 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
                     prgDialog!.show();
 
                     var loadBalanceResult =
-                        await walletNotifier!.customerWalletRepo!.loadBalance(
+                        await walletNotifier!.customerWalletRepo.loadBalance(
                       amount: double.parse(amountCtrl.text),
                     );
 
@@ -91,7 +91,7 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
                       },
                       (right) async {
                         var confirmLoadBalanceResult = await walletNotifier!
-                            .customerWalletRepo!
+                            .customerWalletRepo
                             .confirmLoadBalance(
                           id: right.data.transactionId,
                         );

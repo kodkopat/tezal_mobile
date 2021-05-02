@@ -17,13 +17,11 @@ class CustomBottomAppBar extends StatefulWidget {
   _CustomBottomAppBarState createState() => _CustomBottomAppBarState();
 }
 
-class _CustomBottomAppBarState extends State<CustomBottomAppBar>
-    with AutomaticKeepAliveClientMixin<CustomBottomAppBar> {
+class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
   int currentIndex = 0;
   var bottomNavigationBarItems;
 
   @override
-  // ignore: must_call_super
   Widget build(BuildContext context) {
     print("textDirection: ${Directionality.of(context)}\n");
 
@@ -88,9 +86,6 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar>
       elevation: 8.0,
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class _BottomNavigationBarList {

@@ -47,7 +47,7 @@ class _ProfileMenu {
         _divider,
         SettingsMenuItem(
           text: "بررسی به‌روز‌رسانی اپلیکیشن",
-          iconPath: "assets/images/ic_update.png",
+          iconPath: "assets/images/ic_refresh.png",
           onTap: () async {
             await showDialog(
               context: context,

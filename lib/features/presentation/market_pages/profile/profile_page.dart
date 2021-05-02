@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
@@ -76,8 +75,6 @@ class ProfilePage extends StatelessWidget {
             onTap: () async {
               Routes.sailor(LoginPage.route);
             },
-            background: AppTheme.customerPrimary,
-            textColor: Colors.white,
           ),
         ],
       ),
