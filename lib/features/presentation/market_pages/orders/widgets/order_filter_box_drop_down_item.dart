@@ -23,7 +23,7 @@ class OrderFilterBoxDropDownItem extends StatelessWidget {
           onValueChanged(!value);
         }),
       style: ParentStyle()
-        ..height(48)
+        ..height(40)
         ..padding(horizontal: 16)
         ..ripple(true),
       child: Row(

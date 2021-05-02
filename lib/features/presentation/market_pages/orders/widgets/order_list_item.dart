@@ -35,34 +35,49 @@ class OrderListItem extends StatelessWidget {
           spread: 0,
         )
         ..ripple(true),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          _fieldCustomerName,
-          // _divider,
-          _fieldCustomerPhone,
-          // _divider,
-          _fieldCustomerAddress,
-          _divider,
-          _fieldDeliveryTime,
-          // _fieldDeliveryDay,
-          // _divider,
-          // _fieldDeliveryHour,
-          // _divider,
-          _fieldPaymentType,
-          _divider,
-          Row(
-            textDirection: TextDirection.rtl,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(flex: 1, child: _fieldTotalPrice),
-              _verticalDivider,
-              Expanded(flex: 1, child: _fieldTotalDiscount),
-              _verticalDivider,
-              Expanded(flex: 1, child: _fieldDeliveryCost),
+              _fieldCustomerName,
+              _fieldCustomerPhone,
+              _fieldCustomerAddress,
+              _divider,
+              _fieldDeliveryTime,
+              _fieldPaymentType,
+              _divider,
+              Row(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(flex: 1, child: _fieldTotalPrice),
+                  _verticalDivider,
+                  Expanded(flex: 1, child: _fieldTotalDiscount),
+                  _verticalDivider,
+                  Expanded(flex: 1, child: _fieldDeliveryCost),
+                ],
+              ),
             ],
           ),
+          Align(
+            alignment: Directionality.of(context) == TextDirection.ltr
+                ? Alignment.topRight
+                : Alignment.topLeft,
+            child: Txt(
+              "${marketOrder.orderStatus}",
+              style: TxtStyle()
+                ..maxWidth(80)
+                ..alignmentContent.center()
+                ..padding(vertical: 2)
+                ..borderRadius(all: 4)
+                ..background.color(Color(0xffEFEFEF))
+                ..textColor(Colors.black)
+                ..fontSize(12)
+                ..bold(),
+            ),
+          )
         ],
       ),
     );
