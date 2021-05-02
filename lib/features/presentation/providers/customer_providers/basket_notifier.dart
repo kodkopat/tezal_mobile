@@ -14,18 +14,18 @@ class BasketNotifier extends ChangeNotifier {
   ) {
     if (_instance == null) {
       _instance = BasketNotifier._privateConstructor(
-        customerBasketRepo: customerBasketRepo,
-        customerProductRepo: customerProductRepo,
+        customerBasketRepo,
+        customerProductRepo,
       );
     }
 
     return _instance!;
   }
 
-  BasketNotifier._privateConstructor({
-    required this.customerBasketRepo,
-    required this.customerProductRepo,
-  }) {
+  BasketNotifier._privateConstructor(
+    this.customerBasketRepo,
+    this.customerProductRepo,
+  ) {
     fetchBasketCount();
   }
 

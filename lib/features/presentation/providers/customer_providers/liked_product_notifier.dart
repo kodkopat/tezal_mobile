@@ -10,17 +10,13 @@ class LikedProductNotifier extends ChangeNotifier {
     CustomerProductRepository customerProductRepo,
   ) {
     if (_instance == null) {
-      _instance = LikedProductNotifier._privateConstructor(
-        customerProductRepo: customerProductRepo,
-      );
+      _instance = LikedProductNotifier._privateConstructor(customerProductRepo);
     }
 
     return _instance!;
   }
 
-  LikedProductNotifier._privateConstructor({
-    required this.customerProductRepo,
-  });
+  LikedProductNotifier._privateConstructor(this.customerProductRepo);
 
   final CustomerProductRepository customerProductRepo;
 

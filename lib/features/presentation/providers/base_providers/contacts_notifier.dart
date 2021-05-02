@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 
+import '../../../../core/widgets/progress_dialog.dart';
+import '../../../data/models/customer/base_api_result_model.dart';
+import '../../../data/repositories/shared_application_repository.dart';
+
 class ContactsNotifier extends ChangeNotifier {
   static ContactsNotifier? _instance;
 
-  factory ContactsNotifier() {
+  factory ContactsNotifier(SharedApplicationRepository sharedApplicationRepo) {
     if (_instance == null) {
-      _instance = ContactsNotifier._privateConstructor();
+      _instance = ContactsNotifier._privateConstructor(sharedApplicationRepo);
     }
 
     return _instance!;
   }
 
-  ContactsNotifier._privateConstructor();
+  ContactsNotifier._privateConstructor(this.sharedApplicationRepo);
+
+  final SharedApplicationRepository sharedApplicationRepo;
 
   bool loading = true;
   String? errorMsg;
@@ -52,5 +58,28 @@ class ContactsNotifier extends ChangeNotifier {
       loading = false;
       notifyListeners();
     }
+  }
+
+  String? shareErrorMsg;
+  BaseApiResultModel? shareResult;
+
+  Future<void> shareApplication({
+    required BuildContext context,
+    required String contactsJson,
+  }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await sharedApplicationRepo.share(
+      contactNumbers: contactsJson,
+    );
+
+    result.fold(
+      (left) => shareErrorMsg = left.message,
+      (right) => shareResult = right,
+    );
+
+    prgDialog.hide();
+    notifyListeners();
   }
 }

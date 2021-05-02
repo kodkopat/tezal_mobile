@@ -15,18 +15,18 @@ class OrderNotifier extends ChangeNotifier {
   ) {
     if (_instance == null) {
       _instance = OrderNotifier._privateConstructor(
-        customerOrderRepo: customerOrderRepo,
-        customerProductRepo: customerProductRepo,
+        customerOrderRepo,
+        customerProductRepo,
       );
     }
 
     return _instance!;
   }
 
-  OrderNotifier._privateConstructor({
-    required this.customerOrderRepo,
-    required this.customerProductRepo,
-  });
+  OrderNotifier._privateConstructor(
+    this.customerOrderRepo,
+    this.customerProductRepo,
+  );
 
   final CustomerOrderRepository customerOrderRepo;
   final CustomerProductRepository customerProductRepo;

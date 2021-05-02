@@ -11,26 +11,22 @@ class WalletNotifier extends ChangeNotifier {
     CustomerWalletRepository customerWalletRepo,
   ) {
     if (_instance == null) {
-      _instance = WalletNotifier._privateConstructor(
-        customerWalletRepo: customerWalletRepo,
-      );
+      _instance = WalletNotifier._privateConstructor(customerWalletRepo);
     }
 
     return _instance!;
   }
 
-  WalletNotifier._privateConstructor({
-    this.customerWalletRepo,
-  });
+  WalletNotifier._privateConstructor(this.customerWalletRepo);
 
-  final CustomerWalletRepository? customerWalletRepo;
+  final CustomerWalletRepository customerWalletRepo;
 
   bool infoLoading = true;
   String? infoErrorMsg;
   WalletInfoResultModel? walletInfoResultModel;
 
   Future<void> fetchWalletInfo() async {
-    var result = await customerWalletRepo!.walletInfo;
+    var result = await customerWalletRepo.walletInfo;
     result.fold(
       (left) => infoErrorMsg = left.message,
       (right) => walletInfoResultModel = right,
@@ -50,7 +46,7 @@ class WalletNotifier extends ChangeNotifier {
 
   Future<void> walletDetail() async {
     if (walletDetailTotalCount == null) {
-      var result = await customerWalletRepo!.walletDetails(page: 1);
+      var result = await customerWalletRepo.walletDetails(page: 1);
       result.fold(
         (left) => detailErrorMsg = left.message,
         (right) {
@@ -64,11 +60,11 @@ class WalletNotifier extends ChangeNotifier {
     } else {
       if (walletDetailTotalCount == 0) return;
 
-      var result = await customerWalletRepo?.walletDetails(
+      var result = await customerWalletRepo.walletDetails(
         page: latestPageIndex! + 1,
       );
 
-      result!.fold(
+      result.fold(
         (left) => detailErrorMsg = left.message,
         (right) {
           // walletDetailTotalCount = right.data.total;

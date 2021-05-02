@@ -12,35 +12,90 @@ class OrderNotifier extends ChangeNotifier {
     MarketOrderRepository marketOrderRepo,
   ) {
     if (_instance == null) {
-      _instance = OrderNotifier._privateConstructor(
-        marketOrderRepo: marketOrderRepo,
-      );
+      _instance = OrderNotifier._privateConstructor(marketOrderRepo);
     }
 
     return _instance!;
   }
 
-  OrderNotifier._privateConstructor({
-    required this.marketOrderRepo,
-  });
+  OrderNotifier._privateConstructor(this.marketOrderRepo);
 
   final MarketOrderRepository marketOrderRepo;
 
+  int? orderStatusListIndex;
+  List<String> orderStatusList = [
+    "سفارشات جدید", // new_order,
+    "سفارشات تایید شده", // approved,
+    "سفارشات تایید نشده", // rejected,
+    "سفارشات در حال آماده‌سازی", // preparing,
+    "سفارشات در حال تحویل", // ondelivery,
+    "سفارشات تحویل شده", // delivered,
+    "سفارشات لغو شده", // canceled,
+    "سفارشات بازگشتی", // returned
+  ];
+
+  bool wasFetchOrdersCalled = false;
   bool ordersLoading = true;
   String? ordersErrorMsg;
+
+  int ordersSkip = 0;
+  int ordersTake = 10;
+  int? ordersTotalCount;
+  bool? enableLoadMoreData;
+
   List<MarketOrder>? marketOrders;
 
-  Future<void> fetchOrders() async {
-    var result = await marketOrderRepo.getOrders();
+  Future<void> fetchOrders(BuildContext context) async {
+    if (!wasFetchOrdersCalled) {
+      wasFetchOrdersCalled = true;
+      notifyListeners();
+    }
 
-    result.fold(
-      (left) => ordersErrorMsg = left.message,
-      (right) {
-        marketOrders = right.data;
-      },
-    );
+    if (ordersTotalCount == null) {
+      var result = await marketOrderRepo.getOrders(
+        skip: ordersSkip,
+        take: ordersTake,
+        status: orderStatusListIndex == null ? "" : "$orderStatusListIndex",
+      );
 
-    ordersLoading = false;
+      result.fold(
+        (left) => ordersErrorMsg = left.message,
+        (right) {
+          ordersTotalCount = right.data!.totalCount;
+          marketOrders = right.data!.result;
+          enableLoadMoreData = ordersTotalCount != marketOrders!.length;
+          ordersSkip += ordersTake;
+        },
+      );
+
+      ordersLoading = false;
+    } else {
+      if (ordersTotalCount == 0) return;
+
+      var prgDialog = AppProgressDialog(context).instance;
+      prgDialog.show();
+
+      var result = await marketOrderRepo.getOrders(
+        skip: ordersSkip,
+        take: ordersTake,
+        status: orderStatusListIndex == null ? "" : "$orderStatusListIndex",
+      );
+
+      result.fold(
+        (left) => ordersErrorMsg = left.message,
+        (right) {
+          marketOrders!.addAll(right.data!.result!);
+          enableLoadMoreData = ordersTotalCount != marketOrders!.length;
+          ordersSkip += ordersTake;
+        },
+      );
+
+      prgDialog.hide();
+    }
+
+    print("ordersLength: ${marketOrders!.length}\n");
+    print("ordersTotalCount: $ordersTotalCount\n");
+
     notifyListeners();
   }
 
@@ -84,7 +139,20 @@ class OrderNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refresh() async {
-    await fetchOrders();
+  void refresh(BuildContext context, int index) async {
+    orderStatusListIndex = index;
+
+    ordersLoading = true;
+    ordersErrorMsg = null;
+
+    ordersSkip = 0;
+    ordersTake = 10;
+    ordersTotalCount = null;
+    enableLoadMoreData = null;
+    marketOrders = null;
+
+    notifyListeners();
+
+    await fetchOrders(context);
   }
 }

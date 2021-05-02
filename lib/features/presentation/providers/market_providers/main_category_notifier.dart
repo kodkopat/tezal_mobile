@@ -10,17 +10,13 @@ class MainCategoryNotifier extends ChangeNotifier {
     MarketProductRepository marketProductRepo,
   ) {
     if (_instance == null) {
-      _instance = MainCategoryNotifier._privateConstructor(
-        marketProductRepo: marketProductRepo,
-      );
+      _instance = MainCategoryNotifier._privateConstructor(marketProductRepo);
     }
 
     return _instance!;
   }
 
-  MainCategoryNotifier._privateConstructor({
-    required this.marketProductRepo,
-  });
+  MainCategoryNotifier._privateConstructor(this.marketProductRepo);
 
   final MarketProductRepository marketProductRepo;
 

@@ -9,17 +9,13 @@ class CategoryNotifier extends ChangeNotifier {
     CustomerCategoryRepository customerCategoryRepo,
   ) {
     if (_instance == null) {
-      _instance = CategoryNotifier._privateConstructor(
-        customerCategoryRepo: customerCategoryRepo,
-      );
+      _instance = CategoryNotifier._privateConstructor(customerCategoryRepo);
     }
 
     return _instance!;
   }
 
-  CategoryNotifier._privateConstructor({
-    required this.customerCategoryRepo,
-  });
+  CategoryNotifier._privateConstructor(this.customerCategoryRepo);
 
   final CustomerCategoryRepository customerCategoryRepo;
 }

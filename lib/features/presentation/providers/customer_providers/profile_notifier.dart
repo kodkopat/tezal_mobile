@@ -10,17 +10,13 @@ class ProfileNotifier extends ChangeNotifier {
     CustomerRepository customerRepo,
   ) {
     if (_instance == null) {
-      _instance = ProfileNotifier._privateConstructor(
-        customerRepo: customerRepo,
-      );
+      _instance = ProfileNotifier._privateConstructor(customerRepo);
     }
 
     return _instance!;
   }
 
-  ProfileNotifier._privateConstructor({
-    required this.customerRepo,
-  });
+  ProfileNotifier._privateConstructor(this.customerRepo);
 
   final CustomerRepository customerRepo;
 

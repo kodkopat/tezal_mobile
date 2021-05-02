@@ -11,17 +11,13 @@ class SearchNotifier extends ChangeNotifier {
     CustomerSearchRepository customerSearchRepo,
   ) {
     if (_instance == null) {
-      _instance = SearchNotifier._privateConstructor(
-        customerSearchRepo: customerSearchRepo,
-      );
+      _instance = SearchNotifier._privateConstructor(customerSearchRepo);
     }
 
     return _instance!;
   }
 
-  SearchNotifier._privateConstructor({
-    required this.customerSearchRepo,
-  });
+  SearchNotifier._privateConstructor(this.customerSearchRepo);
 
   final CustomerSearchRepository customerSearchRepo;
 

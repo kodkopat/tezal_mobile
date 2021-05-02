@@ -14,9 +14,7 @@ class AppNotifier extends ChangeNotifier {
 
   factory AppNotifier(AuthRepository authRepository) {
     if (_instance == null) {
-      _instance = AppNotifier._privateConstructor(
-        authRepo: authRepository,
-      );
+      _instance = AppNotifier._privateConstructor(authRepository);
     }
 
     return _instance!;
@@ -24,7 +22,7 @@ class AppNotifier extends ChangeNotifier {
 
   final AuthRepository authRepo;
 
-  AppNotifier._privateConstructor({required this.authRepo});
+  AppNotifier._privateConstructor(this.authRepo);
 
   bool loading = true;
 

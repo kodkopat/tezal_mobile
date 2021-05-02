@@ -13,17 +13,13 @@ class AddressNotifier extends ChangeNotifier {
     CustomerAddressRepository customerAddressRepo,
   ) {
     if (_instance == null) {
-      _instance = AddressNotifier._privateConstructor(
-        customerAddressRepo: customerAddressRepo,
-      );
+      _instance = AddressNotifier._privateConstructor(customerAddressRepo);
     }
 
     return _instance!;
   }
 
-  AddressNotifier._privateConstructor({
-    required this.customerAddressRepo,
-  });
+  AddressNotifier._privateConstructor(this.customerAddressRepo);
 
   final CustomerAddressRepository customerAddressRepo;
 

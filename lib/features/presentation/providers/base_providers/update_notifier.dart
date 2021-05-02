@@ -11,17 +11,13 @@ class UpdateNotifier extends ChangeNotifier {
     SharedApplicationRepository sharedApplicationRepo,
   ) {
     if (_instance == null) {
-      _instance = UpdateNotifier._privateConstructor(
-        sharedApplicationRepo: sharedApplicationRepo,
-      );
+      _instance = UpdateNotifier._privateConstructor(sharedApplicationRepo);
     }
 
     return _instance!;
   }
 
-  UpdateNotifier._privateConstructor({
-    required this.sharedApplicationRepo,
-  });
+  UpdateNotifier._privateConstructor(this.sharedApplicationRepo);
 
   final SharedApplicationRepository sharedApplicationRepo;
 

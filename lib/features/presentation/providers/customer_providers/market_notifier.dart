@@ -10,17 +10,13 @@ class MarketNotifier extends ChangeNotifier {
     CustomerMarketRepository customerMarketRepo,
   ) {
     if (_instance == null) {
-      _instance = MarketNotifier._privateConstructor(
-        customerMarketRepo: customerMarketRepo,
-      );
+      _instance = MarketNotifier._privateConstructor(customerMarketRepo);
     }
 
     return _instance!;
   }
 
-  MarketNotifier._privateConstructor({
-    required this.customerMarketRepo,
-  });
+  MarketNotifier._privateConstructor(this.customerMarketRepo);
 
   final CustomerMarketRepository customerMarketRepo;
 

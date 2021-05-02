@@ -10,17 +10,13 @@ class CampaignNotifier extends ChangeNotifier {
     CustomerCampaignRepository customerCampaignRepo,
   ) {
     if (_instance == null) {
-      _instance = CampaignNotifier._privateConstructor(
-        customerCampaignRepo: customerCampaignRepo,
-      );
+      _instance = CampaignNotifier._privateConstructor(customerCampaignRepo);
     }
 
     return _instance!;
   }
 
-  CampaignNotifier._privateConstructor({
-    required this.customerCampaignRepo,
-  });
+  CampaignNotifier._privateConstructor(this.customerCampaignRepo);
 
   final CustomerCampaignRepository customerCampaignRepo;
 
