@@ -14,7 +14,9 @@ List<SingleChildWidget> baseProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => ContactsNotifier(),
+    create: (ctx) => ContactsNotifier(
+      SharedApplicationRepository(),
+    ),
   ),
   ChangeNotifierProvider(
     create: (ctx) => LocationNotifier(),
