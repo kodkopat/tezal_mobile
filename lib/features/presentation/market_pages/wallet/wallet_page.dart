@@ -2,12 +2,14 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
+import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/wallet_detail_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/market_providers/wallet_notifier.dart';
 import 'widgets/transaction_list.dart';
 
 class WalletPage extends StatelessWidget {
@@ -15,75 +17,46 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var walltInfoConsumer = Consumer<WalletNotifier>(
-    //   builder: (context, provider, child) {
-    //     if (provider.walletInfoResultModel == null) {
-    //       provider.fetchWalletInfo();
-    //     }
+    var walletNotifier = Provider.of<WalletNotifier>(context, listen: false);
+    walletNotifier.fetchBalance();
 
-    //     return provider.infoLoading
-    //         ? AppLoading()
-    //         : provider.walletInfoResultModel == null
-    //             ? provider.infoErrorMsg == null
-    //                 ? Txt("خطای بارگذاری اطلاعات",
-    //                     style: AppTxtStyles().body..alignment.center())
-    //                 : Txt(provider.infoErrorMsg!,
-    //                     style: AppTxtStyles().body..alignment.center())
-    //             : Parent(
-    //                 style: ParentStyle()..padding(all: 24),
-    //                 child: Column(
-    //                   textDirection: TextDirection.rtl,
-    //                   crossAxisAlignment: CrossAxisAlignment.center,
-    //                   children: [
-    //                     Txt(
-    //                       "موجودی کیف پول",
-    //                       style: AppTxtStyles().footNote..alignment.center(),
-    //                     ),
-    //                     Txt(
-    //                       "${intl.NumberFormat("#,000").format(provider.walletInfoResultModel!.data.balance)}",
-    //                       style: AppTxtStyles().title
-    //                         ..bold()
-    //                         ..alignment.center(),
-    //                     ),
-    //                     SizedBox(height: 16),
-    //                     ActionBtn(
-    //                       text: "افزودن موجودی",
-    //                       onTap: () {
-    //                         // Routes.sailor(ChargeWalletPage.route);
-    //                       },
-    //                       background: AppTheme.customerPrimary,
-    //                       textColor: Colors.white,
-    //                     ),
-    //                   ],
-    //                 ),
-    //               );
-    //   },
-    // );
-    var walltInfoConsumer = Parent(
-      style: ParentStyle()..padding(all: 24),
-      child: Column(
-        textDirection: TextDirection.rtl,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Txt(
-            "موجودی کیف پول",
-            style: AppTxtStyles().footNote..alignment.center(),
-          ),
-          Txt(
-            "${intl.NumberFormat("#,000").format(20000)}",
-            style: AppTxtStyles().title
-              ..bold()
-              ..alignment.center(),
-          ),
-          SizedBox(height: 16),
-          ActionBtn(
-            text: "افزودن موجودی",
-            onTap: () {
-              // Routes.sailor(ChargeWalletPage.route);
-            },
-          ),
-        ],
-      ),
+    var balanceConsumer = Consumer<WalletNotifier>(
+      builder: (context, provider, child) {
+        return provider.walletLoading
+            ? AppLoading()
+            : provider.walletResult == null
+                ? provider.walletErrorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.walletErrorMsg,
+                        style: AppTxtStyles().body..alignment.center())
+                : Parent(
+                    style: ParentStyle()..padding(all: 24),
+                    child: Column(
+                      textDirection: TextDirection.rtl,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Txt(
+                          "موجودی کیف پول",
+                          style: AppTxtStyles().footNote..alignment.center(),
+                        ),
+                        Txt(
+                          "${intl.NumberFormat("#,000").format(provider.walletResult!.data!.balance)}",
+                          style: AppTxtStyles().title
+                            ..bold()
+                            ..alignment.center(),
+                        ),
+                        SizedBox(height: 16),
+                        ActionBtn(
+                          text: "واریز وجه به حساب",
+                          onTap: () {
+                            // Routes.sailor(ChargeWalletPage.route);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+      },
     );
 
     // var walltDetailConsumer = Consumer<WalletNotifier>(
@@ -148,17 +121,11 @@ class WalletPage extends StatelessWidget {
         child: Column(
           textDirection: TextDirection.rtl,
           children: [
-            walltInfoConsumer,
+            balanceConsumer,
             walltDetailConsumer,
           ],
         ),
       ),
     );
   }
-
-  // return Scaffold(
-  //   appBar: SimpleAppBar(context).create(
-  //     text: "کیف پول",
-  //   ),
-  // );
 }
