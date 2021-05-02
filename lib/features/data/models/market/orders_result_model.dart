@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:meta/meta.dart';
 
 class OrdersResultModel {
@@ -9,24 +11,48 @@ class OrdersResultModel {
 
   final success;
   final message;
-  final List<MarketOrder>? data;
+  final Data? data;
 
   factory OrdersResultModel.fromJson(Map<String, dynamic> json) =>
       OrdersResultModel(
         success: json["success"],
         message: json["message"],
-        data: json["data"] == null
-            ? null
-            : List<MarketOrder>.from(
-                json["data"].map((x) => MarketOrder.fromJson(x))),
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null
+        "data": data == null ? null : data!.toJson(),
+      };
+}
+
+class Data {
+  Data({
+    @required this.totalCount,
+    @required this.result,
+  });
+
+  final totalCount;
+  final List<MarketOrder>? result;
+
+  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        totalCount: json["totalCount"],
+        result: json["result"] == null
             ? null
-            : List<dynamic>.from(data!.map((x) => x.toJson())),
+            : List<MarketOrder>.from(
+                json["result"].map((x) => MarketOrder.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "totalCount": totalCount,
+        "result": result == null
+            ? null
+            : List<dynamic>.from(result!.map((x) => x.toJson())),
       };
 }
 
