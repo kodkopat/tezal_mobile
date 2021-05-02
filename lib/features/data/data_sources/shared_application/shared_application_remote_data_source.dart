@@ -24,4 +24,11 @@ abstract class SharedApplicationRemoteDataSource {
   Future<BaseApiResultModel> getUpdate(
     @Query("Version") String version,
   );
+
+  @POST("$_apiUrlPrefix/Share")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> share(
+    @Header("token") String token,
+    @Field() String contactNumbers,
+  );
 }
