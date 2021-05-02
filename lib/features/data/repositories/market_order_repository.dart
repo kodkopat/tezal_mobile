@@ -36,7 +36,11 @@ class MarketOrderRepository {
   final MarketOrderLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, OrdersResultModel>> getOrders() async {
+  Future<Either<Failure, OrdersResultModel>> getOrders({
+    required int skip,
+    required int take,
+    required String status,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -44,6 +48,9 @@ class MarketOrderRepository {
 
       var result = await _remoteDataSource.getOrders(
         userToken,
+        skip,
+        take,
+        status,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

@@ -84,20 +84,4 @@ class CustomerRepository {
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
-
-  Future<Either<Failure, BaseApiResultModel>> share({
-    required List<String> contactPhoneNumbers,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.share(
-        userToken,
-        contactPhoneNumbers,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
 }
