@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/base_providers/contacts_notifier.dart';
@@ -27,9 +28,36 @@ class ContactsPage extends StatelessWidget {
                     style: AppTxtStyles().body..alignment.center())
                 : Txt(provider.errorMsg,
                     style: AppTxtStyles().body..alignment.center())
-            : ContactList(
-                contacts: provider.contacts!,
-                phoneNumbers: phoneNumbers,
+            : Column(
+                children: [
+                  Expanded(
+                    child: ContactList(
+                      contacts: provider.contacts!,
+                      phoneNumbers: phoneNumbers,
+                    ),
+                  ),
+                  Txt(
+                    "ارسال",
+                    gesture: Gestures()
+                      ..onTap(() async {
+                        print(phoneNumbers.toString());
+                        await provider.shareApplication(
+                          context: context,
+                          contactsJson: phoneNumbers.toString(),
+                        );
+                        Routes.sailor.pop();
+                      }),
+                    style: AppTxtStyles().body
+                      ..bold()
+                      ..width(MediaQuery.of(context).size.width)
+                      ..height(48)
+                      ..textAlign.center()
+                      ..alignmentContent.center()
+                      ..background.color(Theme.of(context).primaryColor)
+                      ..textColor(Colors.white)
+                      ..ripple(true),
+                  ),
+                ],
               );
       },
     );
@@ -39,27 +67,7 @@ class ContactsPage extends StatelessWidget {
         text: "مخاطبین",
         showBackBtn: true,
       ),
-      body: Column(
-        children: [
-          Expanded(child: consumer),
-          Txt(
-            "ارسال",
-            gesture: Gestures()
-              ..onTap(() {
-                print(phoneNumbers.toString());
-              }),
-            style: AppTxtStyles().body
-              ..bold()
-              ..width(MediaQuery.of(context).size.width)
-              ..height(48)
-              ..textAlign.center()
-              ..alignmentContent.center()
-              ..background.color(Theme.of(context).primaryColor)
-              ..textColor(Colors.white)
-              ..ripple(true),
-          ),
-        ],
-      ),
+      body: consumer,
     );
   }
 }
