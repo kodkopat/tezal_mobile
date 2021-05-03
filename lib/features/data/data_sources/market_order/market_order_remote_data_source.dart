@@ -23,6 +23,27 @@ abstract class MarketOrderRemoteDataSource {
     @Query("status") String status,
   );
 
+  @GET("$_apiUrlPrefix/ApproveOrder")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> approveOrder(
+    @Header("token") String token,
+    @Query("Id") String id,
+  );
+
+  @GET("$_apiUrlPrefix/CancelOrderApprove")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> cancelOrderApprove(
+    @Header("token") String token,
+    @Query("Id") String id,
+  );
+
+  @GET("$_apiUrlPrefix/GetOrderPhotos")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> getOrderPhotos(
+    @Header("token") String token,
+    @Query("orderId") String orderId,
+  );
+
   @GET("$_apiUrlPrefix/GetOrderSummary")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getOrderSummary(
@@ -38,13 +59,6 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/GetOrderDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getOrderDetail(
-    @Header("token") String token,
-    @Query("Id") String id,
-  );
-
-  @GET("$_apiUrlPrefix/ApproveOrder")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> approveOrder(
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -70,9 +84,20 @@ abstract class MarketOrderRemoteDataSource {
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetReturnOrder")
+  @GET("$_apiUrlPrefix/GetOrderComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getReturnOrder(
+  Future<dynamic> getOrderComments(
     @Header("token") String token,
+    @Query("orderId") String orderId,
+    @Query("skip") int skip,
+    @Query("take") int take,
+  );
+
+  @POST("$_apiUrlPrefix/ReplyOrderComments")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<dynamic> replyOrderComments(
+    @Header("token") String token,
+    @Field("commentId") String commentId,
+    @Field("reply") String reply,
   );
 }
