@@ -38,7 +38,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<SubCategoriesResultModel> getSubCategoriesOfCategory(
+  Future<SubCategoriesResultModel> getCategoriesOfCategory(
       token, mainCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -55,7 +55,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'MarketProduct/GetSubCategoriesOfCategory',
+            .compose(_dio.options, 'MarketProduct/GetCategoriesOfCategory',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SubCategoriesResultModel.fromJson(_result.data!);
@@ -63,10 +63,13 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<SubCategoryProductsResultModel> getProductsOfSubCategory(
-      token, subCategoryId) async {
+  Future<SubCategoryProductsResultModel> getProducts(
+      token, mainCategoryId, subCategoryId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'subCategoryId': subCategoryId};
+    final queryParameters = <String, dynamic>{
+      r'mainCategoryId': mainCategoryId,
+      r'subCategoryId': subCategoryId
+    };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SubCategoryProductsResultModel>(Options(
@@ -78,7 +81,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'MarketProduct/GetProductsOfSubCategory',
+            .compose(_dio.options, 'MarketProduct/GetProducts',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = SubCategoryProductsResultModel.fromJson(_result.data!);
@@ -86,9 +89,13 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<MarketProductsResultModel> getMarketProduct(token) async {
+  Future<MarketProductsResultModel> getMarketProduct(
+      token, mainCategoryId, subCategoryId) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'mainCategoryId': mainCategoryId,
+      r'subCategoryId': subCategoryId
+    };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<MarketProductsResultModel>(Options(
@@ -175,6 +182,76 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             extra: _extra,
             contentType: 'application/json')
         .compose(_dio.options, 'MarketProduct/ChangeProductMarketAmount',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<dynamic> setOnSale(token, marketProductId, onSale) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'marketProductId': marketProductId,
+      r'onSale': onSale
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json')
+        .compose(_dio.options, 'MarketProduct/SetOnSale',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<dynamic> getProductComments(token, marketProductId, skip, take) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'marketProductId': marketProductId,
+      r'skip': skip,
+      r'take': take
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json')
+        .compose(_dio.options, 'MarketProduct/GetProductComments',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<dynamic> replyProductComments(token, commentId, reply) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'commentId': commentId, 'reply': reply};
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+            method: 'POST',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json')
+        .compose(_dio.options, 'MarketProduct/ReplyProductComments',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;
