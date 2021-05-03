@@ -9,8 +9,10 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_wallet/market_wallet_local_data_source.dart';
 import '../data_sources/market_wallet/market_wallet_remote_data_source.dart';
+import '../models/customer/base_api_result_model.dart';
 import '../models/market/wallet_balance_result_model.dart';
 import '../models/market/wallet_detail_result_model.dart';
+import '../models/market/withdrawal_requests_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketWalletRepository {
@@ -48,31 +50,45 @@ class MarketWalletRepository {
     }
   }
 
-  Future<Either<Failure, WalletDetailResultModel>> getDetail() async {
+  Future<Either<Failure, WalletDetailResultModel>> getDetail({
+    required int skip,
+    required int take,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getWalletDetails(userToken);
+      var result = await _remoteDataSource.getWalletDetails(
+        userToken,
+        skip,
+        take,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> getWithdrawalRequests() async {
+  Future<Either<Failure, WithdrawalRequestsResultModel>> getWithdrawalRequests({
+    required int skip,
+    required int take,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getWithdrawalRequests(userToken);
+      var result = await _remoteDataSource.getWithdrawalRequests(
+        userToken,
+        skip,
+        take,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> withdrawalRequest({
+  Future<Either<Failure, BaseApiResultModel>> withdrawalRequest({
     required double amount,
     required String description,
   }) async {
