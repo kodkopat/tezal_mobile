@@ -52,14 +52,14 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, SubCategoriesResultModel>> getSubCategoriesOfCategory(
+  Future<Either<Failure, SubCategoriesResultModel>> getCategoriesOfCategory(
       {required String mainCategoryId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getSubCategoriesOfCategory(
+      var result = await _remoteDataSource.getCategoriesOfCategory(
         userToken,
         mainCategoryId,
       );
@@ -69,14 +69,18 @@ class MarketProductRepository {
   }
 
   Future<Either<Failure, SubCategoryProductsResultModel>>
-      getProductsOfSubCategory({required String subCategoryId}) async {
+      getProductsOfSubCategory({
+    required String mainCategoryId,
+    required String subCategoryId,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getProductsOfSubCategory(
+      var result = await _remoteDataSource.getProducts(
         userToken,
+        mainCategoryId,
         subCategoryId,
       );
 
@@ -84,7 +88,10 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, MarketProductsResultModel>> getMarketProduct() async {
+  Future<Either<Failure, MarketProductsResultModel>> getMarketProduct({
+    required String mainCategoryId,
+    required String subCategoryId,
+  }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -92,6 +99,8 @@ class MarketProductRepository {
 
       var result = await _remoteDataSource.getMarketProduct(
         userToken,
+        mainCategoryId,
+        subCategoryId,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
