@@ -7,7 +7,6 @@ import 'package:dio/dio.dart';
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
-import '../../../core/services/location.dart';
 import '../data_sources/market/market_local_data_source.dart';
 import '../data_sources/market/market_remote_data_source.dart';
 import 'auth_repository.dart';
@@ -34,35 +33,6 @@ class MarketRepository {
   // ignore: unused_field
   final MarketLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
-
-  Future<Either<Failure, dynamic>> save({
-    required String id,
-    required String name,
-    required String phone,
-    required String telephone,
-    required String email,
-    required String address,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userToken = await _authRepo.userToken;
-      var position = await LocationService.getSavedLocation();
-      var result = await _remoteDataSource.save(
-        userToken,
-        "${position.latitude}",
-        "${position.longitude}",
-        id,
-        name,
-        phone,
-        telephone,
-        email,
-        address,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
 
   Future<Either<Failure, dynamic>> getCustomerProfile() async {
     if (!await _connectionChecker.hasConnection) {
