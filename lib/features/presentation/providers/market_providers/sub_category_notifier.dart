@@ -17,7 +17,7 @@ class SubCategoryNotifier extends ChangeNotifier {
   int subCategoryListSelectedIndex = 0;
 
   Future<void> fetchSubCategories({required String mainCategoryId}) async {
-    var result = await marketProductRepo.getSubCategoriesOfCategory(
+    var result = await marketProductRepo.getCategoriesOfCategory(
       mainCategoryId: mainCategoryId,
     );
 
@@ -25,10 +25,11 @@ class SubCategoryNotifier extends ChangeNotifier {
       (left) => subCategoriesErrorMsg = left.message,
       (right) {
         subCategories = right.data;
-        subCategories!.forEach((element) {
-          subCategoryIdList.add("${element.id}");
-          subCategoryNameList.add("${element.name}");
-        });
+        if (subCategories!.isNotEmpty)
+          subCategories!.forEach((element) {
+            subCategoryIdList.add("${element.id}");
+            subCategoryNameList.add("${element.name}");
+          });
       },
     );
 
@@ -44,8 +45,12 @@ class SubCategoryNotifier extends ChangeNotifier {
   String? productsErrorMsg;
   SubCategoryProductsResultModel? productsResult;
 
-  Future<void> fetchProducts({required String subCategoryId}) async {
+  Future<void> fetchProducts({
+    required String mainCategoryId,
+    required String subCategoryId,
+  }) async {
     var result = await marketProductRepo.getProductsOfSubCategory(
+      mainCategoryId: mainCategoryId,
       subCategoryId: subCategoryId,
     );
 

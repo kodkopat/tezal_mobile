@@ -1,6 +1,8 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart' as intl;
+
 // import 'package:intl/intl.dart' as intl;
 
 import '../../../../core/styles/txt_styles.dart';
@@ -165,11 +167,11 @@ class ProductListItem extends StatelessWidget {
       priceTxt = " رایگان ";
     } else {
       var temp = "2000";
-      // if ("${product.originalPrice}".length >= 3) {
-      //   temp = intl.NumberFormat("#,000").format(product.originalPrice);
-      // } else {
-      //   temp = "${product.originalPrice}";
-      // }
+      if ("${product.originalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(product.originalPrice);
+      } else {
+        temp = "${product.originalPrice}";
+      }
 
       priceTxt = " $temp " + "تومان";
     }
@@ -232,8 +234,11 @@ class ProductListItem extends StatelessWidget {
   }
 
   String _generateDiscountedRate() {
-    num discountRateTxt = 2000
-        /* 100 - (product.discountedPrice) * 100 / (product.originalPrice) */;
+    if (product.originalPrice == null || product.discountedPrice == null) {
+      return "-";
+    }
+    num discountRateTxt =
+        100 - (product.discountedPrice) * 100 / (product.originalPrice);
     if (discountRateTxt < 1)
       return "";
     else
@@ -251,12 +256,12 @@ class ProductListItem extends StatelessWidget {
     if (product.originalPrice == null) {
       priceTxt = "-";
     } else {
-      var temp = "20000";
-      // if ("${product.originalPrice}".length >= 3) {
-      //   temp = intl.NumberFormat("#,000").format(product.originalPrice);
-      // } else {
-      //   temp = "${product.originalPrice}";
-      // }
+      var temp;
+      if ("${product.originalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(product.originalPrice);
+      } else {
+        temp = "${product.originalPrice}";
+      }
 
       priceTxt = " $temp " + "تومان";
     }
@@ -275,13 +280,13 @@ class ProductListItem extends StatelessWidget {
     if (product.originalPrice == null || product.discountedPrice == null) {
       priceTxt = "-";
     } else {
-      var temp = "20000";
-      // if ("${product.originalPrice - product.discountedPrice}".length >= 3) {
-      //   temp = intl.NumberFormat("#,000")
-      //       .format(product.originalPrice - product.discountedPrice);
-      // } else {
-      //   temp = "${product.originalPrice - product.discountedPrice}";
-      // }
+      var temp;
+      if ("${product.originalPrice - product.discountedPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000")
+            .format(product.originalPrice - product.discountedPrice);
+      } else {
+        temp = "${product.originalPrice - product.discountedPrice}";
+      }
 
       priceTxt = " $temp " + "تومان";
     }
@@ -301,12 +306,12 @@ class ProductListItem extends StatelessWidget {
     if (product.discountedPrice == null) {
       priceTxt = "-";
     } else {
-      var temp = "20000";
-      // if ("${product.discountedPrice}".length >= 3) {
-      //   temp = intl.NumberFormat("#,000").format(product.discountedPrice);
-      // } else {
-      //   temp = "${product.discountedPrice}";
-      // }
+      var temp;
+      if ("${product.discountedPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(product.discountedPrice);
+      } else {
+        temp = "${product.discountedPrice}";
+      }
 
       priceTxt = " $temp " + "تومان";
     }

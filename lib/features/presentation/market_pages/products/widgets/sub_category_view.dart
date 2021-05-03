@@ -5,12 +5,17 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
+import '../../../../data/models/market/product_result_model.dart';
 import '../../../market_widgets/product_list/product_list.dart';
 import '../../../providers/market_providers/sub_category_notifier.dart';
 
 class SubCategoryView extends StatelessWidget {
-  SubCategoryView({required this.subCategoryId});
+  SubCategoryView({
+    required this.mainCategoryId,
+    required this.subCategoryId,
+  });
 
+  final String mainCategoryId;
   final String subCategoryId;
 
   @override
@@ -18,7 +23,10 @@ class SubCategoryView extends StatelessWidget {
     return Consumer<SubCategoryNotifier>(
       builder: (context, provider, child) {
         if (provider.productsResult == null) {
-          provider.fetchProducts(subCategoryId: subCategoryId);
+          provider.fetchProducts(
+            mainCategoryId: mainCategoryId,
+            subCategoryId: subCategoryId,
+          );
         }
 
         return provider.productsLoading
@@ -29,9 +37,26 @@ class SubCategoryView extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                     : Txt("${provider.productsErrorMsg}",
                         style: AppTxtStyles().body..alignment.center())
-                : ProductList(
-                    products: provider.productsResult!.data!,
-                    onItemTap: (index) {},
+                : SingleChildScrollView(
+                    child: ProductList(
+                      products: provider.productsResult!.data!
+                          .map(
+                            (e) => ProductResultModel(
+                              id: e.id,
+                              productId: "",
+                              productName: e.name,
+                              amount: "",
+                              description: e.description,
+                              discountedPrice: e.discountedPrice,
+                              discountRate: "",
+                              onSale: e.onSale,
+                              originalPrice: e.originalPrice,
+                              rate: "",
+                            ),
+                          )
+                          .toList(),
+                      onItemTap: (index) {},
+                    ),
                   );
       },
     );

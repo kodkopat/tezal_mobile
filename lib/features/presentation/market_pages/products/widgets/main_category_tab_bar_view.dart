@@ -46,15 +46,17 @@ class MainCategoryTabBarView extends StatelessWidget {
                           );
                         },
                       ),
-                      Expanded(
-                        child: ChangeNotifierProvider(
-                          create: (ctx) => provider,
-                          child: SubCategoryView(
-                            subCategoryId: provider.subCategoryIdList[
-                                provider.subCategoryListSelectedIndex],
+                      if (provider.subCategoryIdList.isNotEmpty)
+                        Expanded(
+                          child: ChangeNotifierProvider(
+                            create: (ctx) => provider,
+                            child: SubCategoryView(
+                              mainCategoryId: mainCategoryId,
+                              subCategoryId: provider.subCategoryIdList[
+                                  provider.subCategoryListSelectedIndex],
+                            ),
                           ),
                         ),
-                      ),
                     ],
                   );
       },
