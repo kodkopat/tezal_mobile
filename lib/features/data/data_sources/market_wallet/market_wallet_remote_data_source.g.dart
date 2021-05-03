@@ -38,9 +38,9 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
   }
 
   @override
-  Future<WalletDetailResultModel> getWalletDetails(token) async {
+  Future<WalletDetailResultModel> getWalletDetails(token, skip, take) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletDetailResultModel>(Options(
@@ -60,44 +60,48 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getWithdrawalRequests(token) async {
+  Future<WithdrawalRequestsResultModel> getWithdrawalRequests(
+      token, skip, take) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Wallet/GetWithdrawalRequests',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<WithdrawalRequestsResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Wallet/GetWithdrawalRequests',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = WithdrawalRequestsResultModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<dynamic> withdrawalRequest(token, amount, description) async {
+  Future<BaseApiResultModel> withdrawalRequest(
+      token, amount, description) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'amount': amount, 'description': description};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Wallet/WithdrawalRequest',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Wallet/WithdrawalRequest',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
     return value;
   }
 
