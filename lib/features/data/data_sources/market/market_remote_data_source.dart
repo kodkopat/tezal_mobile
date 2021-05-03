@@ -12,20 +12,6 @@ abstract class MarketRemoteDataSource {
 
   static const _apiUrlPrefix = "Market";
 
-  @POST("$_apiUrlPrefix/Save")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> save(
-    @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
-    @Field() String id,
-    @Field() String name,
-    @Field() String phone,
-    @Field() String telephone,
-    @Field() String email,
-    @Field() String address,
-  );
-
   @GET("$_apiUrlPrefix/GetCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getCustomerProfile(
@@ -83,5 +69,22 @@ abstract class MarketRemoteDataSource {
   Future<dynamic> removeMarketPhoto(
     @Header("token") String token,
     @Query("photoId") String photoId,
+  );
+
+  @GET("$_apiUrlPrefix/GetMarketComments")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<dynamic> getMarketComments(
+    @Header("token") String token,
+    @Query("orderId") String orderId,
+    @Query("skip") int skip,
+    @Query("take") int take,
+  );
+
+  @POST("$_apiUrlPrefix/ReplyMarketComment")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<dynamic> replyMarketComment(
+    @Header("token") String token,
+    @Field("commentId") String commentId,
+    @Field("reply") String reply,
   );
 }
