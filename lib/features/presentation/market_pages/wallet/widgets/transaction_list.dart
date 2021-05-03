@@ -1,24 +1,23 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/dashed_line_painter.dart';
-import '../../../../data/models/customer/wallet_detail_result_model.dart'
-    as wallet;
+import '../../../../data/models/market/wallet_detail_result_model.dart';
 import 'widgets/../transaction_list_item.dart';
 
 class TransactionList extends StatelessWidget {
-  const TransactionList({required this.walletDetail});
+  const TransactionList({required this.walletDetails});
 
-  final List<wallet.Detail> walletDetail;
+  final List<WalletDetail> walletDetails;
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
-      itemCount: walletDetail.length,
+      itemCount: walletDetails.length,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return TransactionListItem(
-          walletDetail: walletDetail[index],
+          walletDetail: walletDetails[index],
         );
       },
       separatorBuilder: (context, index) {

@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
+import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../data/models/customer/wallet_detail_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/wallet_notifier.dart';
+import '../wallet_withdrawal/wallet_withdrawal_page.dart';
+import '../wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
 import 'widgets/transaction_list.dart';
 
 class WalletPage extends StatelessWidget {
@@ -17,11 +20,12 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var walletNotifier = Provider.of<WalletNotifier>(context, listen: false);
-    walletNotifier.fetchBalance();
-
     var balanceConsumer = Consumer<WalletNotifier>(
       builder: (context, provider, child) {
+        if (!provider.wasFetchBalanceCalled) {
+          provider.fetchBalance();
+        }
+
         return provider.walletLoading
             ? AppLoading()
             : provider.walletResult == null
@@ -48,10 +52,30 @@ class WalletPage extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         ActionBtn(
-                          text: "واریز وجه به حساب",
+                          text: "درخواست برداشت وجه",
                           onTap: () {
-                            // Routes.sailor(ChargeWalletPage.route);
+                            Routes.sailor(WithdrawalWalletPage.route);
                           },
+                        ),
+                        SizedBox(height: 16),
+                        Txt(
+                          "مشاهده درخواست‌های برداشت",
+                          gesture: Gestures()
+                            ..onTap(() {
+                              Routes.sailor(WalletWithdrawalRequestsPage.route);
+                            }),
+                          style: AppTxtStyles().body
+                            ..bold()
+                            ..height(47)
+                            ..textColor(Theme.of(context).primaryColor)
+                            ..alignmentContent.center(true)
+                            ..borderRadius(all: 12)
+                            ..border(
+                              all: 0.5,
+                              style: BorderStyle.solid,
+                              color: Theme.of(context).primaryColor,
+                            )
+                            ..ripple(true),
                         ),
                       ],
                     ),
@@ -59,59 +83,32 @@ class WalletPage extends StatelessWidget {
       },
     );
 
-    // var walltDetailConsumer = Consumer<WalletNotifier>(
-    //   builder: (context, provider, child) {
-    //     if (provider.walletDetailList == null) {
-    //       provider.walletDetail();
-    //     }
+    var detailsConsumer = Consumer<WalletNotifier>(
+      builder: (context, provider, child) {
+        if (!provider.wasFetchDetailsCalled) {
+          provider.fetchDetails(context);
+        }
 
-    //     return provider.detailLoading
-    //         ? AppLoading()
-    //         : provider.walletDetailList == null
-    //             ? provider.detailErrorMsg == null
-    //                 ? Txt("لیست تراکنش‌های شما خالی است",
-    //                     style: AppTxtStyles().body..alignment.center())
-    //                 : Txt(provider.detailErrorMsg,
-    //                     style: AppTxtStyles().body..alignment.center())
-    //             : Column(
-    //                 crossAxisAlignment: CrossAxisAlignment.center,
-    //                 children: [
-    //                   TransactionList(walletDetail: provider.walletDetailList!),
-    //                   const SizedBox(height: 8),
-    //                   if (provider.enableLoadMoreData!)
-    //                     LoadMoreBtn(onTap: () {
-    //                       provider.walletDetail();
-    //                     })
-    //                 ],
-    //               );
-    //   },
-    // );
-    var walltDetailConsumer = Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TransactionList(
-          walletDetail: [
-            Detail(
-              date: "1399/10/10",
-              action: "پرداخت",
-              amount: 20000,
-              description: "توضیحات",
-            ),
-            Detail(
-              date: "1399/10/10",
-              action: "پرداخت",
-              amount: 20000,
-              description: "توضیحات",
-            ),
-            Detail(
-              date: "1399/10/10",
-              action: "پرداخت",
-              amount: 20000,
-              description: "توضیحات",
-            ),
-          ],
-        ),
-      ],
+        return provider.detailsLoading
+            ? Center(child: AppLoading())
+            : provider.walletDetails == null
+                ? provider.detailsErrorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.detailsErrorMsg,
+                        style: AppTxtStyles().body..alignment.center())
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      TransactionList(walletDetails: provider.walletDetails!),
+                      const SizedBox(height: 8),
+                      if (provider.detailsEnableLoadMoreData!)
+                        LoadMoreBtn(onTap: () {
+                          provider.fetchDetails(context);
+                        })
+                    ],
+                  );
+      },
     );
 
     return Scaffold(
@@ -122,7 +119,7 @@ class WalletPage extends StatelessWidget {
           textDirection: TextDirection.rtl,
           children: [
             balanceConsumer,
-            walltDetailConsumer,
+            detailsConsumer,
           ],
         ),
       ),

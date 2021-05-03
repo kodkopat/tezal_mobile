@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/customer/wallet_detail_result_model.dart'
-    as wallet;
+import '../../../../data/models/market/wallet_detail_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 
 class TransactionListItem extends StatelessWidget {
   const TransactionListItem({required this.walletDetail});
 
-  final wallet.Detail walletDetail;
+  final WalletDetail walletDetail;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class TransactionListItem extends StatelessWidget {
   Widget get _fieldTransactionType {
     return CustomRichText(
       title: "نوع تراکنش: ",
-      text: "${walletDetail.action}",
+      text: "${walletDetail.walletActionType}",
     );
   }
 
@@ -52,7 +51,10 @@ class TransactionListItem extends StatelessWidget {
   }
 
   String _generateTransactionDateText() {
-    return walletDetail.date.toString().split(" ")[0].replaceAll("-", "/");
+    return DateTime.parse(walletDetail.createDate)
+        .toIso8601String()
+        .split("T")[0]
+        .replaceAll("-", "/");
   }
 
   Widget get _fieldTransactionPriceText {
