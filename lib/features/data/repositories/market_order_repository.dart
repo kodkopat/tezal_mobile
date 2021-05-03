@@ -162,18 +162,4 @@ class MarketOrderRepository {
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
-
-  Future<Either<Failure, dynamic>> getReturnOrder() async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.getReturnOrder(
-        userToken,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
 }
