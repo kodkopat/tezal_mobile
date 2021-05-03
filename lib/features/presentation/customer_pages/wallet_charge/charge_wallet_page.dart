@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
@@ -112,8 +111,6 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
                     );
                   }
                 },
-                background: AppTheme.customerPrimary,
-                textColor: Colors.white,
               ),
               Visibility(
                 visible: errorVisibility,
