@@ -32,13 +32,14 @@ class Data {
   });
 
   final totalCount;
-  final List<Result>? result;
+  final List<WalletDetail>? result;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         totalCount: json["totalCount"],
         result: json["result"] == null
             ? null
-            : List<Result>.from(json["result"].map((x) => Result.fromJson(x))),
+            : List<WalletDetail>.from(
+                json["result"].map((x) => WalletDetail.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -49,8 +50,8 @@ class Data {
       };
 }
 
-class Result {
-  Result({
+class WalletDetail {
+  WalletDetail({
     @required this.walletId,
     @required this.wallet,
     @required this.walletActionType,
@@ -84,7 +85,7 @@ class Result {
   final active;
   final isDeleted;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
+  factory WalletDetail.fromJson(Map<String, dynamic> json) => WalletDetail(
         walletId: json["walletId"],
         wallet: json["wallet"],
         walletActionType: json["walletActionType"],

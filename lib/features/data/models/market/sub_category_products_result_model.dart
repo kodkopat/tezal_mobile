@@ -1,7 +1,5 @@
 import 'package:meta/meta.dart';
 
-import 'product_result_model.dart';
-
 class SubCategoryProductsResultModel {
   SubCategoryProductsResultModel({
     @required this.success,
@@ -11,7 +9,7 @@ class SubCategoryProductsResultModel {
 
   final success;
   final message;
-  final List<ProductResultModel>? data;
+  final List<SubCategoryProduct>? data;
 
   factory SubCategoryProductsResultModel.fromJson(Map<String, dynamic> json) =>
       SubCategoryProductsResultModel(
@@ -19,8 +17,8 @@ class SubCategoryProductsResultModel {
         message: json["message"],
         data: json["data"] == null
             ? null
-            : List<ProductResultModel>.from(
-                json["data"].map((x) => ProductResultModel.fromJson(x))),
+            : List<SubCategoryProduct>.from(
+                json["data"].map((x) => SubCategoryProduct.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,5 +27,54 @@ class SubCategoryProductsResultModel {
         "data": data == null
             ? null
             : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
+}
+
+class SubCategoryProduct {
+  SubCategoryProduct({
+    @required this.id,
+    @required this.name,
+    @required this.createDate,
+    @required this.description,
+    @required this.discountedPrice,
+    @required this.onSale,
+    @required this.originalPrice,
+    @required this.productUnit,
+    @required this.step,
+  });
+
+  final id;
+  final name;
+  final createDate;
+  final description;
+  final discountedPrice;
+  final onSale;
+  final originalPrice;
+  final productUnit;
+  final step;
+
+  factory SubCategoryProduct.fromJson(Map<String, dynamic> json) =>
+      SubCategoryProduct(
+        id: json["id"],
+        name: json["name"],
+        createDate: json["createDate"],
+        description: json["description"],
+        discountedPrice: json["discountedPrice"],
+        onSale: json["onSale"],
+        originalPrice: json["originalPrice"],
+        productUnit: json["productUnit"],
+        step: json["step"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "createDate": createDate,
+        "description": description,
+        "discountedPrice": discountedPrice,
+        "onSale": onSale,
+        "originalPrice": originalPrice,
+        "productUnit": productUnit,
+        "step": step,
       };
 }
