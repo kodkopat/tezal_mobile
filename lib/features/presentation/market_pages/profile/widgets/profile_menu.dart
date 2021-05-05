@@ -12,6 +12,7 @@ import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
+import '../../bank_card_informations/banks_card_informations.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
@@ -36,6 +37,14 @@ class _ProfileMenu {
   );
 
   static List<Widget> items(BuildContext context) => [
+        ProfileMenuItem(
+          text: "اطلاعات کارت بانکی"
+          /* Lang.of(context).profileMenuItemSettings */,
+          iconPath: "assets/images/ic_wallet.png",
+          onTap: () async {
+            Routes.sailor(BankCardInformationsPage.route);
+          },
+        ),
         _divider,
         ProfileMenuItem(
           text: "معرفی اپلیکیشن به دوستان"
