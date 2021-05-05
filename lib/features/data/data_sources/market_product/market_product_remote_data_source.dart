@@ -37,9 +37,9 @@ abstract class MarketProductRemoteDataSource {
     @Query("subCategoryId") String subCategoryId,
   );
 
-  @GET("$_apiUrlPrefix/GetMarketProduct")
+  @GET("$_apiUrlPrefix/GetMarketProducts")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<MarketProductsResultModel> getMarketProduct(
+  Future<MarketProductsResultModel> getMarketProducts(
     @Header("token") String token,
     @Query("mainCategoryId") String mainCategoryId,
     @Query("subCategoryId") String subCategoryId,

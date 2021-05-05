@@ -89,7 +89,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<MarketProductsResultModel> getMarketProduct(
+  Future<MarketProductsResultModel> getMarketProducts(
       token, mainCategoryId, subCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -107,7 +107,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'MarketProduct/GetMarketProduct',
+            .compose(_dio.options, 'MarketProduct/GetMarketProducts',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = MarketProductsResultModel.fromJson(_result.data!);
