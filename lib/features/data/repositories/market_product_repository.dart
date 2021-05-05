@@ -88,7 +88,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, MarketProductsResultModel>> getMarketProduct({
+  Future<Either<Failure, MarketProductsResultModel>> getMarketProducts({
     required String mainCategoryId,
     required String subCategoryId,
   }) async {
@@ -97,7 +97,7 @@ class MarketProductRepository {
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getMarketProduct(
+      var result = await _remoteDataSource.getMarketProducts(
         userToken,
         mainCategoryId,
         subCategoryId,
