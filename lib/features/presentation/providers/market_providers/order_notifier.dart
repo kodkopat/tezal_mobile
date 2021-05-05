@@ -34,6 +34,19 @@ class OrderNotifier extends ChangeNotifier {
     "سفارشات بازگشتی", // returned
   ];
 
+  int? orderSortListIndex;
+  List<String> orderSortList = [
+    "بر اساس تاریخ", // date,
+    "بر اساس فاصله", // distance,
+    "بر اساس قیمت", // price,
+  ];
+
+  int? orderDirectionListIndex;
+  List<String> orderDirectionList = [
+    "صعودی", // acsending,
+    "نزولی", // descending,
+  ];
+
   bool wasFetchOrdersCalled = false;
   bool ordersLoading = true;
   String? ordersErrorMsg;
@@ -139,8 +152,18 @@ class OrderNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refresh(BuildContext context, int index) async {
-    orderStatusListIndex = index;
+  void refresh(
+    BuildContext context, {
+    int? orderStatusListIndex,
+    int? orderSortListIndex,
+    int? orderDirectionListIndex,
+  }) async {
+    if (orderStatusListIndex != null)
+      this.orderStatusListIndex = orderStatusListIndex;
+    if (orderSortListIndex != null)
+      this.orderSortListIndex = orderSortListIndex;
+    if (orderDirectionListIndex != null)
+      this.orderDirectionListIndex = orderDirectionListIndex;
 
     ordersLoading = true;
     ordersErrorMsg = null;
