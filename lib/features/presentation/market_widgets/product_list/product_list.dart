@@ -7,10 +7,12 @@ class ProductList extends StatelessWidget {
   ProductList({
     required this.products,
     required this.onItemTap,
+    this.showItemsAction,
   });
 
   final List<ProductResultModel> products;
   final void Function(int) onItemTap;
+  final bool? showItemsAction;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class ProductList extends StatelessWidget {
         return ProductListItem(
           product: products[index],
           onTap: () => onItemTap(index),
+          showAction: showItemsAction,
         );
       },
     );

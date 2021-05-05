@@ -3,20 +3,22 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-// import 'package:intl/intl.dart' as intl;
-
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market/product_result_model.dart';
 import '../../customer_widgets/custom_rich_text.dart';
+import '../../market_pages/add_product/add_product_page.dart';
 
 class ProductListItem extends StatelessWidget {
   ProductListItem({
     required this.product,
     required this.onTap,
+    this.showAction,
   });
 
   final ProductResultModel product;
   final void Function() onTap;
+  final bool? showAction;
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +37,9 @@ class ProductListItem extends StatelessWidget {
         )
         ..ripple(true),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Parent(
@@ -62,22 +62,44 @@ class ProductListItem extends StatelessWidget {
               SizedBox(width: 8),
               Expanded(
                 child: Column(
-                  textDirection: TextDirection.rtl,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Txt(
-                      "${product.productName}",
-                      style: AppTxtStyles().subHeading..bold(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Txt(
+                          "${product.productName}",
+                          style: AppTxtStyles().subHeading..bold(),
+                        ),
+                        if (showAction ?? false)
+                          Parent(
+                            gesture: Gestures()
+                              ..onTap(() {
+                                Routes.sailor(AddProductPage.route);
+                              }),
+                            style: ParentStyle()
+                              ..width(48)
+                              ..height(48)
+                              ..borderRadius(all: 24)
+                              ..alignmentContent.center()
+                              ..ripple(true),
+                            child: Image.asset(
+                              "assets/images/ic_plus_square.png",
+                              fit: BoxFit.contain,
+                              color: Colors.black26,
+                              width: 24,
+                              height: 24,
+                            ),
+                          ),
+                      ],
                     ),
                     SizedBox(height: 16),
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
-                          textDirection: TextDirection.rtl,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -96,7 +118,6 @@ class ProductListItem extends StatelessWidget {
           ),
           SizedBox(height: 12),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -142,7 +163,6 @@ class ProductListItem extends StatelessWidget {
 
   Widget _fieldTotalPrice() {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateTotalPrice(),
@@ -181,7 +201,6 @@ class ProductListItem extends StatelessWidget {
 
   Widget _fieldTotalDiscountedPrice() {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateTotalDiscountedPrice(),
