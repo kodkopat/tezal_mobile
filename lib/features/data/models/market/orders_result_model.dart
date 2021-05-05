@@ -68,6 +68,8 @@ class MarketOrder {
     @required this.customerPhone,
     @required this.deliveryCost,
     @required this.items,
+    @required this.orderId,
+    @required this.orderNumber,
   });
 
   final deliveryTime;
@@ -79,6 +81,8 @@ class MarketOrder {
   final customerName;
   final customerPhone;
   final deliveryCost;
+  final orderId;
+  final orderNumber;
   final List<MarketOrderItem>? items;
 
   factory MarketOrder.fromJson(Map<String, dynamic> json) => MarketOrder(
@@ -91,6 +95,8 @@ class MarketOrder {
         customerName: json["customerName"],
         customerPhone: json["customerPhone"],
         deliveryCost: json["deliveryCost"],
+        orderId: json["orderId"],
+        orderNumber: json["orderNumber"],
         items: json["items"] == null
             ? null
             : List<MarketOrderItem>.from(
@@ -107,6 +113,8 @@ class MarketOrder {
         "customerName": customerName,
         "customerPhone": customerPhone,
         "deliveryCost": deliveryCost,
+        "orderId": orderId,
+        "orderNumber": orderNumber,
         "items": items == null
             ? null
             : List<dynamic>.from(items!.map((x) => x.toJson())),
