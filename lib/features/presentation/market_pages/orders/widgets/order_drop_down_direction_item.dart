@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 
-class OrderFilterBoxDropDownItem extends StatelessWidget {
-  OrderFilterBoxDropDownItem({
+class OrderDropDownDirectionItem extends StatelessWidget {
+  OrderDropDownDirectionItem({
     required this.text,
     required this.value,
     required this.onValueChanged,

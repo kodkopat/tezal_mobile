@@ -42,14 +42,14 @@ class OrderDetailPage extends StatelessWidget {
               onApproveOrder: () async {
                 await orderNotifier.approveOrder(
                   context: context,
-                  orderId: "marketOrder.id",
+                  orderId: marketOrder.orderId,
                 );
                 Routes.sailor.pop();
               },
               onRejectOrder: () async {
                 await orderNotifier.rejectOrder(
                   context: context,
-                  orderId: "marketOrder.id",
+                  orderId: marketOrder.orderId,
                 );
                 Routes.sailor.pop();
               },

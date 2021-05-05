@@ -3,10 +3,10 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import 'order_filter_box_drop_down_item.dart';
+import 'order_drop_down_filter_item.dart';
 
-class OrderFilterBoxDropDown extends StatefulWidget {
-  OrderFilterBoxDropDown({
+class OrderDropDownSort extends StatefulWidget {
+  OrderDropDownSort({
     required this.labelText,
     required this.onIndexChanged,
     required this.textList,
@@ -19,10 +19,10 @@ class OrderFilterBoxDropDown extends StatefulWidget {
   final int? defaultListIndex;
 
   @override
-  _OrderFilterBoxDropDownState createState() => _OrderFilterBoxDropDownState();
+  _OrderDropDownSortState createState() => _OrderDropDownSortState();
 }
 
-class _OrderFilterBoxDropDownState extends State<OrderFilterBoxDropDown> {
+class _OrderDropDownSortState extends State<OrderDropDownSort> {
   bool showAllItems = false;
   late int selectedIndex;
   @override
@@ -38,8 +38,8 @@ class _OrderFilterBoxDropDownState extends State<OrderFilterBoxDropDown> {
         ..background.color(Colors.white)
         ..boxShadow(
           color: Colors.black12,
-          offset: Offset(0, 3.0),
-          blur: 6,
+          offset: showAllItems ? Offset(0, 3.0) : Offset(0, 0.0),
+          blur: showAllItems ? 6 : 0,
           spread: 0,
         )
         ..ripple(true),
@@ -72,13 +72,11 @@ class _OrderFilterBoxDropDownState extends State<OrderFilterBoxDropDown> {
                     ..maxLines(3),
                 ),
                 Image.asset(
-                  showAllItems
-                      ? "assets/images/ic_chevron_up.png"
-                      : "assets/images/ic_chevron_down.png",
+                  "assets/images/ic_filter_2.png",
                   fit: BoxFit.contain,
                   color: Colors.black,
-                  width: 24,
-                  height: 24,
+                  width: 18,
+                  height: 18,
                 ),
               ],
             ),
@@ -94,7 +92,7 @@ class _OrderFilterBoxDropDownState extends State<OrderFilterBoxDropDown> {
                   itemCount: widget.textList.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return OrderFilterBoxDropDownItem(
+                    return OrderDropDownFilterItem(
                       text: "${widget.textList[index]}",
                       value: index == selectedIndex,
                       onValueChanged: (value) {

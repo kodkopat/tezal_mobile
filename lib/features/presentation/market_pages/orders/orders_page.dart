@@ -10,7 +10,9 @@ import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/order_notifier.dart';
 import '../order_detail/order_detail_page.dart';
-import 'widgets/order_filter_box_drop_down.dart';
+import 'widgets/order_drop_down_direction.dart';
+import 'widgets/order_drop_down_filter.dart';
+import 'widgets/order_drop_down_sort.dart';
 import 'widgets/order_list.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -37,7 +39,7 @@ class OrdersPage extends StatelessWidget {
                 : Stack(
                     children: [
                       SingleChildScrollView(
-                        padding: EdgeInsets.only(top: 48, bottom: 16),
+                        padding: EdgeInsets.only(top: 96, bottom: 16),
                         child: Column(
                           children: [
                             OrderList(
@@ -58,12 +60,52 @@ class OrdersPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      OrderFilterBoxDropDown(
+                      Padding(
+                        padding: EdgeInsets.only(top: 48),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: OrderDropDownSort(
+                                labelText: "مرتب‌سازی سفارشات",
+                                textList: provider.orderSortList,
+                                defaultListIndex: provider.orderSortListIndex,
+                                onIndexChanged: (index) {
+                                  provider.refresh(
+                                    context,
+                                    orderSortListIndex: index,
+                                  );
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: OrderDropDownDirection(
+                                labelText: "ترتیب نمایش",
+                                textList: provider.orderDirectionList,
+                                defaultListIndex:
+                                    provider.orderDirectionListIndex,
+                                onIndexChanged: (index) {
+                                  provider.refresh(
+                                    context,
+                                    orderDirectionListIndex: index,
+                                  );
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      OrderDropDownFilter(
                         labelText: "فیلتر کردن سفارشات",
                         textList: provider.orderStatusList,
                         defaultListIndex: provider.orderStatusListIndex,
                         onIndexChanged: (index) {
-                          provider.refresh(context, index);
+                          provider.refresh(
+                            context,
+                            orderStatusListIndex: index,
+                          );
                         },
                       ),
                     ],
