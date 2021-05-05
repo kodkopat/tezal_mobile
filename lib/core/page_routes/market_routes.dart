@@ -2,6 +2,10 @@
 import 'package:sailor/sailor.dart';
 
 import '../../features/data/models/market/orders_result_model.dart';
+import '../../features/presentation/market_pages/add_bank_card_informations/add_bank_card_informations_page.dart';
+import '../../features/presentation/market_pages/add_product/add_product_page.dart';
+import '../../features/presentation/market_pages/add_products/add_products_page.dart';
+import '../../features/presentation/market_pages/bank_card_informations/banks_card_informations.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/market_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/market_pages/orders/orders_page.dart';
@@ -35,6 +39,14 @@ void createMarketRoutes(Sailor sailor) {
         builder: (ctx, args, map) => ProfilePage(),
       ),
       SailorRoute(
+        name: BankCardInformationsPage.route,
+        builder: (ctx, args, map) => BankCardInformationsPage(),
+      ),
+      SailorRoute(
+        name: AddBankCardInformationsPage.route,
+        builder: (ctx, args, map) => AddBankCardInformationsPage(),
+      ),
+      SailorRoute(
         name: OrderDetailPage.route,
         builder: (ctx, args, map) {
           final marketOrder = map.param<MarketOrder>("marketOrder");
@@ -56,6 +68,14 @@ void createMarketRoutes(Sailor sailor) {
       SailorRoute(
         name: WalletWithdrawalRequestsPage.route,
         builder: (ctx, args, map) => WalletWithdrawalRequestsPage(),
+      ),
+      SailorRoute(
+        name: AddProductsPage.route,
+        builder: (ctx, args, map) => AddProductsPage(),
+      ),
+      SailorRoute(
+        name: AddProductPage.route,
+        builder: (ctx, args, map) => AddProductPage(),
       ),
     ],
   );
