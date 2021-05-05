@@ -22,36 +22,36 @@ class SubCategoryView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SubCategoryNotifier>(
       builder: (context, provider, child) {
-        if (provider.productsResult == null) {
-          provider.fetchProducts(
+        if (provider.marketProductsResult == null) {
+          provider.fetchMarketProducts(
             mainCategoryId: mainCategoryId,
             subCategoryId: subCategoryId,
           );
         }
 
-        return provider.productsLoading
+        return provider.marketProductsLoading
             ? Center(child: AppLoading())
-            : provider.productsResult == null
-                ? provider.productsErrorMsg == null
+            : provider.marketProductsResult == null
+                ? provider.marketProductsErrorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt("${provider.productsErrorMsg}",
+                    : Txt("${provider.marketProductsErrorMsg}",
                         style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
                     child: ProductList(
-                      products: provider.productsResult!.data!
+                      products: provider.marketProductsResult!.data!
                           .map(
                             (e) => ProductResultModel(
                               id: e.id,
-                              productId: "",
-                              productName: e.name,
-                              amount: "",
+                              productId: e.productId,
+                              productName: e.productName,
+                              amount: e.amount,
                               description: e.description,
                               discountedPrice: e.discountedPrice,
-                              discountRate: "",
+                              discountRate: e.discountRate,
                               onSale: e.onSale,
                               originalPrice: e.originalPrice,
-                              rate: "",
+                              rate: e.rate,
                             ),
                           )
                           .toList(),

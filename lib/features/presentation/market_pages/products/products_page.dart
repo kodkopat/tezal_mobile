@@ -3,11 +3,13 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/main_category_notifier.dart';
 import '../../providers/market_providers/sub_category_notifier.dart';
+import '../add_products/add_products_page.dart';
 import 'widgets/main_category_tab_bar.dart';
 import 'widgets/main_category_tab_bar_view.dart';
 
@@ -82,6 +84,17 @@ class _ProductsPageState extends State<ProductsPage>
         text: "محصولات",
       ),
       body: consumer,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Routes.sailor(AddProductsPage.route);
+        },
+        backgroundColor: Theme.of(context).primaryColor,
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 24,
+        ),
+      ),
     );
   }
 }
