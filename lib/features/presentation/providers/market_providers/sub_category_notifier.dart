@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/models/market/market_products_result_model.dart';
 import '../../../data/models/market/sub_categories_result_model.dart';
-import '../../../data/models/market/sub_category_products_result_model.dart';
 import '../../../data/repositories/market_product_repository.dart';
 
 class SubCategoryNotifier extends ChangeNotifier {
@@ -41,32 +41,32 @@ class SubCategoryNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool productsLoading = true;
-  String? productsErrorMsg;
-  SubCategoryProductsResultModel? productsResult;
+  bool marketProductsLoading = true;
+  String? marketProductsErrorMsg;
+  MarketProductsResultModel? marketProductsResult;
 
-  Future<void> fetchProducts({
+  Future<void> fetchMarketProducts({
     required String mainCategoryId,
     required String subCategoryId,
   }) async {
-    var result = await marketProductRepo.getProductsOfSubCategory(
+    var result = await marketProductRepo.getMarketProducts(
       mainCategoryId: mainCategoryId,
       subCategoryId: subCategoryId,
     );
 
     result.fold(
-      (left) => productsErrorMsg = left.message,
-      (right) => productsResult = right,
+      (left) => marketProductsErrorMsg = left.message,
+      (right) => marketProductsResult = right,
     );
 
-    productsLoading = false;
+    marketProductsLoading = false;
     notifyListeners();
   }
 
   void refreshProducts() {
-    productsLoading = true;
-    productsErrorMsg = null;
-    productsResult = null;
+    marketProductsLoading = true;
+    marketProductsErrorMsg = null;
+    marketProductsResult = null;
 
     notifyListeners();
   }
