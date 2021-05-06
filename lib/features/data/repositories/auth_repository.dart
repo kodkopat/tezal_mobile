@@ -9,8 +9,8 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/auth/auth_local_data_source.dart';
 import '../data_sources/auth/auth_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
 import '../models/customer/agreement_result_model.dart';
-import '../models/customer/base_api_result_model.dart';
 
 class AuthRepository {
   static AuthRepository? _instance;
