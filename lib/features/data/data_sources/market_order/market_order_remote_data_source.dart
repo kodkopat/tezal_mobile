@@ -2,7 +2,8 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/customer/base_api_result_model.dart';
+import '../../models/base_api_result_model.dart';
+import '../../models/market/order_photos_result_model.dart';
 import '../../models/market/orders_result_model.dart';
 
 part 'market_order_remote_data_source.g.dart';
@@ -21,6 +22,9 @@ abstract class MarketOrderRemoteDataSource {
     @Query("skip") int skip,
     @Query("take") int take,
     @Query("status") String status,
+    @Query("distanceAscending") bool? distanceAscending,
+    @Query("dateAscescending") bool? dateAscescending,
+    @Query("priceAscending") bool? priceAscending,
   );
 
   @GET("$_apiUrlPrefix/ApproveOrder")
@@ -39,7 +43,7 @@ abstract class MarketOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetOrderPhotos")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> getOrderPhotos(
+  Future<OrderPhorosResultModel> getOrderPhotos(
     @Header("token") String token,
     @Query("orderId") String orderId,
   );

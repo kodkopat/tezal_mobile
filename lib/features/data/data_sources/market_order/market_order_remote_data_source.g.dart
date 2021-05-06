@@ -16,13 +16,18 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<OrdersResultModel> getOrders(token, skip, take, status) async {
+  Future<OrdersResultModel> getOrders(token, skip, take, status,
+      distanceAscending, dateAscescending, priceAscending) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'skip': skip,
       r'take': take,
-      r'status': status
+      r'status': status,
+      r'distanceAscending': distanceAscending,
+      r'dateAscescending': dateAscescending,
+      r'priceAscending': priceAscending
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrdersResultModel>(Options(
@@ -86,12 +91,12 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> getOrderPhotos(token, orderId) async {
+  Future<OrderPhorosResultModel> getOrderPhotos(token, orderId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'orderId': orderId};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseApiResultModel>(Options(
+        _setStreamType<OrderPhorosResultModel>(Options(
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
@@ -103,7 +108,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             .compose(_dio.options, 'Order/GetOrderPhotos',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseApiResultModel.fromJson(_result.data!);
+    final value = OrderPhorosResultModel.fromJson(_result.data!);
     return value;
   }
 
