@@ -36,8 +36,7 @@ class MainCategoryTabBarView extends StatelessWidget {
                         textList: provider.subCategoryNameList,
                         selectedIndex: provider.subCategoryListSelectedIndex,
                         onItemTap: (index) {
-                          provider.subCategoryListSelectedIndex = index;
-                          provider.refreshSubCategoryListSelectedIndex();
+                          provider.refreshSubCategoryListSelectedIndex(index);
                           provider.refreshProducts();
 
                           print(
@@ -48,8 +47,17 @@ class MainCategoryTabBarView extends StatelessWidget {
                       ),
                       if (provider.subCategoryIdList.isNotEmpty)
                         Expanded(
-                          child: ChangeNotifierProvider(
-                            create: (ctx) => provider,
+                          child: MultiProvider(
+                            providers: [
+                              ChangeNotifierProvider(
+                                create: (ctx) => provider,
+                              ),
+                              /* ChangeNotifierProvider(
+                                create: (ctx) => ProductsNotifier(
+                                  MarketProductRepository(),
+                                ),
+                              ), */
+                            ],
                             child: SubCategoryView(
                               mainCategoryId: mainCategoryId,
                               subCategoryId: provider.subCategoryIdList[

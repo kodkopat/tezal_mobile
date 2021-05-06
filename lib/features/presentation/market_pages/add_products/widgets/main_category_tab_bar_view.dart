@@ -36,8 +36,7 @@ class MainCategoryTabBarView extends StatelessWidget {
                         textList: provider.subCategoryNameList,
                         selectedIndex: provider.subCategoryListSelectedIndex,
                         onItemTap: (index) {
-                          provider.subCategoryListSelectedIndex = index;
-                          provider.refreshSubCategoryListSelectedIndex();
+                          provider.refreshSubCategoryListSelectedIndex(index);
                           provider.refreshProducts();
 
                           print(

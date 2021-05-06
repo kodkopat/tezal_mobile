@@ -42,16 +42,15 @@ class SubCategoryView extends StatelessWidget {
                       products: provider.marketProductsResult!.data!
                           .map(
                             (e) => ProductResultModel(
-                              id: e.id,
-                              productId: e.productId,
-                              productName: e.productName,
-                              amount: e.amount,
-                              description: e.description,
-                              discountedPrice: e.discountedPrice,
-                              discountRate: e.discountRate,
-                              onSale: e.onSale,
-                              originalPrice: e.originalPrice,
-                              rate: e.rate,
+                              id: e.productId,
+                              name: e.productName,
+                              createDate: e.productCreateDate,
+                              description: e.productDescription,
+                              discountedPrice: e.productDiscountedPrice,
+                              onSale: e.productOnSale,
+                              originalPrice: e.productOriginalPrice,
+                              productUnit: e.productUnit,
+                              step: e.productStep,
                             ),
                           )
                           .toList(),

@@ -5,9 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
-import '../../../../data/models/market/product_result_model.dart';
 import '../../../market_widgets/product_list/product_list.dart';
-import '../../../providers/market_providers/products_notifier.dart';
+import '../../../providers/market_providers/sub_category_notifier.dart';
 
 class SubCategoryView extends StatelessWidget {
   SubCategoryView({
@@ -20,41 +19,26 @@ class SubCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProductsNotifier>(
+    return Consumer<SubCategoryNotifier>(
       builder: (context, provider, child) {
-        if (provider.productsResult == null) {
-          provider.fetchProducts(
+        if (provider.notListedProductsResult == null) {
+          provider.fetchNotListedProducts(
             mainCategoryId: mainCategoryId,
             subCategoryId: subCategoryId,
           );
         }
 
-        return provider.productsLoading
+        return provider.notListedProductsLoading
             ? Center(child: AppLoading())
-            : provider.productsResult == null
-                ? provider.productsErrorMsg == null
+            : provider.notListedProductsResult == null
+                ? provider.notListedProductsErrorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt("${provider.productsErrorMsg}",
+                    : Txt("${provider.notListedProductsErrorMsg}",
                         style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
                     child: ProductList(
-                      products: provider.productsResult!.data!
-                          .map(
-                            (e) => ProductResultModel(
-                              id: e.id,
-                              productId: "",
-                              productName: e.name,
-                              amount: "",
-                              description: e.description,
-                              discountedPrice: e.discountedPrice,
-                              discountRate: "",
-                              onSale: e.onSale,
-                              originalPrice: e.originalPrice,
-                              rate: "",
-                            ),
-                          )
-                          .toList(),
+                      products: provider.notListedProductsResult!.data!,
                       onItemTap: (index) {},
                       showItemsAction: true,
                     ),

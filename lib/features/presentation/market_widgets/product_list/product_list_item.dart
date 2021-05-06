@@ -69,14 +69,17 @@ class ProductListItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Txt(
-                          "${product.productName}",
+                          "${product.name}",
                           style: AppTxtStyles().subHeading..bold(),
                         ),
                         if (showAction ?? false)
                           Parent(
                             gesture: Gestures()
                               ..onTap(() {
-                                Routes.sailor(AddProductPage.route);
+                                Routes.sailor.navigate(
+                                  AddProductPage.route,
+                                  params: {"product": product},
+                                );
                               }),
                             style: ParentStyle()
                               ..width(48)
