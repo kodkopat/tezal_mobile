@@ -63,7 +63,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<SubCategoryProductsResultModel> getProducts(
+  Future<ProductsResultModel> getNotListedProducts(
       token, mainCategoryId, subCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -72,7 +72,33 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<SubCategoryProductsResultModel>(Options(
+        _setStreamType<ProductsResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'MarketProduct/GetNotListedProducts',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = ProductsResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<ProductsResultModel> getProducts(
+      token, mainCategoryId, subCategoryId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'mainCategoryId': mainCategoryId,
+      r'subCategoryId': subCategoryId
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<ProductsResultModel>(Options(
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
@@ -84,7 +110,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
             .compose(_dio.options, 'MarketProduct/GetProducts',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SubCategoryProductsResultModel.fromJson(_result.data!);
+    final value = ProductsResultModel.fromJson(_result.data!);
     return value;
   }
 
@@ -115,8 +141,8 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
   }
 
   @override
-  Future<dynamic> addToProductMarket(token, productId, amount, discountRate,
-      discountedPrice, originalPrice, onSale, description) async {
+  Future<BaseApiResultModel> addToProductMarket(token, productId, amount,
+      discountRate, discountedPrice, originalPrice, onSale, description) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {
@@ -128,19 +154,20 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
       'onSale': onSale,
       'description': description
     };
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'MarketProduct/AddToProductMarket',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'MarketProduct/AddToProductMarket',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
     return value;
   }
 
