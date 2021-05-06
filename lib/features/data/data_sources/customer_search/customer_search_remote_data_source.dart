@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/customer/base_api_result_model.dart';
+import '../../models/base_api_result_model.dart';
 import '../../models/customer/search_result_model.dart';
 import '../../models/customer/search_terms_result_model.dart';
 
