@@ -10,8 +10,8 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_category/customer_category_local_data_source.dart';
 import '../data_sources/customer_category/customer_category_remote_data_source.dart';
 import '../models/customer/main_category_result_model.dart';
-import '../models/customer/photo_result_model.dart';
 import '../models/customer/sub_category_result_model.dart';
+import '../models/photo_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerCategoryRepository {

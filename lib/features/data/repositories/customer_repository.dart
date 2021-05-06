@@ -9,9 +9,9 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer/customer_local_data_source.dart';
 import '../data_sources/customer/customer_remote_data_source.dart';
-import '../models/customer/base_api_result_model.dart';
+import '../models/base_api_result_model.dart';
 import '../models/customer/customer_profile_result_model.dart';
-import '../models/customer/photo_result_model.dart';
+import '../models/photo_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerRepository {

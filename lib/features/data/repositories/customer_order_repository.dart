@@ -9,7 +9,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_order/customer_order_local_data_source.dart';
 import '../data_sources/customer_order/customer_order_remote_data_source.dart';
-import '../models/customer/base_api_result_model.dart';
+import '../models/base_api_result_model.dart';
 import '../models/customer/older_orders_result_model.dart';
 import '../models/customer/order_detail_result_model.dart';
 import '../models/customer/order_result_model.dart';

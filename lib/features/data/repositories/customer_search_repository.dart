@@ -11,7 +11,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../../core/services/location.dart';
 import '../data_sources/customer_search/customer_search_local_data_source.dart';
 import '../data_sources/customer_search/customer_search_remote_data_source.dart';
-import '../models/customer/base_api_result_model.dart';
+import '../models/base_api_result_model.dart';
 import '../models/customer/search_result_model.dart';
 import '../models/customer/search_terms_result_model.dart';
 import 'auth_repository.dart';
