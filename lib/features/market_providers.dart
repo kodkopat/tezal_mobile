@@ -6,6 +6,7 @@ import 'data/repositories/market_product_repository.dart';
 import 'data/repositories/market_wallet_repository.dart';
 import 'presentation/providers/market_providers/main_category_notifier.dart';
 import 'presentation/providers/market_providers/order_notifier.dart';
+import 'presentation/providers/market_providers/products_notifier.dart';
 import 'presentation/providers/market_providers/wallet_notifier.dart';
 
 List<SingleChildWidget> marketProviders = [
@@ -16,6 +17,11 @@ List<SingleChildWidget> marketProviders = [
   ),
   ChangeNotifierProvider(
     create: (ctx) => MainCategoryNotifier(
+      MarketProductRepository(),
+    ),
+  ),
+  ChangeNotifierProvider(
+    create: (ctx) => ProductsNotifier(
       MarketProductRepository(),
     ),
   ),
