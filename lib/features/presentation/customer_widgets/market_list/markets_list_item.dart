@@ -11,7 +11,7 @@ import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
-import '../../../data/models/customer/photos_result_model.dart';
+import '../../../data/models/photos_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../custom_rich_text.dart';
 

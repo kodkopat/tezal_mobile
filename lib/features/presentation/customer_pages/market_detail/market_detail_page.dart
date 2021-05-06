@@ -14,7 +14,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
-import '../../../data/models/customer/photos_result_model.dart';
+import '../../../data/models/photos_result_model.dart';
 import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/market_list/markets_list_item.dart';
