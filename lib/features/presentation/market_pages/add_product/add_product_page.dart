@@ -1,16 +1,24 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
+import '../../../../core/widgets/custom_drop_down.dart';
 import '../../../../core/widgets/custom_text_input.dart';
-import '../../../../core/widgets/progress_dialog.dart';
+import '../../../data/models/market/product_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/market_providers/products_notifier.dart';
 
 class AddProductPage extends StatefulWidget {
   static const route = "/market_add_product";
+
+  AddProductPage({required this.product});
+
+  final ProductResultModel product;
 
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -19,13 +27,41 @@ class AddProductPage extends StatefulWidget {
 class _AddProductPageState extends State<AddProductPage> {
   GlobalKey formKey = GlobalKey<FormState>();
 
-  var amountCtrl = TextEditingController();
-  var priceCtrl = TextEditingController();
-  var discountCtrl = TextEditingController();
-  var descriptionCtrl = TextEditingController();
+  late TextEditingController amountCtrl;
+  late TextEditingController priceCtrl;
+  late TextEditingController discountCtrl;
+  late TextEditingController descriptionCtrl;
+
+  late List<String> readyOnSailValues;
+  late String readyOnSailDefaultValue;
 
   String errorTxt = "";
   bool errorVisibility = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    amountCtrl = TextEditingController(
+      text: "${widget.product.step}",
+    );
+    priceCtrl = TextEditingController(
+      text: "${widget.product.originalPrice}",
+    );
+    discountCtrl = TextEditingController(
+      text: "${widget.product.discountedPrice}",
+    );
+    descriptionCtrl = TextEditingController(
+      text: "${widget.product.description}",
+    );
+
+    readyOnSailValues = ["بله", "خیر"];
+    if (widget.product.onSale) {
+      readyOnSailDefaultValue = readyOnSailValues.first;
+    } else {
+      readyOnSailDefaultValue = readyOnSailValues.last;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +102,15 @@ class _AddProductPageState extends State<AddProductPage> {
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
-              CustomTextInput(
-                controller: descriptionCtrl,
-                validator: AppValidators.description,
+              CustomDropDown(
                 label: "آماده برای فروش",
-                textDirection: TextDirection.rtl,
-                keyboardType: TextInputType.text,
+                defaultValue: readyOnSailDefaultValue,
+                values: readyOnSailValues,
+                onChange: (value) {
+                  setState(() {
+                    readyOnSailDefaultValue = value;
+                  });
+                },
               ),
               const SizedBox(height: 16),
               CustomTextInput(
@@ -86,8 +125,31 @@ class _AddProductPageState extends State<AddProductPage> {
                 text: "ثبت",
                 onTap: () async {
                   if ((formKey.currentState as FormState).validate()) {
-                    var prgDialog = AppProgressDialog(context).instance;
-                    prgDialog.show();
+                    var productsNotifier =
+                        Provider.of<ProductsNotifier>(context, listen: false);
+
+                    await productsNotifier.addToMarketProducts(
+                      context,
+                      productId: widget.product.id,
+                      amount: double.parse(amountCtrl.text),
+                      discountRate: (double.parse(discountCtrl.text) * 100) /
+                          double.parse(priceCtrl.text),
+                      discountedPrice: double.parse(discountCtrl.text),
+                      originalPrice: double.parse(priceCtrl.text),
+                      onSale:
+                          readyOnSailDefaultValue == readyOnSailValues.first,
+                      description: descriptionCtrl.text,
+                    );
+
+                    if (productsNotifier.addToMarketProductsErrorMsg != null) {
+                      setState(() {
+                        errorTxt =
+                            productsNotifier.addToMarketProductsErrorMsg!;
+                        errorVisibility = true;
+                      });
+                    } else {
+                      Routes.sailor.pop();
+                    }
                   }
                 },
               ),
