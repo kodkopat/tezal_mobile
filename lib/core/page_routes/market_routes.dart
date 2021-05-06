@@ -2,6 +2,7 @@
 import 'package:sailor/sailor.dart';
 
 import '../../features/data/models/market/orders_result_model.dart';
+import '../../features/data/models/market/product_result_model.dart';
 import '../../features/presentation/market_pages/add_bank_card_informations/add_bank_card_informations_page.dart';
 import '../../features/presentation/market_pages/add_product/add_product_page.dart';
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
@@ -75,7 +76,18 @@ void createMarketRoutes(Sailor sailor) {
       ),
       SailorRoute(
         name: AddProductPage.route,
-        builder: (ctx, args, map) => AddProductPage(),
+        builder: (ctx, args, map) {
+          final product = map.param<ProductResultModel>("product");
+
+          return AddProductPage(product: product);
+        },
+        params: [
+          SailorParam<ProductResultModel>(
+            name: "product",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
       ),
     ],
   );
