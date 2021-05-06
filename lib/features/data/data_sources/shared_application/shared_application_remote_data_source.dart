@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/http.dart';
 
 import '../../../../core/consts/consts.dart';
-import '../../models/customer/base_api_result_model.dart';
+import '../../models/base_api_result_model.dart';
 
 part 'shared_application_remote_data_source.g.dart';
 
