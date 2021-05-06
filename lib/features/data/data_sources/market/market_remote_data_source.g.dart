@@ -16,7 +16,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<dynamic> getCustomerProfile(token) async {
+  Future<dynamic> getMarketProfile(token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -29,7 +29,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'Market/GetCustomerProfile',
+        .compose(_dio.options, 'Market/GetMarketProfile',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

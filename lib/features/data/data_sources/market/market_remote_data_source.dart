@@ -12,9 +12,9 @@ abstract class MarketRemoteDataSource {
 
   static const _apiUrlPrefix = "Market";
 
-  @GET("$_apiUrlPrefix/GetCustomerProfile")
+  @GET("$_apiUrlPrefix/GetMarketProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getCustomerProfile(
+  Future<dynamic> getMarketProfile(
     @Header("token") String token,
   );
 
