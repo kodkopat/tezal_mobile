@@ -9,10 +9,11 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_product/market_product_local_data_source.dart';
 import '../data_sources/market_product/market_product_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
 import '../models/market/main_categories_result_model.dart';
 import '../models/market/market_products_result_model.dart';
+import '../models/market/products_result_model.dart';
 import '../models/market/sub_categories_result_model.dart';
-import '../models/market/sub_category_products_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketProductRepository {
@@ -52,7 +53,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, SubCategoriesResultModel>> getCategoriesOfCategory(
+  Future<Either<Failure, SubCategoriesResultModel>> getSubCategoriesOfCategory(
       {required String mainCategoryId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -68,8 +69,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, SubCategoryProductsResultModel>>
-      getProductsOfSubCategory({
+  Future<Either<Failure, ProductsResultModel>> getProducts({
     required String mainCategoryId,
     required String subCategoryId,
   }) async {
@@ -79,6 +79,25 @@ class MarketProductRepository {
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getProducts(
+        userToken,
+        mainCategoryId,
+        subCategoryId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, ProductsResultModel>> getNotListedProducts({
+    required String mainCategoryId,
+    required String subCategoryId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getNotListedProducts(
         userToken,
         mainCategoryId,
         subCategoryId,
@@ -107,7 +126,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> addToProductMarket({
+  Future<Either<Failure, BaseApiResultModel>> addToProductMarket({
     required String productId,
     required double amount,
     required double discountRate,

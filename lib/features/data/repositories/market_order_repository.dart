@@ -9,7 +9,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_order/market_order_local_data_source.dart';
 import '../data_sources/market_order/market_order_remote_data_source.dart';
-import '../models/customer/base_api_result_model.dart';
+import '../models/base_api_result_model.dart';
 import '../models/market/orders_result_model.dart';
 import 'auth_repository.dart';
 
@@ -40,6 +40,9 @@ class MarketOrderRepository {
     required int skip,
     required int take,
     required String status,
+    required bool? distanceAscending,
+    required bool? dateAscescending,
+    required bool? priceAscending,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -51,6 +54,9 @@ class MarketOrderRepository {
         skip,
         take,
         status,
+        distanceAscending,
+        dateAscescending,
+        priceAscending,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

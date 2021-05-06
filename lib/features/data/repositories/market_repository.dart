@@ -34,13 +34,13 @@ class MarketRepository {
   final MarketLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, dynamic>> getCustomerProfile() async {
+  Future<Either<Failure, dynamic>> getMarketProfile() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getCustomerProfile(
+      var result = await _remoteDataSource.getMarketProfile(
         userToken,
       );
 
