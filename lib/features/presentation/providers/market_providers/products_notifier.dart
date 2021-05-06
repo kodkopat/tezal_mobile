@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/market/sub_category_products_result_model.dart';
+import '../../../../core/widgets/progress_dialog.dart';
+import '../../../data/models/base_api_result_model.dart';
 import '../../../data/repositories/market_product_repository.dart';
 
 class ProductsNotifier extends ChangeNotifier {
@@ -8,32 +9,38 @@ class ProductsNotifier extends ChangeNotifier {
 
   final MarketProductRepository marketProductRepo;
 
-  bool productsLoading = true;
-  String? productsErrorMsg;
-  SubCategoryProductsResultModel? productsResult;
+  String? addToMarketProductsErrorMsg;
+  BaseApiResultModel? addToMarketProductsResult;
 
-  Future<void> fetchProducts({
-    required String mainCategoryId,
-    required String subCategoryId,
+  Future<void> addToMarketProducts(
+    BuildContext context, {
+    required String productId,
+    required double amount,
+    required double discountRate,
+    required double discountedPrice,
+    required double originalPrice,
+    required bool onSale,
+    required String description,
   }) async {
-    var result = await marketProductRepo.getProductsOfSubCategory(
-      mainCategoryId: mainCategoryId,
-      subCategoryId: subCategoryId,
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketProductRepo.addToProductMarket(
+      productId: productId,
+      amount: amount,
+      discountRate: discountRate,
+      discountedPrice: discountedPrice,
+      originalPrice: originalPrice,
+      onSale: onSale,
+      description: description,
     );
+
+    prgDialog.hide();
 
     result.fold(
-      (left) => productsErrorMsg = left.message,
-      (right) => productsResult = right,
+      (left) => addToMarketProductsErrorMsg = left.message,
+      (right) => addToMarketProductsResult = right,
     );
-
-    productsLoading = false;
-    notifyListeners();
-  }
-
-  void refreshProducts() {
-    productsLoading = true;
-    productsErrorMsg = null;
-    productsResult = null;
 
     notifyListeners();
   }

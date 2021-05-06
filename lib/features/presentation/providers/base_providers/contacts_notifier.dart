@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/customer/base_api_result_model.dart';
+import '../../../data/models/base_api_result_model.dart';
 import '../../../data/repositories/shared_application_repository.dart';
 
 class ContactsNotifier extends ChangeNotifier {

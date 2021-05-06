@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/customer/base_api_result_model.dart';
+import '../../../data/models/base_api_result_model.dart';
 import '../../../data/models/market/orders_result_model.dart';
 import '../../../data/repositories/market_order_repository.dart';
 
@@ -64,11 +64,53 @@ class OrderNotifier extends ChangeNotifier {
       notifyListeners();
     }
 
+    bool? dateAscescending;
+    if (orderSortListIndex != null && orderSortListIndex == 0) {
+      if (orderDirectionListIndex == null) {
+        dateAscescending = true;
+      } else {
+        if (orderDirectionListIndex == 0) {
+          dateAscescending = true;
+        } else {
+          dateAscescending = false;
+        }
+      }
+    }
+
+    bool? distanceAscending;
+    if (orderSortListIndex != null && orderSortListIndex == 1) {
+      if (orderDirectionListIndex == null) {
+        distanceAscending = true;
+      } else {
+        if (orderDirectionListIndex == 0) {
+          distanceAscending = true;
+        } else {
+          distanceAscending = false;
+        }
+      }
+    }
+
+    bool? priceAscending;
+    if (orderSortListIndex != null && orderSortListIndex == 2) {
+      if (orderDirectionListIndex == null) {
+        priceAscending = true;
+      } else {
+        if (orderDirectionListIndex == 0) {
+          priceAscending = true;
+        } else {
+          priceAscending = false;
+        }
+      }
+    }
+
     if (ordersTotalCount == null) {
       var result = await marketOrderRepo.getOrders(
         skip: ordersSkip,
         take: ordersTake,
         status: orderStatusListIndex == null ? "" : "$orderStatusListIndex",
+        dateAscescending: dateAscescending,
+        distanceAscending: distanceAscending,
+        priceAscending: priceAscending,
       );
 
       result.fold(
@@ -92,6 +134,9 @@ class OrderNotifier extends ChangeNotifier {
         skip: ordersSkip,
         take: ordersTake,
         status: orderStatusListIndex == null ? "" : "$orderStatusListIndex",
+        dateAscescending: dateAscescending,
+        distanceAscending: distanceAscending,
+        priceAscending: priceAscending,
       );
 
       result.fold(

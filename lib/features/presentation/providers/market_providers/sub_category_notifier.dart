@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/models/market/market_products_result_model.dart';
+import '../../../data/models/market/products_result_model.dart';
 import '../../../data/models/market/sub_categories_result_model.dart';
 import '../../../data/repositories/market_product_repository.dart';
 
@@ -17,7 +18,7 @@ class SubCategoryNotifier extends ChangeNotifier {
   int subCategoryListSelectedIndex = 0;
 
   Future<void> fetchSubCategories({required String mainCategoryId}) async {
-    var result = await marketProductRepo.getCategoriesOfCategory(
+    var result = await marketProductRepo.getSubCategoriesOfCategory(
       mainCategoryId: mainCategoryId,
     );
 
@@ -37,7 +38,25 @@ class SubCategoryNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refreshSubCategoryListSelectedIndex() {
+  bool notListedProductsLoading = true;
+  String? notListedProductsErrorMsg;
+  ProductsResultModel? notListedProductsResult;
+
+  Future<void> fetchNotListedProducts({
+    required String mainCategoryId,
+    required String subCategoryId,
+  }) async {
+    var result = await marketProductRepo.getNotListedProducts(
+      mainCategoryId: mainCategoryId,
+      subCategoryId: subCategoryId,
+    );
+
+    result.fold(
+      (left) => notListedProductsErrorMsg = left.message,
+      (right) => notListedProductsResult = right,
+    );
+
+    notListedProductsLoading = false;
     notifyListeners();
   }
 
@@ -64,10 +83,19 @@ class SubCategoryNotifier extends ChangeNotifier {
   }
 
   void refreshProducts() {
+    notListedProductsLoading = true;
+    notListedProductsErrorMsg = null;
+    notListedProductsResult = null;
+
     marketProductsLoading = true;
     marketProductsErrorMsg = null;
     marketProductsResult = null;
 
+    notifyListeners();
+  }
+
+  void refreshSubCategoryListSelectedIndex(int index) {
+    subCategoryListSelectedIndex = index;
     notifyListeners();
   }
 }

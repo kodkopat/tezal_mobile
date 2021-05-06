@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
-import '../../../data/models/customer/base_api_result_model.dart';
+import '../../../data/models/base_api_result_model.dart';
 import '../../../data/repositories/shared_application_repository.dart';
 
 class UpdateNotifier extends ChangeNotifier {
