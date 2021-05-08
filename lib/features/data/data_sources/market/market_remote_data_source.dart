@@ -2,6 +2,10 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/base_api_result_model.dart';
+import '../../models/market/market_default_hours_result_model.dart';
+import '../../models/market/market_profile_result_model.dart';
+import '../../models/market/update_market_default_hours_model.dart';
 
 part 'market_remote_data_source.g.dart';
 
@@ -14,37 +18,38 @@ abstract class MarketRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetMarketProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getMarketProfile(
+  Future<MarketProfileResultModel> getMarketProfile(
     @Header("token") String token,
   );
 
   @POST("$_apiUrlPrefix/ChangeMarketProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> changeMarketProfile(
+  Future<BaseApiResultModel> changeMarketProfile(
     @Header("token") String token,
-    @Field() String id,
-    @Field() String name,
-    @Field() String phone,
-    @Field() String telephone,
-    @Field() String email,
-    @Field() String address,
+    @Field() String? id,
+    @Field() String? name,
+    @Field() String? phone,
+    @Field() String? telephone,
+    @Field() String? email,
+    @Field() String? address,
   );
 
   @POST("$_apiUrlPrefix/OpenCloseMarket")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> openCloseMarket(
+  Future<BaseApiResultModel> openCloseMarket(
     @Header("token") String token,
   );
 
   @POST("$_apiUrlPrefix/UpdateMarketDefaultHours")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> updateMarketDefaultHours(
+  Future<BaseApiResultModel> updateMarketDefaultHours(
     @Header("token") String token,
+    @Body() List<UpdateMarketDefaultHoursModel> defaultHours,
   );
 
   @GET("$_apiUrlPrefix/GetMarketDefaultHours")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getMarketDefaultHours(
+  Future<MarketDefaultHoursResultModel> getMarketDefaultHours(
     @Header("token") String token,
   );
 
