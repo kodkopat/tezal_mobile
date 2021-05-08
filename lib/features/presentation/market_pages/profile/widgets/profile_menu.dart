@@ -13,6 +13,8 @@ import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../bank_card_informations/banks_card_informations.dart';
+import '../../market_default_hours/default_hours_page.dart';
+import '../../profile_info/profile_info_page.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
@@ -37,6 +39,22 @@ class _ProfileMenu {
   );
 
   static List<Widget> items(BuildContext context) => [
+        ProfileMenuItem(
+          text: "اطلاعات حساب کاربری"
+          /* Lang.of(context).profileMenuItemSettings */,
+          iconPath: "assets/images/ic_user.png",
+          onTap: () async {
+            Routes.sailor(ProfileInfoPage.route);
+          },
+        ),
+        ProfileMenuItem(
+          text: "اطلاعات ساعات کاری"
+          /* Lang.of(context).profileMenuItemSettings */,
+          iconPath: "assets/images/ic_clock_rectangle.png",
+          onTap: () async {
+            Routes.sailor(DefaultHoursPage.route);
+          },
+        ),
         ProfileMenuItem(
           text: "اطلاعات کارت بانکی"
           /* Lang.of(context).profileMenuItemSettings */,
