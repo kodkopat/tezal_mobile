@@ -159,6 +159,7 @@ class OrderNotifier extends ChangeNotifier {
 
   String? approveOrderErrorMsg;
   BaseApiResultModel? approveOrderResult;
+
   Future<void> approveOrder({
     required BuildContext context,
     required String orderId,
@@ -179,6 +180,7 @@ class OrderNotifier extends ChangeNotifier {
 
   String? rejectOrderErrorMsg;
   BaseApiResultModel? rejectOrderResult;
+
   Future<void> rejectOrder({
     required BuildContext context,
     required String orderId,
