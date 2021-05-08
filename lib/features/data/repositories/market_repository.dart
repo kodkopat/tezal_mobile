@@ -9,6 +9,10 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/market/market_local_data_source.dart';
 import '../data_sources/market/market_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
+import '../models/market/market_default_hours_result_model.dart';
+import '../models/market/market_profile_result_model.dart';
+import '../models/market/update_market_default_hours_model.dart';
 import 'auth_repository.dart';
 
 class MarketRepository {
@@ -34,27 +38,25 @@ class MarketRepository {
   final MarketLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, dynamic>> getMarketProfile() async {
+  Future<Either<Failure, MarketProfileResultModel>> getMarketProfile() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getMarketProfile(
-        userToken,
-      );
+      var result = await _remoteDataSource.getMarketProfile(userToken);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> changeMarketProfile({
-    required String id,
-    required String name,
-    required String phone,
-    required String telephone,
-    required String email,
-    required String address,
+  Future<Either<Failure, BaseApiResultModel>> changeMarketProfile({
+    required String? id,
+    required String? name,
+    required String? phone,
+    required String? telephone,
+    required String? email,
+    required String? address,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -81,15 +83,14 @@ class MarketRepository {
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.openCloseMarket(
-        userToken,
-      );
+      var result = await _remoteDataSource.openCloseMarket(userToken);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> updateMarketDefaultHours() async {
+  Future<Either<Failure, dynamic>> updateMarketDefaultHours(
+      {required List<UpdateMarketDefaultHoursModel> defaultHours}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -97,21 +98,21 @@ class MarketRepository {
 
       var result = await _remoteDataSource.updateMarketDefaultHours(
         userToken,
+        defaultHours,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> getMarketDefaultHours() async {
+  Future<Either<Failure, MarketDefaultHoursResultModel>>
+      getMarketDefaultHours() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getMarketDefaultHours(
-        userToken,
-      );
+      var result = await _remoteDataSource.getMarketDefaultHours(userToken);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
