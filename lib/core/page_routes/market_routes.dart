@@ -1,6 +1,8 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
+import '../../features/data/models/market/market_default_hours_result_model.dart';
+import '../../features/data/models/market/market_profile_result_model.dart';
 import '../../features/data/models/market/orders_result_model.dart';
 import '../../features/data/models/market/product_result_model.dart';
 import '../../features/presentation/market_pages/add_bank_card_informations/add_bank_card_informations_page.dart';
@@ -8,10 +10,14 @@ import '../../features/presentation/market_pages/add_product/add_product_page.da
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
 import '../../features/presentation/market_pages/bank_card_informations/banks_card_informations.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
+import '../../features/presentation/market_pages/market_default_hours/default_hours_page.dart';
+import '../../features/presentation/market_pages/market_default_hours_edit/edit_default_hours_page.dart';
 import '../../features/presentation/market_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/market_pages/orders/orders_page.dart';
 import '../../features/presentation/market_pages/products/products_page.dart';
 import '../../features/presentation/market_pages/profile/profile_page.dart';
+import '../../features/presentation/market_pages/profile_edit/edit_profile_page.dart';
+import '../../features/presentation/market_pages/profile_info/profile_info_page.dart';
 import '../../features/presentation/market_pages/wallet/wallet_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal/wallet_withdrawal_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
@@ -38,6 +44,48 @@ void createMarketRoutes(Sailor sailor) {
       SailorRoute(
         name: ProfilePage.route,
         builder: (ctx, args, map) => ProfilePage(),
+      ),
+      SailorRoute(
+        name: ProfileInfoPage.route,
+        builder: (ctx, args, map) => ProfileInfoPage(),
+      ),
+      SailorRoute(
+        name: EditProfilePage.route,
+        builder: (ctx, args, map) {
+          final marketProfile =
+              map.param<MarketProfileResultModel>("marketProfile");
+
+          return EditProfilePage(marketProfile: marketProfile);
+        },
+        params: [
+          SailorParam<MarketProfileResultModel>(
+            name: "marketProfile",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
+        name: DefaultHoursPage.route,
+        builder: (ctx, args, map) => DefaultHoursPage(),
+      ),
+      SailorRoute(
+        name: EditDefaultHoursPage.route,
+        builder: (ctx, args, map) {
+          final marketDefaultHours =
+              map.param<MarketDefaultHoursResultModel>("marketDefaultHours");
+
+          return EditDefaultHoursPage(
+            marketDefaultHours: marketDefaultHours,
+          );
+        },
+        params: [
+          SailorParam<MarketDefaultHoursResultModel>(
+            name: "marketDefaultHours",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
       ),
       SailorRoute(
         name: BankCardInformationsPage.route,
