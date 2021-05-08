@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class CitiesResultModel {
   CitiesResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -31,8 +29,8 @@ class CitiesResultModel {
 
 class City {
   City({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 
   final id;

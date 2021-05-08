@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class MarketProductsResultModel {
   MarketProductsResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -32,24 +30,24 @@ class MarketProductsResultModel {
 
 class MarketProduct {
   MarketProduct({
-    @required this.productId,
-    @required this.productName,
-    @required this.productCreateDate,
-    @required this.productDescription,
-    @required this.productDiscountedPrice,
-    @required this.productOnSale,
-    @required this.productOriginalPrice,
-    @required this.productUnit,
-    @required this.productStep,
-    @required this.id,
-    @required this.amount,
-    @required this.description,
-    @required this.discountedPrice,
-    @required this.discountRate,
-    @required this.onSale,
-    @required this.originalPrice,
-    @required this.rate,
-    @required this.totalDiscount,
+    required this.productId,
+    required this.productName,
+    required this.productCreateDate,
+    required this.productDescription,
+    required this.productDiscountedPrice,
+    required this.productOnSale,
+    required this.productOriginalPrice,
+    required this.productUnit,
+    required this.productStep,
+    required this.id,
+    required this.amount,
+    required this.description,
+    required this.discountedPrice,
+    required this.discountRate,
+    required this.onSale,
+    required this.originalPrice,
+    required this.rate,
+    required this.totalDiscount,
   });
 
   final productId;

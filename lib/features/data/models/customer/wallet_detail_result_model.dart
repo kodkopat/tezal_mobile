@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class WalletDetailResultModel {
   WalletDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,9 +25,9 @@ class WalletDetailResultModel {
 
 class Data {
   Data({
-    @required this.page,
-    @required this.total,
-    @required this.details,
+    required this.page,
+    required this.total,
+    required this.details,
   });
 
   final page;
@@ -63,10 +61,10 @@ class Data {
 
 class Detail {
   Detail({
-    @required this.amount,
-    @required this.date,
-    @required this.description,
-    @required this.action,
+    required this.amount,
+    required this.date,
+    required this.description,
+    required this.action,
   });
 
   final amount;

@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class AddressResultModel {
   AddressResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,13 +25,13 @@ class AddressResultModel {
 
 class Address {
   Address({
-    @required this.id,
-    @required this.isDefault,
-    @required this.name,
-    @required this.address,
-    @required this.description,
-    @required this.city,
-    @required this.province,
+    required this.id,
+    required this.isDefault,
+    required this.name,
+    required this.address,
+    required this.description,
+    required this.city,
+    required this.province,
   });
 
   final id;

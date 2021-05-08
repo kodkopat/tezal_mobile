@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class ProductDetailResultModel {
   ProductDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,24 +25,24 @@ class ProductDetailResultModel {
 
 class Data {
   Data({
-    @required this.subCategoryName,
-    @required this.mainCategoryName,
-    @required this.subCategoryId,
-    @required this.mainCategoryId,
-    @required this.marketName,
-    @required this.marketAddress,
-    @required this.basketCount,
-    @required this.liked,
-    @required this.description,
-    @required this.id,
-    @required this.name,
-    @required this.originalPrice,
-    @required this.discountedPrice,
-    @required this.totalDiscount,
-    @required this.discountRate,
-    @required this.productUnit,
-    @required this.step,
-    @required this.amount,
+    required this.subCategoryName,
+    required this.mainCategoryName,
+    required this.subCategoryId,
+    required this.mainCategoryId,
+    required this.marketName,
+    required this.marketAddress,
+    required this.basketCount,
+    required this.liked,
+    required this.description,
+    required this.id,
+    required this.name,
+    required this.originalPrice,
+    required this.discountedPrice,
+    required this.totalDiscount,
+    required this.discountRate,
+    required this.productUnit,
+    required this.step,
+    required this.amount,
   });
 
   final subCategoryName;

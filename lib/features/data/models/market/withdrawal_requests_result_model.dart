@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class WithdrawalRequestsResultModel {
   WithdrawalRequestsResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,8 +25,8 @@ class WithdrawalRequestsResultModel {
 
 class Data {
   Data({
-    @required this.totalCount,
-    @required this.result,
+    required this.totalCount,
+    required this.result,
   });
 
   final totalCount;
@@ -52,8 +50,8 @@ class Data {
 
 class WithdrawalRequest {
   WithdrawalRequest({
-    @required this.id,
-    @required this.description,
+    required this.id,
+    required this.description,
   });
 
   final id;

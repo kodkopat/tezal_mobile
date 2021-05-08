@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class CommentsResultModel {
   CommentsResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,9 +25,9 @@ class CommentsResultModel {
 
 class Data {
   Data({
-    @required this.page,
-    @required this.total,
-    @required this.comments,
+    required this.page,
+    required this.total,
+    required this.comments,
   });
 
   final page;
@@ -56,12 +54,12 @@ class Data {
 
 class Comment {
   Comment({
-    @required this.id,
-    @required this.comment,
-    @required this.rate,
-    @required this.customerName,
-    @required this.customerPhoto,
-    @required this.date,
+    required this.id,
+    required this.comment,
+    required this.rate,
+    required this.customerName,
+    required this.customerPhoto,
+    required this.date,
   });
 
   final id;

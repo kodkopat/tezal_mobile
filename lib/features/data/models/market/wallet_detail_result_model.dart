@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class WalletDetailResultModel {
   WalletDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,8 +25,8 @@ class WalletDetailResultModel {
 
 class Data {
   Data({
-    @required this.totalCount,
-    @required this.result,
+    required this.totalCount,
+    required this.result,
   });
 
   final totalCount;
@@ -52,21 +50,21 @@ class Data {
 
 class WalletDetail {
   WalletDetail({
-    @required this.walletId,
-    @required this.wallet,
-    @required this.walletActionType,
-    @required this.amount,
-    @required this.balance,
-    @required this.description,
-    @required this.id,
-    @required this.createDate,
-    @required this.creatorId,
-    @required this.updateDate,
-    @required this.uptaterId,
-    @required this.deleteDate,
-    @required this.deletorId,
-    @required this.active,
-    @required this.isDeleted,
+    required this.walletId,
+    required this.wallet,
+    required this.walletActionType,
+    required this.amount,
+    required this.balance,
+    required this.description,
+    required this.id,
+    required this.createDate,
+    required this.creatorId,
+    required this.updateDate,
+    required this.uptaterId,
+    required this.deleteDate,
+    required this.deletorId,
+    required this.active,
+    required this.isDeleted,
   });
 
   final walletId;

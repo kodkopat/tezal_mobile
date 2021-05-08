@@ -1,12 +1,10 @@
-import 'package:meta/meta.dart';
-
 import 'product_result_model.dart';
 
 class SearchResultModel {
   SearchResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -29,7 +27,7 @@ class SearchResultModel {
 
 class Data {
   Data({
-    @required this.markets,
+    required this.markets,
   });
 
   final markets;
@@ -49,15 +47,15 @@ class Data {
 
 class Market {
   Market({
-    @required this.name,
-    @required this.address,
-    @required this.id,
-    @required this.openAt,
-    @required this.clouseAt,
-    @required this.situation,
-    @required this.deliveryCost,
-    @required this.distance,
-    @required this.products,
+    required this.name,
+    required this.address,
+    required this.id,
+    required this.openAt,
+    required this.clouseAt,
+    required this.situation,
+    required this.deliveryCost,
+    required this.distance,
+    required this.products,
   });
 
   final name;

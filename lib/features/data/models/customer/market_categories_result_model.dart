@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class MarketCategoriesResultModel {
   MarketCategoriesResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -32,10 +30,10 @@ class MarketCategoriesResultModel {
 
 class MarketCategory {
   MarketCategory({
-    @required this.categoryId,
-    @required this.marketId,
-    @required this.name,
-    @required this.photo,
+    required this.categoryId,
+    required this.marketId,
+    required this.name,
+    required this.photo,
   });
 
   final categoryId;

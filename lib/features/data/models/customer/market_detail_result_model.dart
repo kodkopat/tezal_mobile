@@ -1,12 +1,10 @@
-import 'package:meta/meta.dart';
-
 import 'product_result_model.dart';
 
 class MarketDetailResultModel {
   MarketDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -29,19 +27,19 @@ class MarketDetailResultModel {
 
 class Data {
   Data({
-    @required this.id,
-    @required this.address,
-    @required this.location,
-    @required this.name,
-    @required this.phone,
-    @required this.score,
-    @required this.openAt,
-    @required this.clouseAt,
-    @required this.situation,
-    @required this.deliveryCost,
-    @required this.distance,
-    @required this.categories,
-    @required this.basketCount,
+    required this.id,
+    required this.address,
+    required this.location,
+    required this.name,
+    required this.phone,
+    required this.score,
+    required this.openAt,
+    required this.clouseAt,
+    required this.situation,
+    required this.deliveryCost,
+    required this.distance,
+    required this.categories,
+    required this.basketCount,
   });
 
   final id;
@@ -105,9 +103,9 @@ class Data {
 
 class Category {
   Category({
-    @required this.id,
-    @required this.name,
-    @required this.products,
+    required this.id,
+    required this.name,
+    required this.products,
   });
 
   final id;

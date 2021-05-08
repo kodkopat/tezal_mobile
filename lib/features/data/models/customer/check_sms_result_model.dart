@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class CheckSmsResultModel {
   CheckSmsResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,9 +25,9 @@ class CheckSmsResultModel {
 
 class Data {
   Data({
-    @required this.token,
-    @required this.name,
-    @required this.phone,
+    required this.token,
+    required this.name,
+    required this.phone,
   });
 
   final token;

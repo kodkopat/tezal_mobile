@@ -1,10 +1,10 @@
-import 'package:meta/meta.dart';
+
 
 class BaseApiResultModel {
   BaseApiResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;

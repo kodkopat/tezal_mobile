@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class OrderDetailResultModel {
   OrderDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,15 +25,15 @@ class OrderDetailResultModel {
 
 class Data {
   Data({
-    @required this.id,
-    @required this.date,
-    @required this.deliveryCost,
-    @required this.marketName,
-    @required this.paymentType,
-    @required this.status,
-    @required this.totalDiscount,
-    @required this.totalPrice,
-    @required this.items,
+    required this.id,
+    required this.date,
+    required this.deliveryCost,
+    required this.marketName,
+    required this.paymentType,
+    required this.status,
+    required this.totalDiscount,
+    required this.totalPrice,
+    required this.items,
   });
 
   final id;
@@ -87,17 +85,17 @@ class Data {
 
 class OrderItem {
   OrderItem({
-    @required this.id,
-    @required this.amount,
-    @required this.productName,
-    @required this.originalPrice,
-    @required this.discountedPrice,
-    @required this.totalDiscount,
-    @required this.totalPrice,
-    @required this.payablePrice,
-    @required this.totalDiscountedPrice,
-    @required this.step,
-    @required this.productUnit,
+    required this.id,
+    required this.amount,
+    required this.productName,
+    required this.originalPrice,
+    required this.discountedPrice,
+    required this.totalDiscount,
+    required this.totalPrice,
+    required this.payablePrice,
+    required this.totalDiscountedPrice,
+    required this.step,
+    required this.productUnit,
   });
 
   final id;

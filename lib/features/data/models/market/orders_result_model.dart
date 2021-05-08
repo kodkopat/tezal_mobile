@@ -1,12 +1,10 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 class OrdersResultModel {
   OrdersResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -29,8 +27,8 @@ class OrdersResultModel {
 
 class Data {
   Data({
-    @required this.totalCount,
-    @required this.result,
+    required this.totalCount,
+    required this.result,
   });
 
   final totalCount;
@@ -58,18 +56,18 @@ class Data {
 
 class MarketOrder {
   MarketOrder({
-    @required this.deliveryTime,
-    @required this.paymentType,
-    @required this.orderStatus,
-    @required this.address,
-    @required this.totalPrice,
-    @required this.totalDiscount,
-    @required this.customerName,
-    @required this.customerPhone,
-    @required this.deliveryCost,
-    @required this.items,
-    @required this.orderId,
-    @required this.orderNumber,
+    required this.deliveryTime,
+    required this.paymentType,
+    required this.orderStatus,
+    required this.address,
+    required this.totalPrice,
+    required this.totalDiscount,
+    required this.customerName,
+    required this.customerPhone,
+    required this.deliveryCost,
+    required this.items,
+    required this.orderId,
+    required this.orderNumber,
   });
 
   final deliveryTime;
@@ -123,13 +121,13 @@ class MarketOrder {
 
 class MarketOrderItem {
   MarketOrderItem({
-    @required this.amount,
-    @required this.originalPrice,
-    @required this.discountedPrice,
-    @required this.totalPrice,
-    @required this.totalDiscount,
-    @required this.productName,
-    @required this.photoId,
+    required this.amount,
+    required this.originalPrice,
+    required this.discountedPrice,
+    required this.totalPrice,
+    required this.totalDiscount,
+    required this.productName,
+    required this.photoId,
   });
 
   final amount;

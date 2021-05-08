@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 class NearByMarketsResultModel {
   NearByMarketsResultModel({
     required this.success,
@@ -27,9 +25,9 @@ class NearByMarketsResultModel {
 
 class Data {
   Data({
-    @required this.page,
-    @required this.total,
-    @required this.markets,
+    required this.page,
+    required this.total,
+    required this.markets,
   });
 
   final page;
@@ -63,17 +61,17 @@ class Data {
 
 class Market {
   Market({
-    @required this.id,
-    @required this.address,
-    @required this.location,
-    @required this.name,
-    @required this.phone,
-    @required this.score,
-    @required this.openAt,
-    @required this.clouseAt,
-    @required this.situation,
-    @required this.deliveryCost,
-    @required this.distance,
+    required this.id,
+    required this.address,
+    required this.location,
+    required this.name,
+    required this.phone,
+    required this.score,
+    required this.openAt,
+    required this.clouseAt,
+    required this.situation,
+    required this.deliveryCost,
+    required this.distance,
   });
 
   final id;

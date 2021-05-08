@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class LoginResultModel {
   LoginResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,9 +25,9 @@ class LoginResultModel {
 
 class Data {
   Data({
-    @required this.name,
-    @required this.type,
-    @required this.token,
+    required this.name,
+    required this.type,
+    required this.token,
   });
 
   final name;

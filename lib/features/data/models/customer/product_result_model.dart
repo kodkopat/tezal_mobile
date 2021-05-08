@@ -1,25 +1,23 @@
-import 'package:meta/meta.dart';
-
 class ProductResultModel {
   ProductResultModel({
-    @required this.id,
-    @required this.mainCategoryId,
-    @required this.subCategoryId,
-    @required this.mainCategoryName,
-    @required this.subCategoryName,
-    @required this.name,
-    @required this.originalPrice,
-    @required this.discountedPrice,
-    @required this.totalDiscount,
-    @required this.totalDiscountedPrice,
-    @required this.totalPrice,
-    @required this.payablePrice,
-    @required this.liked,
-    @required this.discountRate,
-    @required this.productUnit,
-    @required this.step,
-    @required this.rate,
-    @required this.amount,
+    required this.id,
+    required this.mainCategoryId,
+    required this.subCategoryId,
+    required this.mainCategoryName,
+    required this.subCategoryName,
+    required this.name,
+    required this.originalPrice,
+    required this.discountedPrice,
+    required this.totalDiscount,
+    required this.totalDiscountedPrice,
+    required this.totalPrice,
+    required this.payablePrice,
+    required this.liked,
+    required this.discountRate,
+    required this.productUnit,
+    required this.step,
+    required this.rate,
+    required this.amount,
   });
 
   final id;

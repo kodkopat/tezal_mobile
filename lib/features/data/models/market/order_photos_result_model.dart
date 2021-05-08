@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class OrderPhorosResultModel {
   OrderPhorosResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -32,9 +30,9 @@ class OrderPhorosResultModel {
 
 class OrderPhoto {
   OrderPhoto({
-    @required this.marketProductId,
-    @required this.productId,
-    @required this.photo,
+    required this.marketProductId,
+    required this.productId,
+    required this.photo,
   });
 
   final marketProductId;

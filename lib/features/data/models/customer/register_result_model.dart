@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class RegisterResultModel {
   RegisterResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,7 +25,7 @@ class RegisterResultModel {
 
 class Data {
   Data({
-    @required this.userId,
+    required this.userId,
   });
 
   final userId;

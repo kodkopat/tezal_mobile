@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class WalletInfoResultModel {
   WalletInfoResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,8 +25,8 @@ class WalletInfoResultModel {
 
 class Data {
   Data({
-    @required this.balance,
-    @required this.lastActionDate,
+    required this.balance,
+    required this.lastActionDate,
   });
 
   final balance;

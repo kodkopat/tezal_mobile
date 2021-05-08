@@ -1,12 +1,10 @@
-import 'package:meta/meta.dart';
-
 import 'product_result_model.dart';
 
 class MainCategoryDetailResultModel {
   MainCategoryDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -29,9 +27,9 @@ class MainCategoryDetailResultModel {
 
 class Data {
   Data({
-    @required this.categoryName,
-    @required this.categoryId,
-    @required this.subCategories,
+    required this.categoryName,
+    required this.categoryId,
+    required this.subCategories,
   });
 
   final categoryName;
@@ -55,9 +53,9 @@ class Data {
 
 class SubCategory {
   SubCategory({
-    @required this.subCategoryName,
-    @required this.subCategoryId,
-    @required this.products,
+    required this.subCategoryName,
+    required this.subCategoryId,
+    required this.products,
   });
 
   final subCategoryName;

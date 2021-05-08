@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class OlderOrdersResultModel {
   OlderOrdersResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,9 +25,9 @@ class OlderOrdersResultModel {
 
 class Data {
   Data({
-    @required this.page,
-    @required this.total,
-    @required this.orders,
+    required this.page,
+    required this.total,
+    required this.orders,
   });
 
   final page;
@@ -63,11 +61,11 @@ class Data {
 
 class Order {
   Order({
-    @required this.id,
-    @required this.date,
-    @required this.marketName,
-    @required this.status,
-    @required this.totalPrice,
+    required this.id,
+    required this.date,
+    required this.marketName,
+    required this.status,
+    required this.totalPrice,
   });
 
   final id;

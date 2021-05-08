@@ -1,16 +1,14 @@
-import 'package:meta/meta.dart';
-
 class ProductResultModel {
   ProductResultModel({
-    @required this.id,
-    @required this.name,
-    @required this.createDate,
-    @required this.description,
-    @required this.discountedPrice,
-    @required this.onSale,
-    @required this.originalPrice,
-    @required this.productUnit,
-    @required this.step,
+    required this.id,
+    required this.name,
+    required this.createDate,
+    required this.description,
+    required this.discountedPrice,
+    required this.onSale,
+    required this.originalPrice,
+    required this.productUnit,
+    required this.step,
   });
 
   final id;

@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class AgreementResultModel {
   AgreementResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -26,7 +24,7 @@ class AgreementResultModel {
 }
 
 class Data {
-  Data({@required this.message});
+  Data({required this.message});
 
   final message;
 

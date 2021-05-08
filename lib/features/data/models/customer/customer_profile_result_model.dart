@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class CustomerProfileResultModel {
   CustomerProfileResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,10 +25,10 @@ class CustomerProfileResultModel {
 
 class Data {
   Data({
-    @required this.id,
-    @required this.name,
-    @required this.phone,
-    @required this.email,
+    required this.id,
+    required this.name,
+    required this.phone,
+    required this.email,
   });
 
   final id;

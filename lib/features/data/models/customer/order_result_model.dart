@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class OrderResultModel {
   OrderResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,8 +25,8 @@ class OrderResultModel {
 
 class Data {
   Data({
-    @required this.paymentType,
-    @required this.orderId,
+    required this.paymentType,
+    required this.orderId,
   });
 
   final paymentType;

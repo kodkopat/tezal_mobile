@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class WalletLoadBalanceResultModel {
   WalletLoadBalanceResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,7 +25,7 @@ class WalletLoadBalanceResultModel {
 
 class Data {
   Data({
-    @required this.transactionId,
+    required this.transactionId,
   });
 
   final transactionId;

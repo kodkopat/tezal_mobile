@@ -1,14 +1,12 @@
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 import 'product_result_model.dart';
 
 class SubCategoryDetailResultModel {
   SubCategoryDetailResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -31,9 +29,9 @@ class SubCategoryDetailResultModel {
 
 class Data {
   Data({
-    @required this.categoryName,
-    @required this.categoryId,
-    @required this.products,
+    required this.categoryName,
+    required this.categoryId,
+    required this.products,
   });
 
   final categoryName;

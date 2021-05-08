@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class PhotoResultModel {
   PhotoResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,7 +25,7 @@ class PhotoResultModel {
 
 class Data {
   Data({
-    @required this.photo,
+    required this.photo,
   });
 
   final photo;

@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class CampaignResultModel {
   CampaignResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -32,8 +30,8 @@ class CampaignResultModel {
 
 class Campaign {
   Campaign({
-    @required this.id,
-    @required this.name,
+    required this.id,
+    required this.name,
   });
 
   final id;

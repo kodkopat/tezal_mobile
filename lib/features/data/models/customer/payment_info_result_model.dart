@@ -1,10 +1,8 @@
-import 'package:meta/meta.dart';
-
 class PaymentInfoResultModel {
   PaymentInfoResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
@@ -27,7 +25,7 @@ class PaymentInfoResultModel {
 
 class Data {
   Data({
-    @required this.address,
+    required this.address,
   });
 
   final address;
@@ -48,13 +46,13 @@ class Data {
 
 class Address {
   Address({
-    @required this.id,
-    @required this.createDate,
-    @required this.isSelected,
-    @required this.name,
-    @required this.city,
-    @required this.isDefault,
-    @required this.address,
+    required this.id,
+    required this.createDate,
+    required this.isSelected,
+    required this.name,
+    required this.city,
+    required this.isDefault,
+    required this.address,
   });
 
   final id;

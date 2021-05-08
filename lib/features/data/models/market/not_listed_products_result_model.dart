@@ -1,12 +1,10 @@
-import 'package:meta/meta.dart';
-
 import 'product_result_model.dart';
 
 class NotListedProductsResultModel {
   NotListedProductsResultModel({
-    @required this.success,
-    @required this.message,
-    @required this.data,
+    required this.success,
+    required this.message,
+    required this.data,
   });
 
   final success;
