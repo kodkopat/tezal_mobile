@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'market_photo_model.dart';
 
 class MarketPhotosResultModel {
   MarketPhotosResultModel({
@@ -34,10 +34,6 @@ class Data {
   final totalCount;
   final List<MarketPhoto>? result;
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         totalCount: json["totalCount"],
         result: json["result"] == null
@@ -51,25 +47,5 @@ class Data {
         "result": result == null
             ? null
             : List<dynamic>.from(result!.map((x) => x.toJson())),
-      };
-}
-
-class MarketPhoto {
-  MarketPhoto({
-    required this.id,
-    required this.photo,
-  });
-
-  final id;
-  final photo;
-
-  factory MarketPhoto.fromJson(Map<String, dynamic> json) => MarketPhoto(
-        id: json["id"],
-        photo: json["photo"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "photo": photo,
       };
 }
