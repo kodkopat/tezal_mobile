@@ -10,7 +10,10 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/market/market_local_data_source.dart';
 import '../data_sources/market/market_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
+import '../models/market/market_comments_result_model.dart';
 import '../models/market/market_default_hours_result_model.dart';
+import '../models/market/market_photo_result_model.dart';
+import '../models/market/market_photos_result_model.dart';
 import '../models/market/market_profile_result_model.dart';
 import '../models/market/update_market_default_hours_model.dart';
 import 'auth_repository.dart';
@@ -118,10 +121,9 @@ class MarketRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> getMarketPhotos({
-    required String photoId,
-    required int take,
+  Future<Either<Failure, MarketPhotosResultModel>> getMarketPhotos({
     required int skip,
+    required int take,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -130,9 +132,24 @@ class MarketRepository {
 
       var result = await _remoteDataSource.getMarketPhotos(
         userToken,
-        photoId,
-        take,
         skip,
+        take,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, MarketPhotoResultModel>> getMarketPhoto(
+      {required String photoId}) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getMarketPhoto(
+        userToken,
+        photoId,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -167,6 +184,25 @@ class MarketRepository {
       var result = await _remoteDataSource.removeMarketPhoto(
         userToken,
         photoId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, MarketCommentsResultModel>> getMarketComments({
+    required int skip,
+    required int take,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getMarketComments(
+        userToken,
+        skip,
+        take,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
