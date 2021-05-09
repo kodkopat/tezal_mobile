@@ -5,19 +5,21 @@ import '../../features/data/models/market/market_default_hours_result_model.dart
 import '../../features/data/models/market/market_profile_result_model.dart';
 import '../../features/data/models/market/orders_result_model.dart';
 import '../../features/data/models/market/product_result_model.dart';
-import '../../features/presentation/market_pages/add_bank_card_informations/add_bank_card_informations_page.dart';
 import '../../features/presentation/market_pages/add_product/add_product_page.dart';
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
 import '../../features/presentation/market_pages/bank_card_informations/banks_card_informations.dart';
+import '../../features/presentation/market_pages/bank_card_informations_add/add_bank_card_informations_page.dart';
+import '../../features/presentation/market_pages/comments/comments_page.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
-import '../../features/presentation/market_pages/market_default_hours/default_hours_page.dart';
-import '../../features/presentation/market_pages/market_default_hours_edit/edit_default_hours_page.dart';
+import '../../features/presentation/market_pages/default_hours/default_hours_page.dart';
+import '../../features/presentation/market_pages/default_hours_edit/edit_default_hours_page.dart';
 import '../../features/presentation/market_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/market_pages/orders/orders_page.dart';
+import '../../features/presentation/market_pages/photos/photos_page.dart';
 import '../../features/presentation/market_pages/products/products_page.dart';
 import '../../features/presentation/market_pages/profile/profile_page.dart';
-import '../../features/presentation/market_pages/profile_edit/edit_profile_page.dart';
 import '../../features/presentation/market_pages/profile_info/profile_info_page.dart';
+import '../../features/presentation/market_pages/profile_info_edit/edit_profile_page.dart';
 import '../../features/presentation/market_pages/wallet/wallet_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal/wallet_withdrawal_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
@@ -66,8 +68,16 @@ void createMarketRoutes(Sailor sailor) {
         ],
       ),
       SailorRoute(
+        name: PhotosPage.route,
+        builder: (ctx, args, map) => PhotosPage(),
+      ),
+      SailorRoute(
         name: DefaultHoursPage.route,
         builder: (ctx, args, map) => DefaultHoursPage(),
+      ),
+      SailorRoute(
+        name: CommentsPage.route,
+        builder: (ctx, args, map) => CommentsPage(),
       ),
       SailorRoute(
         name: EditDefaultHoursPage.route,
