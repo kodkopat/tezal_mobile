@@ -13,7 +13,9 @@ import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../bank_card_informations/banks_card_informations.dart';
-import '../../market_default_hours/default_hours_page.dart';
+import '../../comments/comments_page.dart';
+import '../../default_hours/default_hours_page.dart';
+import '../../photos/photos_page.dart';
 import '../../profile_info/profile_info_page.dart';
 import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
@@ -61,6 +63,22 @@ class _ProfileMenu {
           iconPath: "assets/images/ic_wallet.png",
           onTap: () async {
             Routes.sailor(BankCardInformationsPage.route);
+          },
+        ),
+        ProfileMenuItem(
+          text: "گالری تصاویر"
+          /* Lang.of(context).profileMenuItemSettings */,
+          iconPath: "assets/images/ic_image.png",
+          onTap: () async {
+            Routes.sailor(PhotosPage.route);
+          },
+        ),
+        ProfileMenuItem(
+          text: "نظرات فروشگاه"
+          /* Lang.of(context).profileMenuItemSettings */,
+          iconPath: "assets/images/ic_comment.png",
+          onTap: () async {
+            Routes.sailor(CommentsPage.route);
           },
         ),
         _divider,
