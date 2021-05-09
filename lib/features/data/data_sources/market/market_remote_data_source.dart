@@ -3,7 +3,10 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
+import '../../models/market/market_comments_result_model.dart';
 import '../../models/market/market_default_hours_result_model.dart';
+import '../../models/market/market_photo_result_model.dart';
+import '../../models/market/market_photos_result_model.dart';
 import '../../models/market/market_profile_result_model.dart';
 import '../../models/market/update_market_default_hours_model.dart';
 
@@ -55,11 +58,17 @@ abstract class MarketRemoteDataSource {
 
   @POST("$_apiUrlPrefix/GetMarketPhotos")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getMarketPhotos(
+  Future<MarketPhotosResultModel> getMarketPhotos(
+    @Header("token") String token,
+    @Query("skip") int skip,
+    @Query("take") int take,
+  );
+
+  @POST("$_apiUrlPrefix/GetMarketPhotos")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<MarketPhotoResultModel> getMarketPhoto(
     @Header("token") String token,
     @Query("photoId") String photoId,
-    @Query("take") int take,
-    @Query("skip") int skip,
   );
 
   @POST("$_apiUrlPrefix/AddMarketPhoto")
@@ -78,9 +87,9 @@ abstract class MarketRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetMarketComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getMarketComments(
+  Future<MarketCommentsResultModel> getMarketComments(
     @Header("token") String token,
-    @Query("orderId") String orderId,
+    /* @Query("orderId") String orderId, */
     @Query("skip") int skip,
     @Query("take") int take,
   );

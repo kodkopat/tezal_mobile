@@ -137,27 +137,46 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getMarketPhotos(token, photoId, take, skip) async {
+  Future<MarketPhotosResultModel> getMarketPhotos(token, skip, take) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'photoId': photoId,
-      r'take': take,
-      r'skip': skip
-    };
+    final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'POST',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Market/GetMarketPhotos',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MarketPhotosResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/GetMarketPhotos',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MarketPhotosResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<MarketPhotoResultModel> getMarketPhoto(token, photoId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'photoId': photoId};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MarketPhotoResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/GetMarketPhotos',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MarketPhotoResultModel.fromJson(_result.data!);
     return value;
   }
 
@@ -204,27 +223,24 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getMarketComments(token, orderId, skip, take) async {
+  Future<MarketCommentsResultModel> getMarketComments(token, skip, take) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'orderId': orderId,
-      r'skip': skip,
-      r'take': take
-    };
+    final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Market/GetMarketComments',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MarketCommentsResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/GetMarketComments',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MarketCommentsResultModel.fromJson(_result.data!);
     return value;
   }
 
