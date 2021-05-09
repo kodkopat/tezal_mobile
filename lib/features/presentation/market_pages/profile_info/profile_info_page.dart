@@ -9,7 +9,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/profile_notifier.dart';
-import '../profile_edit/edit_profile_page.dart';
+import '../profile_info_edit/edit_profile_page.dart';
 
 class ProfileInfoPage extends StatefulWidget {
   static const route = "/market_info_profile";
