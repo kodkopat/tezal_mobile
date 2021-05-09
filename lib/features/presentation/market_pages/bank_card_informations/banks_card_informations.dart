@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../add_bank_card_informations/add_bank_card_informations_page.dart';
+import '../bank_card_informations_add/add_bank_card_informations_page.dart';
 import 'widgets/bank_card_informations_list.dart';
 
 class BankCardInformationsPage extends StatefulWidget {
