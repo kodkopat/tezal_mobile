@@ -15,9 +15,9 @@ import '../../../../core/themes/app_theme.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
+import '../../../../core/widgets/modal_image_picker.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/customer_providers/profile_notifier.dart';
-import 'widgets/modal_image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/customer_edit_profile";
@@ -89,9 +89,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             );
 
                             if (result != null) {
-                              var map = result as Map<String, dynamic>;
                               setState(() {
-                                imagePath = map["imagePath"];
+                                imagePath = result as String;
                               });
                             }
                           }),
