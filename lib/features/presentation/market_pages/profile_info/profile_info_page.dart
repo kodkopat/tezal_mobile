@@ -22,6 +22,8 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
+  bool openCloseMarketSwitchValue = false;
+
   @override
   Widget build(BuildContext context) {
     var consumer = Consumer<ProfileNotifier>(
@@ -66,6 +68,24 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                         const SizedBox(height: 16),
                         Txt("نشانی: " + "${provider.infoResult!.data!.address}",
                             style: AppTxtStyles().body),
+                        const SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Txt(
+                              "باز بودن فروشگاه",
+                              style: AppTxtStyles().body,
+                            ),
+                            Switch(
+                              value: openCloseMarketSwitchValue,
+                              onChanged: (value) {
+                                setState(() {
+                                  openCloseMarketSwitchValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
                         const SizedBox(height: 16),
                         ActionBtn(
                           text: "ویرایش",
