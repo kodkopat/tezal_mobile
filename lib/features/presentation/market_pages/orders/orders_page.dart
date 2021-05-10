@@ -107,6 +107,9 @@ class OrdersPage extends StatelessWidget {
                             orderStatusListIndex: index,
                           );
                         },
+                        clearFilterOnTap: () {
+                          provider.clearFilter(context);
+                        },
                       ),
                     ],
                   );

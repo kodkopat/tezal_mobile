@@ -10,12 +10,14 @@ class OrderDropDownFilter extends StatefulWidget {
     required this.labelText,
     required this.onIndexChanged,
     required this.textList,
+    required this.clearFilterOnTap,
     this.defaultListIndex,
   });
 
   final String labelText;
   final void Function(int) onIndexChanged;
   final List<String> textList;
+  final void Function() clearFilterOnTap;
   final int? defaultListIndex;
 
   @override
@@ -71,15 +73,26 @@ class _OrderDropDownFilterState extends State<OrderDropDownFilter> {
                     ..textOverflow(TextOverflow.fade)
                     ..maxLines(3),
                 ),
-                Image.asset(
-                  showAllItems
-                      ? "assets/images/ic_chevron_up.png"
-                      : "assets/images/ic_chevron_down.png",
-                  fit: BoxFit.contain,
-                  color: Colors.black,
-                  width: 18,
-                  height: 18,
-                ),
+                selectedIndex != -1
+                    ? Txt(
+                        "پاک کردن فیلترها",
+                        gesture: Gestures()..onTap(widget.clearFilterOnTap),
+                        style: AppTxtStyles().body
+                          ..padding(horizontal: 8, vertical: 4)
+                          ..textColor(Theme.of(context).accentColor)
+                          ..background.color(Color(0xffEFEFEF))
+                          ..borderRadius(all: 4)
+                          ..ripple(true),
+                      )
+                    : Image.asset(
+                        showAllItems
+                            ? "assets/images/ic_chevron_up.png"
+                            : "assets/images/ic_chevron_down.png",
+                        fit: BoxFit.contain,
+                        color: Colors.black,
+                        width: 18,
+                        height: 18,
+                      ),
               ],
             ),
           ),
