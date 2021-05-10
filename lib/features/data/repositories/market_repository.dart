@@ -1,3 +1,5 @@
+import 'dart:io';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -10,6 +12,7 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/market/market_local_data_source.dart';
 import '../data_sources/market/market_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
+import '../models/market/add_photo_result_model.dart';
 import '../models/market/market_comments_result_model.dart';
 import '../models/market/market_default_hours_result_model.dart';
 import '../models/market/market_photo_result_model.dart';
@@ -80,7 +83,7 @@ class MarketRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> openCloseMarket() async {
+  Future<Either<Failure, BaseApiResultModel>> openCloseMarket() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -156,8 +159,8 @@ class MarketRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> addMarketPhoto({
-    required String photo,
+  Future<Either<Failure, AddPhotoResultModel>> addMarketPhoto({
+    required File photo,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -173,7 +176,7 @@ class MarketRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> removeMarketPhoto({
+  Future<Either<Failure, BaseApiResultModel>> removeMarketPhoto({
     required String photoId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -203,6 +206,25 @@ class MarketRepository {
         userToken,
         skip,
         take,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> replyMarketComment({
+    required String commentId,
+    required String reply,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.replyMarketComment(
+        userToken,
+        commentId,
+        reply,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
