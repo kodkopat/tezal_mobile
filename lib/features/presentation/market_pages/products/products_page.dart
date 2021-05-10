@@ -12,6 +12,7 @@ import '../../providers/market_providers/sub_category_notifier.dart';
 import '../add_products/add_products_page.dart';
 import 'widgets/main_category_tab_bar.dart';
 import 'widgets/main_category_tab_bar_view.dart';
+import 'widgets/search_box.dart';
 
 class ProductsPage extends StatefulWidget {
   static const route = "/market_products";
@@ -23,6 +24,7 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage>
     with TickerProviderStateMixin {
   late TabController tabController;
+  bool showSearchBox = false;
 
   @override
   Widget build(BuildContext context) {
@@ -79,22 +81,60 @@ class _ProductsPageState extends State<ProductsPage>
       },
     );
 
-    return Scaffold(
-      appBar: SimpleAppBar(context).create(
-        text: "محصولات",
-      ),
-      body: consumer,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Routes.sailor(AddProductsPage.route);
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 24,
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: SimpleAppBar(context).create(text: "محصولات"),
+          body: consumer,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              Routes.sailor(AddProductsPage.route);
+            },
+            backgroundColor: Theme.of(context).primaryColor,
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 24,
+            ),
+          ),
         ),
-      ),
+        Positioned(
+          top: 28,
+          right: 4,
+          child: Parent(
+            gesture: Gestures()
+              ..onTap(() {
+                setState(() {
+                  showSearchBox = !showSearchBox;
+                });
+              }),
+            style: ParentStyle()
+              ..width(48)
+              ..height(48)
+              ..borderRadius(all: 24)
+              ..alignmentContent.center()
+              ..ripple(true),
+            child: Image.asset(
+              "assets/images/ic_search.png",
+              color: Colors.white,
+              fit: BoxFit.contain,
+              width: 24,
+              height: 24,
+            ),
+          ),
+        ),
+        if (showSearchBox)
+          Positioned(
+            top: 24,
+            left: 0,
+            right: 0,
+            child: SearchBox(
+              controller: TextEditingController(),
+              onSearchTap: () {},
+              terms: [],
+            ),
+          ),
+      ],
     );
   }
 }
