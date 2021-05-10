@@ -17,6 +17,7 @@ class LoadMoreBtn extends StatelessWidget {
       style: AppTxtStyles().body
         ..width(160)
         ..height(48)
+        ..margin(vertical: 16)
         ..textColor(Colors.black87)
         ..alignmentContent.center(true)
         ..background.color(Color(0xffEFEFEF))
