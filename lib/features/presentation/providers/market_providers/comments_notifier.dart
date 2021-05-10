@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
+import '../../../data/models/base_api_result_model.dart';
 import '../../../data/models/market/market_comments_result_model.dart';
 import '../../../data/repositories/market_repository.dart';
 
@@ -83,7 +84,32 @@ class CommentsNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refreshComments(BuildContext context) async {
+  String? replyErrorMsg;
+  BaseApiResultModel? replyResult;
+
+  Future<void> replyComment(
+    BuildContext context, {
+    required String commentId,
+    required String reply,
+  }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketRepo.replyMarketComment(
+      commentId: commentId,
+      reply: reply,
+    );
+
+    result.fold(
+      (left) => replyErrorMsg = left.message,
+      (right) => replyResult = right.data,
+    );
+
+    prgDialog.hide();
+    _refresh(context);
+  }
+
+  void _refresh(BuildContext context) async {
     wasFetchCommentsCalled = false;
     commentsLoading = true;
     commentsErrorMsg = null;

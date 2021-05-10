@@ -199,6 +199,25 @@ class OrderNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearFilter(BuildContext context) async {
+    orderStatusListIndex = null;
+    orderSortListIndex = null;
+    orderDirectionListIndex = null;
+
+    ordersLoading = true;
+    ordersErrorMsg = null;
+
+    ordersSkip = 0;
+    ordersTake = 10;
+    ordersTotalCount = null;
+    enableLoadMoreData = null;
+    marketOrders = null;
+
+    notifyListeners();
+
+    await fetchOrders(context);
+  }
+
   void refresh(
     BuildContext context, {
     int? orderStatusListIndex,

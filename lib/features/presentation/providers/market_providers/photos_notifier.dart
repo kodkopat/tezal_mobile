@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:tezal/features/data/models/market/market_photo_model.dart';
 
 import '../../../../core/widgets/progress_dialog.dart';
+import '../../../data/models/base_api_result_model.dart';
+import '../../../data/models/market/add_photo_result_model.dart';
+import '../../../data/models/market/market_photo_model.dart';
 import '../../../data/repositories/market_repository.dart';
 
 class PhotosNotifier extends ChangeNotifier {
@@ -99,7 +103,48 @@ class PhotosNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refreshPhotos(BuildContext context) async {
+  String? addPhotoErrorMsg;
+  AddPhotoResultModel? addPhotoResult;
+
+  Future<void> addPhoto(BuildContext context, {required File photo}) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketRepo.addMarketPhoto(
+      photo: photo,
+    );
+
+    result.fold(
+      (left) => addPhotoErrorMsg = left.message,
+      (right) => addPhotoResult = right,
+    );
+
+    prgDialog.hide();
+    _refresh(context);
+  }
+
+  String? removePhotoErrorMsg;
+  BaseApiResultModel? removePhotoResult;
+
+  Future<void> removePhoto(BuildContext context,
+      {required String photoId}) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketRepo.removeMarketPhoto(
+      photoId: photoId,
+    );
+
+    result.fold(
+      (left) => removePhotoErrorMsg = left.message,
+      (right) => removePhotoResult = right.data,
+    );
+
+    prgDialog.hide();
+    _refresh(context);
+  }
+
+  void _refresh(BuildContext context) async {
     wasFetchPhotosCalled = false;
     photosLoading = true;
     photosErrorMsg = null;
