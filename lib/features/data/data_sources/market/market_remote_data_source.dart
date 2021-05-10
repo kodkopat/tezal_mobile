@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
+import '../../models/market/add_photo_result_model.dart';
 import '../../models/market/market_comments_result_model.dart';
 import '../../models/market/market_default_hours_result_model.dart';
 import '../../models/market/market_photo_result_model.dart';
@@ -72,15 +75,15 @@ abstract class MarketRemoteDataSource {
   );
 
   @POST("$_apiUrlPrefix/AddMarketPhoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> addMarketPhoto(
+  @Headers({"Content-Type": "multipart/form-data", "Accept": "text/plain"})
+  Future<AddPhotoResultModel> addMarketPhoto(
     @Header("token") String token,
-    @Field("photo") String photo,
+    @Part() File photo,
   );
 
   @DELETE("$_apiUrlPrefix/RemoveMarketPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> removeMarketPhoto(
+  Future<BaseApiResultModel> removeMarketPhoto(
     @Header("token") String token,
     @Query("photoId") String photoId,
   );
@@ -96,7 +99,7 @@ abstract class MarketRemoteDataSource {
 
   @POST("$_apiUrlPrefix/ReplyMarketComment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> replyMarketComment(
+  Future<BaseApiResultModel> replyMarketComment(
     @Header("token") String token,
     @Field("commentId") String commentId,
     @Field("reply") String reply,
