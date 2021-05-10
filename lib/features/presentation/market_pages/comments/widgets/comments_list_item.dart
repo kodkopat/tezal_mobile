@@ -16,6 +16,7 @@ class CommentsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Parent(
+      gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 16)

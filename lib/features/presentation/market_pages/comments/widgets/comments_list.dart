@@ -9,11 +9,13 @@ import 'comments_list_item.dart';
 class CommentsList extends StatelessWidget {
   CommentsList({
     required this.comments,
+    required this.onItemTap,
     this.showAllCommentOnTap,
     this.enableHeader,
   });
 
   final List<MarketComment> comments;
+  final void Function(int) onItemTap;
   final void Function()? showAllCommentOnTap;
   final bool? enableHeader;
 
@@ -53,7 +55,7 @@ class CommentsList extends StatelessWidget {
           physics: NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) => CommentsListItem(
             comment: comments[index],
-            onTap: () {},
+            onTap: () => onItemTap(index),
           ),
         ),
       ],
