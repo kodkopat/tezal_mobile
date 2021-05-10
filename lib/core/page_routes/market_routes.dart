@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
+import '../../features/data/models/market/market_comments_result_model.dart';
 import '../../features/data/models/market/market_default_hours_result_model.dart';
 import '../../features/data/models/market/market_profile_result_model.dart';
 import '../../features/data/models/market/orders_result_model.dart';
@@ -9,6 +10,7 @@ import '../../features/presentation/market_pages/add_product/add_product_page.da
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
 import '../../features/presentation/market_pages/bank_card_informations/banks_card_informations.dart';
 import '../../features/presentation/market_pages/bank_card_informations_add/add_bank_card_informations_page.dart';
+import '../../features/presentation/market_pages/comment_reply/comment_reply.dart';
 import '../../features/presentation/market_pages/comments/comments_page.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/market_pages/default_hours/default_hours_page.dart';
@@ -78,6 +80,23 @@ void createMarketRoutes(Sailor sailor) {
       SailorRoute(
         name: CommentsPage.route,
         builder: (ctx, args, map) => CommentsPage(),
+      ),
+      SailorRoute(
+        name: CommentReplyPage.route,
+        builder: (ctx, args, map) {
+          final marketComment = map.param<MarketComment>("marketComment");
+
+          return CommentReplyPage(
+            marketComment: marketComment,
+          );
+        },
+        params: [
+          SailorParam<MarketComment>(
+            name: "marketComment",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
       ),
       SailorRoute(
         name: EditDefaultHoursPage.route,
