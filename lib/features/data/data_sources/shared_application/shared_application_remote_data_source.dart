@@ -29,6 +29,6 @@ abstract class SharedApplicationRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> share(
     @Header("token") String token,
-    @Field() String contactNumbers,
+    @Body() List<String> contactNumbers,
   );
 }

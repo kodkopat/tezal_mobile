@@ -62,7 +62,7 @@ class _SharedApplicationRemoteDataSource
   Future<BaseApiResultModel> share(token, contactNumbers) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'contactNumbers': contactNumbers};
+    final _data = contactNumbers;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
                 method: 'POST',
