@@ -36,7 +36,7 @@ class OrderDetailActionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Parent(
-      style: ParentStyle()..margin(horizontal: 16, vertical: 16),
+      style: ParentStyle()..margin(vertical: 16),
       child: Row(
         children: [
           Expanded(

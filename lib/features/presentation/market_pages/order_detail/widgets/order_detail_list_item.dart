@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +12,12 @@ import '../../../customer_widgets/custom_rich_text.dart';
 class OrderDetailListItem extends StatelessWidget {
   OrderDetailListItem({
     required this.marketOrderItem,
+    required this.marketOrderPhoto,
     required this.onTap,
   });
 
   final MarketOrderItem marketOrderItem;
+  final String marketOrderPhoto;
   final void Function() onTap;
 
   @override
@@ -111,7 +115,9 @@ class OrderDetailListItem extends StatelessWidget {
   }
 
   Widget get _futureImgFile {
-    return SizedBox() /* CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+    return Image.memory(
+      base64Decode(marketOrderPhoto),
+    ) /* CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
       future: basketNotifier.customerProductRepo.productphoto(
         id: product.id,
         multi: false,

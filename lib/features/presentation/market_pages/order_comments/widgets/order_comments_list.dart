@@ -3,18 +3,18 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/market/market_comments_result_model.dart';
-import 'comments_list_item.dart';
+import '../../../../data/models/market/order_comments_result_model.dart';
+import 'order_comments_list_item.dart';
 
-class CommentsList extends StatelessWidget {
-  CommentsList({
+class OrderCommentsList extends StatelessWidget {
+  OrderCommentsList({
     required this.comments,
     required this.onItemTap,
     this.showAllCommentOnTap,
     this.enableHeader,
   });
 
-  final List<MarketComment> comments;
+  final List<OrderComment> comments;
   final void Function(int) onItemTap;
   final void Function()? showAllCommentOnTap;
   final bool? enableHeader;
@@ -55,7 +55,7 @@ class CommentsList extends StatelessWidget {
                 itemCount: comments.length,
                 scrollDirection: Axis.vertical,
                 physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => CommentsListItem(
+                itemBuilder: (context, index) => OrderCommentsListItem(
                   comment: comments[index],
                   onTap: () => onItemTap(index),
                 ),

@@ -24,7 +24,7 @@ class OrderListItem extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..width(MediaQuery.of(context).size.width)
-        ..margin(horizontal: 16, vertical: 8)
+        ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 8)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)

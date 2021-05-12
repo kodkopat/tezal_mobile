@@ -17,7 +17,7 @@ class OrderList extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: marketOrders.length,
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return OrderListItem(

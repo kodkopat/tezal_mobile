@@ -8,7 +8,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/order_notifier.dart';
+import '../../providers/market_providers/orders_notifier.dart';
 import '../order_detail/order_detail_page.dart';
 import 'widgets/order_drop_down_direction.dart';
 import 'widgets/order_drop_down_filter.dart';
@@ -18,11 +18,11 @@ import 'widgets/order_list.dart';
 class OrdersPage extends StatelessWidget {
   static const route = "/market_orders";
 
-  late final OrderNotifier orderNotifier;
+  late final OrdersNotifier orderNotifier;
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<OrderNotifier>(
+    var consumer = Consumer<OrdersNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchOrdersCalled) {
           provider.fetchOrders(context);

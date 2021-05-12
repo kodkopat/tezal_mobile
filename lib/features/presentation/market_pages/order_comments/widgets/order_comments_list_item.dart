@@ -2,15 +2,15 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/market/market_comments_result_model.dart';
+import '../../../../data/models/market/order_comments_result_model.dart';
 
-class CommentsListItem extends StatelessWidget {
-  CommentsListItem({
+class OrderCommentsListItem extends StatelessWidget {
+  OrderCommentsListItem({
     required this.comment,
     required this.onTap,
   });
 
-  final MarketComment comment;
+  final OrderComment comment;
   final void Function() onTap;
 
   @override
@@ -100,10 +100,10 @@ class CommentsListItem extends StatelessWidget {
     );
 
     // var usernameTxt;
-    // if (comment.orderId == null) {
+    // if (comment. == null) {
     //   usernameTxt = " ذکر نشده ";
     // } else {
-    //   usernameTxt = comment.orderId;
+    //   usernameTxt = "";
     // }
     var usernameTxt = " ذکر نشده ";
 
