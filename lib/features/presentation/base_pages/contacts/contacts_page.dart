@@ -43,7 +43,7 @@ class ContactsPage extends StatelessWidget {
                         print(phoneNumbers.toString());
                         await provider.shareApplication(
                           context: context,
-                          contactsJson: phoneNumbers.toString(),
+                          contactsJson: phoneNumbers,
                         );
                         Routes.sailor.pop();
                       }),
