@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
+import '../../models/market/order_comments_result_model.dart';
 import '../../models/market/order_photos_result_model.dart';
 import '../../models/market/orders_result_model.dart';
 
@@ -76,21 +77,21 @@ abstract class MarketOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/PrepareOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> prepareOrder(
+  Future<BaseApiResultModel> prepareOrder(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
   @GET("$_apiUrlPrefix/ReturnedOrderApprove")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> returnedOrderApprove(
+  Future<BaseApiResultModel> returnedOrderApprove(
     @Header("token") String token,
     @Query("Id") String id,
   );
 
   @GET("$_apiUrlPrefix/GetOrderComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getOrderComments(
+  Future<OrderCommentsResultModel> getOrderComments(
     @Header("token") String token,
     @Query("orderId") String orderId,
     @Query("skip") int skip,
@@ -99,7 +100,7 @@ abstract class MarketOrderRemoteDataSource {
 
   @POST("$_apiUrlPrefix/ReplyOrderComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> replyOrderComments(
+  Future<BaseApiResultModel> replyOrderComments(
     @Header("token") String token,
     @Field("commentId") String commentId,
     @Field("reply") String reply,
