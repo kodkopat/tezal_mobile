@@ -10,6 +10,8 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_order/market_order_local_data_source.dart';
 import '../data_sources/market_order/market_order_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
+import '../models/market/order_comments_result_model.dart';
+import '../models/market/order_photos_result_model.dart';
 import '../models/market/orders_result_model.dart';
 import 'auth_repository.dart';
 
@@ -63,6 +65,55 @@ class MarketOrderRepository {
     }
   }
 
+  Future<Either<Failure, BaseApiResultModel>> approveOrder(
+      {required String id}) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.approveOrder(
+        userToken,
+        id,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> cancelOrderApprove(
+      {required String id}) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.cancelOrderApprove(
+        userToken,
+        id,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, OrderPhorosResultModel>> getOrderPhotos({
+    required String orderId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getOrderPhotos(
+        userToken,
+        orderId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
   Future<Either<Failure, dynamic>> getOrderSummary() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -106,22 +157,6 @@ class MarketOrderRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> approveOrder(
-      {required String id}) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.approveOrder(
-        userToken,
-        id,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
   Future<Either<Failure, BaseApiResultModel>> rejectOrder(
       {required String id}) async {
     if (!await _connectionChecker.hasConnection) {
@@ -138,7 +173,8 @@ class MarketOrderRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> prepareOrder({required String id}) async {
+  Future<Either<Failure, BaseApiResultModel>> prepareOrder(
+      {required String id}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -163,6 +199,46 @@ class MarketOrderRepository {
       var result = await _remoteDataSource.returnedOrderApprove(
         userToken,
         id,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, OrderCommentsResultModel>> getOrderComments({
+    required String orderId,
+    required int skip,
+    required int take,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getOrderComments(
+        userToken,
+        orderId,
+        skip,
+        take,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> replyOrderComments({
+    required String commentId,
+    required String reply,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.replyOrderComments(
+        userToken,
+        commentId,
+        reply,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
