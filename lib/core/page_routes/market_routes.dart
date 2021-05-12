@@ -1,11 +1,14 @@
+import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../features/data/models/market/market_comments_result_model.dart';
 import '../../features/data/models/market/market_default_hours_result_model.dart';
 import '../../features/data/models/market/market_profile_result_model.dart';
+import '../../features/data/models/market/order_comments_result_model.dart';
 import '../../features/data/models/market/orders_result_model.dart';
 import '../../features/data/models/market/product_result_model.dart';
+import '../../features/data/repositories/market_order_repository.dart';
 import '../../features/presentation/market_pages/add_product/add_product_page.dart';
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
 import '../../features/presentation/market_pages/bank_card_informations/banks_card_informations.dart';
@@ -15,6 +18,8 @@ import '../../features/presentation/market_pages/comments/comments_page.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
 import '../../features/presentation/market_pages/default_hours/default_hours_page.dart';
 import '../../features/presentation/market_pages/default_hours_edit/edit_default_hours_page.dart';
+import '../../features/presentation/market_pages/order_comment_reply/order_comment_reply_page.dart';
+import '../../features/presentation/market_pages/order_comments/order_comments_page.dart';
 import '../../features/presentation/market_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/market_pages/orders/orders_page.dart';
 import '../../features/presentation/market_pages/photos/photos_page.dart';
@@ -25,6 +30,8 @@ import '../../features/presentation/market_pages/profile_info_edit/edit_profile_
 import '../../features/presentation/market_pages/wallet/wallet_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal/wallet_withdrawal_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
+import '../../features/presentation/providers/market_providers/order_comments_notifier.dart';
+import '../../features/presentation/providers/market_providers/order_notifier.dart';
 
 void createMarketRoutes(Sailor sailor) {
   sailor.addRoutes(
@@ -129,11 +136,56 @@ void createMarketRoutes(Sailor sailor) {
         builder: (ctx, args, map) {
           final marketOrder = map.param<MarketOrder>("marketOrder");
 
-          return OrderDetailPage(marketOrder: marketOrder);
+          return ChangeNotifierProvider(
+            create: (ctx) => OrderNotifier(
+              MarketOrderRepository(),
+            ),
+            child: OrderDetailPage(marketOrder: marketOrder),
+          );
         },
         params: [
           SailorParam<MarketOrder>(
             name: "marketOrder",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
+        name: OrderCommentsPage.route,
+        builder: (ctx, args, map) {
+          final orderId = map.param<String>("orderId");
+
+          return ChangeNotifierProvider(
+            create: (ctx) => OrderCommentsNotifier(
+              MarketOrderRepository(),
+            ),
+            child: OrderCommentsPage(orderId: orderId),
+          );
+        },
+        params: [
+          SailorParam<String>(
+            name: "orderId",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
+        name: OrderCommentReplyPage.route,
+        builder: (ctx, args, map) {
+          final orderComment = map.param<OrderComment>("orderComment");
+
+          return ChangeNotifierProvider(
+            create: (ctx) => OrderCommentsNotifier(
+              MarketOrderRepository(),
+            ),
+            child: OrderCommentReplyPage(orderComment: orderComment),
+          );
+        },
+        params: [
+          SailorParam<OrderComment>(
+            name: "orderComment",
             isRequired: true,
             defaultValue: null,
           ),
