@@ -65,7 +65,7 @@ class ContactsNotifier extends ChangeNotifier {
 
   Future<void> shareApplication({
     required BuildContext context,
-    required String contactsJson,
+    required List<String> contactsJson,
   }) async {
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
