@@ -9,7 +9,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../data/models/market/market_default_hours_result_model.dart';
 import '../../../data/models/market/update_market_default_hours_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/profile_notifier.dart';
+import '../../providers/market_providers/default_hours_notifier.dart';
 import 'widgets/edit_default_hours_list.dart';
 
 class EditDefaultHoursPage extends StatefulWidget {
@@ -71,7 +71,7 @@ class _EditDefaultHoursPageState extends State<EditDefaultHoursPage> {
               text: "ویرایش",
               onTap: () async {
                 var profileNotifier =
-                    Provider.of<ProfileNotifier>(context, listen: false);
+                    Provider.of<DefaultHoursNotifier>(context, listen: false);
 
                 // updateMarketDefaultHours.forEach((element) {
                 //   print("${element.toJson()}\n");

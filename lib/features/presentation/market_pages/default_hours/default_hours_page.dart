@@ -8,7 +8,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/profile_notifier.dart';
+import '../../providers/market_providers/default_hours_notifier.dart';
 import '../default_hours_edit/edit_default_hours_page.dart';
 import 'widgets/default_hours_list.dart';
 
@@ -17,7 +17,7 @@ class DefaultHoursPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<ProfileNotifier>(
+    var consumer = Consumer<DefaultHoursNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchDefaultHoursCalled) {
           provider.fetchDefaultHours();
