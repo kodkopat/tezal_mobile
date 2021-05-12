@@ -16,7 +16,7 @@ class BankCardInformationsListItem extends StatelessWidget {
         ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 8),
       child: Txt(
-        text,
+        "شماره شبا: " + text,
         style: AppTxtStyles().body..textAlign.start(),
       ),
     );

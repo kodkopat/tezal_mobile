@@ -26,6 +26,8 @@ class _ProductsPageState extends State<ProductsPage>
   late TabController tabController;
   bool showSearchBox = false;
 
+  var searchCtrl = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var consumer = Consumer<MainCategoryNotifier>(
@@ -129,7 +131,7 @@ class _ProductsPageState extends State<ProductsPage>
             left: 0,
             right: 0,
             child: SearchBox(
-              controller: TextEditingController(),
+              controller: searchCtrl,
               onSearchTap: () {},
               terms: [],
             ),
