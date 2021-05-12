@@ -6,8 +6,9 @@ import 'data/repositories/market_product_repository.dart';
 import 'data/repositories/market_repository.dart';
 import 'data/repositories/market_wallet_repository.dart';
 import 'presentation/providers/market_providers/comments_notifier.dart';
+import 'presentation/providers/market_providers/default_hours_notifier.dart';
 import 'presentation/providers/market_providers/main_category_notifier.dart';
-import 'presentation/providers/market_providers/order_notifier.dart';
+import 'presentation/providers/market_providers/orders_notifier.dart';
 import 'presentation/providers/market_providers/photos_notifier.dart';
 import 'presentation/providers/market_providers/products_notifier.dart';
 import 'presentation/providers/market_providers/profile_notifier.dart';
@@ -15,7 +16,7 @@ import 'presentation/providers/market_providers/wallet_notifier.dart';
 
 List<SingleChildWidget> marketProviders = [
   ChangeNotifierProvider(
-    create: (ctx) => OrderNotifier(
+    create: (ctx) => OrdersNotifier(
       MarketOrderRepository(),
     ),
   ),
@@ -36,6 +37,11 @@ List<SingleChildWidget> marketProviders = [
   ),
   ChangeNotifierProvider(
     create: (ctx) => ProfileNotifier(
+      MarketRepository(),
+    ),
+  ),
+  ChangeNotifierProvider(
+    create: (ctx) => DefaultHoursNotifier(
       MarketRepository(),
     ),
   ),
