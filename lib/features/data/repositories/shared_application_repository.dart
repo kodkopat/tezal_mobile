@@ -59,7 +59,7 @@ class SharedApplicationRepository {
   }
 
   Future<Either<Failure, BaseApiResultModel>> share({
-    required String contactNumbers,
+    required List<String> contactNumbers,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
