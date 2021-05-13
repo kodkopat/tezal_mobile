@@ -11,8 +11,6 @@ import '../../features/data/models/market/product_result_model.dart';
 import '../../features/data/repositories/market_order_repository.dart';
 import '../../features/presentation/market_pages/add_product/add_product_page.dart';
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
-import '../../features/presentation/market_pages/bank_card_informations/banks_card_informations.dart';
-import '../../features/presentation/market_pages/bank_card_informations_add/add_bank_card_informations_page.dart';
 import '../../features/presentation/market_pages/comment_reply/comment_reply.dart';
 import '../../features/presentation/market_pages/comments/comments_page.dart';
 import '../../features/presentation/market_pages/dashboard/dashboard_page.dart';
@@ -122,14 +120,6 @@ void createMarketRoutes(Sailor sailor) {
             defaultValue: null,
           ),
         ],
-      ),
-      SailorRoute(
-        name: BankCardInformationsPage.route,
-        builder: (ctx, args, map) => BankCardInformationsPage(),
-      ),
-      SailorRoute(
-        name: AddBankCardInformationsPage.route,
-        builder: (ctx, args, map) => AddBankCardInformationsPage(),
       ),
       SailorRoute(
         name: OrderDetailPage.route,

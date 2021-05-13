@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
-import '../../../../data/models/market/market_photo_model.dart';
+import '../../../../data/models/photo_model.dart';
 
 class PhotoPreviewModal extends StatelessWidget {
   PhotoPreviewModal({
@@ -15,7 +15,7 @@ class PhotoPreviewModal extends StatelessWidget {
     required this.onRemoveBtnTap,
   });
 
-  final MarketPhoto marketPhoto;
+  final PhotoModel marketPhoto;
   final void Function() onRemoveBtnTap;
 
   @override
