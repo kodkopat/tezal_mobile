@@ -1,11 +1,19 @@
+import 'dart:convert';
+
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
+import '../../../../core/exceptions/failure.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
+import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/market/product_result_model.dart';
+import '../../../data/models/photo_result_model.dart';
+import '../../../data/repositories/shared_application_repository.dart';
 import '../../customer_widgets/custom_rich_text.dart';
 import '../../market_pages/add_product/add_product_page.dart';
 
@@ -137,22 +145,22 @@ class ProductListItem extends StatelessWidget {
   }
 
   Widget get _futureImgFile {
-    return SizedBox() /* CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: basketNotifier.customerProductRepo.productphoto(
-        id: product.id,
-        multi: false,
+    print("productId: ${product.id}\n");
+    return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
+      future: SharedApplicationRepository().getProductPhoto(
+        productId: product.id,
       ),
       successBuilder: (context, data) {
+        print("photoData: $data\n");
         return data!.fold(
           (left) => SizedBox(),
           (right) => Image.memory(
-            base64Decode(right.data.photos.first),
+            base64Decode(right.data!.photo),
           ),
         );
       },
       errorBuilder: (context, data) => SizedBox(),
-    ) */
-        ;
+    );
   }
 
   Widget get _verticalDivider => SizedBox(

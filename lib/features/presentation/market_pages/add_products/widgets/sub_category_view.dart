@@ -7,6 +7,7 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../market_widgets/product_list/product_list.dart';
 import '../../../providers/market_providers/sub_category_notifier.dart';
+import 'search_box.dart';
 
 class SubCategoryView extends StatelessWidget {
   SubCategoryView({
@@ -16,6 +17,8 @@ class SubCategoryView extends StatelessWidget {
 
   final String mainCategoryId;
   final String subCategoryId;
+
+  final searchCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +40,27 @@ class SubCategoryView extends StatelessWidget {
                     : Txt("${provider.notListedProductsErrorMsg}",
                         style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
-                    child: ProductList(
-                      products: provider.notListedProductsResult!.data!,
-                      onItemTap: (index) {},
-                      showItemsAction: true,
+                    child: Column(
+                      children: [
+                        Material(
+                          color: Colors.transparent,
+                          child: SearchBox(
+                            controller: searchCtrl,
+                            onSearchTap: () {
+                              provider.fetchNotListedProducts(
+                                mainCategoryId: mainCategoryId,
+                                subCategoryId: subCategoryId,
+                                term: searchCtrl.text.trim(),
+                              );
+                            },
+                          ),
+                        ),
+                        ProductList(
+                          products: provider.notListedProductsResult!.data!,
+                          onItemTap: (index) {},
+                          showItemsAction: true,
+                        ),
+                      ],
                     ),
                   );
       },
