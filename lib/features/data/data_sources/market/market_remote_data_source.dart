@@ -8,10 +8,10 @@ import '../../models/base_api_result_model.dart';
 import '../../models/market/add_photo_result_model.dart';
 import '../../models/market/market_comments_result_model.dart';
 import '../../models/market/market_default_hours_result_model.dart';
-import '../../models/market/market_photo_result_model.dart';
 import '../../models/market/market_photos_result_model.dart';
 import '../../models/market/market_profile_result_model.dart';
 import '../../models/market/update_market_default_hours_model.dart';
+import '../../models/photo_result_model.dart';
 
 part 'market_remote_data_source.g.dart';
 
@@ -38,6 +38,8 @@ abstract class MarketRemoteDataSource {
     @Field() String? telephone,
     @Field() String? email,
     @Field() String? address,
+    @Field() String? shabaNumber,
+    @Field() bool? isOpen,
   );
 
   @POST("$_apiUrlPrefix/OpenCloseMarket")
@@ -69,7 +71,7 @@ abstract class MarketRemoteDataSource {
 
   @POST("$_apiUrlPrefix/GetMarketPhotos")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<MarketPhotoResultModel> getMarketPhoto(
+  Future<PhotoResultModel> getMarketPhoto(
     @Header("token") String token,
     @Query("photoId") String photoId,
   );

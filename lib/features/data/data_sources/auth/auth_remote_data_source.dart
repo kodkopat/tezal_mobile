@@ -8,7 +8,7 @@ import '../../models/customer/check_sms_result_model.dart';
 import '../../models/customer/check_token_result_model.dart';
 import '../../models/customer/login_result_model.dart';
 import '../../models/customer/register_result_model.dart';
-import '../../models/photo_result_model.dart';
+import '../../models/customer/photo_result_model.dart';
 
 part 'auth_remote_data_source.g.dart';
 

@@ -44,7 +44,7 @@ abstract class MarketOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetOrderPhotos")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<OrderPhorosResultModel> getOrderPhotos(
+  Future<OrderPhotosResultModel> getOrderPhotos(
     @Header("token") String token,
     @Query("orderId") String orderId,
   );

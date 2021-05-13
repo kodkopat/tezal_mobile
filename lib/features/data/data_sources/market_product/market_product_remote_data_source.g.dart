@@ -64,11 +64,12 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
 
   @override
   Future<ProductsResultModel> getNotListedProducts(
-      token, mainCategoryId, subCategoryId) async {
+      token, mainCategoryId, subCategoryId, term) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'mainCategoryId': mainCategoryId,
-      r'subCategoryId': subCategoryId
+      r'subCategoryId': subCategoryId,
+      r'term': term
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

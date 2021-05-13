@@ -1,4 +1,4 @@
-import 'market_photo_model.dart';
+import '../photo_model.dart';
 
 class MarketPhotosResultModel {
   MarketPhotosResultModel({
@@ -32,14 +32,14 @@ class Data {
   });
 
   final totalCount;
-  final List<MarketPhoto>? result;
+  final List<PhotoModel>? result;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         totalCount: json["totalCount"],
         result: json["result"] == null
             ? null
-            : List<MarketPhoto>.from(
-                json["result"].map((x) => MarketPhoto.fromJson(x))),
+            : List<PhotoModel>.from(
+                json["result"].map((x) => PhotoModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

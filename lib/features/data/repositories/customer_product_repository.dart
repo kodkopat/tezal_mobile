@@ -14,7 +14,7 @@ import '../models/customer/comments_result_model.dart';
 import '../models/customer/liked_products_result_model.dart';
 import '../models/customer/product_detail_result_model.dart';
 import '../models/customer/products_result_model.dart';
-import '../models/photos_result_model.dart';
+import '../models/customer/photos_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerProductRepository {

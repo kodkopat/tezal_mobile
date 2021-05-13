@@ -38,8 +38,8 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> changeMarketProfile(
-      token, id, name, phone, telephone, email, address) async {
+  Future<BaseApiResultModel> changeMarketProfile(token, id, name, phone,
+      telephone, email, address, shabaNumber, isOpen) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -49,7 +49,9 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
       'phone': phone,
       'telephone': telephone,
       'email': email,
-      'address': address
+      'address': address,
+      'shabaNumber': shabaNumber,
+      'isOpen': isOpen
     };
     _data.removeWhere((k, v) => v == null);
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -159,12 +161,12 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
-  Future<MarketPhotoResultModel> getMarketPhoto(token, photoId) async {
+  Future<PhotoResultModel> getMarketPhoto(token, photoId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'photoId': photoId};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<MarketPhotoResultModel>(Options(
+        _setStreamType<PhotoResultModel>(Options(
                 method: 'POST',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
@@ -176,7 +178,7 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
             .compose(_dio.options, 'Market/GetMarketPhotos',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = MarketPhotoResultModel.fromJson(_result.data!);
+    final value = PhotoResultModel.fromJson(_result.data!);
     return value;
   }
 

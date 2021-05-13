@@ -1,5 +1,5 @@
-class MarketPhoto {
-  MarketPhoto({
+class PhotoModel {
+  PhotoModel({
     required this.id,
     required this.photo,
   });
@@ -7,7 +7,7 @@ class MarketPhoto {
   final id;
   final photo;
 
-  factory MarketPhoto.fromJson(Map<String, dynamic> json) => MarketPhoto(
+  factory PhotoModel.fromJson(Map<String, dynamic> json) => PhotoModel(
         id: json["id"],
         photo: json["photo"],
       );

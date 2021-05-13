@@ -1,3 +1,5 @@
+import 'photo_model.dart';
+
 class PhotosResultModel {
   PhotosResultModel({
     required this.success,
@@ -7,37 +9,23 @@ class PhotosResultModel {
 
   final success;
   final message;
-  final data;
+  final List<PhotoModel>? data;
 
   factory PhotosResultModel.fromJson(Map<String, dynamic> json) =>
       PhotosResultModel(
         success: json["success"],
         message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        data: json["data"] == null
+            ? null
+            : List<PhotoModel>.from(
+                json["data"].map((x) => PhotoModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
-      };
-}
-
-class Data {
-  Data({
-    required this.photos,
-  });
-
-  final photos;
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        photos: json["photos"] == null
+        "data": data == null
             ? null
-            : List<String>.from(json["photos"].map((x) => x)),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "photos":
-            photos == null ? null : List<dynamic>.from(photos.map((x) => x)),
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }

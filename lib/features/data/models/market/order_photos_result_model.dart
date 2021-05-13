@@ -1,5 +1,5 @@
-class OrderPhorosResultModel {
-  OrderPhorosResultModel({
+class OrderPhotosResultModel {
+  OrderPhotosResultModel({
     required this.success,
     required this.message,
     required this.data,
@@ -9,8 +9,8 @@ class OrderPhorosResultModel {
   final message;
   final List<OrderPhoto>? data;
 
-  factory OrderPhorosResultModel.fromJson(Map<String, dynamic> json) =>
-      OrderPhorosResultModel(
+  factory OrderPhotosResultModel.fromJson(Map<String, dynamic> json) =>
+      OrderPhotosResultModel(
         success: json["success"],
         message: json["message"],
         data: json["data"] == null

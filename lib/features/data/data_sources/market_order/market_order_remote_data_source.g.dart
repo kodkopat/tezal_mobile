@@ -91,12 +91,12 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<OrderPhorosResultModel> getOrderPhotos(token, orderId) async {
+  Future<OrderPhotosResultModel> getOrderPhotos(token, orderId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'orderId': orderId};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<OrderPhorosResultModel>(Options(
+        _setStreamType<OrderPhotosResultModel>(Options(
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             .compose(_dio.options, 'Order/GetOrderPhotos',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = OrderPhorosResultModel.fromJson(_result.data!);
+    final value = OrderPhotosResultModel.fromJson(_result.data!);
     return value;
   }
 
