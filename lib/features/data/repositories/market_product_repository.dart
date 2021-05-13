@@ -91,6 +91,7 @@ class MarketProductRepository {
   Future<Either<Failure, ProductsResultModel>> getNotListedProducts({
     required String mainCategoryId,
     required String subCategoryId,
+    required String terms,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -101,6 +102,7 @@ class MarketProductRepository {
         userToken,
         mainCategoryId,
         subCategoryId,
+        terms,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

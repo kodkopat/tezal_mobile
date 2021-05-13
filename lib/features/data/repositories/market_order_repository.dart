@@ -97,7 +97,7 @@ class MarketOrderRepository {
     }
   }
 
-  Future<Either<Failure, OrderPhorosResultModel>> getOrderPhotos({
+  Future<Either<Failure, OrderPhotosResultModel>> getOrderPhotos({
     required String orderId,
   }) async {
     if (!await _connectionChecker.hasConnection) {

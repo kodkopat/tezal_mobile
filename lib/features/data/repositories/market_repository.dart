@@ -15,10 +15,10 @@ import '../models/base_api_result_model.dart';
 import '../models/market/add_photo_result_model.dart';
 import '../models/market/market_comments_result_model.dart';
 import '../models/market/market_default_hours_result_model.dart';
-import '../models/market/market_photo_result_model.dart';
 import '../models/market/market_photos_result_model.dart';
 import '../models/market/market_profile_result_model.dart';
 import '../models/market/update_market_default_hours_model.dart';
+import '../models/photo_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketRepository {
@@ -63,6 +63,8 @@ class MarketRepository {
     required String? telephone,
     required String? email,
     required String? address,
+    required String? shabaNumber,
+    required bool? isOpen,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -77,6 +79,8 @@ class MarketRepository {
         telephone,
         email,
         address,
+        shabaNumber,
+        isOpen,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -143,7 +147,7 @@ class MarketRepository {
     }
   }
 
-  Future<Either<Failure, MarketPhotoResultModel>> getMarketPhoto(
+  Future<Either<Failure, PhotoResultModel>> getMarketPhoto(
       {required String photoId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
