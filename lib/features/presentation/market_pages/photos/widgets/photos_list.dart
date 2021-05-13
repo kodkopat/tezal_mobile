@@ -3,7 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/market/market_photo_model.dart';
+import '../../../../data/models/photo_model.dart';
 import 'photos_list_item.dart';
 
 class PhotosList extends StatelessWidget {
@@ -12,7 +12,7 @@ class PhotosList extends StatelessWidget {
     required this.onItemTap,
   });
 
-  final List<MarketPhoto> marketPhotos;
+  final List<PhotoModel> marketPhotos;
   final void Function(int) onItemTap;
 
   @override

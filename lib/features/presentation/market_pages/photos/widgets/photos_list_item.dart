@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/market/market_photo_model.dart';
+import '../../../../data/models/photo_model.dart';
 
 class PhotosListItem extends StatelessWidget {
   PhotosListItem({
@@ -12,7 +12,7 @@ class PhotosListItem extends StatelessWidget {
     required this.onTap,
   });
 
-  final MarketPhoto marketPhoto;
+  final PhotoModel marketPhoto;
   final void Function() onTap;
 
   @override
