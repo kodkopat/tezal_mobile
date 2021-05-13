@@ -7,7 +7,6 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
-import '../../../../core/widgets/custom_drop_down.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/progress_dialog.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -26,24 +25,8 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
   var amountCtrl = TextEditingController();
   var descriptionCtrl = TextEditingController();
 
-  late List<String> bankCardInformationValues;
-  String? bankCardInformationDefaultValue;
-
   String errorTxt = "";
   bool errorVisibility = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    bankCardInformationValues = <String>[
-      "5022-2910-4918-0183",
-      "5022-2910-4918-0184",
-      "5022-2910-4918-0185",
-      "5022-2910-4918-0186",
-      "5022-2910-4918-0187",
-    ];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +46,6 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
                   label: "مبلغ",
                   textDirection: TextDirection.rtl,
                   keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 16),
-                CustomDropDown(
-                  label: "انتخاب شماره شبا",
-                  defaultValue: bankCardInformationDefaultValue,
-                  values: bankCardInformationValues,
-                  onChange: (value) {
-                    setState(() {
-                      bankCardInformationDefaultValue = value;
-                    });
-                  },
                 ),
                 const SizedBox(height: 16),
                 CustomTextInput(
