@@ -36,6 +36,7 @@ abstract class MarketProductRemoteDataSource {
     @Header("token") String token,
     @Query("mainCategoryId") String mainCategoryId,
     @Query("subCategoryId") String subCategoryId,
+    @Query("term") String term,
   );
 
   @GET("$_apiUrlPrefix/GetProducts")
