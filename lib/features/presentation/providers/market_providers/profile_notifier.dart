@@ -55,6 +55,8 @@ class ProfileNotifier extends ChangeNotifier {
     required String? telephone,
     required String? email,
     required String? address,
+    required String? shabaNumber,
+    required bool? isOpen,
   }) async {
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
@@ -66,11 +68,31 @@ class ProfileNotifier extends ChangeNotifier {
       telephone: telephone,
       email: email,
       address: address,
+      shabaNumber: shabaNumber,
+      isOpen: isOpen,
     );
 
     result.fold(
       (left) => updateInfoErrorMsg = left.message,
       (right) => updateInfoResult = right,
+    );
+
+    prgDialog.hide();
+    notifyListeners();
+  }
+
+  String? openCloseErrorMsg;
+  BaseApiResultModel? openCloseResult;
+
+  Future<void> openClose(BuildContext context) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketRepo.openCloseMarket();
+
+    result.fold(
+      (left) => openCloseErrorMsg = left.message,
+      (right) => openCloseResult = right,
     );
 
     prgDialog.hide();

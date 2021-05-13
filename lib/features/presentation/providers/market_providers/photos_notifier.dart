@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/models/base_api_result_model.dart';
 import '../../../data/models/market/add_photo_result_model.dart';
-import '../../../data/models/market/market_photo_model.dart';
+import '../../../data/models/photo_model.dart';
 import '../../../data/repositories/market_repository.dart';
 
 class PhotosNotifier extends ChangeNotifier {
@@ -34,7 +34,7 @@ class PhotosNotifier extends ChangeNotifier {
   int? photosTotalCount;
   bool? photosEnableLoadMoreData;
 
-  List<MarketPhoto>? marketPhotos;
+  List<PhotoModel>? marketPhotos;
 
   Future<void> fetchPhotos(BuildContext context) async {
     if (!wasFetchPhotosCalled) {
@@ -87,7 +87,7 @@ class PhotosNotifier extends ChangeNotifier {
 
   bool photoLoading = true;
   String? photoErrorMsg;
-  MarketPhoto? marketPhoto;
+  PhotoModel? marketPhoto;
 
   Future<void> fetchPhoto({required String photoId}) async {
     var result = await marketRepo.getMarketPhoto(

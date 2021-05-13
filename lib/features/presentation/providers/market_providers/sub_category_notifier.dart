@@ -45,10 +45,12 @@ class SubCategoryNotifier extends ChangeNotifier {
   Future<void> fetchNotListedProducts({
     required String mainCategoryId,
     required String subCategoryId,
+    String? term,
   }) async {
     var result = await marketProductRepo.getNotListedProducts(
       mainCategoryId: mainCategoryId,
       subCategoryId: subCategoryId,
+      terms: term ?? "",
     );
 
     result.fold(
