@@ -14,7 +14,7 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/models/customer/product_detail_result_model.dart';
-import '../../../data/models/photos_result_model.dart';
+import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/product_list/product_counter.dart';

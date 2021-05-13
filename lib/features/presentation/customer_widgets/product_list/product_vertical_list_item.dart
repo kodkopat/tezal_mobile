@@ -12,7 +12,7 @@ import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/customer/product_result_model.dart';
-import '../../../data/models/photos_result_model.dart';
+import '../../../data/models/customer/photos_result_model.dart';
 import '../../customer_widgets/custom_rich_text.dart';
 import '../../customer_widgets/product_list/product_counter.dart';
 import '../../providers/customer_providers/basket_notifier.dart';
