@@ -1,3 +1,5 @@
+import 'package:tezal/core/utils/is_numeric.dart';
+
 class AppValidators {
   static String? name(String? value) {
     bool emptyCondition = value!.trim().isEmpty;
@@ -53,6 +55,20 @@ class AppValidators {
     String emptyTxt = "\u26b9 مبلغ وارد شده نامعتبر است";
 
     return emptyCondition ? emptyTxt : null;
+  }
+
+  static String? shaba(String? value) {
+    bool emptyCondition = value!.trim().isEmpty;
+    String emptyTxt = "\u26b9 شماره شبا الزامی است";
+
+    bool errorCondition = !value.isNumeric();
+    String errorTxt = "\u26b9 شماره شبا نامعتبر است";
+
+    return emptyCondition
+        ? emptyTxt
+        : errorCondition
+            ? errorTxt
+            : null;
   }
 
   static String? pass(String? value) {
