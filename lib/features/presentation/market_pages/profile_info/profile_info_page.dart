@@ -22,8 +22,6 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  bool openCloseMarketSwitchValue = false;
-
   @override
   Widget build(BuildContext context) {
     var consumer = Consumer<ProfileNotifier>(
@@ -36,10 +34,14 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
             ? Center(child: AppLoading())
             : provider.infoResult == null
                 ? provider.infoErrorMsg == null
-                    ? Txt("خطای بارگذاری اطلاعات",
-                        style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.infoErrorMsg,
-                        style: AppTxtStyles().body..alignment.center())
+                    ? Txt(
+                        "خطای بارگذاری اطلاعات",
+                        style: AppTxtStyles().body..alignment.center(),
+                      )
+                    : Txt(
+                        provider.infoErrorMsg,
+                        style: AppTxtStyles().body..alignment.center(),
+                      )
                 : SingleChildScrollView(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
@@ -47,41 +49,63 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                       children: [
                         const SizedBox(height: 16),
                         Txt(
-                            "نام فروشگاه: " +
-                                "${provider.infoResult!.data!.name}",
-                            style: AppTxtStyles().body),
+                          "نام فروشگاه: " +
+                              "${provider.infoResult!.data!.name}",
+                          style: AppTxtStyles().body..textAlign.start(),
+                        ),
                         const SizedBox(height: 16),
                         Txt(
-                            "شماره موبایل: " +
-                                "${provider.infoResult!.data!.phone}",
-                            style: AppTxtStyles().body),
+                          "شماره موبایل: " +
+                              "${provider.infoResult!.data!.phone}",
+                          style: AppTxtStyles().body..textAlign.start(),
+                        ),
                         const SizedBox(height: 16),
                         Txt(
-                            "شماره تلفن: " +
-                                "${provider.infoResult!.data!.telephone}",
-                            style: AppTxtStyles().body),
+                          "شماره تلفن: " +
+                              "${provider.infoResult!.data!.telephone}",
+                          style: AppTxtStyles().body..textAlign.start(),
+                        ),
                         const SizedBox(height: 16),
                         Txt(
-                            "ایمیل آدرس: " +
-                                "${provider.infoResult!.data!.email}",
-                            style: AppTxtStyles().body),
+                          "ایمیل آدرس: " +
+                              "${provider.infoResult!.data!.email}",
+                          style: AppTxtStyles().body..textAlign.start(),
+                        ),
                         const SizedBox(height: 16),
-                        Txt("نشانی: " + "${provider.infoResult!.data!.address}",
-                            style: AppTxtStyles().body),
+                        Txt(
+                          "نشانی: " + "${provider.infoResult!.data!.address}",
+                          style: AppTxtStyles().body..textAlign.start(),
+                        ),
+                        const SizedBox(height: 16),
+                        Txt(
+                          "شماره شبا: " +
+                              "${provider.infoResult!.data!.shabaNumber}",
+                          style: AppTxtStyles().body..textAlign.start(),
+                        ),
                         const SizedBox(height: 16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Txt(
                               "باز بودن فروشگاه",
-                              style: AppTxtStyles().body,
+                              style: AppTxtStyles().body..textAlign.start(),
                             ),
                             Switch(
-                              value: openCloseMarketSwitchValue,
-                              onChanged: (value) {
-                                setState(() {
-                                  openCloseMarketSwitchValue = value;
-                                });
+                              value: provider.infoResult!.data!.isOpen ?? false,
+                              onChanged: (value) async {
+                                await provider.openClose(context);
+
+                                if (provider.openCloseErrorMsg != null) {
+                                  setState(() {
+                                    errorTxt = provider.openCloseErrorMsg!;
+                                    errorVisibility = true;
+                                  });
+                                } else {
+                                  setState(() {
+                                    errorTxt = "";
+                                    errorVisibility = false;
+                                  });
+                                }
                               },
                             ),
                           ],

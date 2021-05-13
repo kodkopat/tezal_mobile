@@ -30,6 +30,8 @@ class Data {
     required this.telephone,
     required this.email,
     required this.address,
+    required this.shabaNumber,
+    required this.isOpen,
   });
 
   final id;
@@ -38,6 +40,8 @@ class Data {
   final telephone;
   final email;
   final address;
+  final shabaNumber;
+  final isOpen;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -46,6 +50,8 @@ class Data {
         telephone: json["telephone"],
         email: json["email"],
         address: json["address"],
+        shabaNumber: json["shabaNumber"],
+        isOpen: json["isOpen"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -55,5 +61,7 @@ class Data {
         "telephone": telephone,
         "email": email,
         "address": address,
+        "shabaNumber": shabaNumber,
+        "isOpen": isOpen,
       };
 }

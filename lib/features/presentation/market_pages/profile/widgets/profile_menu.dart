@@ -12,7 +12,6 @@ import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
-import '../../bank_card_informations/banks_card_informations.dart';
 import '../../comments/comments_page.dart';
 import '../../default_hours/default_hours_page.dart';
 import '../../photos/photos_page.dart';
@@ -55,14 +54,6 @@ class _ProfileMenu {
           iconPath: "assets/images/ic_clock_rectangle.png",
           onTap: () async {
             Routes.sailor(DefaultHoursPage.route);
-          },
-        ),
-        ProfileMenuItem(
-          text: "اطلاعات کارت بانکی"
-          /* Lang.of(context).profileMenuItemSettings */,
-          iconPath: "assets/images/ic_wallet.png",
-          onTap: () async {
-            Routes.sailor(BankCardInformationsPage.route);
           },
         ),
         ProfileMenuItem(

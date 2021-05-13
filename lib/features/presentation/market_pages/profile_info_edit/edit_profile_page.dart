@@ -31,6 +31,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   var phoneCtrl = TextEditingController();
   var emailCtrl = TextEditingController();
   var addressCtrl = TextEditingController();
+  var shabaCtrl = TextEditingController();
 
   String errorTxt = "";
   bool errorVisibility = false;
@@ -93,6 +94,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 textDirection: TextDirection.rtl,
                 keyboardType: TextInputType.text,
               ),
+              CustomTextInput(
+                controller: shabaCtrl
+                  ..text = widget.marketProfile.data!.shabaNumber,
+                validator: AppValidators.shaba,
+                label: "شماره شبا",
+                textDirection: TextDirection.ltr,
+                keyboardType: TextInputType.number,
+              ),
               const SizedBox(height: 16),
               ActionBtn(
                 text: "ویرایش",
@@ -110,6 +119,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       telephone: phoneCtrl.text,
                       email: emailCtrl.text,
                       address: addressCtrl.text,
+                      shabaNumber: shabaCtrl.text,
+                      // TODO: this parameter must be connect to switch widget
+                      isOpen: true,
                     );
 
                     if (profileNotifier.updateInfoErrorMsg != null) {
