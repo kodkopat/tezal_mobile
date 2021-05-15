@@ -70,21 +70,21 @@ abstract class MarketProductRemoteDataSource {
 
   @DELETE("$_apiUrlPrefix/RemoveMarketProduct")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> removeMarketProduct(
+  Future<BaseApiResultModel> removeMarketProduct(
     @Header("token") String token,
     @Query("marketProductId") String marketProductId,
   );
 
   @POST("$_apiUrlPrefix/ChangeProductMarketAmount")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> changeProductMarketAmount(
+  Future<BaseApiResultModel> changeProductMarketAmount(
     @Header("token") String token,
     @Field() String unknown,
   );
 
   @GET("$_apiUrlPrefix/SetOnSale")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> setOnSale(
+  Future<BaseApiResultModel> setOnSale(
     @Header("token") String token,
     @Query("marketProductId") String marketProductId,
     @Query("onSale") bool onSale,
