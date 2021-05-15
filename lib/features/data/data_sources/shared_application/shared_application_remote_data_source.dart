@@ -34,7 +34,7 @@ abstract class SharedApplicationRemoteDataSource {
     @Body() List<String> contactNumbers,
   );
 
-  @POST("$_apiUrlPrefix/GetProductPhoto")
+  @GET("$_apiUrlPrefix/GetProductPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getProductPhoto(
     @Header("token") String token,
@@ -42,7 +42,7 @@ abstract class SharedApplicationRemoteDataSource {
     @Query("preview") bool preview,
   );
 
-  @POST("$_apiUrlPrefix/GetProductPhoto")
+  @GET("$_apiUrlPrefix/GetProductPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getProductPhotos(
     @Header("token") String token,

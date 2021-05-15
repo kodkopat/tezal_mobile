@@ -90,7 +90,7 @@ class _SharedApplicationRemoteDataSource
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotoResultModel>(Options(
-                method: 'POST',
+                method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
@@ -115,7 +115,7 @@ class _SharedApplicationRemoteDataSource
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotosResultModel>(Options(
-                method: 'POST',
+                method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
