@@ -231,6 +231,29 @@ class _MarketRemoteDataSource implements MarketRemoteDataSource {
   }
 
   @override
+  Future<BaseApiResultModel> reOrderMarketPhoto(token, photosList) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(photosList);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/ReOrderMarketPhoto',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<MarketCommentsResultModel> getMarketComments(token, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};

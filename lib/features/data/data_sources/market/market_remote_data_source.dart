@@ -90,6 +90,13 @@ abstract class MarketRemoteDataSource {
     @Query("photoId") String photoId,
   );
 
+  @POST("$_apiUrlPrefix/ReOrderMarketPhoto")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> reOrderMarketPhoto(
+    @Header("token") String token,
+    @Body() Map<String, int> photosList,
+  );
+
   @GET("$_apiUrlPrefix/GetMarketComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketCommentsResultModel> getMarketComments(
