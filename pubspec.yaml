@@ -74,6 +74,8 @@ dependencies:
   package_info: ^2.0.0
   # used to: build
   build: ^2.0.0
+  # used to: reOrder Photos
+  drag_and_drop_gridview: ^1.0.8
 
 dependency_overrides:
   tuple: ^1.0.2

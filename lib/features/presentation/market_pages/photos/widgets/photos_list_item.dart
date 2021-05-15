@@ -20,8 +20,8 @@ class PhotosListItem extends StatelessWidget {
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
-        ..width(MediaQuery.of(context).size.width)
-        ..height(128)
+        ..width(64)
+        ..height(64)
         ..background.image(
           alignment: Alignment.center,
           path: "assets/images/img_placeholder.jpg",

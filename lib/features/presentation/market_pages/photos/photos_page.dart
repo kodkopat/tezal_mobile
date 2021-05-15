@@ -10,17 +10,28 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_image_picker.dart';
+import '../../../data/models/photo_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/photos_notifier.dart';
 import 'widgets/modal_photo_preview.dart';
+import 'widgets/modal_photos_menu.dart';
 import 'widgets/photos_list.dart';
 
-class PhotosPage extends StatelessWidget {
+class PhotosPage extends StatefulWidget {
   static const route = "/market_photos";
 
   @override
+  _PhotosPageState createState() => _PhotosPageState();
+}
+
+class _PhotosPageState extends State<PhotosPage> {
+  PhotosNotifier? photosNotifier;
+  bool wasPhotosOrderChanged = false;
+  List<PhotoModel>? marketPhotosList;
+
+  @override
   Widget build(BuildContext context) {
-    var photosNotifier = Provider.of<PhotosNotifier>(context, listen: false);
+    photosNotifier ??= Provider.of<PhotosNotifier>(context, listen: false);
 
     var consumer = Consumer<PhotosNotifier>(
       builder: (context, provider, child) {
@@ -41,7 +52,8 @@ class PhotosPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         PhotosList(
-                          marketPhotos: provider.marketPhotos!,
+                          marketPhotos:
+                              marketPhotosList ?? provider.marketPhotos!,
                           onItemTap: (index) {
                             showDialog(
                               context: context,
@@ -49,7 +61,7 @@ class PhotosPage extends StatelessWidget {
                               builder: (context) => PhotoPreviewModal(
                                 marketPhoto: provider.marketPhotos![index],
                                 onRemoveBtnTap: () async {
-                                  photosNotifier
+                                  photosNotifier!
                                       .removePhoto(context,
                                           photoId:
                                               provider.marketPhotos![index].id)
@@ -57,6 +69,20 @@ class PhotosPage extends StatelessWidget {
                                 },
                               ),
                             );
+                          },
+                          onReorder: (oldIndex, newIndex) {
+                            marketPhotosList = provider.marketPhotos!;
+
+                            var temp = marketPhotosList![oldIndex];
+                            marketPhotosList![oldIndex] =
+                                marketPhotosList![newIndex];
+                            marketPhotosList![newIndex] = temp;
+
+                            if (!wasPhotosOrderChanged) {
+                              wasPhotosOrderChanged = true;
+                            }
+
+                            setState(() {});
                           },
                         ),
                         if (provider.photosEnableLoadMoreData!)
@@ -69,35 +95,77 @@ class PhotosPage extends StatelessWidget {
       },
     );
 
-    return Scaffold(
-      appBar: SimpleAppBar(context).create(
-        text: "گالری تصاویر فروشگاه",
-        showBackBtn: true,
-      ),
-      body: consumer,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          var result = await showModalBottomSheet(
-            context: context,
-            elevation: 16,
-            isDismissible: true,
-            barrierColor: Colors.transparent,
-            backgroundColor: Colors.transparent,
-            builder: (context) => ImagePickerModal(),
-          );
-
-          if (result != null) {
-            var imagePath = result as String;
-            photosNotifier.addPhoto(context, photo: File(imagePath));
-          }
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 24,
+    return Stack(
+      children: [
+        Scaffold(
+          appBar: SimpleAppBar(context).create(
+            text: "گالری تصاویر فروشگاه",
+            showBackBtn: true,
+          ),
+          body: consumer,
         ),
-      ),
+        Positioned(
+          top: 28,
+          left: 4,
+          child: Parent(
+            gesture: Gestures()
+              ..onTap(() {
+                showModalBottomSheet(
+                  context: context,
+                  elevation: 16,
+                  isDismissible: true,
+                  barrierColor: Colors.transparent,
+                  backgroundColor: Colors.transparent,
+                  builder: (context) => PhotosMenuModal(
+                    addPhotoOnTap: () async {
+                      var result = await showModalBottomSheet(
+                        context: context,
+                        elevation: 16,
+                        isDismissible: true,
+                        barrierColor: Colors.transparent,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => ImagePickerModal(),
+                      );
+
+                      if (result != null) {
+                        var imagePath = result as String;
+                        photosNotifier!
+                            .addPhoto(context, photo: File(imagePath));
+                      }
+                    },
+                    reOrderPhotosOnTap: () async {
+                      if (marketPhotosList != null) {
+                        Map<String, int> marketPhotosOrder = {};
+
+                        for (int i = 0; i < marketPhotosList!.length; i++) {
+                          marketPhotosOrder["${marketPhotosList![i].id}"] = i;
+                        }
+
+                        await photosNotifier!.reOrderPhotos(
+                          context,
+                          photosList: marketPhotosOrder,
+                        );
+                      }
+                    },
+                  ),
+                );
+              }),
+            style: ParentStyle()
+              ..width(48)
+              ..height(48)
+              ..alignmentContent.center()
+              ..borderRadius(all: 24)
+              ..ripple(true),
+            child: Image.asset(
+              "assets/images/ic_setting.png",
+              color: Colors.white,
+              fit: BoxFit.contain,
+              width: 24,
+              height: 24,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

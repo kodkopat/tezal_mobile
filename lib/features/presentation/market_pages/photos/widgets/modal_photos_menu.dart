@@ -1,0 +1,51 @@
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:division/division.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../../core/page_routes/base_routes.dart';
+import 'modal_photos_menu_list_item.dart';
+
+class PhotosMenuModal extends StatelessWidget {
+  PhotosMenuModal({
+    required this.addPhotoOnTap,
+    required this.reOrderPhotosOnTap,
+  });
+
+  final void Function() addPhotoOnTap;
+  final void Function() reOrderPhotosOnTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Parent(
+        style: ParentStyle()
+          ..padding(top: 8)
+          ..borderRadius(topLeft: 16, topRight: 16)
+          ..background.color(Colors.white),
+        child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          padding: EdgeInsets.symmetric(vertical: 8),
+          children: [
+            PhotosMenuListItem(
+              text: "افزودن تصویر جدید",
+              iconPath: "assets/images/ic_plus_square.png",
+              onTap: () {
+                Routes.sailor.pop();
+                addPhotoOnTap();
+              },
+            ),
+            PhotosMenuListItem(
+              text: "ثبت ترتیب تصاویر",
+              iconPath: "assets/images/ic_category.png",
+              onTap: () {
+                Routes.sailor.pop();
+                reOrderPhotosOnTap();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

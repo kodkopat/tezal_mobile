@@ -144,6 +144,27 @@ class PhotosNotifier extends ChangeNotifier {
     _refresh(context);
   }
 
+  String? reOrderPhotosErrorMsg;
+  BaseApiResultModel? reOrderPhotosResult;
+
+  Future<void> reOrderPhotos(BuildContext context,
+      {required Map<String, int> photosList}) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketRepo.reOrderMarketPhoto(
+      photosList: photosList,
+    );
+
+    result.fold(
+      (left) => reOrderPhotosErrorMsg = left.message,
+      (right) => reOrderPhotosResult = right.data,
+    );
+
+    prgDialog.hide();
+    _refresh(context);
+  }
+
   void _refresh(BuildContext context) async {
     wasFetchPhotosCalled = false;
     photosLoading = true;
