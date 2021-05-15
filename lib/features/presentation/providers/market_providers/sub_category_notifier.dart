@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../data/models/market/market_products_result_model.dart';
 import '../../../data/models/market/products_result_model.dart';
 import '../../../data/models/market/sub_categories_result_model.dart';
+import '../../../data/models/photo_model.dart';
 import '../../../data/repositories/market_product_repository.dart';
+import '../../../data/repositories/shared_application_repository.dart';
 
 class SubCategoryNotifier extends ChangeNotifier {
   SubCategoryNotifier(this.marketProductRepo);
@@ -94,6 +96,19 @@ class SubCategoryNotifier extends ChangeNotifier {
     marketProductsResult = null;
 
     notifyListeners();
+  }
+
+  Future<PhotoModel> fetchPhoto({
+    required String productId,
+  }) async {
+    var result = await SharedApplicationRepository().getProductPhoto(
+      productId: productId,
+    );
+
+    return result.fold(
+      (left) => null,
+      (right) => right.data!.photo,
+    );
   }
 
   void refreshSubCategoryListSelectedIndex(int index) {
