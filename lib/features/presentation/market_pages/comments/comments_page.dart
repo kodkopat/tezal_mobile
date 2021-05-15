@@ -47,12 +47,10 @@ class CommentsPage extends StatelessWidget {
                             );
                           },
                         ),
-                        const SizedBox(height: 8),
                         if (provider.commentsEnableLoadMoreData!)
                           LoadMoreBtn(onTap: () {
                             provider.fetchComments(context);
                           }),
-                        const SizedBox(height: 8),
                       ],
                     ),
                   );

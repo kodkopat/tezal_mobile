@@ -36,12 +36,10 @@ class WalletWithdrawalRequestsPage extends StatelessWidget {
                         WithdrawalRequestList(
                           withdrawalRequests: provider.withdrawalRequests!,
                         ),
-                        const SizedBox(height: 8),
                         if (provider.withdrawalEnableLoadMoreData!)
                           LoadMoreBtn(onTap: () {
                             provider.fetchWithDrawalRequests(context);
                           }),
-                        const SizedBox(height: 8),
                       ],
                     ),
                   );
