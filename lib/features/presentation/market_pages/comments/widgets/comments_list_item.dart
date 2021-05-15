@@ -46,8 +46,8 @@ class CommentsListItem extends StatelessWidget {
             thickness: 0.5,
             color: Colors.black12,
           ),
-          _fieldReply(context),
-          _fieldComment,
+          _fieldComment(context),
+          _fieldReply,
         ],
       ),
     );
@@ -128,7 +128,7 @@ class CommentsListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldComment {
+  Widget _fieldComment(BuildContext context) {
     var txtStyle = TextStyle(
       color: Colors.black,
       letterSpacing: 0.5,
@@ -137,30 +137,7 @@ class CommentsListItem extends StatelessWidget {
       fontSize: 14,
     );
 
-    var commentTxt;
     if (comment.comment == null) {
-      commentTxt = " ذکر نشده ";
-    } else {
-      commentTxt = comment.comment;
-    }
-
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(text: commentTxt, style: txtStyle),
-    );
-  }
-
-  Widget _fieldReply(BuildContext context) {
-    var txtStyle = TextStyle(
-      color: Colors.black,
-      letterSpacing: 0.5,
-      fontFamily: 'Yekan',
-      fontWeight: FontWeight.w400,
-      fontSize: 14,
-    );
-
-    if (comment.reply == null) {
       return SizedBox();
     } else {
       return Parent(
@@ -178,7 +155,7 @@ class CommentsListItem extends StatelessWidget {
                 child: RichText(
                   textDirection: TextDirection.rtl,
                   textAlign: TextAlign.right,
-                  text: TextSpan(text: comment.reply, style: txtStyle),
+                  text: TextSpan(text: comment.comment, style: txtStyle),
                 ),
               ),
               SizedBox(width: 8),
@@ -191,6 +168,26 @@ class CommentsListItem extends StatelessWidget {
             ],
           ),
         ),
+      );
+    }
+  }
+
+  Widget get _fieldReply {
+    var txtStyle = TextStyle(
+      color: Colors.black,
+      letterSpacing: 0.5,
+      fontFamily: 'Yekan',
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+    );
+
+    if (comment.reply == null) {
+      return SizedBox();
+    } else {
+      return RichText(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        text: TextSpan(text: comment.reply, style: txtStyle),
       );
     }
   }
