@@ -3,10 +3,12 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
-import '../../../market_widgets/product_list/product_list.dart';
 import '../../../providers/market_providers/sub_category_notifier.dart';
+import '../../add_product/add_product_page.dart';
+import 'product_list.dart';
 import 'search_box.dart';
 
 class SubCategoryView extends StatelessWidget {
@@ -55,10 +57,18 @@ class SubCategoryView extends StatelessWidget {
                             },
                           ),
                         ),
-                        ProductList(
+                        AddProductList(
                           products: provider.notListedProductsResult!.data!,
                           onItemTap: (index) {},
-                          showItemsAction: true,
+                          onItemAddBtnTap: (index) {
+                            Routes.sailor.navigate(
+                              AddProductPage.route,
+                              params: {
+                                "product": provider
+                                    .notListedProductsResult!.data![index]
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),

@@ -6,8 +6,9 @@ import 'package:provider/provider.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../data/models/market/product_result_model.dart';
-import '../../../market_widgets/product_list/product_list.dart';
+import '../../../providers/market_providers/products_notifier.dart';
 import '../../../providers/market_providers/sub_category_notifier.dart';
+import 'product_list.dart';
 
 class SubCategoryView extends StatelessWidget {
   SubCategoryView({
@@ -55,6 +56,20 @@ class SubCategoryView extends StatelessWidget {
                           )
                           .toList(),
                       onItemTap: (index) {},
+                      onItemRemoveBtnTap: (index) async {
+                        var productsNotifier = Provider.of<ProductsNotifier>(
+                          context,
+                          listen: false,
+                        );
+
+                        await productsNotifier.removeFromMarketProducts(
+                          context,
+                          productId:
+                              provider.marketProductsResult!.data![index].id,
+                        );
+
+                        provider.refreshProducts();
+                      },
                     ),
                   );
       },

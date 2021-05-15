@@ -7,26 +7,26 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../core/exceptions/failure.dart';
-import '../../../../core/page_routes/base_routes.dart';
-import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/widgets/custom_future_builder.dart';
-import '../../../data/models/market/product_result_model.dart';
-import '../../../data/models/photo_result_model.dart';
-import '../../../data/repositories/shared_application_repository.dart';
-import '../../customer_widgets/custom_rich_text.dart';
-import '../../market_pages/add_product/add_product_page.dart';
+import '../../../../../core/exceptions/failure.dart';
+import '../../../../../core/page_routes/base_routes.dart';
+import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/widgets/custom_future_builder.dart';
+import '../../../../data/models/market/product_result_model.dart';
+import '../../../../data/models/photo_result_model.dart';
+import '../../../../data/repositories/shared_application_repository.dart';
+import '../../../customer_widgets/custom_rich_text.dart';
+import '../../../market_pages/add_product/add_product_page.dart';
 
-class ProductListItem extends StatelessWidget {
-  ProductListItem({
+class AddProductListItem extends StatelessWidget {
+  AddProductListItem({
     required this.product,
     required this.onTap,
-    this.showAction,
+    required this.onAddBtnTap,
   });
 
   final ProductResultModel product;
   final void Function() onTap;
-  final bool? showAction;
+  final void Function() onAddBtnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -80,29 +80,22 @@ class ProductListItem extends StatelessWidget {
                           "${product.name}",
                           style: AppTxtStyles().subHeading..bold(),
                         ),
-                        if (showAction ?? false)
-                          Parent(
-                            gesture: Gestures()
-                              ..onTap(() {
-                                Routes.sailor.navigate(
-                                  AddProductPage.route,
-                                  params: {"product": product},
-                                );
-                              }),
-                            style: ParentStyle()
-                              ..width(48)
-                              ..height(48)
-                              ..borderRadius(all: 24)
-                              ..alignmentContent.center()
-                              ..ripple(true),
-                            child: Image.asset(
-                              "assets/images/ic_plus_square.png",
-                              fit: BoxFit.contain,
-                              color: Colors.black26,
-                              width: 24,
-                              height: 24,
-                            ),
+                        Parent(
+                          gesture: Gestures()..onTap(onAddBtnTap),
+                          style: ParentStyle()
+                            ..width(48)
+                            ..height(48)
+                            ..borderRadius(all: 24)
+                            ..alignmentContent.center()
+                            ..ripple(true),
+                          child: Image.asset(
+                            "assets/images/ic_plus_square.png",
+                            fit: BoxFit.contain,
+                            color: Colors.black26,
+                            width: 24,
+                            height: 24,
                           ),
+                        ),
                       ],
                     ),
                     SizedBox(height: 16),

@@ -35,13 +35,33 @@ class ProductsNotifier extends ChangeNotifier {
       description: description,
     );
 
-    prgDialog.hide();
-
     result.fold(
       (left) => addToMarketProductsErrorMsg = left.message,
       (right) => addToMarketProductsResult = right,
     );
 
+    prgDialog.hide();
+    notifyListeners();
+  }
+
+  String? removeFromMarketProductsErrorMsg;
+  BaseApiResultModel? removeFromMarketProductsResult;
+
+  Future<void> removeFromMarketProducts(BuildContext context,
+      {required String productId}) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketProductRepo.removeMarketProduct(
+      marketProductId: productId,
+    );
+
+    result.fold(
+      (left) => removeFromMarketProductsErrorMsg = left.message,
+      (right) => removeFromMarketProductsResult = right,
+    );
+
+    prgDialog.hide();
     notifyListeners();
   }
 }

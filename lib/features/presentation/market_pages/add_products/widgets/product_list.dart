@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../../data/models/market/product_result_model.dart';
+import '../../../../data/models/market/product_result_model.dart';
 import 'product_list_item.dart';
 
-class ProductList extends StatelessWidget {
-  ProductList({
+class AddProductList extends StatelessWidget {
+  AddProductList({
     required this.products,
     required this.onItemTap,
-    this.showItemsAction,
+    required this.onItemAddBtnTap,
   });
 
   final List<ProductResultModel> products;
   final void Function(int) onItemTap;
-  final bool? showItemsAction;
+  final void Function(int) onItemAddBtnTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,10 @@ class ProductList extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return ProductListItem(
+        return AddProductListItem(
           product: products[index],
           onTap: () => onItemTap(index),
-          showAction: showItemsAction,
+          onAddBtnTap: () => onItemAddBtnTap(index),
         );
       },
     );
