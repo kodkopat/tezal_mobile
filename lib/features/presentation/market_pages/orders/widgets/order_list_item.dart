@@ -68,11 +68,13 @@ class OrderListItem extends StatelessWidget {
             child: Txt(
               "${marketOrder.orderStatus}",
               style: TxtStyle()
-                ..maxWidth(80)
+                ..maxWidth(128)
                 ..alignmentContent.center()
                 ..padding(vertical: 2)
                 ..borderRadius(all: 4)
-                ..background.color(Color(0xffEFEFEF))
+                ..background.color(
+                  Color(int.parse("0xff${marketOrder.color}")),
+                )
                 ..textColor(Colors.black)
                 ..fontSize(12)
                 ..bold(),
