@@ -157,7 +157,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> removeMarketProduct(
+  Future<Either<Failure, BaseApiResultModel>> removeMarketProduct(
       {required String marketProductId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
