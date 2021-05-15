@@ -36,18 +36,18 @@ class CommentsListItem extends StatelessWidget {
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _fieldUserName,
-              _fieldScore,
+              _fieldRate,
+              _fieldDate,
             ],
           ),
+          SizedBox(height: 8),
           Divider(
-            height: 16,
+            height: 0,
             thickness: 0.5,
             color: Colors.black12,
           ),
+          _fieldReply(context),
           _fieldComment,
-          SizedBox(height: 8),
-          _fieldDate,
         ],
       ),
     );
@@ -66,7 +66,8 @@ class CommentsListItem extends StatelessWidget {
     if (comment.createDate == null) {
       dateTxt = " ذکر نشده ";
     } else {
-      dateTxt = "${(comment.createDate).toString().split(" ")[0]}";
+      dateTxt = "${(comment.createDate).toString().split("T")[0]}"
+          .replaceAll("-", "/");
     }
 
     return RichText(
@@ -90,45 +91,7 @@ class CommentsListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldUserName {
-    var txtStyle = TextStyle(
-      color: Colors.black,
-      letterSpacing: 0.5,
-      fontFamily: 'Yekan',
-      fontWeight: FontWeight.w600,
-      fontSize: 13,
-    );
-
-    // var usernameTxt;
-    // if (comment.orderId == null) {
-    //   usernameTxt = " ذکر نشده ";
-    // } else {
-    //   usernameTxt = comment.orderId;
-    // }
-    var usernameTxt = " ذکر نشده ";
-
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: "کاربر" + ": ",
-            style: txtStyle,
-          ),
-          TextSpan(
-            text: usernameTxt,
-            style: txtStyle.copyWith(
-              fontWeight: FontWeight.w400,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget get _fieldScore {
+  Widget get _fieldRate {
     var txtStyle = TextStyle(
       color: Colors.black,
       letterSpacing: 0.5,
@@ -186,5 +149,49 @@ class CommentsListItem extends StatelessWidget {
       textAlign: TextAlign.right,
       text: TextSpan(text: commentTxt, style: txtStyle),
     );
+  }
+
+  Widget _fieldReply(BuildContext context) {
+    var txtStyle = TextStyle(
+      color: Colors.black,
+      letterSpacing: 0.5,
+      fontFamily: 'Yekan',
+      fontWeight: FontWeight.w400,
+      fontSize: 14,
+    );
+
+    if (comment.reply == null) {
+      return SizedBox();
+    } else {
+      return Parent(
+        style: ParentStyle()
+          ..width(MediaQuery.of(context).size.width)
+          ..minHeight(48)
+          ..margin(vertical: 8)
+          ..background.color(Color(0xffEFEFEF))
+          ..padding(horizontal: 8, vertical: 8)
+          ..borderRadius(all: 4),
+        child: IntrinsicHeight(
+          child: Row(
+            children: [
+              Expanded(
+                child: RichText(
+                  textDirection: TextDirection.rtl,
+                  textAlign: TextAlign.right,
+                  text: TextSpan(text: comment.reply, style: txtStyle),
+                ),
+              ),
+              SizedBox(width: 8),
+              Parent(
+                style: ParentStyle()
+                  ..width(4)
+                  ..background.color(Colors.black12)
+                  ..borderRadius(all: 2),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }
