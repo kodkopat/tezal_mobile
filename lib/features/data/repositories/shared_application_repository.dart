@@ -88,6 +88,7 @@ class SharedApplicationRepository {
         productId,
         true,
       );
+      print("ProductPhotoResult: $result\n");
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
