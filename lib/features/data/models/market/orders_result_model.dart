@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class OrdersResultModel {
   OrdersResultModel({
     required this.success,
@@ -34,10 +32,6 @@ class Data {
   final totalCount;
   final List<MarketOrder>? result;
 
-  factory Data.fromRawJson(String str) => Data.fromJson(json.decode(str));
-
-  String toRawJson() => json.encode(toJson());
-
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         totalCount: json["totalCount"],
         result: json["result"] == null
@@ -68,6 +62,7 @@ class MarketOrder {
     required this.items,
     required this.orderId,
     required this.orderNumber,
+    required this.color,
   });
 
   final deliveryTime;
@@ -81,6 +76,7 @@ class MarketOrder {
   final deliveryCost;
   final orderId;
   final orderNumber;
+  final color;
   final List<MarketOrderItem>? items;
 
   factory MarketOrder.fromJson(Map<String, dynamic> json) => MarketOrder(
@@ -95,6 +91,7 @@ class MarketOrder {
         deliveryCost: json["deliveryCost"],
         orderId: json["orderId"],
         orderNumber: json["orderNumber"],
+        color: json["color"],
         items: json["items"] == null
             ? null
             : List<MarketOrderItem>.from(
@@ -113,6 +110,7 @@ class MarketOrder {
         "deliveryCost": deliveryCost,
         "orderId": orderId,
         "orderNumber": orderNumber,
+        "color": color,
         "items": items == null
             ? null
             : List<dynamic>.from(items!.map((x) => x.toJson())),
