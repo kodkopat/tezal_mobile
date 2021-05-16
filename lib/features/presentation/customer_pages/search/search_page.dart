@@ -70,7 +70,7 @@ class SearchPage extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: SimpleAppBar(context).create(
-          text: Lang.of(context).pageSearchAppBar,
+          text: Lang.of(context).searchPage,
           showBasketBtn: true,
         ),
         body: Stack(

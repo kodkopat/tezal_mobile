@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
@@ -48,7 +49,7 @@ class WalletWithdrawalRequestsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "درخواست‌های برداشت وجه",
+        text: Lang.of(context).walletWithdrawalRequests,
         showBackBtn: true,
       ),
       body: consumer,

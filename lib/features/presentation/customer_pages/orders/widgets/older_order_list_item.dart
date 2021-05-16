@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/customer/older_orders_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
@@ -24,16 +25,14 @@ class OlderOrderListItem extends StatelessWidget {
         ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 8),
       child: Row(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _fieldOrderMarket,
-              _fieldOrderDate,
-              _fieldOrderStatus,
+              _fieldOrderMarket(context),
+              _fieldOrderDate(context),
+              _fieldOrderStatus(context),
             ],
           ),
           _fieldOrderPriceText,
@@ -42,23 +41,23 @@ class OlderOrderListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldOrderMarket {
+  Widget _fieldOrderMarket(BuildContext context) {
     return CustomRichText(
-      title: "فروشگاه: ",
+      title: Lang.of(context).orderMarket + ": ",
       text: "${order.marketName}",
     );
   }
 
-  Widget get _fieldOrderStatus {
+  Widget _fieldOrderStatus(BuildContext context) {
     return CustomRichText(
-      title: "وضعیت: ",
+      title: Lang.of(context).orderStatus + ": ",
       text: "${order.status}",
     );
   }
 
-  Widget get _fieldOrderDate {
+  Widget _fieldOrderDate(BuildContext context) {
     return CustomRichText(
-      title: "تاریخ سفارش: ",
+      title: Lang.of(context).orderDate + ": ",
       text: _generateTransactionDateText(),
     );
   }

@@ -11,12 +11,12 @@ import '../../../../../core/page_routes/base_routes.dart';
 import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
+import '../../../base_widgets/modal_log_out.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../comments/comments_page.dart';
 import '../../default_hours/default_hours_page.dart';
 import '../../photos/photos_page.dart';
 import '../../profile_info/profile_info_page.dart';
-import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
 class ProfileMenu extends StatelessWidget {
@@ -41,32 +41,28 @@ class _ProfileMenu {
 
   static List<Widget> items(BuildContext context) => [
         ProfileMenuItem(
-          text: "اطلاعات حساب کاربری"
-          /* Lang.of(context).profileMenuItemSettings */,
+          text: Lang.of(context).profilePage,
           iconPath: "assets/images/ic_user.png",
           onTap: () async {
             Routes.sailor(ProfileInfoPage.route);
           },
         ),
         ProfileMenuItem(
-          text: "اطلاعات ساعات کاری"
-          /* Lang.of(context).profileMenuItemSettings */,
+          text: Lang.of(context).workingTimesPage,
           iconPath: "assets/images/ic_clock_rectangle.png",
           onTap: () async {
             Routes.sailor(DefaultHoursPage.route);
           },
         ),
         ProfileMenuItem(
-          text: "گالری تصاویر"
-          /* Lang.of(context).profileMenuItemSettings */,
+          text: Lang.of(context).marketPhotosPage,
           iconPath: "assets/images/ic_image.png",
           onTap: () async {
             Routes.sailor(PhotosPage.route);
           },
         ),
         ProfileMenuItem(
-          text: "نظرات فروشگاه"
-          /* Lang.of(context).profileMenuItemSettings */,
+          text: Lang.of(context).marketCommentsPage,
           iconPath: "assets/images/ic_comment.png",
           onTap: () async {
             Routes.sailor(CommentsPage.route);
@@ -74,8 +70,7 @@ class _ProfileMenu {
         ),
         _divider,
         ProfileMenuItem(
-          text: "معرفی اپلیکیشن به دوستان"
-          /* Lang.of(context).profileMenuItemSettings */,
+          text: Lang.of(context).sharePage,
           iconPath: Directionality.of(context) == TextDirection.ltr
               ? "assets/images/ic_send_left.png"
               : "assets/images/ic_send_right.png",
@@ -84,14 +79,14 @@ class _ProfileMenu {
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemSettings,
+          text: Lang.of(context).settingsPage,
           iconPath: "assets/images/ic_setting.png",
           onTap: () {
             Routes.sailor(SettingsPage.route);
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemAboutUs,
+          text: Lang.of(context).aboutUsPage,
           iconPath: "assets/images/ic_info.png",
           onTap: () {
             Routes.sailor(AboutUsPage.route);
@@ -99,7 +94,7 @@ class _ProfileMenu {
         ),
         _divider,
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemLogOut,
+          text: Lang.of(context).logOut,
           iconPath: Directionality.of(context) == TextDirection.ltr
               ? "assets/images/ic_log_out_left.png"
               : "assets/images/ic_log_out_right.png",

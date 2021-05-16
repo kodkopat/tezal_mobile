@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/styles/txt_styles.dart';
+import '../languages/language.dart';
 
 class LoadMoreBtn extends StatelessWidget {
   LoadMoreBtn({required this.onTap});
@@ -12,7 +13,7 @@ class LoadMoreBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Txt(
-      "بارگذاری موارد بیشتر",
+      Lang.of(context).loadMore,
       gesture: Gestures()..onTap(onTap),
       style: AppTxtStyles().body
         ..width(160)

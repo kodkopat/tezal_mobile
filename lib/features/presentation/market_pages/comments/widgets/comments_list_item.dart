@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/languages/language.dart';
 import '../../../../data/models/market/market_comments_result_model.dart';
 
 class CommentsListItem extends StatelessWidget {
@@ -29,15 +30,13 @@ class CommentsListItem extends StatelessWidget {
           spread: 0,
         ),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _fieldRate,
-              _fieldDate,
+              _fieldRate(context),
+              _fieldDate(context),
             ],
           ),
           SizedBox(height: 8),
@@ -53,7 +52,7 @@ class CommentsListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldDate {
+  Widget _fieldDate(BuildContext context) {
     var txtStyle = TextStyle(
       color: Colors.black,
       letterSpacing: 0.5,
@@ -71,12 +70,11 @@ class CommentsListItem extends StatelessWidget {
     }
 
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         children: [
           TextSpan(
-            text: "تاریخ" + ": ",
+            text: Lang.of(context).date + ": ",
             style: txtStyle,
           ),
           TextSpan(
@@ -91,7 +89,7 @@ class CommentsListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldRate {
+  Widget _fieldRate(BuildContext context) {
     var txtStyle = TextStyle(
       color: Colors.black,
       letterSpacing: 0.5,
@@ -108,12 +106,11 @@ class CommentsListItem extends StatelessWidget {
     }
 
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         children: [
           TextSpan(
-            text: "امتیاز" + ": ",
+            text: Lang.of(context).rate + ": ",
             style: txtStyle,
           ),
           TextSpan(
@@ -153,7 +150,6 @@ class CommentsListItem extends StatelessWidget {
             children: [
               Expanded(
                 child: RichText(
-                  textDirection: TextDirection.rtl,
                   textAlign: TextAlign.right,
                   text: TextSpan(text: comment.comment, style: txtStyle),
                 ),
@@ -185,7 +181,6 @@ class CommentsListItem extends StatelessWidget {
       return SizedBox();
     } else {
       return RichText(
-        textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         text: TextSpan(text: comment.reply, style: txtStyle),
       );

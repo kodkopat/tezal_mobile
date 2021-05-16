@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -21,7 +22,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "حساب کاربری",
+        text: Lang.of(context).profilePage,
       ),
       body: CustomFutureBuilder<String>(
         future: authRepo.userToken,

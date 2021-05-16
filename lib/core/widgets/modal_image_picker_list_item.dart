@@ -24,11 +24,9 @@ class ImagePickerListItem extends StatelessWidget {
         ..padding(horizontal: 16)
         ..ripple(true),
       child: Row(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset(
@@ -41,14 +39,14 @@ class ImagePickerListItem extends StatelessWidget {
               SizedBox(width: 16),
               Txt(
                 text,
-                style: AppTxtStyles().body
-                  ..padding(top: 4)
-                  ..textColor(Colors.black),
+                style: AppTxtStyles().body..textColor(Colors.black),
               ),
             ],
           ),
           Image.asset(
-            "assets/images/ic_chevron_left.png",
+            Directionality.of(context) == TextDirection.ltr
+                ? "assets/images/ic_chevron_right.png"
+                : "assets/images/ic_chevron_left.png",
             fit: BoxFit.contain,
             color: Colors.black,
             width: 16,

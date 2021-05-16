@@ -26,11 +26,9 @@ class SettingsMenuItem extends StatelessWidget {
         ..padding(horizontal: 20)
         ..ripple(true),
       child: Row(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Image.asset(
@@ -51,7 +49,9 @@ class SettingsMenuItem extends StatelessWidget {
           ),
           if (showChevron ?? true)
             Image.asset(
-              "assets/images/ic_chevron_left.png",
+              Directionality.of(context) == TextDirection.ltr
+                  ? "assets/images/ic_chevron_right.png"
+                  : "assets/images/ic_chevron_left.png",
               fit: BoxFit.contain,
               color: Colors.black,
               width: 16,

@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../languages/language.dart';
 import '../page_routes/base_routes.dart';
 import 'modal_image_picker_list_item.dart';
 
@@ -23,7 +24,7 @@ class ImagePickerModal extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8),
           children: [
             ImagePickerListItem(
-              text: "گرفتن عکس با دوربین",
+              text: Lang.of(context).imageFromCamera,
               iconPath: "assets/images/ic_camera.png",
               onTap: () async {
                 final pickedFile =
@@ -37,7 +38,7 @@ class ImagePickerModal extends StatelessWidget {
               },
             ),
             ImagePickerListItem(
-              text: "انتخاب عکس از گالری",
+              text: Lang.of(context).imageFromGallery,
               iconPath: "assets/images/ic_image.png",
               onTap: () async {
                 final pickedFile =

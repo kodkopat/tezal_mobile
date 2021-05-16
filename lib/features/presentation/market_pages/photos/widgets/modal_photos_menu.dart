@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/page_routes/base_routes.dart';
 import 'modal_photos_menu_list_item.dart';
 
@@ -28,7 +29,7 @@ class PhotosMenuModal extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 8),
           children: [
             PhotosMenuListItem(
-              text: "افزودن تصویر جدید",
+              text: Lang.of(context).addNewPhoto,
               iconPath: "assets/images/ic_plus_square.png",
               onTap: () {
                 Routes.sailor.pop();
@@ -36,7 +37,7 @@ class PhotosMenuModal extends StatelessWidget {
               },
             ),
             PhotosMenuListItem(
-              text: "ثبت ترتیب تصاویر",
+              text: Lang.of(context).submitPhotosOrder,
               iconPath: "assets/images/ic_category.png",
               onTap: () {
                 Routes.sailor.pop();

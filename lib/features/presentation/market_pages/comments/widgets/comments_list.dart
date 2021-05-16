@@ -22,14 +22,12 @@ class CommentsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (enableHeader ?? false)
           Padding(
             padding: EdgeInsets.fromLTRB(0, 16, 4, 0),
             child: Row(
-              textDirection: TextDirection.rtl,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Txt(

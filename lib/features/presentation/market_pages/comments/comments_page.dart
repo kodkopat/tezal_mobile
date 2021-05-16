@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
@@ -59,7 +60,7 @@ class CommentsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "نظرات فروشگاه",
+        text: Lang.of(context).marketCommentsPage,
         showBackBtn: true,
       ),
       body: consumer,

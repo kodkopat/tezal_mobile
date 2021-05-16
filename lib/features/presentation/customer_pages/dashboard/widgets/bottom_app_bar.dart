@@ -98,28 +98,28 @@ class _BottomNavigationBarList {
   static List<__BottomNavigationBarListItem> items(BuildContext context) => [
         __BottomNavigationBarListItem(
           index: 0,
-          label: Lang.of(context).bottomAppBarItemHome,
+          label: Lang.of(context).homePage,
           activeIconPath: "assets/images/ic_home_filled.png",
           inactiveIconPath: "assets/images/ic_home.png",
           widget: HomePage(),
         ),
         __BottomNavigationBarListItem(
           index: 1,
-          label: Lang.of(context).bottomAppBarItemSearch,
+          label: Lang.of(context).searchPage,
           activeIconPath: "assets/images/ic_search_filled.png",
           inactiveIconPath: "assets/images/ic_search.png",
           widget: SearchPage(),
         ),
         __BottomNavigationBarListItem(
           index: 2,
-          label: Lang.of(context).bottomAppBarItemBasket,
+          label: Lang.of(context).basketPage,
           activeIconPath: "assets/images/ic_shop_cart_filled.png",
           inactiveIconPath: "assets/images/ic_shop_cart.png",
           widget: BasketPage(),
         ),
         __BottomNavigationBarListItem(
           index: 3,
-          label: Lang.of(context).bottomAppBarItemProfile,
+          label: Lang.of(context).profilePage,
           activeIconPath: "assets/images/ic_user_filled.png",
           inactiveIconPath: "assets/images/ic_user.png",
           widget: ProfilePage(),

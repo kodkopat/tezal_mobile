@@ -91,7 +91,7 @@ class HomePage extends StatelessWidget {
                   )
                 : Scaffold(
                     appBar: SimpleAppBar(context).create(
-                      text: Lang.of(context).pageHomeAppBar,
+                      text: Lang.of(context).homePage,
                       showBasketBtn: true,
                     ),
                     body: RefreshIndicator(

@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -49,36 +50,43 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                       children: [
                         const SizedBox(height: 16),
                         Txt(
-                          "نام فروشگاه: " +
+                          Lang.of(context).marketProfileName +
+                              ": " +
                               "${provider.infoResult!.data!.name}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),
                         Txt(
-                          "شماره موبایل: " +
+                          Lang.of(context).marketProfileMobile +
+                              ": " +
                               "${provider.infoResult!.data!.phone}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),
                         Txt(
-                          "شماره تلفن: " +
+                          Lang.of(context).marketProfileTelephone +
+                              ": " +
                               "${provider.infoResult!.data!.telephone}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),
                         Txt(
-                          "ایمیل آدرس: " +
+                          Lang.of(context).marketProfileEmail +
+                              ": " +
                               "${provider.infoResult!.data!.email}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),
                         Txt(
-                          "نشانی: " + "${provider.infoResult!.data!.address}",
+                          Lang.of(context).marketProfileAddress +
+                              ": " +
+                              "${provider.infoResult!.data!.address}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),
                         Txt(
-                          "شماره شبا: " +
+                          Lang.of(context).marketProfileShabaNumber +
+                              ": " +
                               "${provider.infoResult!.data!.shabaNumber}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
@@ -87,7 +95,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Txt(
-                              "باز بودن فروشگاه",
+                              Lang.of(context).marketProfileStatus + ": ",
                               style: AppTxtStyles().body..textAlign.start(),
                             ),
                             Switch(
@@ -112,7 +120,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                         ),
                         const SizedBox(height: 16),
                         ActionBtn(
-                          text: "ویرایش",
+                          text: Lang.of(context).edit,
                           onTap: () {
                             Routes.sailor.navigate(
                               EditProfilePage.route,
@@ -143,7 +151,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "اطلاعات فروشگاه",
+        text: Lang.of(context).profilePage,
         showBackBtn: true,
       ),
       body: consumer,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
@@ -43,7 +44,7 @@ class AddressesPage extends StatelessWidget {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "آدرس‌های من",
+        text: Lang.of(context).addressesPage,
         showBackBtn: true,
       ),
       body: consumer,

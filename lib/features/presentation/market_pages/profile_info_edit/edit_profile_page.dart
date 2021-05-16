@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
@@ -40,7 +41,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "ویرایش اطلاعات",
+        text: Lang.of(context).editProfilePage,
         showBackBtn: true,
       ),
       body: Form(
@@ -54,7 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               CustomTextInput(
                 controller: nameCtrl..text = widget.marketProfile.data!.name,
                 validator: AppValidators.name,
-                label: "نام فروشگاه",
+                label: Lang.of(context).marketProfileName,
                 textDirection: TextDirection.rtl,
                 keyboardType: TextInputType.text,
               ),
@@ -62,7 +63,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               CustomTextInput(
                 controller: mobileCtrl..text = widget.marketProfile.data!.phone,
                 validator: AppValidators.phone,
-                label: "شماره موبایل",
+                label: Lang.of(context).marketProfileMobile,
                 textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.phone,
                 maxLength: 11,
@@ -72,7 +73,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: phoneCtrl
                   ..text = widget.marketProfile.data!.telephone,
                 validator: (value) => null,
-                label: "شماره تماس ثابت",
+                label: Lang.of(context).marketProfileTelephone,
                 textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.phone,
                 maxLength: 11,
@@ -81,7 +82,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               CustomTextInput(
                 controller: emailCtrl..text = widget.marketProfile.data!.email,
                 validator: (value) => null,
-                label: "ایمیل",
+                label: Lang.of(context).marketProfileEmail,
                 textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.emailAddress,
               ),
@@ -90,21 +91,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 controller: addressCtrl
                   ..text = widget.marketProfile.data!.address,
                 validator: AppValidators.address,
-                label: "آدرس",
+                label: Lang.of(context).marketProfileAddress,
                 textDirection: TextDirection.rtl,
                 keyboardType: TextInputType.text,
               ),
+              const SizedBox(height: 16),
               CustomTextInput(
                 controller: shabaCtrl
                   ..text = widget.marketProfile.data!.shabaNumber,
                 validator: AppValidators.shaba,
-                label: "شماره شبا",
+                label: Lang.of(context).marketProfileShabaNumber,
                 textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.number,
               ),
               const SizedBox(height: 16),
               ActionBtn(
-                text: "ویرایش",
+                text: Lang.of(context).edit,
                 onTap: () async {
                   if ((formKey.currentState as FormState).validate()) {
                     var profileInfo = widget.marketProfile.data!;

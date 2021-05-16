@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tezal/core/languages/language.dart';
 
 import '../../language_selector/language_selector_page.dart';
 import '../../update_detail/update_detail_page.dart';
@@ -26,7 +27,7 @@ class _ProfileMenu {
 
   static List<Widget> items(BuildContext context) => [
         SettingsMenuItem(
-          text: "تنظیمات اعلان",
+          text: Lang.of(context).settingNotification,
           iconPath: "assets/images/ic_bell.png",
           onTap: () {
             // Routes.sailor(WalletPage.route);
@@ -34,7 +35,7 @@ class _ProfileMenu {
         ),
         _divider,
         SettingsMenuItem(
-          text: "تغییر زبان اپلیکیشن",
+          text: Lang.of(context).settingsLanguage,
           iconPath: "assets/images/ic_document.png",
           onTap: () async {
             await showDialog(
@@ -46,7 +47,7 @@ class _ProfileMenu {
         ),
         _divider,
         SettingsMenuItem(
-          text: "بررسی به‌روز‌رسانی اپلیکیشن",
+          text: Lang.of(context).settingsUpdate,
           iconPath: "assets/images/ic_refresh.png",
           onTap: () async {
             await showDialog(

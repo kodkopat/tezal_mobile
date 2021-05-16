@@ -23,7 +23,6 @@ class LanguageSelectorListItem extends StatelessWidget {
         ..padding(horizontal: 16, vertical: 16)
         ..ripple(true),
       child: Row(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Txt(

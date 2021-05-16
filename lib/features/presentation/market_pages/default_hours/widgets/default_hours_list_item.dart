@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/market/market_default_hours_result_model.dart';
 
@@ -20,16 +21,18 @@ class MarketDefaultHoursListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Txt(
-            "روز هفته: " + "${marketDefaultHour.dayOfWeek}",
+            Lang.of(context).weekDay + ": " + "${marketDefaultHour.dayOfWeek}",
             style: AppTxtStyles().body..textAlign.start(),
           ),
           Txt(
-            "ساعت شروع: " +
+            Lang.of(context).startTime +
+                ": " +
                 "${marketDefaultHour.startHour}:${marketDefaultHour.startMinute}",
             style: AppTxtStyles().body..textAlign.start(),
           ),
           Txt(
-            "ساعت اتمام: " +
+            Lang.of(context).endTime +
+                ": " +
                 "${marketDefaultHour.endHour}:${marketDefaultHour.endMinute}",
             style: AppTxtStyles().body..textAlign.start(),
           ),

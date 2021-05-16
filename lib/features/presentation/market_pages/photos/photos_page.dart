@@ -5,6 +5,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
@@ -99,14 +100,15 @@ class _PhotosPageState extends State<PhotosPage> {
       children: [
         Scaffold(
           appBar: SimpleAppBar(context).create(
-            text: "گالری تصاویر فروشگاه",
+            text: Lang.of(context).marketPhotosPage,
             showBackBtn: true,
           ),
           body: consumer,
         ),
-        Positioned(
-          top: 28,
-          left: 4,
+        Align(
+          alignment: Directionality.of(context) == TextDirection.ltr
+              ? Alignment.topRight
+              : Alignment.topLeft,
           child: Parent(
             gesture: Gestures()
               ..onTap(() {
@@ -153,6 +155,7 @@ class _PhotosPageState extends State<PhotosPage> {
             style: ParentStyle()
               ..width(48)
               ..height(48)
+              ..margin(top: 28, horizontal: 4)
               ..alignmentContent.center()
               ..borderRadius(all: 24)
               ..ripple(true),

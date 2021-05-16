@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/market/update_market_default_hours_model.dart';
 
@@ -38,15 +39,16 @@ class EditMarketDefaultHoursListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Txt(
-            "روز هفته: " + "${updateMarketDefaultHour.dayOfWeek}",
+            Lang.of(context).weekDay +
+                ": " +
+                "${updateMarketDefaultHour.dayOfWeek}",
             style: AppTxtStyles().body..textAlign.start(),
           ),
           SizedBox(height: 4),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Txt("از: ", style: AppTxtStyles().body),
+              Txt(Lang.of(context).from + ": ", style: AppTxtStyles().body),
               Row(
                 textDirection: TextDirection.ltr,
                 children: [
@@ -55,7 +57,7 @@ class EditMarketDefaultHoursListItem extends StatelessWidget {
                   _TimeTextInput(onChanged: startMinuteOnChanged),
                 ],
               ),
-              Txt("تا: ", style: AppTxtStyles().body),
+              Txt(Lang.of(context).to + ": ", style: AppTxtStyles().body),
               Row(
                 textDirection: TextDirection.ltr,
                 children: [
@@ -99,7 +101,6 @@ class _TimeTextInput extends StatelessWidget {
         maxLines: 1,
         onChanged: onChanged,
         textAlign: TextAlign.center,
-        textDirection: TextDirection.rtl,
         keyboardType: TextInputType.number,
         style: TextStyle(
           fontSize: 14,

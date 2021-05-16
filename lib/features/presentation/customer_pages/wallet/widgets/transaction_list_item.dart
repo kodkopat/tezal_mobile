@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/customer/wallet_detail_result_model.dart'
     as wallet;
@@ -20,15 +21,13 @@ class TransactionListItem extends StatelessWidget {
         ..margin(vertical: 8)
         ..padding(horizontal: 8, vertical: 8),
       child: Row(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _fieldTransactionType,
-              _fieldTransactionDate,
+              _fieldTransactionType(context),
+              _fieldTransactionDate(context),
             ],
           ),
           _fieldTransactionPriceText,
@@ -37,16 +36,16 @@ class TransactionListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldTransactionType {
+  Widget _fieldTransactionType(BuildContext context) {
     return CustomRichText(
-      title: "نوع تراکنش: ",
+      title: Lang.of(context).transactionType + ": ",
       text: "${walletDetail.action}",
     );
   }
 
-  Widget get _fieldTransactionDate {
+  Widget _fieldTransactionDate(BuildContext context) {
     return CustomRichText(
-      title: "تاریخ تراکنش: ",
+      title: Lang.of(context).transactionDate + ": ",
       text: _generateTransactionDateText(),
     );
   }

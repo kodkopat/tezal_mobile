@@ -48,7 +48,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: Lang.of(context).pageProfileAppBar,
+        text: Lang.of(context).profilePage,
       ),
       body: CustomFutureBuilder<String>(
         future: authRepo.userToken,

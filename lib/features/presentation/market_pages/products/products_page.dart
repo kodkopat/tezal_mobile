@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
@@ -82,7 +83,9 @@ class _ProductsPageState extends State<ProductsPage>
     return Stack(
       children: [
         Scaffold(
-          appBar: SimpleAppBar(context).create(text: "محصولات"),
+          appBar: SimpleAppBar(context).create(
+            text: Lang.of(context).productsPage,
+          ),
           body: consumer,
           floatingActionButton: FloatingActionButton(
             onPressed: () {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -41,7 +42,7 @@ class WalletPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Txt(
-                          "موجودی کیف پول",
+                          Lang.of(context).walletBalance,
                           style: AppTxtStyles().footNote..alignment.center(),
                         ),
                         Txt(
@@ -52,14 +53,14 @@ class WalletPage extends StatelessWidget {
                         ),
                         SizedBox(height: 16),
                         ActionBtn(
-                          text: "درخواست برداشت وجه",
+                          text: Lang.of(context).walletWithdrawal,
                           onTap: () {
                             Routes.sailor(WithdrawalWalletPage.route);
                           },
                         ),
                         SizedBox(height: 16),
                         Txt(
-                          "مشاهده درخواست‌های برداشت",
+                          Lang.of(context).walletWithdrawalRequests,
                           gesture: Gestures()
                             ..onTap(() {
                               Routes.sailor(WalletWithdrawalRequestsPage.route);
@@ -112,7 +113,9 @@ class WalletPage extends StatelessWidget {
     );
 
     return Scaffold(
-      appBar: SimpleAppBar(context).create(text: "کیف پول من"),
+      appBar: SimpleAppBar(context).create(
+        text: Lang.of(context).walletPage,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(

@@ -60,7 +60,7 @@ class BasketPage extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: SimpleAppBar(context).create(
-          text: Lang.of(context).pageBasketAppBar,
+          text: Lang.of(context).basketPage,
         ),
         body: consumer,
       ),

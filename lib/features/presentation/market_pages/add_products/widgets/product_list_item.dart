@@ -8,14 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/exceptions/failure.dart';
-import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/market/product_result_model.dart';
 import '../../../../data/models/photo_result_model.dart';
 import '../../../../data/repositories/shared_application_repository.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../../market_pages/add_product/add_product_page.dart';
 
 class AddProductListItem extends StatelessWidget {
   AddProductListItem({

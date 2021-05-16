@@ -12,12 +12,12 @@ import '../../../../../core/page_routes/base_routes.dart';
 import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
+import '../../../base_widgets/modal_log_out.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';
 import '../../orders/orders_page.dart';
 import '../../wallet/wallet_page.dart';
-import 'modal_log_out.dart';
 import 'profile_menu_item.dart';
 
 class ProfileMenu extends StatelessWidget {
@@ -42,28 +42,28 @@ class _ProfileMenu {
 
   static List<Widget> items(BuildContext context) => [
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemAddresses,
+          text: Lang.of(context).addressesPage,
           iconPath: "assets/images/ic_location.png",
           onTap: () {
             Routes.sailor(AddressesPage.route);
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemWallet,
+          text: Lang.of(context).walletPage,
           iconPath: "assets/images/ic_wallet.png",
           onTap: () {
             Routes.sailor(WalletPage.route);
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemOrders,
+          text: Lang.of(context).olderOrdersPage,
           iconPath: "assets/images/ic_shop_basket.png",
           onTap: () {
             Routes.sailor(OrdersPage.route);
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemLikedProducts,
+          text: Lang.of(context).likedProductsPage,
           iconPath: "assets/images/ic_heart.png",
           onTap: () {
             Routes.sailor(LikedProductsPage.route);
@@ -71,8 +71,7 @@ class _ProfileMenu {
         ),
         _divider,
         ProfileMenuItem(
-          text: "معرفی اپلیکیشن به دوستان"
-          /* Lang.of(context).profileMenuItemSettings */,
+          text: Lang.of(context).sharePage,
           iconPath: Directionality.of(context) == TextDirection.ltr
               ? "assets/images/ic_send_left.png"
               : "assets/images/ic_send_right.png",
@@ -81,14 +80,14 @@ class _ProfileMenu {
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemSettings,
+          text: Lang.of(context).settingsPage,
           iconPath: "assets/images/ic_setting.png",
           onTap: () {
             Routes.sailor(SettingsPage.route);
           },
         ),
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemAboutUs,
+          text: Lang.of(context).aboutUsPage,
           iconPath: "assets/images/ic_info.png",
           onTap: () {
             Routes.sailor(AboutUsPage.route);
@@ -96,7 +95,7 @@ class _ProfileMenu {
         ),
         _divider,
         ProfileMenuItem(
-          text: Lang.of(context).profileMenuItemLogOut,
+          text: Lang.of(context).logOut,
           iconPath: Directionality.of(context) == TextDirection.ltr
               ? "assets/images/ic_log_out_left.png"
               : "assets/images/ic_log_out_right.png",

@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 
@@ -12,7 +13,7 @@ class AboutUsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "درباره ما",
+        text: Lang.of(context).aboutUsPage,
         showBackBtn: true,
       ),
       body: SingleChildScrollView(

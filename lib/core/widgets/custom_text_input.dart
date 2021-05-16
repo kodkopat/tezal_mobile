@@ -39,7 +39,6 @@ class CustomTextInput extends StatelessWidget {
     );
 
     return Column(
-      textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null)
@@ -59,7 +58,7 @@ class CustomTextInput extends StatelessWidget {
           obscureText: obscureText ?? false,
           controller: controller,
           validator: validator,
-          textDirection: textDirection ?? TextDirection.rtl,
+          textDirection: textDirection ?? TextDirection.ltr,
           style: TextStyle(
             height: 2.5,
             color: Colors.black,

@@ -42,9 +42,7 @@ class ProfileMenuItem extends StatelessWidget {
               SizedBox(width: 16),
               Txt(
                 text,
-                style: AppTxtStyles().body
-                  ..padding(top: 4)
-                  ..textColor(Colors.black),
+                style: AppTxtStyles().body..textColor(Colors.black),
               ),
             ],
           ),

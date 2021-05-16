@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
@@ -51,7 +52,7 @@ class _EditDefaultHoursPageState extends State<EditDefaultHoursPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "ویرایش ساعات کاری فروشگاه",
+        text: Lang.of(context).workingTimesPageEdit,
         showBackBtn: true,
       ),
       body: SingleChildScrollView(
@@ -68,7 +69,7 @@ class _EditDefaultHoursPageState extends State<EditDefaultHoursPage> {
             ),
             const SizedBox(height: 16),
             ActionBtn(
-              text: "ویرایش",
+              text: Lang.of(context).submit,
               onTap: () async {
                 var profileNotifier =
                     Provider.of<DefaultHoursNotifier>(context, listen: false);

@@ -2,6 +2,7 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../orders/orders_page.dart';
 import '../../products/products_page.dart';
@@ -92,28 +93,28 @@ class _BottomNavigationBarList {
   static List<__BottomNavigationBarListItem> items(BuildContext context) => [
         __BottomNavigationBarListItem(
           index: 0,
-          label: "سفارشات",
+          label: Lang.of(context).ordersPage,
           activeIconPath: "assets/images/ic_document_filled.png",
           inactiveIconPath: "assets/images/ic_document.png",
           widget: OrdersPage(),
         ),
         __BottomNavigationBarListItem(
           index: 1,
-          label: "محصولات",
+          label: Lang.of(context).productsPage,
           activeIconPath: "assets/images/ic_category_filled.png",
           inactiveIconPath: "assets/images/ic_category.png",
           widget: ProductsPage(),
         ),
         __BottomNavigationBarListItem(
           index: 2,
-          label: "کیف پول",
+          label: Lang.of(context).walletPage,
           activeIconPath: "assets/images/ic_wallet_filled.png",
           inactiveIconPath: "assets/images/ic_wallet.png",
           widget: WalletPage(),
         ),
         __BottomNavigationBarListItem(
           index: 3,
-          label: "حساب کاربری",
+          label: Lang.of(context).profilePage,
           activeIconPath: "assets/images/ic_user_filled.png",
           inactiveIconPath: "assets/images/ic_user.png",
           widget: ProfilePage(),

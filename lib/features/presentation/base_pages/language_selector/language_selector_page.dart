@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:sailor/sailor.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';
@@ -54,7 +55,7 @@ class _LanguagesSelectorPageState extends State<LanguagesSelectorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "انتخاب زبان اپلیکیشن",
+        text: Lang.of(context).settingsLanguage,
         showBackBtn: true,
       ),
       body: loading
@@ -77,7 +78,7 @@ class _LanguagesSelectorPageState extends State<LanguagesSelectorPage> {
                       vertical: 16,
                     ),
                     child: ActionBtn(
-                      text: "انتخاب",
+                      text: Lang.of(context).select,
                       onTap: () async {
                         String languageCode =
                             locales[selectedIndex].languageCode;

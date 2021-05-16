@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
@@ -43,7 +44,7 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
                 CustomTextInput(
                   controller: amountCtrl,
                   validator: AppValidators.numeric,
-                  label: "مبلغ",
+                  label: Lang.of(context).cost,
                   textDirection: TextDirection.rtl,
                   keyboardType: TextInputType.number,
                 ),
@@ -51,13 +52,13 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
                 CustomTextInput(
                   controller: descriptionCtrl,
                   validator: AppValidators.description,
-                  label: "توضیحات",
+                  label: Lang.of(context).description,
                   textDirection: TextDirection.rtl,
                   keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 16),
                 ActionBtn(
-                  text: "ثبت",
+                  text: Lang.of(context).submit,
                   onTap: () async {
                     if ((formKey!.currentState as FormState).validate()) {
                       var prgDialog = AppProgressDialog(context).instance;
@@ -112,7 +113,7 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "برداشت وجه از حساب",
+        text: Lang.of(context).walletWithdrawal,
         showBackBtn: true,
       ),
       body: consumer,
