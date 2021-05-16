@@ -55,7 +55,7 @@ class AppNotifier extends ChangeNotifier {
       fontFamily = 'Yekan';
       textDirection = TextDirection.rtl;
     } else {
-      fontFamily = 'Arial';
+      fontFamily = 'Lato';
       textDirection = TextDirection.ltr;
     }
 
