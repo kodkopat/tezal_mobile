@@ -41,8 +41,13 @@ class CustomerWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getWalletInfo(userToken);
+
+      var result = await _remoteDataSource.getWalletInfo(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -54,8 +59,14 @@ class CustomerWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getWalletDetail(userToken, page);
+
+      var result = await _remoteDataSource.getWalletDetail(
+        userLang,
+        userToken,
+        page,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -67,8 +78,14 @@ class CustomerWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.loadBalance(userToken, amount);
+
+      var result = await _remoteDataSource.loadBalance(
+        userLang,
+        userToken,
+        amount,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -80,9 +97,14 @@ class CustomerWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result =
-          await _remoteDataSource.loadBalanceConfirmation(userToken, id);
+
+      var result = await _remoteDataSource.loadBalanceConfirmation(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

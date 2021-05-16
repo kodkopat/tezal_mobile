@@ -19,6 +19,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/GetOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrdersResultModel> getOrders(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("skip") int skip,
     @Query("take") int take,
@@ -31,6 +32,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/ApproveOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> approveOrder(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -38,6 +40,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/CancelOrderApprove")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> cancelOrderApprove(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -45,6 +48,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/GetOrderPhotos")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrderPhotosResultModel> getOrderPhotos(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("orderId") String orderId,
   );
@@ -52,18 +56,21 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/GetOrderSummary")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getOrderSummary(
+    @Header("lang") String lang,
     @Header("token") String token,
   );
 
   @GET("$_apiUrlPrefix/GetPostOrderSummary")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getPostOrderSummary(
+    @Header("lang") String lang,
     @Header("token") String token,
   );
 
   @GET("$_apiUrlPrefix/GetOrderDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> getOrderDetail(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -71,6 +78,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/RejectOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> rejectOrder(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -78,6 +86,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/PrepareOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> prepareOrder(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -85,6 +94,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/ReturnedOrderApprove")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> returnedOrderApprove(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -92,6 +102,7 @@ abstract class MarketOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/GetOrderComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrderCommentsResultModel> getOrderComments(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("orderId") String orderId,
     @Query("skip") int skip,
@@ -101,6 +112,7 @@ abstract class MarketOrderRemoteDataSource {
   @POST("$_apiUrlPrefix/ReplyOrderComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> replyOrderComments(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Field("commentId") String commentId,
     @Field("reply") String reply,

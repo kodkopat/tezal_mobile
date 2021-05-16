@@ -42,8 +42,13 @@ class CustomerRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getCustomerProfile(userToken);
+
+      var result = await _remoteDataSource.getCustomerProfile(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -57,8 +62,11 @@ class CustomerRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.changeCustomerProfile(
+        userLang,
         userToken,
         name,
         email,
@@ -75,8 +83,11 @@ class CustomerRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.getPhoto(
+        userLang,
         userToken,
         id,
       );

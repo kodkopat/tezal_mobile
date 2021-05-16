@@ -17,7 +17,7 @@ class _CustomerCategoryRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<MainCategoryResultModel> getMainCategories(marketId) async {
+  Future<MainCategoryResultModel> getMainCategories(lang, marketId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'MarketId': marketId};
     final _data = <String, dynamic>{};
@@ -26,7 +26,8 @@ class _CustomerCategoryRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -39,7 +40,7 @@ class _CustomerCategoryRemoteDataSource
 
   @override
   Future<SubCategoryResultModel> getSubCategories(
-      marketId, mainCategoryId) async {
+      lang, marketId, mainCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
@@ -51,7 +52,8 @@ class _CustomerCategoryRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -63,7 +65,7 @@ class _CustomerCategoryRemoteDataSource
   }
 
   @override
-  Future<PhotoResultModel> getMainCategoryPhoto(token, id) async {
+  Future<PhotoResultModel> getMainCategoryPhoto(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -73,6 +75,7 @@ class _CustomerCategoryRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -85,7 +88,7 @@ class _CustomerCategoryRemoteDataSource
   }
 
   @override
-  Future<PhotoResultModel> getSubCategoryPhoto(token, id) async {
+  Future<PhotoResultModel> getSubCategoryPhoto(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -95,6 +98,7 @@ class _CustomerCategoryRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

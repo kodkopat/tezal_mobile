@@ -40,8 +40,13 @@ class CustomerCampaignRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getall(userToken);
+
+      var result = await _remoteDataSource.getall(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -53,7 +58,12 @@ class CustomerCampaignRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getPhoto(campaignId);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getPhoto(
+        userLang,
+        campaignId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

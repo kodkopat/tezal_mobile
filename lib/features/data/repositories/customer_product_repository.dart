@@ -12,9 +12,9 @@ import '../../data/data_sources/customer_product/customer_product_remote_data_so
 import '../models/base_api_result_model.dart';
 import '../models/customer/comments_result_model.dart';
 import '../models/customer/liked_products_result_model.dart';
+import '../models/customer/photos_result_model.dart';
 import '../models/customer/product_detail_result_model.dart';
 import '../models/customer/products_result_model.dart';
-import '../models/customer/photos_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerProductRepository {
@@ -47,8 +47,11 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.getProductsInSubCategory(
+        userLang,
         userToken,
         marketId,
         categoryId,
@@ -64,8 +67,14 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getDetail(userToken, id);
+
+      var result = await _remoteDataSource.getDetail(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -78,7 +87,13 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getPhoto(id, multi);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getPhoto(
+        userLang,
+        id,
+        multi,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -90,9 +105,14 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.like(userToken, id);
+      var result = await _remoteDataSource.like(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -104,8 +124,14 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.unlike(userToken, id);
+
+      var result = await _remoteDataSource.unlike(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -115,8 +141,13 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getLikedProducts(userToken);
+
+      var result = await _remoteDataSource.getLikedProducts(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -129,7 +160,13 @@ class CustomerProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getComments(productId, page);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getComments(
+        userLang,
+        productId,
+        page,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

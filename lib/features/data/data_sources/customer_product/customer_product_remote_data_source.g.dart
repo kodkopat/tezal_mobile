@@ -18,7 +18,7 @@ class _CustomerProductRemoteDataSource
 
   @override
   Future<ProductsResultModel> getProductsInSubCategory(
-      token, marketId, categoryId) async {
+      lang, token, marketId, categoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
@@ -31,6 +31,7 @@ class _CustomerProductRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -43,7 +44,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<ProductDetailResultModel> getDetail(token, id) async {
+  Future<ProductDetailResultModel> getDetail(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -53,6 +54,7 @@ class _CustomerProductRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -65,7 +67,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getPhoto(id, multi) async {
+  Future<PhotosResultModel> getPhoto(lang, id, multi) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id, r'Multi': multi};
     final _data = <String, dynamic>{};
@@ -74,7 +76,8 @@ class _CustomerProductRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -86,7 +89,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> like(token, id) async {
+  Future<BaseApiResultModel> like(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -96,6 +99,7 @@ class _CustomerProductRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -108,7 +112,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> unlike(token, id) async {
+  Future<BaseApiResultModel> unlike(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -118,6 +122,7 @@ class _CustomerProductRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -130,7 +135,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<LikedProductsResultModel> getLikedProducts(token) async {
+  Future<LikedProductsResultModel> getLikedProducts(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -140,6 +145,7 @@ class _CustomerProductRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -152,7 +158,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<CommentsResultModel> getComments(productId, page) async {
+  Future<CommentsResultModel> getComments(lang, productId, page) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'productId': productId,
@@ -164,7 +170,8 @@ class _CustomerProductRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -176,7 +183,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> addComment() async {
+  Future<dynamic> addComment(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -184,7 +191,8 @@ class _CustomerProductRemoteDataSource
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain'
+              r'Accept': 'text/plain',
+              r'lang': lang
             },
             extra: _extra,
             contentType: 'application/json')

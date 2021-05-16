@@ -16,7 +16,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<OrdersResultModel> getOrders(token, skip, take, status,
+  Future<OrdersResultModel> getOrders(lang, token, skip, take, status,
       distanceAscending, dateAscescending, priceAscending) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -35,6 +35,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -47,7 +48,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> approveOrder(token, id) async {
+  Future<BaseApiResultModel> approveOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -57,6 +58,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -69,7 +71,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> cancelOrderApprove(token, id) async {
+  Future<BaseApiResultModel> cancelOrderApprove(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -79,6 +81,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -91,7 +94,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<OrderPhotosResultModel> getOrderPhotos(token, orderId) async {
+  Future<OrderPhotosResultModel> getOrderPhotos(lang, token, orderId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'orderId': orderId};
     final _data = <String, dynamic>{};
@@ -101,6 +104,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -113,7 +117,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getOrderSummary(token) async {
+  Future<dynamic> getOrderSummary(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -122,6 +126,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'lang': lang,
               r'token': token
             },
             extra: _extra,
@@ -134,7 +139,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getPostOrderSummary(token) async {
+  Future<dynamic> getPostOrderSummary(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -143,6 +148,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'lang': lang,
               r'token': token
             },
             extra: _extra,
@@ -155,7 +161,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getOrderDetail(token, id) async {
+  Future<dynamic> getOrderDetail(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -164,6 +170,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'lang': lang,
               r'token': token
             },
             extra: _extra,
@@ -176,7 +183,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> rejectOrder(token, id) async {
+  Future<BaseApiResultModel> rejectOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -186,6 +193,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -198,7 +206,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> prepareOrder(token, id) async {
+  Future<BaseApiResultModel> prepareOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -208,6 +216,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -220,7 +229,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> returnedOrderApprove(token, id) async {
+  Future<BaseApiResultModel> returnedOrderApprove(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -230,6 +239,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -243,7 +253,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
 
   @override
   Future<OrderCommentsResultModel> getOrderComments(
-      token, orderId, skip, take) async {
+      lang, token, orderId, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'orderId': orderId,
@@ -257,6 +267,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -269,7 +280,8 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> replyOrderComments(token, commentId, reply) async {
+  Future<BaseApiResultModel> replyOrderComments(
+      lang, token, commentId, reply) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'commentId': commentId, 'reply': reply};
@@ -279,6 +291,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

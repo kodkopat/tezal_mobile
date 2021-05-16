@@ -18,12 +18,14 @@ abstract class CustomerRemoteDataSource {
   @GET("$_apiUrlPrefix/GetCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CustomerProfileResultModel> getCustomerProfile(
+    @Header("lang") String lang,
     @Header("token") String token,
   );
 
   @POST("$_apiUrlPrefix/ChangeCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeCustomerProfile(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Field() String name,
     @Field() String email,
@@ -33,6 +35,7 @@ abstract class CustomerRemoteDataSource {
   @GET("$_apiUrlPrefix/getphoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getPhoto(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );

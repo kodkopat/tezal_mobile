@@ -16,7 +16,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<OrderResultModel> save(token, paymentType, addressId) async {
+  Future<OrderResultModel> save(lang, token, paymentType, addressId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'paymentType': paymentType,
@@ -29,6 +29,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -41,7 +42,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> cancel(token) async {
+  Future<BaseApiResultModel> cancel(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -51,6 +52,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -63,7 +65,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> returned(token) async {
+  Future<dynamic> returned(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -72,6 +74,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'lang': lang,
               r'token': token
             },
             extra: _extra,
@@ -84,7 +87,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> rate(token) async {
+  Future<dynamic> rate(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -93,6 +96,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'lang': lang,
               r'token': token
             },
             extra: _extra,
@@ -105,7 +109,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<OlderOrdersResultModel> getOlderOrders(token, page) async {
+  Future<OlderOrdersResultModel> getOlderOrders(lang, token, page) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -115,6 +119,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token,
                   r'page': page
                 },
@@ -128,7 +133,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<OrderDetailResultModel> getDetail(token, id) async {
+  Future<OrderDetailResultModel> getDetail(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -138,6 +143,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -150,7 +156,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<dynamic> getPayment(token, id) async {
+  Future<dynamic> getPayment(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -159,6 +165,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
+              r'lang': lang,
               r'token': token
             },
             extra: _extra,
@@ -171,7 +178,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> addToBasket(token, id) async {
+  Future<BaseApiResultModel> addToBasket(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -181,6 +188,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

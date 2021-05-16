@@ -17,7 +17,7 @@ class _CustomerCampaignRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<CampaignResultModel> getall(token) async {
+  Future<CampaignResultModel> getall(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -27,6 +27,7 @@ class _CustomerCampaignRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -39,7 +40,7 @@ class _CustomerCampaignRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getPhoto(campaignId) async {
+  Future<PhotosResultModel> getPhoto(lang, campaignId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': campaignId};
     final _data = <String, dynamic>{};
@@ -48,7 +49,8 @@ class _CustomerCampaignRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')

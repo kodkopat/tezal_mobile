@@ -45,8 +45,11 @@ class CustomerOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.save(
+        userLang,
         userToken,
         paymentType,
         addressId,
@@ -62,8 +65,11 @@ class CustomerOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.addToBasket(
+        userLang,
         userToken,
         orderId,
       );
@@ -78,8 +84,14 @@ class CustomerOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getOlderOrders(userToken, page);
+
+      var result = await _remoteDataSource.getOlderOrders(
+        userLang,
+        userToken,
+        page,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -91,8 +103,14 @@ class CustomerOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getDetail(userToken, id);
+
+      var result = await _remoteDataSource.getDetail(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

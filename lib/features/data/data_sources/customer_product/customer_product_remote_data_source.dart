@@ -5,9 +5,9 @@ import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
 import '../../models/customer/comments_result_model.dart';
 import '../../models/customer/liked_products_result_model.dart';
+import '../../models/customer/photos_result_model.dart';
 import '../../models/customer/product_detail_result_model.dart';
 import '../../models/customer/products_result_model.dart';
-import '../../models/customer/photos_result_model.dart';
 
 part 'customer_product_remote_data_source.g.dart';
 
@@ -21,6 +21,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/GetProductsInSubCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getProductsInSubCategory(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("MarketId") String marketId,
     @Query("CategoryId") String categoryId,
@@ -29,6 +30,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/GetDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductDetailResultModel> getDetail(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -36,6 +38,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
+    @Header("lang") String lang,
     @Query("Id") String id,
     @Query("Multi") bool multi,
   );
@@ -43,6 +46,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -50,6 +54,7 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/Unlike")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> unlike(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -57,17 +62,21 @@ abstract class CustomerProductRemoteDataSource {
   @GET("$_apiUrlPrefix/GetLikedProducts")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LikedProductsResultModel> getLikedProducts(
+    @Header("lang") String lang,
     @Header("token") String token,
   );
 
   @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(
+    @Header("lang") String lang,
     @Query("productId") String productId,
     @Query("Page") int page,
   );
 
   @GET("$_apiUrlPrefix/AddComment")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> addComment();
+  Future<dynamic> addComment(
+    @Header("lang") String lang,
+  );
 }

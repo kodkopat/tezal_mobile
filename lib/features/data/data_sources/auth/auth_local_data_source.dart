@@ -29,6 +29,13 @@ class AuthLocalDataSource {
     );
   }
 
+  Future<void> saveUserLang(String langCode) async {
+    await _secureStorage.write(
+      key: storageKeyUserId,
+      value: "$langCode",
+    );
+  }
+
   Future<String> get userId async {
     return await _secureStorage.read(
       key: storageKeyUserId,
@@ -45,5 +52,12 @@ class AuthLocalDataSource {
     return await _secureStorage.read(
       key: storageKeyUserType,
     );
+  }
+
+  Future<String> get userLang async {
+    return await _secureStorage.read(
+          key: storageKeyLocalCode,
+        ) ??
+        "fa";
   }
 }

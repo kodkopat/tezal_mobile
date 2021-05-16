@@ -16,7 +16,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<CustomerProfileResultModel> getCustomerProfile(token) async {
+  Future<CustomerProfileResultModel> getCustomerProfile(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -26,6 +26,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -39,7 +40,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
 
   @override
   Future<BaseApiResultModel> changeCustomerProfile(
-      token, name, email, photo) async {
+      lang, token, name, email, photo) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'name': name, 'email': email, 'photo': photo};
@@ -49,6 +50,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -61,7 +63,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
   }
 
   @override
-  Future<PhotoResultModel> getPhoto(token, id) async {
+  Future<PhotoResultModel> getPhoto(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -71,6 +73,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

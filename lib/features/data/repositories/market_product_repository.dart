@@ -43,9 +43,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getMainCategories(
+        userLang,
         userToken,
       );
 
@@ -58,9 +60,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getCategoriesOfCategory(
+        userLang,
         userToken,
         mainCategoryId,
       );
@@ -76,9 +80,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getProducts(
+        userLang,
         userToken,
         mainCategoryId,
         subCategoryId,
@@ -96,9 +102,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getNotListedProducts(
+        userLang,
         userToken,
         mainCategoryId,
         subCategoryId,
@@ -116,9 +124,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getMarketProducts(
+        userLang,
         userToken,
         mainCategoryId,
         subCategoryId,
@@ -140,9 +150,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.addToProductMarket(
+        userLang,
         userToken,
         productId,
         amount,
@@ -162,9 +174,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.removeMarketProduct(
+        userLang,
         userToken,
         marketProductId,
       );
@@ -178,9 +192,11 @@ class MarketProductRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.changeProductMarketAmount(
+        userLang,
         userToken,
         unknown,
       );

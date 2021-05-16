@@ -17,7 +17,7 @@ class _CustomerBasketRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<BaseApiResultModel> emptyBasket(token) async {
+  Future<BaseApiResultModel> emptyBasket(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -27,6 +27,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -39,7 +40,7 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<BasketResultModel> getBasket(token) async {
+  Future<BasketResultModel> getBasket(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -49,6 +50,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -61,7 +63,7 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<PaymentInfoResultModel> getPaymentInfo(token) async {
+  Future<PaymentInfoResultModel> getPaymentInfo(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -71,6 +73,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -83,7 +86,7 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> selectAddress(token, addressId) async {
+  Future<BaseApiResultModel> selectAddress(lang, token, addressId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': addressId};
     final _data = <String, dynamic>{};
@@ -93,6 +96,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -105,7 +109,7 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> addProductToBasket(token, id, amount) async {
+  Future<BaseApiResultModel> addProductToBasket(lang, token, id, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'id': id, 'amount': amount};
@@ -115,6 +119,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -127,7 +132,8 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> removeProductFromBasket(token, id, amount) async {
+  Future<BaseApiResultModel> removeProductFromBasket(
+      lang, token, id, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'id': id, 'amount': amount};
@@ -137,6 +143,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -149,7 +156,7 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> getBasketCount(token) async {
+  Future<BaseApiResultModel> getBasketCount(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -159,6 +166,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -171,7 +179,7 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> updateBasket(token, note) async {
+  Future<BaseApiResultModel> updateBasket(lang, token, note) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Note': note};
     final _data = <String, dynamic>{};
@@ -181,6 +189,7 @@ class _CustomerBasketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

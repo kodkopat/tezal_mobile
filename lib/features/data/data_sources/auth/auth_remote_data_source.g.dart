@@ -16,7 +16,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<LoginResultModel> login(username, password) async {
+  Future<LoginResultModel> login(lang, username, password) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'username': username, 'password': password};
@@ -25,7 +25,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'POST',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -37,7 +38,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<CheckTokenResultModel> checkToken(token) async {
+  Future<CheckTokenResultModel> checkToken(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'token': token};
@@ -46,7 +47,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'POST',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -58,7 +60,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<RegisterResultModel> register(name, phone, pass) async {
+  Future<RegisterResultModel> register(lang, name, phone, pass) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'Name': name, 'Phone': phone, 'Password': pass};
@@ -67,7 +69,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'POST',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -79,7 +82,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<CheckSmsResultModel> confirmRegistration(id, sms) async {
+  Future<CheckSmsResultModel> confirmRegistration(lang, id, sms) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'id': id, 'sms': sms};
@@ -88,7 +91,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'POST',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -100,7 +104,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<PhotoResultModel> getPhoto(token) async {
+  Future<PhotoResultModel> getPhoto(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Token': token};
     final _data = <String, dynamic>{};
@@ -109,7 +113,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -121,7 +126,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> resetPasswordRequest(phone) async {
+  Future<BaseApiResultModel> resetPasswordRequest(lang, phone) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Phone': phone};
     final _data = <String, dynamic>{};
@@ -130,7 +135,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -143,7 +149,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
 
   @override
   Future<BaseApiResultModel> resetPassword(
-      phone, sms, password, passwordRepeat) async {
+      lang, phone, sms, password, passwordRepeat) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'Phone': phone,
@@ -157,7 +163,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -169,7 +176,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AgreementResultModel> getPrivacyText() async {
+  Future<AgreementResultModel> getPrivacyText(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -178,7 +185,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -190,7 +198,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AgreementResultModel> getRulesText() async {
+  Future<AgreementResultModel> getRulesText(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -199,7 +207,8 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')

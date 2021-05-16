@@ -49,9 +49,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getOrders(
+        userLang,
         userToken,
         skip,
         take,
@@ -70,9 +72,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.approveOrder(
+        userLang,
         userToken,
         id,
       );
@@ -86,9 +90,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.cancelOrderApprove(
+        userLang,
         userToken,
         id,
       );
@@ -103,9 +109,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getOrderPhotos(
+        userLang,
         userToken,
         orderId,
       );
@@ -118,9 +126,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getOrderSummary(
+        userLang,
         userToken,
       );
 
@@ -132,9 +142,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getPostOrderSummary(
+        userLang,
         userToken,
       );
 
@@ -146,9 +158,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getOrderDetail(
+        userLang,
         userToken,
         id,
       );
@@ -162,9 +176,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.rejectOrder(
+        userLang,
         userToken,
         id,
       );
@@ -178,9 +194,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.prepareOrder(
+        userLang,
         userToken,
         id,
       );
@@ -194,9 +212,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.returnedOrderApprove(
+        userLang,
         userToken,
         id,
       );
@@ -213,9 +233,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getOrderComments(
+        userLang,
         userToken,
         orderId,
         skip,
@@ -233,9 +255,11 @@ class MarketOrderRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.replyOrderComments(
+        userLang,
         userToken,
         commentId,
         reply,

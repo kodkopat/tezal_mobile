@@ -18,18 +18,21 @@ abstract class SharedApplicationRemoteDataSource {
   @GET("$_apiUrlPrefix/HasNewVersion")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> hasNewVersion(
+    @Header("lang") String lang,
     @Query("Version") String version,
   );
 
   @GET("$_apiUrlPrefix/GetUpdate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> getUpdate(
+    @Header("lang") String lang,
     @Query("Version") String version,
   );
 
   @POST("$_apiUrlPrefix/Share")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> share(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Body() List<String> contactNumbers,
   );
@@ -37,6 +40,7 @@ abstract class SharedApplicationRemoteDataSource {
   @GET("$_apiUrlPrefix/GetProductPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getProductPhoto(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("productId") String productId,
     @Query("preview") bool preview,
@@ -45,6 +49,7 @@ abstract class SharedApplicationRemoteDataSource {
   @GET("$_apiUrlPrefix/GetProductPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getProductPhotos(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("productId") String productId,
     @Query("preview") bool preview,

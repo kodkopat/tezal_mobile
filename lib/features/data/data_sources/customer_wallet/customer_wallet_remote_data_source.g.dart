@@ -17,7 +17,7 @@ class _CustomerWalletRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<WalletInfoResultModel> getWalletInfo(token) async {
+  Future<WalletInfoResultModel> getWalletInfo(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -27,6 +27,7 @@ class _CustomerWalletRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -39,7 +40,7 @@ class _CustomerWalletRemoteDataSource
   }
 
   @override
-  Future<WalletDetailResultModel> getWalletDetail(token, page) async {
+  Future<WalletDetailResultModel> getWalletDetail(lang, token, page) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
     final _data = <String, dynamic>{};
@@ -49,6 +50,7 @@ class _CustomerWalletRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -61,7 +63,7 @@ class _CustomerWalletRemoteDataSource
   }
 
   @override
-  Future<WalletLoadBalanceResultModel> loadBalance(token, amount) async {
+  Future<WalletLoadBalanceResultModel> loadBalance(lang, token, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'amount': amount};
     final _data = <String, dynamic>{};
@@ -71,6 +73,7 @@ class _CustomerWalletRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -84,7 +87,7 @@ class _CustomerWalletRemoteDataSource
 
   @override
   Future<WalletLoadBalanceResultModel> loadBalanceConfirmation(
-      token, id) async {
+      lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -94,6 +97,7 @@ class _CustomerWalletRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

@@ -46,13 +46,13 @@ class CustomerSearchRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var lang = Localizations.localeOf(context).languageCode;
-      var position = await LocationService.getSavedLocation();
+      final position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.search(
+        userLang,
         userToken,
-        lang,
         "${position.latitude}",
         "${position.longitude}",
         term,
@@ -67,13 +67,13 @@ class CustomerSearchRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var lang = Localizations.localeOf(context).languageCode;
-      var position = await LocationService.getSavedLocation();
+      final position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.getSearchTerms(
+        userLang,
         userToken,
-        lang,
         "${position.latitude}",
         "${position.longitude}",
       );
@@ -87,13 +87,13 @@ class CustomerSearchRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var lang = Localizations.localeOf(context).languageCode;
-      var position = await LocationService.getSavedLocation();
+      final position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.clearSearchTerms(
+        userLang,
         userToken,
-        lang,
         "${position.latitude}",
         "${position.longitude}",
       );

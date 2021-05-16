@@ -41,8 +41,13 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.emptyBasket(userToken);
+
+      var result = await _remoteDataSource.emptyBasket(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -53,9 +58,13 @@ class CustomerBasketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       try {
+        final userLang = await _authRepo.userLang;
         final userToken = await _authRepo.userToken;
-        print("getBasketToke:$userToken\n");
-        var result = await _remoteDataSource.getBasket(userToken);
+
+        var result = await _remoteDataSource.getBasket(
+          userLang,
+          userToken,
+        );
 
         return result.success
             ? Right(result)
@@ -70,8 +79,13 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getPaymentInfo(userToken);
+
+      var result = await _remoteDataSource.getPaymentInfo(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -83,8 +97,14 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.selectAddress(userToken, addressId);
+
+      var result = await _remoteDataSource.selectAddress(
+        userLang,
+        userToken,
+        addressId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -97,8 +117,11 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.addProductToBasket(
+        userLang,
         userToken,
         productId,
         amount,
@@ -115,8 +138,11 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.removeProductFromBasket(
+        userLang,
         userToken,
         productId,
         amount,
@@ -131,8 +157,13 @@ class CustomerBasketRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       try {
+        final userLang = await _authRepo.userLang;
         final userToken = await _authRepo.userToken;
-        var result = await _remoteDataSource.getBasketCount(userToken);
+
+        var result = await _remoteDataSource.getBasketCount(
+          userLang,
+          userToken,
+        );
 
         return result.success
             ? Right(result)
@@ -155,8 +186,14 @@ class CustomerBasketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.updateBasket(userToken, note);
+
+      var result = await _remoteDataSource.updateBasket(
+        userLang,
+        userToken,
+        note,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

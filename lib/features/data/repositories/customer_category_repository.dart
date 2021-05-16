@@ -10,8 +10,8 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_category/customer_category_local_data_source.dart';
 import '../data_sources/customer_category/customer_category_remote_data_source.dart';
 import '../models/customer/main_category_result_model.dart';
-import '../models/customer/sub_category_result_model.dart';
 import '../models/customer/photo_result_model.dart';
+import '../models/customer/sub_category_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerCategoryRepository {
@@ -43,7 +43,12 @@ class CustomerCategoryRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getMainCategories(marketId);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getMainCategories(
+        userLang,
+        marketId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -56,7 +61,10 @@ class CustomerCategoryRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
+
       var result = await _remoteDataSource.getSubCategories(
+        userLang,
         marketId,
         mainCategoryId,
       );
@@ -70,8 +78,14 @@ class CustomerCategoryRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getMainCategoryPhoto(userToken, id);
+
+      var result = await _remoteDataSource.getMainCategoryPhoto(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -82,8 +96,14 @@ class CustomerCategoryRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getSubCategoryPhoto(userToken, id);
+
+      var result = await _remoteDataSource.getSubCategoryPhoto(
+        userLang,
+        userToken,
+        id,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }

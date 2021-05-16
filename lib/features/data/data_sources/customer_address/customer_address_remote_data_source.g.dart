@@ -17,7 +17,7 @@ class _CustomerAddressRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<ProvincesResultModel> getProvince() async {
+  Future<ProvincesResultModel> getProvince(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -26,7 +26,8 @@ class _CustomerAddressRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -38,7 +39,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<CitiesResultModel> getCity(provinceId) async {
+  Future<CitiesResultModel> getCity(lang, provinceId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'provinceId': provinceId};
     final _data = <String, dynamic>{};
@@ -47,7 +48,8 @@ class _CustomerAddressRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -59,7 +61,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> save(token, address, description, isDefault,
+  Future<BaseApiResultModel> save(lang, token, address, description, isDefault,
       cityId, name, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -78,6 +80,7 @@ class _CustomerAddressRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -90,8 +93,8 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> edit(token, id, address, description, isDefault,
-      cityId, name, latitude, longitude) async {
+  Future<BaseApiResultModel> edit(lang, token, id, address, description,
+      isDefault, cityId, name, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {
@@ -110,6 +113,7 @@ class _CustomerAddressRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -122,7 +126,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> setdefaultAddress(token, id) async {
+  Future<BaseApiResultModel> setdefaultAddress(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -132,6 +136,7 @@ class _CustomerAddressRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -144,7 +149,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> removeAddress(token, id) async {
+  Future<BaseApiResultModel> removeAddress(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -154,6 +159,7 @@ class _CustomerAddressRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -166,7 +172,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<AddressResultModel> getAddress(token, id) async {
+  Future<AddressResultModel> getAddress(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
     final _data = <String, dynamic>{};
@@ -176,6 +182,7 @@ class _CustomerAddressRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -188,7 +195,7 @@ class _CustomerAddressRemoteDataSource
   }
 
   @override
-  Future<AddressesResultModel> getAddresses(token) async {
+  Future<AddressesResultModel> getAddresses(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -198,6 +205,7 @@ class _CustomerAddressRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

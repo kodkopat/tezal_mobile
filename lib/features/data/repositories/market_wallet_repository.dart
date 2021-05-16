@@ -42,9 +42,13 @@ class MarketWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getBalance(userToken);
+      var result = await _remoteDataSource.getBalance(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -57,9 +61,11 @@ class MarketWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getWalletDetails(
+        userLang,
         userToken,
         skip,
         take,
@@ -76,9 +82,11 @@ class MarketWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getWithdrawalRequests(
+        userLang,
         userToken,
         skip,
         take,
@@ -95,9 +103,11 @@ class MarketWalletRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.withdrawalRequest(
+        userLang,
         userToken,
         amount,
         description,

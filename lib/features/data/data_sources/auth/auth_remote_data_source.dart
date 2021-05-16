@@ -22,6 +22,7 @@ abstract class AuthRemoteDataSource {
   @POST("$_apiUrlPrefix/Login")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LoginResultModel> login(
+    @Header("lang") String lang,
     @Field() String username,
     @Field() String password,
   );
@@ -29,12 +30,14 @@ abstract class AuthRemoteDataSource {
   @POST("$_apiUrlPrefix/CheckToken")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CheckTokenResultModel> checkToken(
+    @Header("lang") String lang,
     @Field() String token,
   );
 
   @POST("$_apiUrlPrefix/Register")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<RegisterResultModel> register(
+    @Header("lang") String lang,
     @Field("Name") String name,
     @Field("Phone") String phone,
     @Field("Password") String pass,
@@ -43,6 +46,7 @@ abstract class AuthRemoteDataSource {
   @POST("$_apiUrlPrefix/ConfirmRegistration")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CheckSmsResultModel> confirmRegistration(
+    @Header("lang") String lang,
     @Field() String id,
     @Field() String sms,
   );
@@ -50,18 +54,21 @@ abstract class AuthRemoteDataSource {
   @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getPhoto(
+    @Header("lang") String lang,
     @Query("Token") String token,
   );
 
   @GET("$_apiUrlPrefix/ResetPasswordRequest")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> resetPasswordRequest(
+    @Header("lang") String lang,
     @Query("Phone") String phone,
   );
 
   @GET("$_apiUrlPrefix/ResetPassword")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> resetPassword(
+    @Header("lang") String lang,
     @Query("Phone") String phone,
     @Query("sms") String sms,
     @Query("Password") String password,
@@ -70,9 +77,13 @@ abstract class AuthRemoteDataSource {
 
   @GET("$_apiUrlPrefix/getPrivacyText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<AgreementResultModel> getPrivacyText();
+  Future<AgreementResultModel> getPrivacyText(
+    @Header("lang") String lang,
+  );
 
   @GET("$_apiUrlPrefix/getRulesText")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<AgreementResultModel> getRulesText();
+  Future<AgreementResultModel> getRulesText(
+    @Header("lang") String lang,
+  );
 }

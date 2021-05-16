@@ -43,7 +43,9 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getProvince();
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getProvince(userLang);
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -55,7 +57,12 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getCity(provinceId);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getCity(
+        userLang,
+        provinceId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -73,9 +80,11 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.save(
+        userLang,
         userToken,
         address,
         description,
@@ -103,9 +112,11 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.edit(
+        userLang,
         userToken,
         id,
         address,
@@ -127,9 +138,11 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.removeAddress(
+        userLang,
         userToken,
         addressId,
       );
@@ -144,9 +157,11 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.setdefaultAddress(
+        userLang,
         userToken,
         addressId,
       );
@@ -161,9 +176,11 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getAddress(
+        userLang,
         userToken,
         addressId,
       );
@@ -176,9 +193,11 @@ class CustomerAddressRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getAddresses(
+        userLang,
         userToken,
       );
 

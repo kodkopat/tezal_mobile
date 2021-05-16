@@ -16,7 +16,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<WalletBalanceResultModel> getBalance(token) async {
+  Future<WalletBalanceResultModel> getBalance(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -26,6 +26,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -38,7 +39,8 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
   }
 
   @override
-  Future<WalletDetailResultModel> getWalletDetails(token, skip, take) async {
+  Future<WalletDetailResultModel> getWalletDetails(
+      lang, token, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
@@ -48,6 +50,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -61,7 +64,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
 
   @override
   Future<WithdrawalRequestsResultModel> getWithdrawalRequests(
-      token, skip, take) async {
+      lang, token, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
@@ -71,6 +74,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -84,7 +88,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
 
   @override
   Future<BaseApiResultModel> withdrawalRequest(
-      token, amount, description) async {
+      lang, token, amount, description) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'amount': amount, 'description': description};
@@ -94,6 +98,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

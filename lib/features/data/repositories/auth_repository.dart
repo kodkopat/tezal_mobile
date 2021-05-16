@@ -39,7 +39,13 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.login(username, password);
+      final lang = await userLang;
+
+      var result = await _remoteDataSource.login(
+        lang,
+        username,
+        password,
+      );
 
       if (result.success) {
         final userToken = result.data.token;
@@ -63,7 +69,13 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.register(name, phone, pass);
+      final lang = await userLang;
+      var result = await _remoteDataSource.register(
+        lang,
+        name,
+        phone,
+        pass,
+      );
 
       if (result.success) {
         final userId = result.data.userId;
@@ -82,9 +94,13 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final lang = await userLang;
       var userId = await this.userId;
-      print("userId: $userId\n");
-      var result = await _remoteDataSource.confirmRegistration(userId, sms);
+      var result = await _remoteDataSource.confirmRegistration(
+        lang,
+        userId,
+        sms,
+      );
 
       if (result.success) {
         final userToken = result.data.token;
@@ -103,7 +119,8 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.checkToken(token);
+      final lang = await userLang;
+      var result = await _remoteDataSource.checkToken(lang, token);
 
       if (result.success) {
         final userToken = result.data.token;
@@ -125,7 +142,8 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.resetPasswordRequest(phone);
+      final lang = await userLang;
+      var result = await _remoteDataSource.resetPasswordRequest(lang, phone);
 
       return (result.success)
           ? Right(result)
@@ -142,7 +160,9 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final lang = await userLang;
       var result = await _remoteDataSource.resetPassword(
+        lang,
         phone,
         sms,
         password,
@@ -159,7 +179,8 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getRulesText();
+      final lang = await userLang;
+      var result = await _remoteDataSource.getRulesText(lang);
 
       return (result.success)
           ? Right(result)
@@ -171,7 +192,8 @@ class AuthRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getPrivacyText();
+      final lang = await userLang;
+      var result = await _remoteDataSource.getPrivacyText(lang);
 
       return (result.success)
           ? Right(result)
@@ -189,5 +211,9 @@ class AuthRepository {
 
   Future<String> get userType async {
     return await _localDataSource.userType;
+  }
+
+  Future<String> get userLang async {
+    return await _localDataSource.userLang;
   }
 }

@@ -43,7 +43,12 @@ class SharedApplicationRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.hasNewVersion(version);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.hasNewVersion(
+        userLang,
+        version,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -54,7 +59,12 @@ class SharedApplicationRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getUpdate(version);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getUpdate(
+        userLang,
+        version,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -66,8 +76,11 @@ class SharedApplicationRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.share(
+        userLang,
         userToken,
         contactNumbers,
       );
@@ -82,13 +95,15 @@ class SharedApplicationRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.getProductPhoto(
+        userLang,
         userToken,
         productId,
         true,
       );
-      print("ProductPhotoResult: $result\n");
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -100,8 +115,11 @@ class SharedApplicationRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.getProductPhotos(
+        userLang,
         userToken,
         productId,
         false,

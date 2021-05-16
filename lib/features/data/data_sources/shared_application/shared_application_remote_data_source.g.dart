@@ -17,7 +17,7 @@ class _SharedApplicationRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<BaseApiResultModel> hasNewVersion(version) async {
+  Future<BaseApiResultModel> hasNewVersion(lang, version) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Version': version};
     final _data = <String, dynamic>{};
@@ -26,7 +26,8 @@ class _SharedApplicationRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -38,7 +39,7 @@ class _SharedApplicationRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> getUpdate(version) async {
+  Future<BaseApiResultModel> getUpdate(lang, version) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Version': version};
     final _data = <String, dynamic>{};
@@ -47,7 +48,8 @@ class _SharedApplicationRemoteDataSource
                 method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain'
+                  r'Accept': 'text/plain',
+                  r'lang': lang
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -59,7 +61,7 @@ class _SharedApplicationRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> share(token, contactNumbers) async {
+  Future<BaseApiResultModel> share(lang, token, contactNumbers) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = contactNumbers;
@@ -69,6 +71,7 @@ class _SharedApplicationRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -81,7 +84,8 @@ class _SharedApplicationRemoteDataSource
   }
 
   @override
-  Future<PhotoResultModel> getProductPhoto(token, productId, preview) async {
+  Future<PhotoResultModel> getProductPhoto(
+      lang, token, productId, preview) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'productId': productId,
@@ -94,6 +98,7 @@ class _SharedApplicationRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
@@ -106,7 +111,8 @@ class _SharedApplicationRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getProductPhotos(token, productId, preview) async {
+  Future<PhotosResultModel> getProductPhotos(
+      lang, token, productId, preview) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'productId': productId,
@@ -119,6 +125,7 @@ class _SharedApplicationRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
+                  r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,

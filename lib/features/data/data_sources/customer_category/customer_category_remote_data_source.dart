@@ -18,12 +18,14 @@ abstract class CustomerCategoryRemoteDataSource {
   @GET("$_apiUrlPrefix/GetMainCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MainCategoryResultModel> getMainCategories(
+    @Header("lang") String lang,
     @Query("MarketId") String marketId,
   );
 
   @GET("$_apiUrlPrefix/GetSubCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoryResultModel> getSubCategories(
+    @Header("lang") String lang,
     @Query("MarketId") String marketId,
     @Query("MainCategoryId") String mainCategoryId,
   );
@@ -31,6 +33,7 @@ abstract class CustomerCategoryRemoteDataSource {
   @GET("$_apiUrlPrefix/GetMainCategoryPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getMainCategoryPhoto(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );
@@ -38,6 +41,7 @@ abstract class CustomerCategoryRemoteDataSource {
   @GET("$_apiUrlPrefix/GetSubCategoryPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getSubCategoryPhoto(
+    @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
   );

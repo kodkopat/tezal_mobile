@@ -48,9 +48,13 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getMarketProfile(userToken);
+      var result = await _remoteDataSource.getMarketProfile(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -69,9 +73,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.changeMarketProfile(
+        userLang,
         userToken,
         id,
         name,
@@ -91,9 +97,13 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.openCloseMarket(userToken);
+      var result = await _remoteDataSource.openCloseMarket(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -104,9 +114,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.updateMarketDefaultHours(
+        userLang,
         userToken,
         defaultHours,
       );
@@ -120,9 +132,13 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getMarketDefaultHours(userToken);
+      var result = await _remoteDataSource.getMarketDefaultHours(
+        userLang,
+        userToken,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -135,9 +151,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getMarketPhotos(
+        userLang,
         userToken,
         skip,
         take,
@@ -152,9 +170,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getMarketPhoto(
+        userLang,
         userToken,
         photoId,
       );
@@ -169,9 +189,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.addMarketPhoto(
+        userLang,
         userToken,
         photo,
       );
@@ -186,9 +208,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.removeMarketPhoto(
+        userLang,
         userToken,
         photoId,
       );
@@ -203,9 +227,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.reOrderMarketPhoto(
+        userLang,
         userToken,
         photosList,
       );
@@ -221,9 +247,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getMarketComments(
+        userLang,
         userToken,
         skip,
         take,
@@ -240,9 +268,11 @@ class MarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.replyMarketComment(
+        userLang,
         userToken,
         commentId,
         reply,

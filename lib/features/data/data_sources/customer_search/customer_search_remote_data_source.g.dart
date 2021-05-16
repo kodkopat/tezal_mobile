@@ -18,7 +18,7 @@ class _CustomerSearchRemoteDataSource
 
   @override
   Future<SearchResultModel> search(
-      token, lang, latitude, longitude, term) async {
+      lang, token, latitude, longitude, term) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Term': term};
     final _data = <String, dynamic>{};
@@ -28,8 +28,8 @@ class _CustomerSearchRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
-                  r'token': token,
                   r'lang': lang,
+                  r'token': token,
                   r'latitude': latitude,
                   r'longitude': longitude
                 },
@@ -44,7 +44,7 @@ class _CustomerSearchRemoteDataSource
 
   @override
   Future<SearchTermsResultModel> getSearchTerms(
-      token, lang, latitude, longitude) async {
+      lang, token, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -54,8 +54,8 @@ class _CustomerSearchRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
-                  r'token': token,
                   r'lang': lang,
+                  r'token': token,
                   r'latitude': latitude,
                   r'longitude': longitude
                 },
@@ -70,7 +70,7 @@ class _CustomerSearchRemoteDataSource
 
   @override
   Future<BaseApiResultModel> clearSearchTerms(
-      token, lang, latitude, longitude) async {
+      lang, token, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -80,8 +80,8 @@ class _CustomerSearchRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
-                  r'token': token,
                   r'lang': lang,
+                  r'token': token,
                   r'latitude': latitude,
                   r'longitude': longitude
                 },

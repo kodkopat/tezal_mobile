@@ -16,8 +16,8 @@ import '../models/customer/comments_result_model.dart';
 import '../models/customer/main_category_detail_result_model.dart';
 import '../models/customer/market_detail_result_model.dart';
 import '../models/customer/nearby_markets_result_model.dart';
-import '../models/customer/sub_category_detail_result_model.dart';
 import '../models/customer/photos_result_model.dart';
+import '../models/customer/sub_category_detail_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerMarketRepository {
@@ -51,27 +51,18 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var lang = Localizations.localeOf(context).languageCode;
-      var position = await LocationService.getSavedLocation();
-
-      /* print("userToken: $userToken\n");
-      print("lang: $lang\n");
-      print("latitude: ${position.latitude}\n");
-      print("longitude: ${position.longitude}\n");
-      print("maxDistance: $maxDistance\n");
-      print("longitude: $page\n"); */
+      final position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.getNearByMarkets(
+        userLang,
         userToken,
-        lang,
         "${position.latitude}",
         "${position.longitude}",
         maxDistance,
         page,
       );
-
-      // print("getNearByMarkets: ${result.toJson()}\n");
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -81,9 +72,11 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.updateNearByMarkets(
+        userLang,
         userToken,
       );
 
@@ -97,8 +90,14 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      var result = await _remoteDataSource.getMarketDetail(userToken, marketId);
+
+      var result = await _remoteDataSource.getMarketDetail(
+        userLang,
+        userToken,
+        marketId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -110,7 +109,12 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getPhoto(marketId);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getPhoto(
+        userLang,
+        marketId,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
@@ -123,7 +127,13 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.getListComment(marketId, page);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getListComment(
+        userLang,
+        marketId,
+        page,
+      );
 
       return result != null
           ? Right(result)
@@ -139,7 +149,14 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
-      var result = await _remoteDataSource.addComment(comment, point, marketId);
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.addComment(
+        userLang,
+        comment,
+        point,
+        marketId,
+      );
 
       return result != null ? Right(result) : Left(ApiFailure("failed to add"));
     }
@@ -152,8 +169,11 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.getMainCategoryDetail(
+        userLang,
         userToken,
         marketId,
         mainCategoryId,
@@ -171,8 +191,11 @@ class CustomerMarketRepository {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
+      final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
+
       var result = await _remoteDataSource.getSubCategoryDetail(
+        userLang,
         userToken,
         marketId,
         subCategoryId,
