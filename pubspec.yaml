@@ -118,3 +118,12 @@ flutter:
           weight: 700
         - asset: assets/fonts/danafanumbold.ttf
           weight: 900
+
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+          weight: 500
+        - asset: assets/fonts/Lato-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Lato-Black.ttf
+          weight: 900
