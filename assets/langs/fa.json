@@ -1,24 +1,96 @@
 {
     "appName":"تزآل",
 
-    "bottomAppBarItemHome":"خانه",
-    "bottomAppBarItemSearch":"جستجو",
-    "bottomAppBarItemBasket":"سبد خرید",
-    "bottomAppBarItemProfile":"حساب کاربری",
+    "homePage":"خانه",
 
-    "profileMenuItemAddresses":"آدرس‌های من",
-    "profileMenuItemWallet":"کیف پول من",
-    "profileMenuItemOrders":"سفارشات قبلی",
-    "profileMenuItemLikedProducts":"محصولات مورد علاقه",
-    "profileMenuItemSettings":"تنظیمات",
-    "profileMenuItemAboutUs":"درباره ما",
-    "profileMenuItemLogOut":"خروج از حساب کاربری",
+    "searchPage":"جستجو",
 
-    "pageLoginAppBar":"ورود",
-    "pageSignUpAppBar":"ثبت‌نام",
+    "basketPage":"سبد خرید",
 
-    "pageHomeAppBar":"خانه",
-    "pageSearchAppBar":"جستجو",
-    "pageBasketAppBar":"سبد خرید",
-    "pageProfileAppBar":"حساب کاربری"
+    "ordersPage":"سفارشات",
+
+    "productsPage":"محصولات",
+
+    "profilePage":"حساب کاربری",
+        "profileMobile":"شماره تماس",
+        "profileEmail":"ایمیل",
+        "editProfilePage":"ویرایش اطلاعات کاربری",
+        "editProfileName":"نام کاربری",
+        "editProfileEmail":"آدرس ایمیل",
+
+        "marketProfileName":"نام",
+        "marketProfileMobile":"شماره موبایل",
+        "marketProfileTelephone":"شماره تلفن",
+        "marketProfileEmail":"آدرس ایمیل",
+        "marketProfileAddress":"آدرس",
+        "marketProfileShabaNumber":"شماره شبا",
+        "marketProfileStatus":"وضعیت",
+
+        "addressesPage":"آدرس‌ها",
+            "title":"عنوان",
+            "address":"آدرس",
+            "description":"توضیحات",
+            "province":"استان",
+            "city":"شهر",
+            "setDefaultAddress":"تنظیم بعنوان پیش‌فرض",
+            "editAddress":"ویرایش اطلاعات آدرس",
+            "deleteAddress":"حذف آدرس",
+
+        "walletPage":"کیف پول",
+            "walletBalance":"موجودی کیف پول",
+            "walletCharge":"افزودن موجودی",
+            "walletWithdrawal":"درخواست برداشت وجه",
+            "walletWithdrawalRequests":"مشاهده درخواست‌های برداشت",
+            "transactionType":"نوع تراکنش",
+            "transactionDate":"تاریخ تراکنش",
+            "cost":"مبلغ",
+
+        "olderOrdersPage":"سفارشات قبلی",
+            "orderMarket":"فروشگاه",
+            "orderDate":"تاریخ سفارش",
+            "orderStatus":"وضعیت",
+
+        "likedProductsPage":"محصولات مورد علاقه",
+
+        "workingTimesPage":"اطلاعات ساعات کاری",
+        "workingTimesPageEdit":"ویرایش ساعات کاری",
+            "startTime":"زمان شروع",
+            "endTime":"زمان پایان",
+            "weekDay":"روز هفته",
+            "from":"از",
+            "to":"تا",
+
+        "marketPhotosPage":"گالری تصاویر فروشگاه",
+            "addNewPhoto":"افزودن تصویر جدید",
+            "submitPhotosOrder":"ثبت ترتیب تصاویر",
+
+        "marketCommentsPage":"نظرات فروشگاه",
+
+        "sharePage":"معرفی اپلیکیشن به دوستان",
+            "contacts":"مخاطبین",
+
+        "settingsPage":"تنظیمات",
+            "settingNotification":"تنظیمات اعلان",
+            "settingsLanguage":"تغییر زبان اپلیکیشن",
+            "settingsUpdate":"بررسی به‌روز رسانی",
+
+
+    "aboutUsPage":"درباره ما",
+
+    "logOut":"خروج از حساب کاربری",
+        "logOutTitle":"خروج از حساب کاربری",
+        "logOutDescription":"آیا مطمئن هستید که می‌خواهید از حساب کاربری خود خارج شوید؟",
+        "logOutAgree":"بله",
+        "logOutDisagree":"خیر",
+
+    "loadMore":"بارگذاری موارد بیشتر",
+    "edit":"ویرایش",
+    "submit":"ثبت",
+    "send":"ارسال",
+    "select":"انتخاب",
+    "rate":"امتیاز",
+    "date":"تاریخ",
+
+    "imageFromCamera":"گرفتن عکس با دوربین",
+    "imageFromGallery":"انتخاب عکس از گالری"
 }

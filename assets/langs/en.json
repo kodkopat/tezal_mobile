@@ -1,24 +1,96 @@
 {
     "appName":"Tezal",
 
-    "bottomAppBarItemHome":"Home",
-    "bottomAppBarItemSearch":"Search",
-    "bottomAppBarItemBasket":"Basket",
-    "bottomAppBarItemProfile":"Profile",
+    "homePage":"Home",
 
-    "profileMenuItemAddresses":"Addresses",
-    "profileMenuItemWallet":"Wallet",
-    "profileMenuItemOrders":"Orders",
-    "profileMenuItemLikedProducts":"Liked Products",
-    "profileMenuItemSettings":"Settings",
-    "profileMenuItemAboutUs":"About Us",
-    "profileMenuItemLogOut":"Log Out",
+    "searchPage":"Search",
 
-    "pageLoginAppBar":"Login",
-    "pageSignUpAppBar":"SignUp",
+    "basketPage":"Basket",
 
-    "pageHomeAppBar":"Home",
-    "pageSearchAppBar":"Search",
-    "pageBasketAppBar":"Basket",
-    "pageProfileAppBar":"Profile"
+    "ordersPage":"Orders",
+
+    "productsPage":"Products",
+
+    "profilePage":"Profile",
+        "profileMobile":"Phone Number",
+        "profileEmail":"Email Address",
+        "editProfilePage":"Edit Profile",
+        "editProfileName":"Username",
+        "editProfileEmail":"Email Address",
+
+        "marketProfileName":"Name",
+        "marketProfileMobile":"Mobile",
+        "marketProfileTelephone":"Telephone",
+        "marketProfileEmail":"Email",
+        "marketProfileAddress":"Address",
+        "marketProfileShabaNumber":"Shaba Number",
+        "marketProfileStatus":"Status",
+
+        "addressesPage":"Addresses",
+            "title":"Title",
+            "address":"Address",
+            "description":"Description",
+            "province":"Province",
+            "city":"City",
+            "setDefaultAddress":"Set as default address",
+            "editAddress":"Edit address",
+            "deleteAddress":"Delete address",
+
+        "walletPage":"Wallet",
+            "walletBalance":"Balance",
+            "walletCharge":"Charge Wallet",
+            "walletWithdrawal":"Withdrawal Request",
+            "walletWithdrawalRequests":"Show Withdrawal Requests",
+            "transactionType":"Transaction Type",
+            "transactionDate":"Transaction Date",
+            "cost":"cost",
+
+        "olderOrdersPage":"Orders",
+            "orderMarket":"Market",
+            "orderDate":"Date",
+            "orderStatus":"Status",
+
+        "likedProductsPage":"Liked Products",
+
+        "workingTimesPage":"Working Times",
+        "workingTimesPageEdit":"Edit Working Times",
+            "startTime":"Start Time",
+            "endTime":"End Time",
+            "weekDay":"Weekday",
+            "from":"From",
+            "to":"To",
+
+        "marketPhotosPage":"Photos Gallery",
+            "addNewPhoto":"Add new photo",
+            "submitPhotosOrder":"Submit photos order",
+
+        "marketCommentsPage":"Market Comments",
+
+        "sharePage":"Share Application",
+            "contacts":"Contacts",
+            "shareSend":"Send",
+
+        "settingsPage":"Settings",
+            "settingNotification":"Notifications",
+            "settingsLanguage":"Change Languages",
+            "settingsUpdate":"Check Update",
+
+    "aboutUsPage":"About Us",
+
+    "logOut":"Log Out",
+        "logOutTitle":"Log Out",
+        "logOutDescription":"Do you want to log out from you account?",
+        "logOutAgree":"yes",
+        "logOutDisagree":"no",
+
+    "loadMore":"Load More",
+    "edit":"Edit",
+    "submit":"Submit",
+    "send":"Send",
+    "select":"Select",
+    "rate":"Rate",
+    "date":"Date",
+
+    "imageFromCamera":"Take Picture With Camera",
+    "imageFromGallery":"Pick Image From Gallery"
 }

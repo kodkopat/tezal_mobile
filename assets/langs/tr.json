@@ -1,24 +1,66 @@
 {
     "appName":"Tezal",
 
-    "bottomAppBarItemHome":"Home",
-    "bottomAppBarItemSearch":"Search",
-    "bottomAppBarItemBasket":"Basket",
-    "bottomAppBarItemProfile":"Profile",
+    "homePage":"Home",
 
-    "profileMenuItemAddresses":"Addresses",
-    "profileMenuItemWallet":"Wallet",
-    "profileMenuItemOrders":"Orders",
-    "profileMenuItemLikedProducts":"Liked Products",
-    "profileMenuItemSettings":"Settings",
-    "profileMenuItemAboutUs":"About Us",
-    "profileMenuItemLogOut":"Log Out",
+    "searchPage":"Search",
 
-    "pageLoginAppBar":"Login",
-    "pageSignUpAppBar":"SignUp",
+    "basketPage":"Basket",
 
-    "pageHomeAppBar":"Home",
-    "pageSearchAppBar":"Search",
-    "pageBasketAppBar":"Basket",
-    "pageProfileAppBar":"Profile"
+    "profilePage":"Profile",
+        "profileMobile":"Phone Number",
+        "profileEmail":"Email Address",
+        "editProfilePage":"Edit Profile",
+        "editProfileName":"Username",
+        "editProfileEmail":"Email Address",
+
+        "myAddressesPage":"Addresses",
+            "title":"Title",
+            "address":"Address",
+            "description":"Description",
+            "province":"Province",
+            "city":"City",
+            "setDefaultAddress":"Set as default address",
+            "editAddress":"Edit address",
+            "deleteAddress":"Delete address",
+
+        "myWalletPage":"Wallet",
+            "walletBalance":"Balance",
+            "walletCharge":"Charge Wallet",
+            "transactionType":"Transaction Type",
+            "transactionDate":"Transaction Date",
+
+        "olderOrdersPage":"Orders",
+            "orderMarket":"Market",
+            "orderDate":"Date",
+            "orderStatus":"Status",
+
+        "likedProductsPage":"Liked Products",
+
+        "workingTimesPage":"Working Times",
+
+        "marketPhotosPage":"Photos Gallery",
+
+        "marketCommentsPage":"Market Comments",
+
+        "sharePage":"Share Application",
+            "shareSend":"Send",
+
+        "settingsPage":"Settings",
+            "settingNotification":"Notifications",
+            "settingsLanguage":"Change Languages",
+            "settingsUpdate":"Check Update",
+
+    "aboutUsPage":"About Us",
+
+    "logOut":"Log Out",
+        "logOutTitle":"Log Out",
+        "logOutDescription":"Do you want to log out from you account?",
+        "logOutAgree":"yes",
+        "logOutDisagree":"no",
+
+    "loadMore":"Load More",
+    "submit":"Submit",
+    "imageFromCamera":"Take Picture With Camera",
+    "imageFromGallery":"Pick Image From Gallery"
 }
