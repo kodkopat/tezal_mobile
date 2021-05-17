@@ -38,14 +38,14 @@ class SharedApplicationRepository {
   // ignore: unused_field
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, BaseApiResultModel>> hasNewVersion(
+  Future<Either<Failure, BaseApiResultModel>> hasUpdate(
       {required String version}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userLang = await _authRepo.userLang;
 
-      var result = await _remoteDataSource.hasNewVersion(
+      var result = await _remoteDataSource.hasUpdate(
         userLang,
         version,
       );
