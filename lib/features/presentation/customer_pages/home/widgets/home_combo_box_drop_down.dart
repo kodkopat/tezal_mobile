@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../data/models/customer/addresses_result_model.dart';
 import '../../../providers/customer_providers/address_notifier.dart';
+import '../../address_save/address_save_page.dart';
 import '../../addresses/addresses_page.dart';
 import 'home_combo_box_drop_down_item.dart';
 
@@ -73,21 +74,38 @@ class _HomeComboBoxDropDownState extends State<HomeComboBoxDropDown> {
               showAllItems
                   ? ListView.builder(
                       shrinkWrap: true,
-                      itemCount: widget.addresses!.length,
+                      itemCount: widget.addresses!.length + 1,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        var address = widget.addresses![index];
-                        return HomeComboBoxDropDownItem(
-                          text: address.name,
-                          iconPath: address.isDefault
-                              ? "assets/images/ic_location_filled.png"
-                              : "assets/images/ic_location.png",
-                          onTap: () {
-                            widget.addressNotifier.setAddressDefault(
-                              addressId: address.id,
-                            );
-                          },
-                        );
+                        return index != widget.addresses!.length
+                            ? HomeComboBoxDropDownItem(
+                                text: widget.addresses![index].name,
+                                iconPath: widget.addresses![index].isDefault
+                                    ? "assets/images/ic_location_filled.png"
+                                    : "assets/images/ic_location.png",
+                                onTap: () async {
+                                  await widget.addressNotifier
+                                      .setAddressDefault(
+                                    addressId: widget.addresses![index].id,
+                                  );
+                                  setState(() {
+                                    showAllItems = !showAllItems;
+                                  });
+                                },
+                              )
+                            : HomeComboBoxDropDownItem(
+                                text: "افزودن آدرس جدید",
+                                iconPath: "assets/images/ic_location_add.png",
+                                onTap: () {
+                                  Routes.sailor.navigate(
+                                    AddressSavePage.route,
+                                    params: {},
+                                  );
+                                  setState(() {
+                                    showAllItems = !showAllItems;
+                                  });
+                                },
+                              );
                       },
                     )
                   : SizedBox(),

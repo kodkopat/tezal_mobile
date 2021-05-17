@@ -27,9 +27,6 @@ class HomeComboBox extends StatelessWidget {
                     defaultAddress: provider.defaultAddress,
                     addressNotifier: provider,
                   );
-
-        // Txt("لیست آدرس‌های شما خالی است",
-        //       style: AppTxtStyles().body..alignment.center())
       },
     );
 

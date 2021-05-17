@@ -1,11 +1,14 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../core/services/location.dart';
 import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/widgets/loading.dart';
 import '../../../../../core/widgets/map_box.dart';
 import '../../../../data/models/customer/campaign_result_model.dart';
+import '../../../providers/customer_providers/address_notifier.dart';
 import 'campaign_slider_item.dart';
 
 class CampaignSlider extends StatefulWidget {
@@ -45,6 +48,28 @@ class _CampaignSliderState extends State<CampaignSlider> {
 
   @override
   Widget build(BuildContext context) {
+    var consumer = Consumer<AddressNotifier>(
+      builder: (context, provider, child) {
+        if (provider.addressList == null) {
+          provider.fetchAddresses();
+        }
+
+        return provider.listLoading
+            ? AppLoading()
+            : provider.addressList == null
+                ? provider.listErrorMsg == null
+                    ? SizedBox()
+                    : SizedBox()
+                : provider.defaultAddress == null
+                    ? mapBox
+                    : MapBox(
+                        height: boxHeight,
+                        latitude: "35.699699",
+                        longitude: "51.338075",
+                      );
+      },
+    );
+
     return Stack(
       children: [
         Parent(
@@ -68,7 +93,7 @@ class _CampaignSliderState extends State<CampaignSlider> {
               },
               itemBuilder: (context, index) {
                 return index == widget.campaigns.length
-                    ? mapBox
+                    ? consumer
                     : CampaignSliderItem(
                         campaign: widget.campaigns[index],
                         height: boxHeight,
