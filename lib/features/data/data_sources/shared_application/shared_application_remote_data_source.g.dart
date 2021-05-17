@@ -17,7 +17,7 @@ class _SharedApplicationRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<BaseApiResultModel> hasNewVersion(lang, version) async {
+  Future<BaseApiResultModel> hasUpdate(lang, version) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Version': version};
     final _data = <String, dynamic>{};
@@ -31,7 +31,7 @@ class _SharedApplicationRemoteDataSource
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'Application/HasNewVersion',
+            .compose(_dio.options, 'Application/HasUpdate',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);

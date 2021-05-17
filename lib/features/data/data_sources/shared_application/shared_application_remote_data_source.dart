@@ -15,9 +15,9 @@ abstract class SharedApplicationRemoteDataSource {
 
   static const _apiUrlPrefix = "Application";
 
-  @GET("$_apiUrlPrefix/HasNewVersion")
+  @GET("$_apiUrlPrefix/HasUpdate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> hasNewVersion(
+  Future<BaseApiResultModel> hasUpdate(
     @Header("lang") String lang,
     @Query("Version") String version,
   );
