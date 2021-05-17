@@ -38,7 +38,7 @@ class UpdateNotifier extends ChangeNotifier {
     print("version: $version\n");
     print("buildNumber: $buildNumber\n");
 
-    var result = await sharedApplicationRepo.hasNewVersion(version: version);
+    var result = await sharedApplicationRepo.hasUpdate(version: version);
     result.fold(
       (left) => hasNewVersionErrorMsg = left.message,
       (right) => hasNewVersionResult = right,
