@@ -38,7 +38,10 @@ class AddressesPage extends StatelessWidget {
                         "لیست آدرس‌های شما خالی است",
                         style: AppTxtStyles().body..alignment.center(),
                       )
-                    : AddressList(addresses: provider.addressList!);
+                    : AddressList(
+                        addresses: provider.addressList!,
+                        addressNotifier: provider,
+                      );
       },
     );
 
