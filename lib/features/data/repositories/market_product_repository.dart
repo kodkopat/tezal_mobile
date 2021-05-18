@@ -55,7 +55,7 @@ class MarketProductRepository {
     }
   }
 
-  Future<Either<Failure, SubCategoriesResultModel>> getSubCategoriesOfCategory(
+  Future<Either<Failure, SubCategoriesResultModel>> getCategoriesOfCategory(
       {required String mainCategoryId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

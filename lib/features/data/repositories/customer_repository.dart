@@ -1,4 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
@@ -38,7 +40,7 @@ class CustomerRepository {
   final AuthRepository _authRepo;
 
   Future<Either<Failure, CustomerProfileResultModel>>
-      get customerProfile async {
+      getCustomerProfile() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -54,10 +56,10 @@ class CustomerRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> editCustomerProfile({
+  Future<Either<Failure, BaseApiResultModel>> changeCustomerProfile({
     required String name,
     required String email,
-    required String photo,
+    required File photo,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -77,7 +79,7 @@ class CustomerRepository {
     }
   }
 
-  Future<Either<Failure, PhotoResultModel>> profilePhoto({
+  Future<Either<Failure, PhotoResultModel>> getPhoto({
     required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {

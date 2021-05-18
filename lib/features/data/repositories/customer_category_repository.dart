@@ -37,7 +37,7 @@ class CustomerCategoryRepository {
   final CustomerCategoryLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, MainCategoryResultModel>> mainCategories({
+  Future<Either<Failure, MainCategoryResultModel>> getMainCategories({
     required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -54,7 +54,7 @@ class CustomerCategoryRepository {
     }
   }
 
-  Future<Either<Failure, SubCategoryResultModel>> subCategories({
+  Future<Either<Failure, SubCategoryResultModel>> getSubCategories({
     required String marketId,
     required String mainCategoryId,
   }) async {
@@ -73,7 +73,7 @@ class CustomerCategoryRepository {
     }
   }
 
-  Future<Either<Failure, PhotoResultModel>> mainCategoryPhoto(
+  Future<Either<Failure, PhotoResultModel>> getMainCategoryPhoto(
       {required String id}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -91,7 +91,7 @@ class CustomerCategoryRepository {
     }
   }
 
-  Future<Either<Failure, PhotoResultModel>> subCategoryPhoto(
+  Future<Either<Failure, PhotoResultModel>> getSubCategoryPhoto(
       {required String id}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

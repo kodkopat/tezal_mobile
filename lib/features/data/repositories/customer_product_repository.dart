@@ -40,7 +40,7 @@ class CustomerProductRepository {
   final CustomerProductLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, ProductsResultModel>> productList({
+  Future<Either<Failure, ProductsResultModel>> getProductsInSubCategory({
     required String marketId,
     required String categoryId,
   }) async {
@@ -61,7 +61,7 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, ProductDetailResultModel>> productDetail({
+  Future<Either<Failure, ProductDetailResultModel>> getDetail({
     required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -80,9 +80,8 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, PhotosResultModel>> productphoto({
+  Future<Either<Failure, PhotosResultModel>> getPhoto({
     required String id,
-    required bool multi,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -92,14 +91,32 @@ class CustomerProductRepository {
       var result = await _remoteDataSource.getPhoto(
         userLang,
         id,
-        multi,
+        false,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> likeProduct({
+  Future<Either<Failure, PhotosResultModel>> getPhotos({
+    required String id,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.getPhoto(
+        userLang,
+        id,
+        true,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> like({
     required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -118,7 +135,7 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> unlikeProduct({
+  Future<Either<Failure, BaseApiResultModel>> unlike({
     required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -137,7 +154,7 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, LikedProductsResultModel>> likedProdutcs() async {
+  Future<Either<Failure, LikedProductsResultModel>> getLikedProducts() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -153,19 +170,23 @@ class CustomerProductRepository {
     }
   }
 
-  Future<Either<Failure, CommentsResultModel>> productComments({
+  Future<Either<Failure, CommentsResultModel>> getComments({
     required String productId,
-    required int page,
+    required int skip,
+    required int take,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.getComments(
         userLang,
+        userToken,
         productId,
-        page,
+        skip,
+        take,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

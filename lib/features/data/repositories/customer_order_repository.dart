@@ -38,9 +38,10 @@ class CustomerOrderRepository {
   final CustomerOrderLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, OrderResultModel>> saveOrder({
+  Future<Either<Failure, OrderResultModel>> save({
     required int paymentType,
     required String addressId,
+    required String deliveryTime,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -53,13 +54,14 @@ class CustomerOrderRepository {
         userToken,
         paymentType,
         addressId,
+        deliveryTime,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> addOrderToBasket({
+  Future<Either<Failure, BaseApiResultModel>> addToBasket({
     required String orderId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -78,7 +80,7 @@ class CustomerOrderRepository {
     }
   }
 
-  Future<Either<Failure, OlderOrdersResultModel>> olderOrders({
+  Future<Either<Failure, OlderOrdersResultModel>> getOlderOrders({
     required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -97,7 +99,7 @@ class CustomerOrderRepository {
     }
   }
 
-  Future<Either<Failure, OrderDetailResultModel>> orderDetail({
+  Future<Either<Failure, OrderDetailResultModel>> getDetail({
     required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {

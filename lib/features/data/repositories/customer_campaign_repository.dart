@@ -36,7 +36,7 @@ class CustomerCampaignRepository {
   final CustomerCampaignLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, CampaignResultModel>> get campaignes async {
+  Future<Either<Failure, CampaignResultModel>> getall() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -52,7 +52,7 @@ class CustomerCampaignRepository {
     }
   }
 
-  Future<Either<Failure, PhotosResultModel>> campaignPhoto({
+  Future<Either<Failure, PhotosResultModel>> getPhoto({
     required String campaignId,
   }) async {
     if (!await _connectionChecker.hasConnection) {

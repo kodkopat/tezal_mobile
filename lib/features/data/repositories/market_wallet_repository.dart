@@ -54,7 +54,7 @@ class MarketWalletRepository {
     }
   }
 
-  Future<Either<Failure, WalletDetailResultModel>> getDetail({
+  Future<Either<Failure, WalletDetailResultModel>> getWalletDetails({
     required int skip,
     required int take,
   }) async {

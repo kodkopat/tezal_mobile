@@ -39,7 +39,7 @@ class CustomerAddressRepository {
   final CustomerAddressLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, ProvincesResultModel>> get provinces async {
+  Future<Either<Failure, ProvincesResultModel>> getProvince() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -51,7 +51,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, CitiesResultModel>> cities({
+  Future<Either<Failure, CitiesResultModel>> getCity({
     required String provinceId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -68,7 +68,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> saveAddress({
+  Future<Either<Failure, BaseApiResultModel>> save({
     required String address,
     required String description,
     required bool isDefault,
@@ -99,7 +99,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> editAddress({
+  Future<Either<Failure, BaseApiResultModel>> edit({
     required String id,
     required String address,
     required String description,
@@ -170,7 +170,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, AddressResultModel>> addressDetails({
+  Future<Either<Failure, AddressResultModel>> getAddress({
     required String addressId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -189,7 +189,7 @@ class CustomerAddressRepository {
     }
   }
 
-  Future<Either<Failure, AddressesResultModel>> get addresses async {
+  Future<Either<Failure, AddressesResultModel>> getAddresses() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {

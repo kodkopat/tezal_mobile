@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -43,8 +42,7 @@ class CustomerMarketRepository {
   final CustomerMarketLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, NearByMarketsResultModel>> nearByMarkets(
-    BuildContext context, {
+  Future<Either<Failure, NearByMarketsResultModel>> getNearByMarkets({
     required int maxDistance,
     required int page,
   }) async {
@@ -84,7 +82,7 @@ class CustomerMarketRepository {
     }
   }
 
-  Future<Either<Failure, MarketDetailResultModel>> marketDetail({
+  Future<Either<Failure, MarketDetailResultModel>> getMarketDetail({
     required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -103,7 +101,7 @@ class CustomerMarketRepository {
     }
   }
 
-  Future<Either<Failure, PhotosResultModel>> photo({
+  Future<Either<Failure, PhotosResultModel>> getPhoto({
     required String marketId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -114,55 +112,80 @@ class CustomerMarketRepository {
       var result = await _remoteDataSource.getPhoto(
         userLang,
         marketId,
+        false,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, CommentsResultModel>> marketComments({
+  Future<Either<Failure, PhotosResultModel>> getPhotos({
     required String marketId,
-    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userLang = await _authRepo.userLang;
 
-      var result = await _remoteDataSource.getListComment(
+      var result = await _remoteDataSource.getPhoto(
         userLang,
         marketId,
-        page,
+        true,
       );
 
-      return result != null
-          ? Right(result)
-          : Left(ApiFailure("failed to load comments"));
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
-  Future<Either<Failure, dynamic>> addComment({
-    required String comment,
-    required int point,
+  Future<Either<Failure, CommentsResultModel>> getComments({
     required String marketId,
+    required int skip,
+    required int take,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.addComment(
+      var result = await _remoteDataSource.getComments(
         userLang,
+        userToken,
+        marketId,
+        skip,
+        take,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, dynamic>> addEditCommentRate({
+    required String comment,
+    required int point,
+    required String orderId,
+    required int rate,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.addEditCommentRate(
+        userLang,
+        userToken,
         comment,
         point,
-        marketId,
+        orderId,
+        rate,
       );
 
       return result != null ? Right(result) : Left(ApiFailure("failed to add"));
     }
   }
 
-  Future<Either<Failure, MainCategoryDetailResultModel>> mainCategoryDetail({
+  Future<Either<Failure, MainCategoryDetailResultModel>> getMainCategoryDetail({
     required String marketId,
     required String mainCategoryId,
   }) async {
@@ -183,7 +206,7 @@ class CustomerMarketRepository {
     }
   }
 
-  Future<Either<Failure, SubCategoryDetailResultModel>> subCategoryDetail({
+  Future<Either<Failure, SubCategoryDetailResultModel>> getSubCategoryDetail({
     required String marketId,
     required String subCategoryId,
     required int page,

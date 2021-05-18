@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -39,8 +38,7 @@ class CustomerSearchRepository {
   final CustomerSearchLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, SearchResultModel>> search(
-    BuildContext context, {
+  Future<Either<Failure, SearchResultModel>> search({
     required String term,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -62,8 +60,7 @@ class CustomerSearchRepository {
     }
   }
 
-  Future<Either<Failure, SearchTermsResultModel>> searchTerms(
-      BuildContext context) async {
+  Future<Either<Failure, SearchTermsResultModel>> getSearchTerms() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -82,8 +79,7 @@ class CustomerSearchRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> clearSearchTerms(
-      BuildContext context) async {
+  Future<Either<Failure, BaseApiResultModel>> clearSearchTerms() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {

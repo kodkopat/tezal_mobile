@@ -37,7 +37,7 @@ class CustomerWalletRepository {
   final CustomerWalletLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, WalletInfoResultModel>> get walletInfo async {
+  Future<Either<Failure, WalletInfoResultModel>> getWalletInfo() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -53,7 +53,7 @@ class CustomerWalletRepository {
     }
   }
 
-  Future<Either<Failure, WalletDetailResultModel>> walletDetails({
+  Future<Either<Failure, WalletDetailResultModel>> getWalletDetail({
     required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -91,7 +91,8 @@ class CustomerWalletRepository {
     }
   }
 
-  Future<Either<Failure, WalletLoadBalanceResultModel>> confirmLoadBalance({
+  Future<Either<Failure, WalletLoadBalanceResultModel>>
+      loadBalanceConfirmation({
     required String id,
   }) async {
     if (!await _connectionChecker.hasConnection) {

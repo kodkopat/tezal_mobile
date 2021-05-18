@@ -32,7 +32,7 @@ class AuthRepository {
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
 
-  Future<Either<Failure, String>> userLogin({
+  Future<Either<Failure, String>> login({
     required String username,
     required String password,
   }) async {
@@ -61,7 +61,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, String>> userRegister({
+  Future<Either<Failure, String>> register({
     required String name,
     required String phone,
     required String pass,
@@ -88,7 +88,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, String>> checkUserSms({
+  Future<Either<Failure, String>> confirmRegistration({
     required String sms,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -113,7 +113,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, String>> checkUserToken({
+  Future<Either<Failure, String>> checkToken({
     required String token,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -136,7 +136,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> requestRestPass({
+  Future<Either<Failure, BaseApiResultModel>> resetPasswordRequest({
     required String phone,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -151,7 +151,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> resetPass({
+  Future<Either<Failure, BaseApiResultModel>> resetPassword({
     required String phone,
     required String sms,
     required String password,
@@ -175,7 +175,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, AgreementResultModel>> get rulesText async {
+  Future<Either<Failure, AgreementResultModel>> getRulesText() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -188,7 +188,7 @@ class AuthRepository {
     }
   }
 
-  Future<Either<Failure, AgreementResultModel>> get privacyText async {
+  Future<Either<Failure, AgreementResultModel>> getPrivacyText() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {

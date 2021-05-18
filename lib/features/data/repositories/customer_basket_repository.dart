@@ -53,7 +53,7 @@ class CustomerBasketRepository {
     }
   }
 
-  Future<Either<Failure, BasketResultModel>> get basket async {
+  Future<Either<Failure, BasketResultModel>> getBasket() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -75,7 +75,7 @@ class CustomerBasketRepository {
     }
   }
 
-  Future<Either<Failure, PaymentInfoResultModel>> get pamentInfo async {
+  Future<Either<Failure, PaymentInfoResultModel>> getPaymentInfo() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -131,7 +131,7 @@ class CustomerBasketRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> removeProductToBasket({
+  Future<Either<Failure, BaseApiResultModel>> removeProductFromBasket({
     required String productId,
     required int amount,
   }) async {
@@ -152,7 +152,7 @@ class CustomerBasketRepository {
     }
   }
 
-  Future<Either<Failure, BaseApiResultModel>> get basketCount async {
+  Future<Either<Failure, BaseApiResultModel>> getBasketCount() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
