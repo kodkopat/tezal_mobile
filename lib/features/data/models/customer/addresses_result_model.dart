@@ -1,3 +1,5 @@
+import 'address_model.dart';
+
 class AddressesResultModel {
   AddressesResultModel({
     required this.success,
@@ -24,33 +26,5 @@ class AddressesResultModel {
         "data": data == null
             ? null
             : List<dynamic>.from(data!.map((x) => x.toJson())),
-      };
-}
-
-class Address {
-  Address({
-    required this.id,
-    required this.isDefault,
-    required this.name,
-    required this.address,
-  });
-
-  final id;
-  final isDefault;
-  final name;
-  final address;
-
-  factory Address.fromJson(Map<String, dynamic> json) => Address(
-        id: json["id"],
-        isDefault: json["isDefault"],
-        name: json["name"],
-        address: json["address"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "isDefault": isDefault,
-        "name": name,
-        "address": address,
       };
 }

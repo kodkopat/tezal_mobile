@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import 'product_result_model.dart';
 
 class ProductsResultModel {

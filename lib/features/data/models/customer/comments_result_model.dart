@@ -25,28 +25,24 @@ class CommentsResultModel {
 
 class Data {
   Data({
-    required this.page,
-    required this.total,
+    required this.totalCount,
     required this.comments,
   });
 
-  final page;
-  final total;
+  final totalCount;
   final List<Comment>? comments;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        page: json["page"],
-        total: json["total"],
-        comments: json["comments"] == null
+        totalCount: json["totalCount"],
+        comments: json["result"] == null
             ? null
             : List<Comment>.from(
-                json["comments"].map((x) => Comment.fromJson(x))),
+                json["result"].map((x) => Comment.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "page": page,
-        "total": total,
-        "comments": comments == null
+        "totalCount": totalCount,
+        "result": comments == null
             ? null
             : List<dynamic>.from(comments!.map((x) => x.toJson())),
       };
