@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
@@ -23,13 +25,16 @@ abstract class CustomerRemoteDataSource {
   );
 
   @POST("$_apiUrlPrefix/ChangeCustomerProfile")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  @Headers({
+    "Content-Type": "application/json" /* "multipart/form-data" */,
+    "Accept": "text/plain"
+  })
   Future<BaseApiResultModel> changeCustomerProfile(
     @Header("lang") String lang,
     @Header("token") String token,
     @Field() String name,
     @Field() String email,
-    @Field() String photo,
+    @Body() File photo,
   );
 
   @GET("$_apiUrlPrefix/getphoto")

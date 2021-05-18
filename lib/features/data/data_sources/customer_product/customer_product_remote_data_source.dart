@@ -70,13 +70,20 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(
     @Header("lang") String lang,
-    @Query("productId") String productId,
-    @Query("Page") int page,
+    @Header("token") String token,
+    @Query("productId") String marketProductId,
+    @Query("skip") int skip,
+    @Query("take") int take,
   );
 
-  @GET("$_apiUrlPrefix/AddComment")
+  @GET("$_apiUrlPrefix/AddEditCommentRateProduct")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> addComment(
+  Future<dynamic> addEditCommentRateProduct(
     @Header("lang") String lang,
+    @Header("token") String token,
+    @Field() String comment,
+    @Field() String marketProductId,
+    @Field() String orderId,
+    @Field() int rate,
   );
 }

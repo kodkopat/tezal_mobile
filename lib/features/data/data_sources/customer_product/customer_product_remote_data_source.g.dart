@@ -158,11 +158,13 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<CommentsResultModel> getComments(lang, productId, page) async {
+  Future<CommentsResultModel> getComments(
+      lang, token, marketProductId, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'productId': productId,
-      r'Page': page
+      r'productId': marketProductId,
+      r'skip': skip,
+      r'take': take
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -171,7 +173,8 @@ class _CustomerProductRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
-                  r'lang': lang
+                  r'lang': lang,
+                  r'token': token
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -183,20 +186,27 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> addComment(lang) async {
+  Future<dynamic> addEditCommentRateProduct(
+      lang, token, comment, marketProductId, orderId, rate) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    final _data = {
+      'comment': comment,
+      'marketProductId': marketProductId,
+      'orderId': orderId,
+      'rate': rate
+    };
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'lang': lang
+              r'lang': lang,
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'Product/AddComment',
+        .compose(_dio.options, 'Product/AddEditCommentRateProduct',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

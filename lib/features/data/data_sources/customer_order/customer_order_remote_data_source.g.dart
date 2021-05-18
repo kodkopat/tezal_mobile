@@ -16,11 +16,13 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<OrderResultModel> save(lang, token, paymentType, addressId) async {
+  Future<OrderResultModel> save(
+      lang, token, paymentType, addressId, deliveryTime) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'paymentType': paymentType,
-      r'AddressId': addressId
+      r'AddressId': addressId,
+      r'deliveryTime': deliveryTime
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -57,7 +59,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                 },
                 extra: _extra,
                 contentType: 'application/json')
-            .compose(_dio.options, 'Order/Cancel',
+            .compose(_dio.options, 'Order/CancelOrder',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = BaseApiResultModel.fromJson(_result.data!);

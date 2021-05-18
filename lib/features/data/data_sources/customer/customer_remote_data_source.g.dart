@@ -43,7 +43,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
       lang, token, name, email, photo) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'name': name, 'email': email, 'photo': photo};
+    final _data = Stream.fromIterable(photo.readAsBytesSync().map((i) => [i]));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
                 method: 'POST',

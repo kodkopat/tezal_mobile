@@ -23,9 +23,10 @@ abstract class CustomerOrderRemoteDataSource {
     @Header("token") String token,
     @Query("paymentType") int paymentType,
     @Query("AddressId") String addressId,
+    @Query("deliveryTime") String deliveryTime,
   );
 
-  @GET("$_apiUrlPrefix/Cancel")
+  @GET("$_apiUrlPrefix/CancelOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> cancel(
     @Header("lang") String lang,

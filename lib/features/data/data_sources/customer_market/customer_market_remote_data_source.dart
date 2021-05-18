@@ -7,8 +7,8 @@ import '../../models/customer/comments_result_model.dart';
 import '../../models/customer/main_category_detail_result_model.dart';
 import '../../models/customer/market_detail_result_model.dart';
 import '../../models/customer/nearby_markets_result_model.dart';
-import '../../models/customer/sub_category_detail_result_model.dart';
 import '../../models/customer/photos_result_model.dart';
+import '../../models/customer/sub_category_detail_result_model.dart';
 
 part 'customer_market_remote_data_source.g.dart';
 
@@ -50,23 +50,28 @@ abstract class CustomerMarketRemoteDataSource {
   Future<PhotosResultModel> getPhoto(
     @Header("lang") String lang,
     @Query("Id") String id,
+    @Query("Multi") bool multi,
   );
 
   @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<CommentsResultModel> getListComment(
+  Future<CommentsResultModel> getComments(
     @Header("lang") String lang,
+    @Header("token") String token,
     @Query("MarketId") String marketId,
-    @Query("Page") int page,
+    @Query("skip") int skip,
+    @Query("take") int take,
   );
 
-  @GET("$_apiUrlPrefix/AddComment")
+  @GET("$_apiUrlPrefix/AddEditCommentRate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> addComment(
+  Future<dynamic> addEditCommentRate(
     @Header("lang") String lang,
+    @Header("token") String token,
     @Field() String comment,
     @Field() int point,
-    @Field() String marketId,
+    @Field() String orderId,
+    @Field() int rate,
   );
 
   @GET("$_apiUrlPrefix/GetMainCategoryDetail")

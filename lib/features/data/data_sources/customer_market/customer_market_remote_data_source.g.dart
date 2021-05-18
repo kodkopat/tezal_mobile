@@ -92,9 +92,9 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getPhoto(lang, id) async {
+  Future<PhotosResultModel> getPhoto(lang, id, multi) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
+    final queryParameters = <String, dynamic>{r'Id': id, r'Multi': multi};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotosResultModel>(Options(
@@ -114,11 +114,13 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<CommentsResultModel> getListComment(lang, marketId, page) async {
+  Future<CommentsResultModel> getComments(
+      lang, token, marketId, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'MarketId': marketId,
-      r'Page': page
+      r'skip': skip,
+      r'take': take
     };
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -127,7 +129,8 @@ class _CustomerMarketRemoteDataSource
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
-                  r'lang': lang
+                  r'lang': lang,
+                  r'token': token
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -139,20 +142,27 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<dynamic> addComment(lang, comment, point, marketId) async {
+  Future<dynamic> addEditCommentRate(
+      lang, token, comment, point, orderId, rate) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'comment': comment, 'point': point, 'marketId': marketId};
+    final _data = {
+      'comment': comment,
+      'point': point,
+      'orderId': orderId,
+      'rate': rate
+    };
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
               r'Accept': 'text/plain',
-              r'lang': lang
+              r'lang': lang,
+              r'token': token
             },
             extra: _extra,
             contentType: 'application/json')
-        .compose(_dio.options, 'Market/AddComment',
+        .compose(_dio.options, 'Market/AddEditCommentRate',
             queryParameters: queryParameters, data: _data)
         .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = _result.data!;

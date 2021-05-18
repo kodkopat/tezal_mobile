@@ -17,17 +17,12 @@ abstract class CustomerAddressRemoteDataSource {
 
   static const _apiUrlPrefix = "Address";
 
-  @GET("$_apiUrlPrefix/GetProvince")
+  @GET("$_apiUrlPrefix/SetDefaultAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<ProvincesResultModel> getProvince(
+  Future<BaseApiResultModel> setdefaultAddress(
     @Header("lang") String lang,
-  );
-
-  @GET("$_apiUrlPrefix/GetCity")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<CitiesResultModel> getCity(
-    @Header("lang") String lang,
-    @Query("provinceId") String provinceId,
+    @Header("token") String token,
+    @Query("Id") String id,
   );
 
   @POST("$_apiUrlPrefix/save")
@@ -59,9 +54,16 @@ abstract class CustomerAddressRemoteDataSource {
     @Field() String longitude,
   );
 
-  @GET("$_apiUrlPrefix/SetDefaultAddress")
+  @GET("$_apiUrlPrefix/getAddressess")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> setdefaultAddress(
+  Future<AddressesResultModel> getAddresses(
+    @Header("lang") String lang,
+    @Header("token") String token,
+  );
+
+  @GET("$_apiUrlPrefix/getAddress")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<AddressResultModel> getAddress(
     @Header("lang") String lang,
     @Header("token") String token,
     @Query("Id") String id,
@@ -75,18 +77,16 @@ abstract class CustomerAddressRemoteDataSource {
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/getAddress")
+  @GET("$_apiUrlPrefix/GetProvince")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<AddressResultModel> getAddress(
+  Future<ProvincesResultModel> getProvince(
     @Header("lang") String lang,
-    @Header("token") String token,
-    @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/getAddressess")
+  @GET("$_apiUrlPrefix/GetCity")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<AddressesResultModel> getAddresses(
+  Future<CitiesResultModel> getCity(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Query("provinceId") String provinceId,
   );
 }
