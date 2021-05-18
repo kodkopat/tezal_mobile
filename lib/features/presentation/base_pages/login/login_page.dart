@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> onLoginBtnTap() async {
     if (((formKey.currentState as FormState)).validate()) {
       prgDialog!.show();
-      var result = await repository.userLogin(
+      var result = await repository.login(
         username: phoneCtrl.text,
         password: passCtrl.text,
       );
@@ -174,8 +174,7 @@ class _LoginPageState extends State<LoginPage> {
         (r) {
           prgDialog!.hide();
 
-          var appNotifier = Provider.of<AppNotifier>(context, listen: false);
-          appNotifier.refresh();
+          Provider.of<AppNotifier>(context, listen: false).refresh();
 
           Routes.sailor.navigate(
             "/",

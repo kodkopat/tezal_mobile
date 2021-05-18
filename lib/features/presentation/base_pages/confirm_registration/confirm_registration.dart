@@ -178,7 +178,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
 
   void onSubmitBtnTap() async {
     print("onTap\n");
-    var result = await repository.checkUserSms(sms: smsCode!);
+    var result = await repository.confirmRegistration(sms: smsCode!);
 
     result.fold((l) {
       setState(() {

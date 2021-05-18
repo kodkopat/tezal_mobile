@@ -162,7 +162,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
   void onSubmitBtnTap() async {
     if (((formKey.currentState as FormState)).validate()) {
       prgDialog!.show();
-      var result = await repository.resetPass(
+      var result = await repository.resetPassword(
         phone: phoneCtrl.text,
         sms: pinCodeCtrl.text,
         password: newPassCtrl.text,

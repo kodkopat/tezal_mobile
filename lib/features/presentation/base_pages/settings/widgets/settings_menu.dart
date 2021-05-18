@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/core/languages/language.dart';
 
+import '../../../../../core/languages/language.dart';
 import '../../language_selector/language_selector_page.dart';
 import '../../update_detail/update_detail_page.dart';
 import 'settings_menu_item.dart';

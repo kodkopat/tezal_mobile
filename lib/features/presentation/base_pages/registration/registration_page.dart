@@ -147,7 +147,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void onRegisterBtnTap() async {
     if ((formKey.currentState as FormState).validate()) {
       prgDialog!.show();
-      var result = await repository.userRegister(
+      var result = await repository.register(
         name: nameCtrl.text,
         phone: phoneCtrl.text,
         pass: passCtrl.text,
