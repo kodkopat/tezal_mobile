@@ -33,19 +33,17 @@ class OrdersPage extends StatelessWidget {
                 : provider.olderOrders!.isEmpty
                     ? Txt("لیست سفارشات شما خالی است",
                         style: AppTxtStyles().body..alignment.center())
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: OlderOrderList(
-                                orderList: provider.olderOrders!),
-                          ),
-                          const SizedBox(height: 8),
-                          if (provider.enableLoadMoreData!)
-                            LoadMoreBtn(onTap: () {
-                              provider.fetchOlderOrders(context);
-                            })
-                        ],
+                    : SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            OlderOrderList(orderList: provider.olderOrders!),
+                            if (provider.enableLoadMoreData!)
+                              LoadMoreBtn(onTap: () {
+                                provider.fetchOlderOrders(context);
+                              })
+                          ],
+                        ),
                       );
       },
     );

@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
-import '../../../../data/models/customer/sub_category_result_model.dart';
 import '../../../../data/models/customer/photo_result_model.dart';
+import '../../../../data/models/customer/sub_category_result_model.dart';
 import '../../../providers/customer_providers/category_notifier.dart';
 
 class MarketSubCategoryListItem extends StatelessWidget {
@@ -77,7 +77,7 @@ class MarketSubCategoryListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-      future: categoryNotifier.customerCategoryRepo.subCategoryPhoto(
+      future: categoryNotifier.customerCategoryRepo.getSubCategoryPhoto(
         id: subCategory.id,
       ),
       successBuilder: (context, data) {

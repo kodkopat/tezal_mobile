@@ -39,7 +39,7 @@ class MarketSubCategoryPage extends StatelessWidget {
         showBasketBtn: true,
       ),
       body: CustomFutureBuilder(
-        future: categoryNotifier.customerCategoryRepo.subCategories(
+        future: categoryNotifier.customerCategoryRepo.getSubCategories(
           marketId: marketId,
           mainCategoryId: mainCategoryId,
         ),

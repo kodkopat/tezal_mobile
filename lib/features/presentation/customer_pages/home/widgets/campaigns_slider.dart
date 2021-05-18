@@ -8,7 +8,7 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../../core/widgets/map_box.dart';
 import '../../../../data/models/customer/campaign_result_model.dart';
-import '../../../providers/customer_providers/address_notifier.dart';
+import '../../../providers/customer_providers/addresses_notifier.dart';
 import 'campaign_slider_item.dart';
 
 class CampaignSlider extends StatefulWidget {
@@ -48,7 +48,7 @@ class _CampaignSliderState extends State<CampaignSlider> {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<AddressNotifier>(
+    var consumer = Consumer<AddressesNotifier>(
       builder: (context, provider, child) {
         if (provider.addressList == null) {
           provider.fetchAddresses();
@@ -64,8 +64,8 @@ class _CampaignSliderState extends State<CampaignSlider> {
                     ? mapBox
                     : MapBox(
                         height: boxHeight,
-                        latitude: "35.699699",
-                        longitude: "51.338075",
+                        latitude: "${provider.defaultAddress!.latitude}",
+                        longitude: "${provider.defaultAddress!.longitude}",
                       );
       },
     );

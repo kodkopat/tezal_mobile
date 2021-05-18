@@ -77,7 +77,7 @@ class MarketMainCategoryListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-      future: categoryNotifier.customerCategoryRepo.mainCategoryPhoto(
+      future: categoryNotifier.customerCategoryRepo.getMainCategoryPhoto(
         id: mainCategory.id,
       ),
       successBuilder: (context, data) {

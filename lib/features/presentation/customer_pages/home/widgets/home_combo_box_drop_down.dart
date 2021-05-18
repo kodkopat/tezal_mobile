@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
-import '../../../../data/models/customer/addresses_result_model.dart';
-import '../../../providers/customer_providers/address_notifier.dart';
+import '../../../../data/models/customer/address_model.dart';
+import '../../../providers/customer_providers/addresses_notifier.dart';
 import '../../address_save/address_save_page.dart';
 import '../../addresses/addresses_page.dart';
 import 'home_combo_box_drop_down_item.dart';
@@ -17,7 +17,7 @@ class HomeComboBoxDropDown extends StatefulWidget {
 
   final List<Address>? addresses;
   final Address? defaultAddress;
-  final AddressNotifier addressNotifier;
+  final AddressesNotifier addressNotifier;
 
   @override
   _HomeComboBoxDropDownState createState() => _HomeComboBoxDropDownState();

@@ -8,13 +8,13 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../providers/customer_providers/address_notifier.dart';
+import '../../providers/customer_providers/addresses_notifier.dart';
 import 'widgets/address_selector_list.dart';
 
 class AddressesSelectorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<AddressNotifier>(
+    var consumer = Consumer<AddressesNotifier>(
       builder: (context, provider, child) {
         if (provider.addressesResultModel == null &&
             provider.listErrorMsg == null) {

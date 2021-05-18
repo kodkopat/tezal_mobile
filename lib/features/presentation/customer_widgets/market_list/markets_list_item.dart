@@ -78,11 +78,16 @@ class MarketsListItem extends StatelessWidget {
                       ),
                       if (market.openAt != null) _fieldWorkingTime,
                       _fieldPhone,
-                      _fieldAddress,
                     ],
                   ),
                 ],
               ),
+              Divider(
+                color: Colors.black12,
+                thickness: 0.5,
+                height: 16,
+              ),
+              _fieldAddress,
               Divider(
                 color: Colors.black12,
                 thickness: 0.5,
@@ -124,12 +129,12 @@ class MarketsListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: repository.photo(marketId: market.id),
+      future: repository.getPhoto(marketId: market.id),
       successBuilder: (context, data) {
         return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
-            base64Decode(r.data.photos.first),
+            base64Decode(r.data!.photos.first),
           ),
         );
       },

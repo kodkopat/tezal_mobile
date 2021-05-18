@@ -5,16 +5,20 @@ import 'package:flutter/services.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
 
+import '../../../../../core/styles/txt_styles.dart';
+
 class SearchBox extends StatefulWidget {
   SearchBox({
     required this.controller,
     required this.onSearchTap,
+    required this.onClearSearchTermsTap,
     required this.terms,
     this.textDirection,
   });
 
   final TextEditingController controller;
   final void Function() onSearchTap;
+  final void Function() onClearSearchTermsTap;
   final List<String> terms;
   final TextDirection? textDirection;
 
@@ -81,7 +85,7 @@ class _SearchBoxState extends State<SearchBox> {
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            hintText: "جستجوی محصولات ...",
+            hintText: "جستجو در بین محصولات ...",
             hintStyle: _hintStyle,
             suffixIcon: Parent(
               gesture: Gestures()
@@ -104,14 +108,16 @@ class _SearchBoxState extends State<SearchBox> {
         ),
         _divider,
         if (focus.hasFocus)
-          _SearchSuggestionList(
-            terms: widget.terms,
-            onTermSelected: (value) {
-              setState(() {
-                widget.controller.text = value;
-              });
-            },
-          ),
+          if (widget.terms.isNotEmpty)
+            _SearchSuggestionList(
+              terms: widget.terms,
+              onTermSelected: (value) {
+                setState(() {
+                  widget.controller.text = value;
+                });
+              },
+              onClearSearchTerms: widget.onClearSearchTermsTap,
+            ),
       ],
     );
   }
@@ -121,33 +127,76 @@ class _SearchSuggestionList extends StatelessWidget {
   _SearchSuggestionList({
     required this.terms,
     required this.onTermSelected,
+    required this.onClearSearchTerms,
   });
 
   final List<String> terms;
   final void Function(String) onTermSelected;
+  final void Function() onClearSearchTerms;
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: terms.length,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Txt(
-          terms[index],
-          gesture: Gestures()
-            ..onTap(() {
-              onTermSelected(terms[index]);
-            }),
-          style: TxtStyle()
-            ..padding(horizontal: 16, vertical: 12)
-            ..textAlign.right()
-            ..background.color(Colors.white)
-            ..textColor(Colors.black87)
-            ..fontSize(12)
-            ..ripple(true),
-        );
-      },
+    return Parent(
+      style: ParentStyle()
+        ..background.color(Colors.white)
+        ..boxShadow(
+          color: Colors.black12,
+          offset: Offset(0, 3.0),
+          blur: 6,
+          spread: 0,
+        ),
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: terms.length + 1,
+        physics: NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Parent(
+            gesture: Gestures()
+              ..onTap(() {
+                if (index != terms.length) {
+                  onTermSelected(terms[index]);
+                } else {
+                  onClearSearchTerms();
+                }
+              }),
+            style: ParentStyle()
+              ..height(36)
+              ..ripple(true),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: 12),
+                Image.asset(
+                  index != terms.length
+                      ? "assets/images/ic_clock_circle.png"
+                      : "assets/images/ic_delete.png",
+                  fit: BoxFit.contain,
+                  color: index != terms.length
+                      ? Colors.black.withOpacity(0.75)
+                      : Colors.red.withOpacity(0.75),
+                  width: 18,
+                  height: 18,
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Txt(
+                    index != terms.length
+                        ? terms[index]
+                        : "پاک کردن سوابق جستجو",
+                    style: AppTxtStyles().body
+                      ..alignmentContent.centerRight()
+                      ..textAlign.start()
+                      ..padding(top: 2)
+                      ..textColor(index != terms.length
+                          ? Colors.black.withOpacity(0.75)
+                          : Colors.red.withOpacity(0.75)),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -33,7 +33,7 @@ class MarketSubCategoryView extends StatelessWidget {
     var customerProductRep = CustomerProductRepository();
 
     return CustomFutureBuilder(
-      future: customerProductRep.productList(
+      future: customerProductRep.getProductsInSubCategory(
         marketId: marketId,
         categoryId: subCategoryId,
       ),

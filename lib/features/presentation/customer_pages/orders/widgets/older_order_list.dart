@@ -14,8 +14,10 @@ class OlderOrderList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      shrinkWrap: true,
       itemCount: orderList.length,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return OlderOrderListItem(
           order: orderList[index],

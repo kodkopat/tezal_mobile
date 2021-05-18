@@ -13,8 +13,8 @@ import '../../../../core/widgets/carousel_image_slider.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/comments_result_model.dart';
-import '../../../data/models/customer/product_detail_result_model.dart';
 import '../../../data/models/customer/photos_result_model.dart';
+import '../../../data/models/customer/product_detail_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/product_list/product_counter.dart';
@@ -127,14 +127,13 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _sectionCarouselSlider(ProductDetailResultModel productDetail) {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: _customerProductRepo.productphoto(
+      future: _customerProductRepo.getPhotos(
         id: productDetail.data!.id,
-        multi: true,
       ),
       successBuilder: (context, data) {
         return data!.fold(
           (left) => CarouselImageSlider(images: []),
-          (right) => CarouselImageSlider(images: right.data.photos),
+          (right) => CarouselImageSlider(images: right.data!.photos),
         );
       },
       errorBuilder: (context, data) {
@@ -159,11 +158,11 @@ class ProductDetailPage extends StatelessWidget {
           defaultValue: productDetail.data!.liked,
           onChange: (value) {
             if (value) {
-              _customerProductRepo.likeProduct(
+              _customerProductRepo.like(
                 id: productDetail.data!.id,
               );
             } else {
-              _customerProductRepo.unlikeProduct(
+              _customerProductRepo.unlike(
                 id: productDetail.data!.id,
               );
             }
@@ -291,9 +290,10 @@ class ProductDetailPage extends StatelessWidget {
     print("productId: ${productDetail.data!.id}\n");
 
     return CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
-      future: provider.customerProductRepo.productComments(
+      future: provider.customerProductRepo.getComments(
         productId: productDetail.data!.id,
-        page: 1,
+        skip: 0,
+        take: 3,
       ),
       successBuilder: (context, data) {
         return data!.fold(
@@ -304,7 +304,7 @@ class ProductDetailPage extends StatelessWidget {
           (right) {
             print("productCommentsRight: ${right.toJson()}\n");
             return CommentList(
-              comments: right.data!.comments!.sublist(0, 3),
+              comments: right.data!.comments!,
               showAllCommentOnTap: () {
                 Routes.sailor.navigate(
                   ProductCommentsPage.route,

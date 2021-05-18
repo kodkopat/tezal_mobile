@@ -21,31 +21,28 @@ class ProductCommentsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var consumer = Consumer<ProductCommentsNotifier>(
       builder: (context, provider, child) {
-        if (provider.productComments == null) {
-          provider.fetchProductComments(context, productId: productId);
+        if (!provider.wasFetchCommentsCalled) {
+          provider.fetchComments(context, productId: productId);
         }
 
-        return provider.productCommentsLoading
-            ? AppLoading()
-            : provider.productComments == null
-                ? provider.productCommentsErrorMsg == null
-                    ? Txt("لیست نظرات خالی است",
+        return provider.loading
+            ? Center(child: AppLoading())
+            : provider.comments == null
+                ? provider.errorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.productCommentsErrorMsg,
+                    : Txt(provider.errorMsg,
                         style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CommentList(comments: provider.productComments!),
-                        const SizedBox(height: 8),
-                        if (provider.enableLoadMoreData!)
+                        CommentList(comments: provider.comments!),
+                        if (provider.enableLoadMoreOption!)
                           LoadMoreBtn(onTap: () {
-                            provider.fetchProductComments(context,
+                            provider.fetchComments(context,
                                 productId: productId);
                           }),
-                        const SizedBox(height: 8),
                       ],
                     ),
                   );

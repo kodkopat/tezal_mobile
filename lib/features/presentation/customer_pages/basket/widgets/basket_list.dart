@@ -44,7 +44,7 @@ class BasketList extends StatelessWidget {
             onAddToBasket: () => onItemAddToBasket(index),
             onRemoveFromBasket: () => onItemRemoveFromBasket(index),
             onRemoveItem: () async {
-              await basketNotifier.customerBasketRepo.removeProductToBasket(
+              await basketNotifier.customerBasketRepo.removeProductFromBasket(
                 productId: basketItems[index].id,
                 amount: basketItems[index].amount,
               );

@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/languages/language.dart';
@@ -10,7 +11,7 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/address_notifier.dart';
+import '../../providers/customer_providers/addresses_notifier.dart';
 import '../address_save/address_save_page.dart';
 import 'widgets/address_list.dart';
 
@@ -19,8 +20,10 @@ class AddressesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<AddressNotifier>(
+    var consumer = Consumer<AddressesNotifier>(
       builder: (context, provider, child) {
+        Get.put<AddressesNotifier>(provider);
+
         if (provider.addressesResultModel == null &&
             provider.listErrorMsg == null) {
           provider.fetchAddresses();

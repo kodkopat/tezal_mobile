@@ -1,5 +1,4 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'dart:convert';
 import 'dart:io';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -142,23 +141,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         text: "ثبت",
                         onTap: () async {
                           if ((formKey.currentState as FormState).validate()) {
-                            prgDialog!.show();
-
-                            String photo = "";
                             if (imagePath != null) {
+                              prgDialog!.show();
                               var imgFile = File(imagePath!);
-                              var imgBytes = imgFile.readAsBytesSync();
-                              photo = base64Encode(imgBytes);
+                              // String photo = "";
+                              // var imgBytes = imgFile.readAsBytesSync();
+                              // photo = base64Encode(imgBytes);
+
+                              await provider.editInfo(
+                                name: nameCtrl.text,
+                                email: emailCtrl.text,
+                                photo: imgFile,
+                              );
+
+                              prgDialog!.hide();
+                              Routes.sailor.pop();
                             }
-
-                            await provider.editInfo(
-                              name: nameCtrl.text,
-                              email: emailCtrl.text,
-                              photo: photo,
-                            );
-
-                            prgDialog!.hide();
-                            Routes.sailor.pop();
                           }
                         },
                         background: AppTheme.customerPrimary,

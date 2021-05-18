@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
-import '../../../../data/models/customer/addresses_result_model.dart';
-import '../../../providers/customer_providers/address_notifier.dart';
+import '../../../../data/models/customer/address_model.dart';
+import '../../../providers/customer_providers/addresses_notifier.dart';
 import '../../address_detail/address_detail_page.dart';
 import 'adderss_list_item.dart';
 
@@ -13,7 +13,7 @@ class AddressList extends StatelessWidget {
   });
 
   final List<Address> addresses;
-  final AddressNotifier addressNotifier;
+  final AddressesNotifier addressNotifier;
 
   @override
   Widget build(BuildContext context) {

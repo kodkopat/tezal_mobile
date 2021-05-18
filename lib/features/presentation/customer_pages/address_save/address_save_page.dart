@@ -12,7 +12,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/cities_result_model.dart';
 import '../../../data/models/customer/provinces_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/address_notifier.dart';
+import '../../providers/customer_providers/addresses_notifier.dart';
 import 'widgets/custom_location_picker.dart';
 
 class AddressSavePage extends StatefulWidget {
@@ -35,7 +35,7 @@ class AddressSavePage extends StatefulWidget {
 }
 
 class _AddressSavePageState extends State<AddressSavePage> {
-  late AddressNotifier addressNotifier;
+  late AddressesNotifier addressNotifier;
 
   late String appBarText;
 
@@ -63,7 +63,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
   bool loading = true;
 
   void initializeState(BuildContext context) async {
-    addressNotifier = Provider.of<AddressNotifier>(context, listen: false);
+    addressNotifier = Provider.of<AddressesNotifier>(context, listen: false);
 
     if (widget.id != null) {
       appBarText = "ویرایش آدرس";

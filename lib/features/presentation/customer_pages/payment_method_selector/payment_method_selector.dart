@@ -7,13 +7,13 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
-import '../../providers/customer_providers/address_notifier.dart';
+import '../../providers/customer_providers/addresses_notifier.dart';
 import '../../providers/customer_providers/order_notifier.dart';
 
 class PaymentMethodSelectorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final addressNotifier = Provider.of<AddressNotifier>(
+    final addressNotifier = Provider.of<AddressesNotifier>(
       context,
       listen: false,
     );
@@ -44,6 +44,7 @@ class PaymentMethodSelectorPage extends StatelessWidget {
                 await orderNotifier.saveOrder(
                   paymentType: 3,
                   addressId: addressNotifier.selectedOrderAddressId!,
+                  deliveryTime: "", //TODO: where is deliveryTime?
                 );
                 Routes.sailor.pop();
               },

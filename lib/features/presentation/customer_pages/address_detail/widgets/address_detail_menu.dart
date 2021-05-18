@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/customer/address_result_model.dart';
+import '../../../../data/models/customer/address_model.dart';
 import 'address_detail_menu_item.dart';
 
 class AddressDetailMenu extends StatelessWidget {

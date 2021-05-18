@@ -165,15 +165,14 @@ class OrderListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: orderDetailNotifier.customerProductRepo.productphoto(
+      future: orderDetailNotifier.customerProductRepo.getPhoto(
         id: orderItem.id,
-        multi: false,
       ),
       successBuilder: (context, data) {
         return data!.fold(
           (left) => SizedBox(),
           (right) => Image.memory(
-            base64Decode(right.data.photos.first),
+            base64Decode(right.data!.photos.first),
           ),
         );
       },

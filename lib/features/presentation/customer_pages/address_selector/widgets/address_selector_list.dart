@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../providers/customer_providers/address_notifier.dart';
+import '../../../providers/customer_providers/addresses_notifier.dart';
 import 'address_selector_list_item.dart';
 
 class AddressSelectorList extends StatelessWidget {
   const AddressSelectorList({required this.addressNotifier});
 
-  final AddressNotifier addressNotifier;
+  final AddressesNotifier addressNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,6 @@ class AddressSelectorList extends StatelessWidget {
           address: list[index],
           onTap: () {
             addressNotifier.selectedOrderAddressId = list[index].id;
-            addressNotifier.notify();
           },
           addressNotifier: addressNotifier,
         );

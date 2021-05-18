@@ -41,14 +41,14 @@ class CampaignSliderItem extends StatelessWidget {
           fit: BoxFit.fill,
         ),
       child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: campaignNotifier.customerCampaignRepo.campaignPhoto(
+        future: campaignNotifier.customerCampaignRepo.getPhoto(
           campaignId: campaign.id,
         ),
         successBuilder: (context, data) {
           return data!.fold(
             (left) => SizedBox(),
             (right) => Image.memory(
-              base64Decode(right.data.photos.first),
+              base64Decode(right.data!.photos.first),
               fit: BoxFit.fill,
             ),
           );

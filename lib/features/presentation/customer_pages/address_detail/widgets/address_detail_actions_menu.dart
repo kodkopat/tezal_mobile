@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
-import '../../../providers/customer_providers/address_notifier.dart';
+import '../../../providers/customer_providers/addresses_notifier.dart';
 import '../../address_save/address_save_page.dart';
 import 'address_detail_actions_menu_item.dart';
 import 'modal_remove_address.dart';
 
 class AddressDetailActionsMenu extends StatelessWidget {
-  const AddressDetailActionsMenu({
-    required this.addressId,
-    required this.addressNotifier,
-  });
+  const AddressDetailActionsMenu({required this.addressId});
 
   final String addressId;
-  final AddressNotifier addressNotifier;
 
   @override
   Widget build(BuildContext context) {
+    var addressNotifier = Get.find<AddressesNotifier>();
+
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: Column(

@@ -23,8 +23,8 @@ class SearchPage extends StatelessWidget {
 
     var searchTermsConsumer = Consumer<SearchNotifier>(
       builder: (context, provider, child) {
-        if (provider.searchTerms.isEmpty) {
-          provider.fetchSearchTerms(context);
+        if (!provider.wasFetchSearchTermsCalled) {
+          provider.fetchSearchTerms();
         }
 
         return SearchBox(
@@ -32,11 +32,11 @@ class SearchPage extends StatelessWidget {
           terms: provider.searchTerms,
           onSearchTap: () async {
             if (searchCtrl.text.trim().isNotEmpty) {
-              await provider.search(
-                context,
-                searchCtrl.text,
-              );
+              await provider.search(context, term: searchCtrl.text);
             }
+          },
+          onClearSearchTermsTap: () async {
+            await provider.clearSearchTerms();
           },
         );
       },

@@ -171,15 +171,14 @@ class ProductVerticalListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: basketNotifier.customerProductRepo.productphoto(
+      future: basketNotifier.customerProductRepo.getPhoto(
         id: product.id,
-        multi: false,
       ),
       successBuilder: (context, data) {
         return data!.fold(
           (left) => SizedBox(),
           (right) => Image.memory(
-            base64Decode(right.data.photos.first),
+            base64Decode(right.data!.photos.first),
           ),
         );
       },

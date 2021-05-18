@@ -1,5 +1,4 @@
 // ignore: import_of_legacy_library_into_null_safe
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,36 +21,28 @@ class MarketCommentsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var consumer = Consumer<MarketCommentsNotifier>(
       builder: (context, provider, child) {
-        if (provider.marketComments == null) {
-          provider.fetchMarketComments(
-            context,
-            marketId: marketId,
-          );
+        if (!provider.wasFetchCommentsCalled) {
+          provider.fetchComments(context, marketId: marketId);
         }
 
-        return provider.marketCommentsLoading
-            ? AppLoading()
-            : provider.marketComments == null
-                ? provider.marketCommentsErrorMsg == null
-                    ? Txt("لیست نظرات خالی است",
+        return provider.loading
+            ? Center(child: AppLoading())
+            : provider.comments == null
+                ? provider.errorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.marketCommentsErrorMsg,
+                    : Txt(provider.errorMsg,
                         style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CommentList(comments: provider.marketComments!),
-                        const SizedBox(height: 8),
-                        if (provider.enableLoadMoreData!)
+                        CommentList(comments: provider.comments!),
+                        if (provider.enableLoadMoreOption!)
                           LoadMoreBtn(onTap: () {
-                            provider.fetchMarketComments(
-                              context,
-                              marketId: marketId,
-                            );
+                            provider.fetchComments(context, marketId: marketId);
                           }),
-                        const SizedBox(height: 8),
                       ],
                     ),
                   );

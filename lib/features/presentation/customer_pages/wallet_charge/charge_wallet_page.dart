@@ -91,7 +91,7 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
                       (right) async {
                         var confirmLoadBalanceResult = await walletNotifier!
                             .customerWalletRepo
-                            .confirmLoadBalance(
+                            .loadBalanceConfirmation(
                           id: right.data.transactionId,
                         );
 

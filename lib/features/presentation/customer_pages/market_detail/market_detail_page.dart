@@ -117,8 +117,8 @@ class MarketDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future:
-            marketCommentsNotifier.customerMarketRepo.photo(marketId: marketId),
+        future: marketCommentsNotifier.customerMarketRepo
+            .getPhotos(marketId: marketId),
         successBuilder: (context, data) {
           return data!.fold(
             (left) => MarketSlider(images: []),
@@ -126,7 +126,7 @@ class MarketDetailPage extends StatelessWidget {
               var latitude = "${marketDetail.data!.location}".split("-")[0];
               var longitude = "${marketDetail.data!.location}".split("-")[1];
               return MarketSlider(
-                images: right.data.photos,
+                images: right.data!.photos,
                 marketLatitude: latitude,
                 marketLongitude: longitude,
               );
@@ -163,9 +163,10 @@ class MarketDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
-        future: marketCommentsNotifier.customerMarketRepo.marketComments(
+        future: marketCommentsNotifier.customerMarketRepo.getComments(
           marketId: marketId,
-          page: 1,
+          skip: 0,
+          take: 3,
         ),
         successBuilder: (context, data) {
           return data!.fold(
@@ -173,18 +174,16 @@ class MarketDetailPage extends StatelessWidget {
               left.message,
               style: AppTxtStyles().body..alignment.center(),
             ),
-            (right) {
-              return CommentList(
-                comments: right.data!.comments!.sublist(0, 3),
-                enableHeader: right.data!.comments!.isNotEmpty,
-                showAllCommentOnTap: () {
-                  Routes.sailor.navigate(
-                    MarketCommentsPage.route,
-                    params: {"marketId": marketId},
-                  );
-                },
-              );
-            },
+            (right) => CommentList(
+              comments: right.data!.comments!,
+              enableHeader: right.data!.comments!.isNotEmpty,
+              showAllCommentOnTap: () {
+                Routes.sailor.navigate(
+                  MarketCommentsPage.route,
+                  params: {"marketId": marketId},
+                );
+              },
+            ),
           );
         },
         errorBuilder: (context, data) {

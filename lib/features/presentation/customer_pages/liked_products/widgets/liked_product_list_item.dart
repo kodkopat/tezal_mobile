@@ -117,15 +117,14 @@ class LikedProductListItem extends StatelessWidget {
 
   Widget get _futureImgFile {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: productNotifier.customerProductRepo.productphoto(
+      future: productNotifier.customerProductRepo.getPhoto(
         id: likedProduct.productId,
-        multi: true,
       ),
       successBuilder: (context, data) {
         return data!.fold(
           (l) => SizedBox(),
           (r) => Image.memory(
-            base64Decode(r.data.photos.first),
+            base64Decode(r.data!.photos.first),
             fit: BoxFit.fill,
           ),
         );

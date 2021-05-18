@@ -36,7 +36,7 @@ class _MarketMainCategoryTabBarViewState
 
   void initializeState(BuildContext context) async {
     var customerCategoryRepo = CustomerCategoryRepository();
-    var result = await customerCategoryRepo.subCategories(
+    var result = await customerCategoryRepo.getSubCategories(
       marketId: widget.marketId,
       mainCategoryId: widget.mainCategoryId,
     );

@@ -4,8 +4,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:provider/provider.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:sailor/sailor.dart';
 
 import '../../../../../core/languages/language.dart';
 import '../../../../../core/page_routes/base_routes.dart';
@@ -13,6 +11,7 @@ import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../base_widgets/modal_log_out.dart';
+import '../../../providers/app_notifier.dart';
 import '../../../providers/customer_providers/basket_notifier.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';
@@ -112,18 +111,15 @@ class _ProfileMenu {
                     var secureStorage = FlutterSecureStorage();
                     await secureStorage.deleteAll();
 
-                    var basketNotifier =
-                        Provider.of<BasketNotifier>(context, listen: false);
+                    Provider.of<BasketNotifier>(
+                      context,
+                      listen: false,
+                    ).refresh();
 
-                    basketNotifier.refresh();
-
-                    Routes.sailor.pop();
-                    Routes.sailor.navigate(
-                      "/",
-                      navigationType: NavigationType.pushReplace,
-                    );
-
-                    // Phoenix.rebirth(context);
+                    Provider.of<AppNotifier>(
+                      context,
+                      listen: false,
+                    ).refresh();
                   },
                   onDiscard: () {
                     Routes.sailor.pop();

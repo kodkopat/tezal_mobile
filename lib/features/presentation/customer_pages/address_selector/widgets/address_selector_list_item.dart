@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../../../data/models/customer/addresses_result_model.dart';
-import '../../../providers/customer_providers/address_notifier.dart';
+import '../../../../data/models/customer/address_model.dart';
+import '../../../providers/customer_providers/addresses_notifier.dart';
 
 class AddressSelectorListItem extends StatelessWidget {
   const AddressSelectorListItem({
@@ -16,7 +16,7 @@ class AddressSelectorListItem extends StatelessWidget {
 
   final Address address;
   final void Function() onTap;
-  final AddressNotifier addressNotifier;
+  final AddressesNotifier addressNotifier;
 
   @override
   Widget build(BuildContext context) {
