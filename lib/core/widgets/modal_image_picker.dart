@@ -27,13 +27,12 @@ class ImagePickerModal extends StatelessWidget {
               text: Lang.of(context).imageFromCamera,
               iconPath: "assets/images/ic_camera.png",
               onTap: () async {
-                final pickedFile =
-                    await picker.getImage(source: ImageSource.camera);
+                PickedFile? pickedFile = await picker.getImage(
+                  source: ImageSource.camera,
+                );
 
                 if (pickedFile != null) {
-                  Routes.sailor.pop({
-                    "imagePath": pickedFile.path,
-                  });
+                  Routes.sailor.pop(pickedFile.path);
                 }
               },
             ),
@@ -41,8 +40,9 @@ class ImagePickerModal extends StatelessWidget {
               text: Lang.of(context).imageFromGallery,
               iconPath: "assets/images/ic_image.png",
               onTap: () async {
-                final pickedFile =
-                    await picker.getImage(source: ImageSource.gallery);
+                PickedFile? pickedFile = await picker.getImage(
+                  source: ImageSource.gallery,
+                );
 
                 if (pickedFile != null) {
                   Routes.sailor.pop(pickedFile.path);
