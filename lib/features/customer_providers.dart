@@ -11,7 +11,7 @@ import 'data/repositories/customer_product_repository.dart';
 import 'data/repositories/customer_repository.dart';
 import 'data/repositories/customer_search_repository.dart';
 import 'data/repositories/customer_wallet_repository.dart';
-import 'presentation/providers/customer_providers/address_notifier.dart';
+import 'presentation/providers/customer_providers/addresses_notifier.dart';
 import 'presentation/providers/customer_providers/basket_notifier.dart';
 import 'presentation/providers/customer_providers/campaign_notifier.dart';
 import 'presentation/providers/customer_providers/category_notifier.dart';
@@ -44,7 +44,7 @@ List<SingleChildWidget> customerProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => AddressNotifier(
+    create: (ctx) => AddressesNotifier(
       CustomerAddressRepository(),
     ),
   ),
