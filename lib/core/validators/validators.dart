@@ -1,4 +1,4 @@
-import 'package:tezal/core/utils/is_numeric.dart';
+import '../utils/is_numeric.dart';
 
 class AppValidators {
   static String? name(String? value) {
