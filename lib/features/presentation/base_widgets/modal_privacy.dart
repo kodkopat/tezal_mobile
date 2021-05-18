@@ -27,7 +27,7 @@ class PrivacyModal extends StatelessWidget {
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         child: CustomFutureBuilder<Either<Failure, AgreementResultModel>>(
-          future: repository.privacyText,
+          future: repository.getPrivacyText(),
           successBuilder: (context, data) {
             return data!.fold(
               (left) {
