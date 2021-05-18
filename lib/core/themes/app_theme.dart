@@ -38,9 +38,9 @@ class AppTheme {
         ),
       );
 
-  static final marketPrimary = Colors.blue;
-  static final marketPrimaryDark = Colors.blue[700];
-  static final marketPrimaryLight = Colors.blue[400];
+  static final marketPrimary = Colors.indigo;
+  static final marketPrimaryDark = Colors.indigo[700];
+  static final marketPrimaryLight = Colors.indigo[400];
   static final marketAccent = Colors.orange;
 
   static ThemeData marketThemeData(String fontFamily) => ThemeData(
