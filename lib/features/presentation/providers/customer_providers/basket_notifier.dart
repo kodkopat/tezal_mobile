@@ -65,7 +65,7 @@ class BasketNotifier extends ChangeNotifier {
     // var prgDialog = AppProgressDialog(context).instance;
     // prgDialog.show();
 
-    var result = await customerBasketRepo.removeProductToBasket(
+    var result = await customerBasketRepo.removeProductFromBasket(
       productId: productId,
       amount: amount ?? 1,
     );
@@ -98,7 +98,7 @@ class BasketNotifier extends ChangeNotifier {
   }
 
   Future<void> fetchBasket() async {
-    var result = await customerBasketRepo.basket;
+    var result = await customerBasketRepo.getBasket();
     result.fold(
       (left) => errorMsg = left.message,
       (right) {
@@ -112,7 +112,7 @@ class BasketNotifier extends ChangeNotifier {
   }
 
   Future<void> fetchBasketCount() async {
-    var result = await customerBasketRepo.basketCount;
+    var result = await customerBasketRepo.getBasketCount();
     result.fold(
       (left) => null,
       (right) => basketCount = right.data,

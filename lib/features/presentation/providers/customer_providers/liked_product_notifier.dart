@@ -25,7 +25,7 @@ class LikedProductNotifier extends ChangeNotifier {
   LikedProductsResultModel? likedProductsResultModel;
 
   Future<void> fetchLikedProducts() async {
-    var result = await customerProductRepo.likedProdutcs();
+    var result = await customerProductRepo.getLikedProducts();
 
     result.fold(
       (left) => likedProductsErrorMsg = left.message,
@@ -40,7 +40,7 @@ class LikedProductNotifier extends ChangeNotifier {
   }
 
   Future<void> likeProduct({required String productId}) async {
-    var result = await customerProductRepo.likeProduct(
+    var result = await customerProductRepo.like(
       id: productId,
     );
 
@@ -51,7 +51,7 @@ class LikedProductNotifier extends ChangeNotifier {
   }
 
   Future<void> unlikeProduct({required String productId}) async {
-    var result = await customerProductRepo.unlikeProduct(
+    var result = await customerProductRepo.unlike(
       id: productId,
     );
 

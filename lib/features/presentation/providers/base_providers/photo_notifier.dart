@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/features/data/models/photo_model.dart';
 
+import '../../../data/models/photo_model.dart';
 import '../../../data/repositories/shared_application_repository.dart';
 
 class PhotoNotifier extends ChangeNotifier {

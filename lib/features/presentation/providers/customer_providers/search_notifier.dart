@@ -21,11 +21,17 @@ class SearchNotifier extends ChangeNotifier {
 
   final CustomerSearchRepository customerSearchRepo;
 
+  bool wasFetchSearchTermsCalled = false;
   String? searchTermsErrorMsg;
   List<String> searchTerms = [];
 
-  Future<void> fetchSearchTerms(BuildContext context) async {
-    var result = await customerSearchRepo.searchTerms(context);
+  Future<void> fetchSearchTerms() async {
+    if (!wasFetchSearchTermsCalled) {
+      wasFetchSearchTermsCalled = true;
+      notifyListeners();
+    }
+
+    var result = await customerSearchRepo.getSearchTerms();
 
     result.fold(
       (left) => searchTermsErrorMsg = left.message,
@@ -35,41 +41,38 @@ class SearchNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> clearSearchTerms(BuildContext context) async {
-    var result = await customerSearchRepo.clearSearchTerms(context);
+  Future<void> clearSearchTerms() async {
+    var result = await customerSearchRepo.clearSearchTerms();
 
     result.fold(
       (left) => null,
-      (right) => refresh(),
+      (right) {
+        searchTermsErrorMsg = null;
+        searchTerms = [];
+        notifyListeners();
+      },
     );
   }
 
   String? searchErrorMsg;
   List<Market>? searchResultList;
 
-  Future<void> search(BuildContext context, String term) async {
+  Future<void> search(BuildContext context, {required String term}) async {
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
 
     notifyListeners();
 
-    var result = await customerSearchRepo.search(
-      context,
-      term: term,
-    );
+    var result = await customerSearchRepo.search(term: term);
 
     result.fold(
       (left) => searchErrorMsg = left.message,
       (right) => searchResultList = right.data.markets,
     );
 
-    prgDialog.hide();
-    notifyListeners();
-  }
+    await fetchSearchTerms();
 
-  void refresh() async {
-    searchTermsErrorMsg = null;
-    searchTerms = [];
+    prgDialog.hide();
     notifyListeners();
   }
 }

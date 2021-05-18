@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import '../../../data/models/customer/customer_profile_result_model.dart';
@@ -25,7 +27,7 @@ class ProfileNotifier extends ChangeNotifier {
   CustomerProfileResultModel? customerProfile;
 
   Future<void> fetchInfo() async {
-    var result = await customerRepo.customerProfile;
+    var result = await customerRepo.getCustomerProfile();
 
     result.fold(
       (left) => errorMsg = left.message,
@@ -39,9 +41,9 @@ class ProfileNotifier extends ChangeNotifier {
   Future<void> editInfo({
     required String name,
     required String email,
-    required String photo,
+    required File photo,
   }) async {
-    var result = await customerRepo.editCustomerProfile(
+    var result = await customerRepo.changeCustomerProfile(
       name: name,
       email: email,
       photo: photo,

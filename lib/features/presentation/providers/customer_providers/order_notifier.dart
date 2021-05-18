@@ -41,7 +41,7 @@ class OrderNotifier extends ChangeNotifier {
 
   Future<void> fetchOlderOrders(BuildContext context) async {
     if (olderOrdersTotalCount == null) {
-      var result = await customerOrderRepo.olderOrders(page: 1);
+      var result = await customerOrderRepo.getOlderOrders(page: 1);
 
       result.fold(
         (left) => olderOrdersErrorMsg = left.message,
@@ -59,7 +59,7 @@ class OrderNotifier extends ChangeNotifier {
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await customerOrderRepo.olderOrders(
+      var result = await customerOrderRepo.getOlderOrders(
         page: latestPageIndex! + 1,
       );
 
@@ -84,10 +84,12 @@ class OrderNotifier extends ChangeNotifier {
   Future<void> saveOrder({
     required int paymentType,
     required String addressId,
+    required String deliveryTime,
   }) async {
-    var result = await customerOrderRepo.saveOrder(
+    var result = await customerOrderRepo.save(
       paymentType: paymentType,
       addressId: addressId,
+      deliveryTime: deliveryTime,
     );
 
     result.fold(

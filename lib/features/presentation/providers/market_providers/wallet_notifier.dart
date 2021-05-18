@@ -63,7 +63,7 @@ class WalletNotifier extends ChangeNotifier {
     }
 
     if (detailsTotalCount == null) {
-      var result = await marketWalletRepo.getDetail(
+      var result = await marketWalletRepo.getWalletDetails(
         skip: detailsSkip,
         take: detailsTake,
       );
@@ -86,7 +86,7 @@ class WalletNotifier extends ChangeNotifier {
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await marketWalletRepo.getDetail(
+      var result = await marketWalletRepo.getWalletDetails(
         skip: detailsSkip,
         take: detailsTake,
       );

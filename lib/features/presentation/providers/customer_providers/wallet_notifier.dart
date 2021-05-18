@@ -26,7 +26,7 @@ class WalletNotifier extends ChangeNotifier {
   WalletInfoResultModel? walletInfoResultModel;
 
   Future<void> fetchWalletInfo() async {
-    var result = await customerWalletRepo.walletInfo;
+    var result = await customerWalletRepo.getWalletInfo();
     result.fold(
       (left) => infoErrorMsg = left.message,
       (right) => walletInfoResultModel = right,
@@ -46,7 +46,7 @@ class WalletNotifier extends ChangeNotifier {
 
   Future<void> walletDetail() async {
     if (walletDetailTotalCount == null) {
-      var result = await customerWalletRepo.walletDetails(page: 1);
+      var result = await customerWalletRepo.getWalletDetail(page: 1);
       result.fold(
         (left) => detailErrorMsg = left.message,
         (right) {
@@ -60,7 +60,7 @@ class WalletNotifier extends ChangeNotifier {
     } else {
       if (walletDetailTotalCount == 0) return;
 
-      var result = await customerWalletRepo.walletDetails(
+      var result = await customerWalletRepo.getWalletDetail(
         page: latestPageIndex! + 1,
       );
 

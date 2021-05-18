@@ -30,8 +30,7 @@ class MarketNotifier extends ChangeNotifier {
 
   Future<void> fetchNearbyMarkets(BuildContext context) async {
     if (nearyByMarketsTotalCount == null) {
-      var result = await customerMarketRepo.nearByMarkets(
-        context,
+      var result = await customerMarketRepo.getNearByMarkets(
         maxDistance: 10,
         page: 1,
       );
@@ -50,8 +49,7 @@ class MarketNotifier extends ChangeNotifier {
     } else {
       if (nearyByMarketsTotalCount == 0) return;
 
-      var result = await customerMarketRepo.nearByMarkets(
-        context,
+      var result = await customerMarketRepo.getNearByMarkets(
         maxDistance: 10,
         page: latestPageIndex! + 1,
       );

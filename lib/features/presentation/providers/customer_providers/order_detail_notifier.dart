@@ -20,7 +20,7 @@ class OrderDetailNotifier extends ChangeNotifier {
   OrderDetailResultModel? orderDetailResultModel;
 
   Future<void> fetchOrderDetail({required String orderId}) async {
-    var result = await customerOrderRepo.orderDetail(id: orderId);
+    var result = await customerOrderRepo.getDetail(id: orderId);
     result.fold(
       (left) => orderDetailErrorMsg = left.message,
       (right) => orderDetailResultModel = right,
@@ -40,7 +40,7 @@ class OrderDetailNotifier extends ChangeNotifier {
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
 
-    var result = await customerOrderRepo.addOrderToBasket(orderId: orderId);
+    var result = await customerOrderRepo.addToBasket(orderId: orderId);
     result.fold(
       (left) => addOrderToBasketErrorMsg = left.message,
       (right) => oaddOrderToBasketResult = right,

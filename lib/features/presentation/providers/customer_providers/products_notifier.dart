@@ -16,7 +16,7 @@ class ProductsNotifier extends ChangeNotifier {
     required String marketId,
     required String categoryId,
   }) async {
-    var result = await customerProductRepo.productList(
+    var result = await customerProductRepo.getProductsInSubCategory(
       marketId: marketId,
       categoryId: categoryId,
     );

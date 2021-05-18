@@ -13,59 +13,66 @@ class MarketCommentsNotifier extends ChangeNotifier {
 
   final CustomerMarketRepository customerMarketRepo;
 
-  bool marketCommentsLoading = true;
-  String? marketCommentsErrorMsg;
+  bool wasFetchCommentsCalled = false;
+  bool loading = true;
+  String? errorMsg;
 
-  bool? enableLoadMoreData;
-  int? marketCommentsTotalCount;
-  int? latestPageIndex;
-  List<Comment>? marketComments;
+  int skip = 0;
+  int take = 10;
+  int? totalCount;
+  bool? enableLoadMoreOption;
 
-  Future<void> fetchMarketComments(
-    BuildContext context, {
-    required String marketId,
-  }) async {
-    if (marketCommentsTotalCount == null) {
-      var result = await customerMarketRepo.marketComments(
+  List<Comment>? comments;
+
+  Future<void> fetchComments(BuildContext context,
+      {required String marketId}) async {
+    if (!wasFetchCommentsCalled) {
+      wasFetchCommentsCalled = true;
+      notifyListeners();
+    }
+
+    if (totalCount == null) {
+      var result = await customerMarketRepo.getComments(
         marketId: marketId,
-        page: 1,
+        skip: skip,
+        take: take,
       );
 
       result.fold(
-        (left) => marketCommentsErrorMsg = left.message,
+        (left) => errorMsg = left.message,
         (right) {
-          marketCommentsTotalCount = right.data!.total;
-          latestPageIndex = right.data!.page;
-          marketComments = right.data!.comments!;
-          enableLoadMoreData =
-              marketCommentsTotalCount != marketComments!.length;
+          totalCount = right.data!.totalCount;
+          comments = right.data!.comments;
+          enableLoadMoreOption = totalCount != comments!.length;
+          skip += take;
         },
       );
-      marketCommentsLoading = false;
+
+      loading = false;
     } else {
-      if (marketCommentsTotalCount == 0) return;
+      if (totalCount == 0) return;
 
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await customerMarketRepo.marketComments(
+      var result = await customerMarketRepo.getComments(
         marketId: marketId,
-        page: latestPageIndex! + 1,
+        skip: skip,
+        take: take,
       );
 
       result.fold(
-        (left) => marketCommentsErrorMsg = left.message,
+        (left) => errorMsg = left.message,
         (right) {
-          marketCommentsTotalCount = right.data!.total;
-          latestPageIndex = right.data!.page;
-          marketComments!.addAll(right.data!.comments!);
-          enableLoadMoreData =
-              marketCommentsTotalCount != marketComments!.length;
+          comments!.addAll(right.data!.comments!);
+          enableLoadMoreOption = totalCount != comments!.length;
+          skip += take;
         },
       );
 
       prgDialog.hide();
     }
+
     notifyListeners();
   }
 }

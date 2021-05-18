@@ -25,7 +25,7 @@ class CampaignNotifier extends ChangeNotifier {
   List<Campaign>? campaigns;
 
   Future<void> fetchCampaigns() async {
-    var result = await customerCampaignRepo.campaignes;
+    var result = await customerCampaignRepo.getall();
 
     result.fold(
       (left) => campaignErrorMsg = left.message,

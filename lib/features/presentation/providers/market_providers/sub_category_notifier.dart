@@ -20,7 +20,7 @@ class SubCategoryNotifier extends ChangeNotifier {
   int subCategoryListSelectedIndex = 0;
 
   Future<void> fetchSubCategories({required String mainCategoryId}) async {
-    var result = await marketProductRepo.getSubCategoriesOfCategory(
+    var result = await marketProductRepo.getCategoriesOfCategory(
       mainCategoryId: mainCategoryId,
     );
 

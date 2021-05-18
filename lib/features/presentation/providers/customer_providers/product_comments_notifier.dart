@@ -13,60 +13,66 @@ class ProductCommentsNotifier extends ChangeNotifier {
 
   final CustomerProductRepository customerProductRepo;
 
-  bool productCommentsLoading = true;
-  String? productCommentsErrorMsg;
+  bool wasFetchCommentsCalled = false;
+  bool loading = true;
+  String? errorMsg;
 
-  bool? enableLoadMoreData;
-  int? productCommentsTotalCount;
-  int? latestPageIndex;
-  List<Comment>? productComments;
+  int skip = 0;
+  int take = 10;
+  int? totalCount;
+  bool? enableLoadMoreOption;
 
-  Future<void> fetchProductComments(
-    BuildContext context, {
-    required String productId,
-  }) async {
-    if (productCommentsTotalCount == null) {
-      var result = await customerProductRepo.productComments(
+  List<Comment>? comments;
+
+  Future<void> fetchComments(BuildContext context,
+      {required String productId}) async {
+    if (!wasFetchCommentsCalled) {
+      wasFetchCommentsCalled = true;
+      notifyListeners();
+    }
+
+    if (totalCount == null) {
+      var result = await customerProductRepo.getComments(
         productId: productId,
-        page: 1,
+        skip: skip,
+        take: take,
       );
 
       result.fold(
-        (left) => productCommentsErrorMsg = left.message,
+        (left) => errorMsg = left.message,
         (right) {
-          print("commentResult: ${right.toJson()}\n");
-          productCommentsTotalCount = right.data!.total;
-          latestPageIndex = right.data!.page;
-          productComments = right.data!.comments!;
-          enableLoadMoreData =
-              productCommentsTotalCount != productComments!.length;
+          totalCount = right.data!.totalCount;
+          comments = right.data!.comments;
+          enableLoadMoreOption = totalCount != comments!.length;
+          skip += take;
         },
       );
-      productCommentsLoading = false;
+
+      loading = false;
     } else {
-      if (productCommentsTotalCount == 0) return;
+      if (totalCount == 0) return;
 
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await customerProductRepo.productComments(
+      var result = await customerProductRepo.getComments(
         productId: productId,
-        page: latestPageIndex! + 1,
+        skip: skip,
+        take: take,
       );
 
       result.fold(
-        (left) => productCommentsErrorMsg = left.message,
+        (left) => errorMsg = left.message,
         (right) {
-          productCommentsTotalCount = right.data!.total;
-          latestPageIndex = right.data!.page;
-          productComments!.addAll(right.data!.comments!);
-          enableLoadMoreData =
-              productCommentsTotalCount != productComments!.length;
+          comments!.addAll(right.data!.comments!);
+          enableLoadMoreOption = totalCount != comments!.length;
+          skip += take;
         },
       );
 
       prgDialog.hide();
     }
+
     notifyListeners();
   }
 }

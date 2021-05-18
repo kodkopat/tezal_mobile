@@ -15,7 +15,7 @@ class MarketDetailNotifier extends ChangeNotifier {
 
   Future<void> fetchMarketDetail({required String marketId}) async {
     this.marketId = marketId;
-    var result = await customerMarketRepo.marketDetail(
+    var result = await customerMarketRepo.getMarketDetail(
       marketId: marketId,
     );
 

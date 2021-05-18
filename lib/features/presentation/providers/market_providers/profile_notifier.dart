@@ -22,6 +22,8 @@ class ProfileNotifier extends ChangeNotifier {
 
   final MarketRepository marketRepo;
 
+  String? shabaNumber;
+
   bool wasFetchInfoCalled = false;
   bool infoLoading = true;
   String? infoErrorMsg;
@@ -37,7 +39,10 @@ class ProfileNotifier extends ChangeNotifier {
 
     result.fold(
       (left) => infoErrorMsg = left.message,
-      (right) => infoResult = right,
+      (right) {
+        infoResult = right;
+        shabaNumber = infoResult!.data!.shabaNumber;
+      },
     );
 
     infoLoading = false;

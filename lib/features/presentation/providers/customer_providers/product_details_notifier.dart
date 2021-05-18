@@ -15,7 +15,7 @@ class ProductDetailNotifier extends ChangeNotifier {
   Future<void> fetchProductDetail({
     required String productId,
   }) async {
-    var result = await customerProductRepo.productDetail(
+    var result = await customerProductRepo.getDetail(
       id: productId,
     );
 
