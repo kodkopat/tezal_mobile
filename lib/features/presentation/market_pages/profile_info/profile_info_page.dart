@@ -66,14 +66,14 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
                         Txt(
                           Lang.of(context).marketProfileTelephone +
                               ": " +
-                              "${provider.infoResult!.data!.telephone}",
+                              "${provider.infoResult!.data!.telephone ?? "-"}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),
                         Txt(
                           Lang.of(context).marketProfileEmail +
                               ": " +
-                              "${provider.infoResult!.data!.email}",
+                              "${provider.infoResult!.data!.email ?? "-"}",
                           style: AppTxtStyles().body..textAlign.start(),
                         ),
                         const SizedBox(height: 16),

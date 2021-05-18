@@ -11,6 +11,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/progress_dialog.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/market_providers/profile_notifier.dart';
 import '../../providers/market_providers/wallet_notifier.dart';
 
 class WithdrawalWalletPage extends StatefulWidget {
@@ -23,14 +24,27 @@ class WithdrawalWalletPage extends StatefulWidget {
 class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
   GlobalKey? formKey = GlobalKey<FormState>();
 
-  var amountCtrl = TextEditingController();
-  var descriptionCtrl = TextEditingController();
+  late TextEditingController amountCtrl;
+  late TextEditingController descriptionCtrl;
+  late TextEditingController shabaCtrl;
 
   String errorTxt = "";
   bool errorVisibility = false;
 
   @override
+  void initState() {
+    super.initState();
+    amountCtrl = TextEditingController();
+    descriptionCtrl = TextEditingController();
+    shabaCtrl = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var profileNotifier = Provider.of<ProfileNotifier>(context, listen: false);
+    shabaCtrl =
+        TextEditingController(text: "${profileNotifier.shabaNumber ?? ""}");
+
     var consumer = Consumer<WalletNotifier>(
       builder: (context, provider, child) {
         return Form(
@@ -55,6 +69,14 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
                   label: Lang.of(context).description,
                   textDirection: TextDirection.rtl,
                   keyboardType: TextInputType.text,
+                ),
+                const SizedBox(height: 16),
+                CustomTextInput(
+                  controller: shabaCtrl,
+                  validator: AppValidators.numeric,
+                  label: Lang.of(context).marketProfileShabaNumber,
+                  textDirection: TextDirection.rtl,
+                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 16),
                 ActionBtn(

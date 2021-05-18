@@ -11,6 +11,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../../providers/market_providers/profile_notifier.dart';
 import '../../providers/market_providers/wallet_notifier.dart';
 import '../wallet_withdrawal/wallet_withdrawal_page.dart';
 import '../wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
@@ -50,6 +51,23 @@ class WalletPage extends StatelessWidget {
                           style: AppTxtStyles().title
                             ..bold()
                             ..alignment.center(),
+                        ),
+                        SizedBox(height: 8),
+                        Consumer<ProfileNotifier>(
+                          builder: (context, provider, child) {
+                            if (!provider.wasFetchInfoCalled) {
+                              provider.fetchInfo();
+                            }
+
+                            return Txt(
+                              Lang.of(context).marketProfileShabaNumber +
+                                  ": " +
+                                  "${provider.shabaNumber ?? ""}",
+                              style: AppTxtStyles().body
+                                ..alignment.center()
+                                ..textColor(Colors.black54),
+                            );
+                          },
                         ),
                         SizedBox(height: 16),
                         ActionBtn(

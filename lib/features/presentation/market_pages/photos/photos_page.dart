@@ -1,5 +1,3 @@
-import 'dart:io';
-
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -62,11 +60,11 @@ class _PhotosPageState extends State<PhotosPage> {
                               builder: (context) => PhotoPreviewModal(
                                 marketPhoto: provider.marketPhotos![index],
                                 onRemoveBtnTap: () async {
-                                  photosNotifier!
-                                      .removePhoto(context,
-                                          photoId:
-                                              provider.marketPhotos![index].id)
-                                      .then((value) => Routes.sailor.pop());
+                                  await photosNotifier!.removePhoto(
+                                    context,
+                                    photoId: provider.marketPhotos![index].id,
+                                  );
+                                  Routes.sailor.pop();
                                 },
                               ),
                             );
@@ -120,7 +118,7 @@ class _PhotosPageState extends State<PhotosPage> {
                   backgroundColor: Colors.transparent,
                   builder: (context) => PhotosMenuModal(
                     addPhotoOnTap: () async {
-                      var result = await showModalBottomSheet(
+                      String? result = await showModalBottomSheet(
                         context: context,
                         elevation: 16,
                         isDismissible: true,
@@ -130,9 +128,7 @@ class _PhotosPageState extends State<PhotosPage> {
                       );
 
                       if (result != null) {
-                        var imagePath = result as String;
-                        photosNotifier!
-                            .addPhoto(context, photo: File(imagePath));
+                        photosNotifier!.addPhoto(context, imgPath: result);
                       }
                     },
                     reOrderPhotosOnTap: () async {
