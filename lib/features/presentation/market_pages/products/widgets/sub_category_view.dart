@@ -3,11 +3,13 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../data/models/market/product_result_model.dart';
-import '../../../providers/market_providers/products_notifier.dart';
 import '../../../providers/market_providers/sub_category_notifier.dart';
+import '../../add_product/add_product_page.dart';
+import '../../product_detail/product_detail_page.dart';
 import 'product_list.dart';
 
 class SubCategoryView extends StatelessWidget {
@@ -55,20 +57,46 @@ class SubCategoryView extends StatelessWidget {
                             ),
                           )
                           .toList(),
-                      onItemTap: (index) {},
-                      onItemRemoveBtnTap: (index) async {
-                        var productsNotifier = Provider.of<ProductsNotifier>(
-                          context,
-                          listen: false,
+                      onItemTap: (index) {
+                        var e = provider.marketProductsResult!.data![index];
+                        var product = ProductResultModel(
+                          id: e.productId,
+                          name: e.productName,
+                          createDate: e.productCreateDate,
+                          description: e.productDescription,
+                          discountedPrice: e.productDiscountedPrice,
+                          onSale: e.productOnSale,
+                          originalPrice: e.productOriginalPrice,
+                          productUnit: e.productUnit,
+                          step: e.productStep,
                         );
 
-                        await productsNotifier.removeFromMarketProducts(
-                          context,
-                          productId:
-                              provider.marketProductsResult!.data![index].id,
+                        Routes.sailor.navigate(
+                          ProductDetailPage.route,
+                          params: {"product": product},
+                        );
+                      },
+                      onItemEditTap: (index) async {
+                        var e = provider.marketProductsResult!.data![index];
+                        var product = ProductResultModel(
+                          id: e.productId,
+                          name: e.productName,
+                          createDate: e.productCreateDate,
+                          description: e.productDescription,
+                          discountedPrice: e.productDiscountedPrice,
+                          onSale: e.productOnSale,
+                          originalPrice: e.productOriginalPrice,
+                          productUnit: e.productUnit,
+                          step: e.productStep,
                         );
 
-                        provider.refreshProducts();
+                        Routes.sailor.navigate(
+                          AddProductPage.route,
+                          params: {
+                            "product": product,
+                            "isProductExist": true,
+                          },
+                        );
                       },
                     ),
                   );
