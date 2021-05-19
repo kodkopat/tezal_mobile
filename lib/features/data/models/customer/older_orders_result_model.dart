@@ -25,43 +25,32 @@ class OlderOrdersResultModel {
 
 class Data {
   Data({
-    required this.page,
-    required this.total,
+    required this.totalCount,
     required this.orders,
   });
 
-  final page;
-  final total;
+  final totalCount;
   final List<Order>? orders;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        page: json["page"],
-        total: json["total"],
+        totalCount: json["totalCount"],
         orders: json["orders"] == null
             ? null
-            : List<Order>.from(
-                json["orders"].map(
-                  (x) => Order.fromJson(x),
-                ),
-              ),
+            : List<Order>.from(json["orders"].map((x) => Order.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "page": page,
-        "total": total,
+        "totalCount": totalCount,
         "orders": orders == null
             ? null
-            : List<dynamic>.from(
-                orders!.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(orders!.map((x) => x.toJson())),
       };
 }
 
 class Order {
   Order({
     required this.id,
+    required this.orderNumber,
     required this.date,
     required this.marketName,
     required this.status,
@@ -69,6 +58,7 @@ class Order {
   });
 
   final id;
+  final orderNumber;
   final date;
   final marketName;
   final status;
@@ -76,6 +66,7 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) => Order(
         id: json["id"],
+        orderNumber: json["orderNumber"],
         date: json["date"],
         marketName: json["marketName"],
         status: json["status"],
@@ -84,6 +75,7 @@ class Order {
 
   Map<String, dynamic> toJson() => {
         "id": id,
+        "orderNumber": orderNumber,
         "date": date,
         "marketName": marketName,
         "status": status,
