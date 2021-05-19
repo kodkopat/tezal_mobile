@@ -52,7 +52,8 @@ abstract class CustomerOrderRemoteDataSource {
   Future<OlderOrdersResultModel> getOlderOrders(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Header("page") int page,
+    @Query("skip") int skip,
+    @Query("take") int take,
   );
 
   @GET("$_apiUrlPrefix/GetDetail")

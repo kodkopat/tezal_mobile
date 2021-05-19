@@ -111,9 +111,9 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<OlderOrdersResultModel> getOlderOrders(lang, token, page) async {
+  Future<OlderOrdersResultModel> getOlderOrders(lang, token, skip, take) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OlderOrdersResultModel>(Options(
@@ -122,8 +122,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
                   r'lang': lang,
-                  r'token': token,
-                  r'page': page
+                  r'token': token
                 },
                 extra: _extra,
                 contentType: 'application/json')
