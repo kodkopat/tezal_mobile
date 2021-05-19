@@ -7,8 +7,10 @@ import '../../features/data/models/market/market_default_hours_result_model.dart
 import '../../features/data/models/market/market_profile_result_model.dart';
 import '../../features/data/models/market/order_comments_result_model.dart';
 import '../../features/data/models/market/orders_result_model.dart';
+import '../../features/data/models/market/product_comments_result_model.dart';
 import '../../features/data/models/market/product_result_model.dart';
 import '../../features/data/repositories/market_order_repository.dart';
+import '../../features/data/repositories/market_product_repository.dart';
 import '../../features/presentation/market_pages/add_product/add_product_page.dart';
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
 import '../../features/presentation/market_pages/comment_reply/comment_reply.dart';
@@ -21,6 +23,9 @@ import '../../features/presentation/market_pages/order_comments/order_comments_p
 import '../../features/presentation/market_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/market_pages/orders/orders_page.dart';
 import '../../features/presentation/market_pages/photos/photos_page.dart';
+import '../../features/presentation/market_pages/product_comment_reply/product_comment_reply_page.dart';
+import '../../features/presentation/market_pages/product_comments/product_comments_page.dart';
+import '../../features/presentation/market_pages/product_detail/product_detail_page.dart';
 import '../../features/presentation/market_pages/products/products_page.dart';
 import '../../features/presentation/market_pages/profile/profile_page.dart';
 import '../../features/presentation/market_pages/profile_info/profile_info_page.dart';
@@ -30,6 +35,7 @@ import '../../features/presentation/market_pages/wallet_withdrawal/wallet_withdr
 import '../../features/presentation/market_pages/wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
 import '../../features/presentation/providers/market_providers/order_comments_notifier.dart';
 import '../../features/presentation/providers/market_providers/order_notifier.dart';
+import '../../features/presentation/providers/market_providers/product_comments_notifier.dart';
 
 void createMarketRoutes(Sailor sailor) {
   sailor.addRoutes(
@@ -59,6 +65,21 @@ void createMarketRoutes(Sailor sailor) {
         builder: (ctx, args, map) => ProfileInfoPage(),
       ),
       SailorRoute(
+        name: ProductDetailPage.route,
+        builder: (ctx, args, map) {
+          final product = map.param<ProductResultModel>("product");
+
+          return ProductDetailPage(product: product);
+        },
+        params: [
+          SailorParam<ProductResultModel>(
+            name: "product",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
         name: EditProfilePage.route,
         builder: (ctx, args, map) {
           final marketProfile =
@@ -81,27 +102,6 @@ void createMarketRoutes(Sailor sailor) {
       SailorRoute(
         name: DefaultHoursPage.route,
         builder: (ctx, args, map) => DefaultHoursPage(),
-      ),
-      SailorRoute(
-        name: CommentsPage.route,
-        builder: (ctx, args, map) => CommentsPage(),
-      ),
-      SailorRoute(
-        name: CommentReplyPage.route,
-        builder: (ctx, args, map) {
-          final marketComment = map.param<MarketComment>("marketComment");
-
-          return CommentReplyPage(
-            marketComment: marketComment,
-          );
-        },
-        params: [
-          SailorParam<MarketComment>(
-            name: "marketComment",
-            isRequired: true,
-            defaultValue: null,
-          ),
-        ],
       ),
       SailorRoute(
         name: EditDefaultHoursPage.route,
@@ -136,6 +136,27 @@ void createMarketRoutes(Sailor sailor) {
         params: [
           SailorParam<MarketOrder>(
             name: "marketOrder",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
+        name: CommentsPage.route,
+        builder: (ctx, args, map) => CommentsPage(),
+      ),
+      SailorRoute(
+        name: CommentReplyPage.route,
+        builder: (ctx, args, map) {
+          final marketComment = map.param<MarketComment>("marketComment");
+
+          return CommentReplyPage(
+            marketComment: marketComment,
+          );
+        },
+        params: [
+          SailorParam<MarketComment>(
+            name: "marketComment",
             isRequired: true,
             defaultValue: null,
           ),
@@ -182,6 +203,46 @@ void createMarketRoutes(Sailor sailor) {
         ],
       ),
       SailorRoute(
+        name: ProductCommentsPage.route,
+        builder: (ctx, args, map) {
+          final productId = map.param<String>("productId");
+
+          return ChangeNotifierProvider(
+            create: (ctx) => ProductCommentsNotifier(
+              MarketProductRepository(),
+            ),
+            child: ProductCommentsPage(productId: productId),
+          );
+        },
+        params: [
+          SailorParam<String>(
+            name: "productId",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
+        name: ProductCommentReplyPage.route,
+        builder: (ctx, args, map) {
+          final productComment = map.param<ProductComment>("productComment");
+
+          return ChangeNotifierProvider(
+            create: (ctx) => ProductCommentsNotifier(
+              MarketProductRepository(),
+            ),
+            child: ProductCommentReplyPage(productComment: productComment),
+          );
+        },
+        params: [
+          SailorParam<ProductComment>(
+            name: "productComment",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
         name: WithdrawalWalletPage.route,
         builder: (ctx, args, map) => WithdrawalWalletPage(),
       ),
@@ -197,12 +258,21 @@ void createMarketRoutes(Sailor sailor) {
         name: AddProductPage.route,
         builder: (ctx, args, map) {
           final product = map.param<ProductResultModel>("product");
+          final isProductExist = map.param<bool>("isProductExist");
 
-          return AddProductPage(product: product);
+          return AddProductPage(
+            product: product,
+            isProductExist: isProductExist,
+          );
         },
         params: [
           SailorParam<ProductResultModel>(
             name: "product",
+            isRequired: true,
+            defaultValue: null,
+          ),
+          SailorParam<bool>(
+            name: "isProductExist",
             isRequired: true,
             defaultValue: null,
           ),
