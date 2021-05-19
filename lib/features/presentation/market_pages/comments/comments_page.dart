@@ -24,13 +24,13 @@ class CommentsPage extends StatelessWidget {
           provider.fetchComments(context);
         }
 
-        return provider.commentsLoading
+        return provider.loading
             ? Center(child: AppLoading())
             : provider.marketComments == null
-                ? provider.commentsErrorMsg == null
+                ? provider.errorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.commentsErrorMsg,
+                    : Txt(provider.errorMsg,
                         style: AppTxtStyles().body..alignment.center())
                 : SingleChildScrollView(
                     padding: EdgeInsets.symmetric(horizontal: 16),
@@ -48,7 +48,7 @@ class CommentsPage extends StatelessWidget {
                             );
                           },
                         ),
-                        if (provider.commentsEnableLoadMoreData!)
+                        if (provider.enableLoadMoreOption!)
                           LoadMoreBtn(onTap: () {
                             provider.fetchComments(context);
                           }),
