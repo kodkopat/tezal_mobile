@@ -5,6 +5,7 @@ import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
 import '../../models/market/main_categories_result_model.dart';
 import '../../models/market/market_products_result_model.dart';
+import '../../models/market/product_comments_result_model.dart';
 import '../../models/market/products_result_model.dart';
 import '../../models/market/sub_categories_result_model.dart';
 
@@ -101,7 +102,7 @@ abstract class MarketProductRemoteDataSource {
 
   @GET("$_apiUrlPrefix/GetProductComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getProductComments(
+  Future<ProductCommentsResultModel> getProductComments(
     @Header("lang") String lang,
     @Header("token") String token,
     @Query("marketProductId") String marketProductId,
@@ -111,7 +112,7 @@ abstract class MarketProductRemoteDataSource {
 
   @POST("$_apiUrlPrefix/ReplyProductComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> replyProductComments(
+  Future<BaseApiResultModel> replyProductComments(
     @Header("lang") String lang,
     @Header("token") String token,
     @Field() String commentId,
