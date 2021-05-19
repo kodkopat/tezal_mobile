@@ -12,6 +12,7 @@ import '../data_sources/market_product/market_product_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/market/main_categories_result_model.dart';
 import '../models/market/market_products_result_model.dart';
+import '../models/market/product_comments_result_model.dart';
 import '../models/market/products_result_model.dart';
 import '../models/market/sub_categories_result_model.dart';
 import 'auth_repository.dart';
@@ -199,6 +200,50 @@ class MarketProductRepository {
         userLang,
         userToken,
         unknown,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, ProductCommentsResultModel>> getProductComments({
+    required String marketProductId,
+    required int skip,
+    required int take,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getProductComments(
+        userLang,
+        userToken,
+        marketProductId,
+        skip,
+        take,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> replyProductComments({
+    required String commentId,
+    required String reply,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.replyProductComments(
+        userLang,
+        userToken,
+        commentId,
+        reply,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
