@@ -162,7 +162,6 @@ class CustomerMarketRepository {
 
   Future<Either<Failure, dynamic>> addEditCommentRate({
     required String comment,
-    required int point,
     required String orderId,
     required int rate,
   }) async {
@@ -176,7 +175,6 @@ class CustomerMarketRepository {
         userLang,
         userToken,
         comment,
-        point,
         orderId,
         rate,
       );
