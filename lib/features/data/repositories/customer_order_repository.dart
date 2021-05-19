@@ -81,7 +81,8 @@ class CustomerOrderRepository {
   }
 
   Future<Either<Failure, OlderOrdersResultModel>> getOlderOrders({
-    required int page,
+    required int skip,
+    required int take,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -92,7 +93,8 @@ class CustomerOrderRepository {
       var result = await _remoteDataSource.getOlderOrders(
         userLang,
         userToken,
-        page,
+        skip,
+        take,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
