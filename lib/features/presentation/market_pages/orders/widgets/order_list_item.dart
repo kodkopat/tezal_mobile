@@ -105,7 +105,8 @@ class OrderListItem extends StatelessWidget {
   Widget get _fieldCustomerPhone {
     return OrderListItemField(
       title: "شماره تماس",
-      text: "${marketOrder.customerPhone}".isNotEmpty
+      text: "${marketOrder.customerPhone}".isNotEmpty &&
+              "${marketOrder.customerPhone}".length > 11
           ? "${marketOrder.customerPhone}".substring(0, 11)
           : "${marketOrder.customerPhone}",
       iconPath: "assets/images/ic_call.png",
