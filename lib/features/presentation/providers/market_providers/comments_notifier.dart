@@ -22,59 +22,59 @@ class CommentsNotifier extends ChangeNotifier {
 
   final MarketRepository marketRepo;
 
-  bool wasFetchCommentsCalled = false;
-  bool commentsLoading = true;
-  String? commentsErrorMsg;
-
-  int commentsSkip = 0;
-  int commentsTake = 10;
-  int? commentsTotalCount;
-  bool? commentsEnableLoadMoreData;
-
+  bool _wasFetchCommentsCalled = false;
+  bool get wasFetchCommentsCalled => _wasFetchCommentsCalled;
+  bool _loading = true;
+  bool get loading => _loading;
+  String? _errorMsg;
+  String? get errorMsg => _errorMsg;
+  bool? _enableLoadMoreOption;
+  bool? get enableLoadMoreOption => _enableLoadMoreOption;
+  int _skip = 0;
+  int _take = 10;
+  int? _totalCount;
   List<MarketComment>? marketComments;
 
   Future<void> fetchComments(BuildContext context) async {
-    if (!wasFetchCommentsCalled) {
-      wasFetchCommentsCalled = true;
+    if (!_wasFetchCommentsCalled) {
+      _wasFetchCommentsCalled = true;
       notifyListeners();
     }
 
-    if (commentsTotalCount == null) {
+    if (_totalCount == null) {
       var result = await marketRepo.getMarketComments(
-        skip: commentsSkip,
-        take: commentsTake,
+        skip: _skip,
+        take: _take,
       );
 
       result.fold(
-        (left) => commentsErrorMsg = left.message,
+        (left) => _errorMsg = left.message,
         (right) {
-          commentsTotalCount = right.data!.totalCount;
+          _totalCount = right.data!.totalCount;
           marketComments = right.data!.result;
-          commentsEnableLoadMoreData =
-              commentsTotalCount != marketComments!.length;
-          commentsSkip += commentsTake;
+          _enableLoadMoreOption = _totalCount != marketComments!.length;
+          _skip += _take;
         },
       );
 
-      commentsLoading = false;
+      _loading = false;
     } else {
-      if (commentsTotalCount == 0) return;
+      if (_totalCount == 0) return;
 
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
       var result = await marketRepo.getMarketComments(
-        skip: commentsSkip,
-        take: commentsTake,
+        skip: _skip,
+        take: _take,
       );
 
       result.fold(
-        (left) => commentsErrorMsg = left.message,
+        (left) => _errorMsg = left.message,
         (right) {
           marketComments!.addAll(right.data!.result!);
-          commentsEnableLoadMoreData =
-              commentsTotalCount != marketComments!.length;
-          commentsSkip += commentsTake;
+          _enableLoadMoreOption = _totalCount != marketComments!.length;
+          _skip += _take;
         },
       );
 
@@ -110,13 +110,13 @@ class CommentsNotifier extends ChangeNotifier {
   }
 
   void _refresh(BuildContext context) async {
-    wasFetchCommentsCalled = false;
-    commentsLoading = true;
-    commentsErrorMsg = null;
-    commentsSkip = 0;
-    commentsTake = 10;
-    commentsTotalCount = null;
-    commentsEnableLoadMoreData = null;
+    _wasFetchCommentsCalled = false;
+    _loading = true;
+    _errorMsg = null;
+    _skip = 0;
+    _take = 10;
+    _totalCount = null;
+    _enableLoadMoreOption = null;
     marketComments = null;
 
     fetchComments(context);

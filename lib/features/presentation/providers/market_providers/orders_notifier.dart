@@ -47,13 +47,13 @@ class OrdersNotifier extends ChangeNotifier {
   ];
 
   bool wasFetchOrdersCalled = false;
-  bool ordersLoading = true;
-  String? ordersErrorMsg;
+  bool loading = true;
+  String? errorMsg;
 
-  int ordersSkip = 0;
-  int ordersTake = 10;
-  int? ordersTotalCount;
-  bool? enableLoadMoreData;
+  int skip = 0;
+  int take = 10;
+  int? totalCount;
+  bool? enableLoadMoreOption;
 
   List<MarketOrder>? marketOrders;
 
@@ -102,10 +102,10 @@ class OrdersNotifier extends ChangeNotifier {
       }
     }
 
-    if (ordersTotalCount == null) {
+    if (totalCount == null) {
       var result = await marketOrderRepo.getOrders(
-        skip: ordersSkip,
-        take: ordersTake,
+        skip: skip,
+        take: take,
         status: orderStatusListIndex == null ? "" : "$orderStatusListIndex",
         dateAscescending: dateAscescending,
         distanceAscending: distanceAscending,
@@ -113,25 +113,25 @@ class OrdersNotifier extends ChangeNotifier {
       );
 
       result.fold(
-        (left) => ordersErrorMsg = left.message,
+        (left) => errorMsg = left.message,
         (right) {
-          ordersTotalCount = right.data!.totalCount;
+          totalCount = right.data!.totalCount;
           marketOrders = right.data!.result;
-          enableLoadMoreData = ordersTotalCount != marketOrders!.length;
-          ordersSkip += ordersTake;
+          enableLoadMoreOption = totalCount != marketOrders!.length;
+          skip += take;
         },
       );
 
-      ordersLoading = false;
+      loading = false;
     } else {
-      if (ordersTotalCount == 0) return;
+      if (totalCount == 0) return;
 
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
       var result = await marketOrderRepo.getOrders(
-        skip: ordersSkip,
-        take: ordersTake,
+        skip: skip,
+        take: take,
         status: orderStatusListIndex == null ? "" : "$orderStatusListIndex",
         dateAscescending: dateAscescending,
         distanceAscending: distanceAscending,
@@ -139,11 +139,11 @@ class OrdersNotifier extends ChangeNotifier {
       );
 
       result.fold(
-        (left) => ordersErrorMsg = left.message,
+        (left) => errorMsg = left.message,
         (right) {
           marketOrders!.addAll(right.data!.result!);
-          enableLoadMoreData = ordersTotalCount != marketOrders!.length;
-          ordersSkip += ordersTake;
+          enableLoadMoreOption = totalCount != marketOrders!.length;
+          skip += take;
         },
       );
 
@@ -151,7 +151,7 @@ class OrdersNotifier extends ChangeNotifier {
     }
 
     print("ordersLength: ${marketOrders!.length}\n");
-    print("ordersTotalCount: $ordersTotalCount\n");
+    print("ordersTotalCount: $totalCount\n");
 
     notifyListeners();
   }
@@ -161,13 +161,13 @@ class OrdersNotifier extends ChangeNotifier {
     orderSortListIndex = null;
     orderDirectionListIndex = null;
 
-    ordersLoading = true;
-    ordersErrorMsg = null;
+    loading = true;
+    errorMsg = null;
 
-    ordersSkip = 0;
-    ordersTake = 10;
-    ordersTotalCount = null;
-    enableLoadMoreData = null;
+    skip = 0;
+    take = 10;
+    totalCount = null;
+    enableLoadMoreOption = null;
     marketOrders = null;
 
     notifyListeners();
@@ -188,13 +188,13 @@ class OrdersNotifier extends ChangeNotifier {
     if (orderDirectionListIndex != null)
       this.orderDirectionListIndex = orderDirectionListIndex;
 
-    ordersLoading = true;
-    ordersErrorMsg = null;
+    loading = true;
+    errorMsg = null;
 
-    ordersSkip = 0;
-    ordersTake = 10;
-    ordersTotalCount = null;
-    enableLoadMoreData = null;
+    skip = 0;
+    take = 10;
+    totalCount = null;
+    enableLoadMoreOption = null;
     marketOrders = null;
 
     notifyListeners();
