@@ -69,7 +69,6 @@ abstract class CustomerMarketRemoteDataSource {
     @Header("lang") String lang,
     @Header("token") String token,
     @Field() String comment,
-    @Field() int point,
     @Field() String orderId,
     @Field() int rate,
   );

@@ -143,15 +143,10 @@ class _CustomerMarketRemoteDataSource
 
   @override
   Future<dynamic> addEditCommentRate(
-      lang, token, comment, point, orderId, rate) async {
+      lang, token, comment, orderId, rate) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {
-      'comment': comment,
-      'point': point,
-      'orderId': orderId,
-      'rate': rate
-    };
+    final _data = {'comment': comment, 'orderId': orderId, 'rate': rate};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
             headers: <String, dynamic>{
