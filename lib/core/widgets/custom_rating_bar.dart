@@ -8,7 +8,7 @@ import '../themes/app_theme.dart';
 import 'custom_slider_theme.dart';
 
 class CustomRatingBar extends StatefulWidget {
-  const CustomRatingBar({
+  CustomRatingBar({
     required this.labelText,
     required this.textCtrl,
   });

@@ -73,8 +73,9 @@ void createCustomerRoutes(Sailor sailor) {
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
-                create: (ctx) =>
-                    MarketDetailNotifier(CustomerMarketRepository()),
+                create: (ctx) => MarketDetailNotifier(
+                  CustomerMarketRepository(),
+                ),
               ),
               ChangeNotifierProvider(
                 create: (ctx) => MarketCommentsNotifier(
@@ -122,6 +123,7 @@ void createCustomerRoutes(Sailor sailor) {
         name: MarketMainCategoryPage.route,
         builder: (ctx, args, map) {
           final marketId = map.param<String>("marketId");
+
           return MarketMainCategoryPage(
             marketId: marketId,
           );
@@ -139,6 +141,7 @@ void createCustomerRoutes(Sailor sailor) {
         builder: (ctx, args, map) {
           final marketId = map.param<String>("marketId");
           final mainCategoryId = map.param<String>("mainCategoryId");
+
           return MarketSubCategoryPage(
             marketId: marketId,
             mainCategoryId: mainCategoryId,
@@ -301,6 +304,7 @@ void createCustomerRoutes(Sailor sailor) {
         name: MarketCommentPage.route,
         builder: (ctx, args, map) {
           final marketName = map.param<String>("marketName");
+
           return MarketCommentPage(marketName: marketName);
         },
         params: [
@@ -352,6 +356,7 @@ void createCustomerRoutes(Sailor sailor) {
         name: AddressDetailPage.route,
         builder: (ctx, args, map) {
           final addressId = map.param<String>("addressId");
+
           return AddressDetailPage(addressId: addressId);
         },
         params: [

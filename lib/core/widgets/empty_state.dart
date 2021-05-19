@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import '../styles/txt_styles.dart';
 
 class EmptyState extends StatelessWidget {
-  const EmptyState({required this.text});
+  EmptyState({required this.text});
+
   final String text;
 
   @override

@@ -4,7 +4,7 @@ import 'device_screen_type.dart';
 import 'responsive_builder.dart';
 
 class ScreenTypeLayout extends StatelessWidget {
-  const ScreenTypeLayout({
+  ScreenTypeLayout({
     required this.mobile,
     this.tablet,
     this.desktop,

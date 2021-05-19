@@ -4,10 +4,12 @@ import 'device_screen_type.dart';
 import 'sizing_information.dart';
 
 class ResponsiveBuilder extends StatelessWidget {
-  const ResponsiveBuilder({required this.builder});
+  ResponsiveBuilder({required this.builder});
 
   final Widget Function(
-      BuildContext context, SizingInformation sizingInformation) builder;
+    BuildContext context,
+    SizingInformation sizingInformation,
+  ) builder;
 
   DeviceScreenType getDeviceType(MediaQueryData mediaQuery) {
     var orientation = mediaQuery.orientation;

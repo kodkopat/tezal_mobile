@@ -8,7 +8,7 @@ import '../styles/txt_styles.dart';
 import 'carousel_image_slider_modal.dart';
 
 class CarouselImageSlider extends StatefulWidget {
-  const CarouselImageSlider({required this.images});
+  CarouselImageSlider({required this.images});
 
   final List<String> images;
 

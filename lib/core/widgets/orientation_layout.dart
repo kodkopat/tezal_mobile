@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class OrientationLayout extends StatelessWidget {
-  const OrientationLayout({
+  OrientationLayout({
     required this.portrait,
     this.landscape,
   });

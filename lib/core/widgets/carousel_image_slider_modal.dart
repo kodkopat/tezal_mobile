@@ -10,7 +10,7 @@ import 'package:tezal/core/page_routes/base_routes.dart';
 import '../styles/txt_styles.dart';
 
 class ModalCarouselImageSlider extends StatefulWidget {
-  const ModalCarouselImageSlider({
+  ModalCarouselImageSlider({
     required this.imagePathList,
     required this.selectedIndex,
   });

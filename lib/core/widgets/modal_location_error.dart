@@ -6,7 +6,7 @@ import '../styles/txt_styles.dart';
 import '../themes/app_theme.dart';
 
 class LocationErrorModal extends StatelessWidget {
-  const LocationErrorModal({
+  LocationErrorModal({
     required this.onTryAgainBtnTap,
   });
 
