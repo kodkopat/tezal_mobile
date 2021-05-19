@@ -84,7 +84,7 @@ class ProductListItemCounterState extends State<ProductListItemCounter>
                                   widget.step is double ? 1 : 0) +
                               " ${widget.unit} ",
                           gesture: Gestures()..onTap(() {}),
-                          style: AppTxtStyles().footNote,
+                          style: AppTxtStyles().footNote..textAlign.center(),
                         ),
                 ),
                 Expanded(
