@@ -1,5 +1,8 @@
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/market/orders_result_model.dart';
 import 'order_detail_list_item.dart';
 
@@ -16,17 +19,32 @@ class OrderDetailList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: marketOrderItems.length,
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return OrderDetailListItem(
-          marketOrderItem: marketOrderItems[index],
-          marketOrderPhoto: marketOrderPhotos[index],
-          onTap: () => onItemTap(index),
-        );
-      },
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Txt(
+          "محصولات موجود در سفارش",
+          style: AppTxtStyles().body
+            ..padding(all: 4)
+            ..bold(),
+        ),
+        SizedBox(
+          height: 224,
+          child: ListView.separated(
+            itemCount: marketOrderItems.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return OrderDetailListItem(
+                marketOrderItem: marketOrderItems[index],
+                marketOrderPhoto: marketOrderPhotos[index],
+                onTap: () => onItemTap(index),
+              );
+            },
+            separatorBuilder: (context, index) => SizedBox(width: 16),
+          ),
+        ),
+      ],
     );
   }
 }

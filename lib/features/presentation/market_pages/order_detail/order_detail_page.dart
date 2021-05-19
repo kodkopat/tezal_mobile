@@ -49,6 +49,7 @@ class OrderDetailPage extends StatelessWidget {
                   marketOrderPhotos: data as List<String>,
                   onItemTap: (index) {},
                 ),
+                SizedBox(height: 8),
                 Parent(
                   gesture: Gestures()
                     ..onTap(() {

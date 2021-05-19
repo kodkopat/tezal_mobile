@@ -25,8 +25,8 @@ class OrderDetailListItem extends StatelessWidget {
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
-        ..margin(vertical: 8)
-        ..padding(horizontal: 8, vertical: 8)
+        ..width(144)
+        ..padding(horizontal: 4, vertical: 4)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)
         ..boxShadow(
@@ -39,110 +39,56 @@ class OrderDetailListItem extends StatelessWidget {
       child: Column(
         textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            textDirection: TextDirection.rtl,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Parent(
-                style: ParentStyle()
-                  ..width(96)
-                  ..height(96)
-                  ..borderRadius(all: 8)
-                  ..background.image(
-                    alignment: Alignment.center,
-                    path: "assets/images/img_placeholder.jpg",
-                    fit: BoxFit.fill,
-                  ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                  child: _futureImgFile,
-                ),
+          Parent(
+            style: ParentStyle()
+              ..width(144)
+              ..height(112)
+              ..borderRadius(all: 6)
+              ..background.image(
+                alignment: Alignment.center,
+                path: "assets/images/img_placeholder.jpg",
+                fit: BoxFit.fill,
               ),
-              SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  textDirection: TextDirection.rtl,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Txt(
-                      "${marketOrderItem.productName}",
-                      style: AppTxtStyles().subHeading..bold(),
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      textDirection: TextDirection.rtl,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          textDirection: TextDirection.rtl,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            if (_generateDiscountedRate().isNotEmpty)
-                              _fieldTotalPrice(),
-                            _fieldTotalDiscountedPrice(),
-                          ],
-                        ),
-                        _fieldDiscountedRate(),
-                      ],
-                    ),
-                  ],
-                ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(
+                Radius.circular(6),
               ),
-            ],
+              child: Image.memory(
+                base64Decode(marketOrderPhoto),
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
-          SizedBox(height: 12),
+          Txt(
+            "${marketOrderItem.productName}",
+            style: AppTxtStyles().body
+              ..padding(right: 4)
+              ..textOverflow(TextOverflow.ellipsis)
+              ..maxLines(1),
+          ),
           Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _fieldOriginalPrice,
-              _verticalDivider,
-              _fieldDiscountedPrice,
-              _verticalDivider,
-              _fieldTotalDiscount,
+              Column(
+                textDirection: TextDirection.rtl,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _fieldTotalPrice(),
+                  _fieldTotalDiscountedPrice(),
+                ],
+              ),
+              _fieldDiscountedRate(),
             ],
           ),
         ],
       ),
     );
   }
-
-  Widget get _futureImgFile {
-    return Image.memory(
-      base64Decode(marketOrderPhoto),
-    ) /* CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: basketNotifier.customerProductRepo.productphoto(
-        id: product.id,
-        multi: false,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => SizedBox(),
-          (right) => Image.memory(
-            base64Decode(right.data.photos.first),
-          ),
-        );
-      },
-      errorBuilder: (context, data) => SizedBox(),
-    ) */
-        ;
-  }
-
-  Widget get _verticalDivider => SizedBox(
-        height: 40,
-        child: VerticalDivider(
-          color: Colors.black12,
-          thickness: 0.5,
-          width: 0,
-        ),
-      );
 
   Widget _fieldTotalPrice() {
     return RichText(
@@ -238,14 +184,18 @@ class OrderDetailListItem extends StatelessWidget {
   }
 
   String _generateDiscountedRate() {
-    num discountRateTxt = 100 -
-        (marketOrderItem.discountedPrice) *
-            100 /
-            (marketOrderItem.originalPrice);
-    if (discountRateTxt < 1)
+    var td = marketOrderItem.totalDiscount;
+    var tp = marketOrderItem.totalPrice;
+
+    if (td == null || td == 0) {
       return "";
-    else
-      return "${discountRateTxt.toStringAsFixed(1)}٪";
+    } else {
+      num discountRate = (td / tp) * 100;
+      if (discountRate < 1)
+        return "";
+      else
+        return "${discountRate.toStringAsFixed(1)}٪";
+    }
   }
 
   Widget get _fieldOriginalPrice => CustomRichText(
