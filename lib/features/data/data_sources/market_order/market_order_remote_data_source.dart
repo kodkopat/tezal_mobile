@@ -114,7 +114,7 @@ abstract class MarketOrderRemoteDataSource {
   Future<BaseApiResultModel> replyOrderComments(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Field("commentId") String commentId,
-    @Field("reply") String reply,
+    @Field() String commentId,
+    @Field() String reply,
   );
 }
