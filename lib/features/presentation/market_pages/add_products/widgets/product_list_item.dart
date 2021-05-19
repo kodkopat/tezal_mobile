@@ -19,12 +19,12 @@ class AddProductListItem extends StatelessWidget {
   AddProductListItem({
     required this.product,
     required this.onTap,
-    required this.onAddBtnTap,
+    required this.onEditTap,
   });
 
   final ProductResultModel product;
   final void Function() onTap;
-  final void Function() onAddBtnTap;
+  final void Function() onEditTap;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class AddProductListItem extends StatelessWidget {
                           style: AppTxtStyles().subHeading..bold(),
                         ),
                         Parent(
-                          gesture: Gestures()..onTap(onAddBtnTap),
+                          gesture: Gestures()..onTap(onEditTap),
                           style: ParentStyle()
                             ..width(48)
                             ..height(48)
@@ -87,7 +87,7 @@ class AddProductListItem extends StatelessWidget {
                             ..alignmentContent.center()
                             ..ripple(true),
                           child: Image.asset(
-                            "assets/images/ic_plus_square.png",
+                            "assets/images/ic_edit_square.png",
                             fit: BoxFit.contain,
                             color: Colors.black26,
                             width: 24,
@@ -118,7 +118,11 @@ class AddProductListItem extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          Divider(
+            color: Colors.black12,
+            thickness: 0.5,
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -135,24 +139,22 @@ class AddProductListItem extends StatelessWidget {
     );
   }
 
-  Widget get _futureImgFile {
-    print("productId: ${product.id}\n");
-    return CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-      future: SharedApplicationRepository().getProductPhoto(
-        productId: product.id,
-      ),
-      successBuilder: (context, data) {
-        print("photoData: $data\n");
-        return data!.fold(
-          (left) => SizedBox(),
-          (right) => Image.memory(
-            base64Decode(right.data!.photo),
-          ),
-        );
-      },
-      errorBuilder: (context, data) => SizedBox(),
-    );
-  }
+  Widget get _futureImgFile =>
+      CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
+        future: SharedApplicationRepository().getProductPhoto(
+          productId: product.id,
+        ),
+        successBuilder: (context, data) {
+          print("photoData: $data\n");
+          return data!.fold(
+            (left) => SizedBox(),
+            (right) => Image.memory(
+              base64Decode(right.data!.photo),
+            ),
+          );
+        },
+        errorBuilder: (context, data) => SizedBox(),
+      );
 
   Widget get _verticalDivider => SizedBox(
         height: 40,
@@ -255,11 +257,14 @@ class AddProductListItem extends StatelessWidget {
   }
 
   String _generateDiscountedRate() {
-    if (product.originalPrice == null || product.discountedPrice == null) {
-      return "-";
+    var op = product.originalPrice;
+    var dp = product.discountedPrice;
+
+    if (op == null || dp == null) {
+      return "";
     }
-    num discountRateTxt =
-        100 - (product.discountedPrice) * 100 / (product.originalPrice);
+
+    num discountRateTxt = (dp / op) * 100;
     if (discountRateTxt < 1)
       return "";
     else

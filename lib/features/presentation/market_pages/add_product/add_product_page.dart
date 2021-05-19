@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
@@ -12,13 +13,18 @@ import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/models/market/product_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/products_notifier.dart';
+import '../../providers/market_providers/sub_category_notifier.dart';
 
 class AddProductPage extends StatefulWidget {
   static const route = "/market_add_product";
 
-  AddProductPage({required this.product});
+  AddProductPage({
+    required this.product,
+    required this.isProductExist,
+  });
 
   final ProductResultModel product;
+  final bool isProductExist;
 
   @override
   _AddProductPageState createState() => _AddProductPageState();
@@ -67,7 +73,7 @@ class _AddProductPageState extends State<AddProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "افزودن محصول",
+        text: widget.isProductExist ? "افزودن محصول" : "ویرایش محصول",
         showBackBtn: true,
       ),
       body: Form(
@@ -153,6 +159,26 @@ class _AddProductPageState extends State<AddProductPage> {
                   }
                 },
               ),
+              if (widget.isProductExist) const SizedBox(height: 8),
+              if (widget.isProductExist)
+                ActionBtn(
+                  text: "حذف محصول",
+                  onTap: () async {
+                    var productsNotifier = Provider.of<ProductsNotifier>(
+                      context,
+                      listen: false,
+                    );
+
+                    await productsNotifier.removeFromMarketProducts(
+                      context,
+                      productId: widget.product.id,
+                    );
+
+                    var subCategoryNotifier = Get.find<SubCategoryNotifier>();
+                    subCategoryNotifier.refreshProducts();
+                  },
+                  background: Colors.red,
+                ),
               const SizedBox(height: 16),
               Visibility(
                 visible: errorVisibility,
