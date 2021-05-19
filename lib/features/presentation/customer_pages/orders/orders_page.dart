@@ -18,33 +18,30 @@ class OrdersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var consumer = Consumer<OrderNotifier>(
       builder: (context, provider, child) {
-        if (provider.olderOrders == null) {
+        if (!provider.wasFetchOlderOrdersCalled) {
           provider.fetchOlderOrders(context);
         }
 
-        return provider.olderOrdersLoading
+        return provider.loading
             ? AppLoading()
-            : provider.olderOrders == null
-                ? provider.olderOrdersErrorMsg == null
-                    ? Txt("لیست سفارشات شما خالی است",
+            : provider.orders == null
+                ? provider.errorMsg == null
+                    ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.olderOrdersErrorMsg!,
+                    : Txt(provider.errorMsg,
                         style: AppTxtStyles().body..alignment.center())
-                : provider.olderOrders!.isEmpty
-                    ? Txt("لیست سفارشات شما خالی است",
-                        style: AppTxtStyles().body..alignment.center())
-                    : SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            OlderOrderList(orderList: provider.olderOrders!),
-                            if (provider.enableLoadMoreData!)
-                              LoadMoreBtn(onTap: () {
-                                provider.fetchOlderOrders(context);
-                              })
-                          ],
-                        ),
-                      );
+                : SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        OlderOrderList(orderList: provider.orders!),
+                        if (provider.enableLoadMoreOption!)
+                          LoadMoreBtn(onTap: () {
+                            provider.fetchOlderOrders(context);
+                          })
+                      ],
+                    ),
+                  );
       },
     );
 

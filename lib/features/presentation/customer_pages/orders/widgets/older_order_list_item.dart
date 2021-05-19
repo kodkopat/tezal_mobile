@@ -9,7 +9,7 @@ import '../../../../data/models/customer/older_orders_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 
 class OlderOrderListItem extends StatelessWidget {
-  const OlderOrderListItem({
+  OlderOrderListItem({
     required this.order,
     required this.onTap,
   });
