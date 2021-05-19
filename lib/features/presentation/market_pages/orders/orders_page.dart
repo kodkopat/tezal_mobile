@@ -29,13 +29,13 @@ class OrdersPage extends StatelessWidget {
           provider.fetchOrders(context);
         }
 
-        return provider.ordersLoading
+        return provider.loading
             ? Center(child: AppLoading())
             : provider.marketOrders == null
-                ? provider.ordersErrorMsg == null
+                ? provider.errorMsg == null
                     ? Txt("خطای بارگذاری اطلاعات",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.ordersErrorMsg,
+                    : Txt(provider.errorMsg,
                         style: AppTxtStyles().body..alignment.center())
                 : Stack(
                     children: [
@@ -54,7 +54,7 @@ class OrdersPage extends StatelessWidget {
                                 );
                               },
                             ),
-                            if (provider.enableLoadMoreData!)
+                            if (provider.enableLoadMoreOption!)
                               LoadMoreBtn(onTap: () {
                                 provider.fetchOrders(context);
                               }),
