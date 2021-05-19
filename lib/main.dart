@@ -28,7 +28,6 @@ Future<void> main() async {
   market_routes.createMarketRoutes(Routes.sailor);
 
   runApp(
-    // Phoenix(child:),
     App(),
   );
 }
