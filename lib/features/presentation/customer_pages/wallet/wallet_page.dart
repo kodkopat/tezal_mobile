@@ -44,7 +44,7 @@ class WalletPage extends StatelessWidget {
                           style: AppTxtStyles().footNote..alignment.center(),
                         ),
                         Txt(
-                          "${intl.NumberFormat("#,000").format(provider.walletInfoResultModel!.data.balance)}",
+                          "${intl.NumberFormat("#,000").format(provider.walletInfoResultModel!.data!.balance)}",
                           style: AppTxtStyles().title
                             ..bold()
                             ..alignment.center(),
