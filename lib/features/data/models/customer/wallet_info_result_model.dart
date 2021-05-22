@@ -7,7 +7,7 @@ class WalletInfoResultModel {
 
   final success;
   final message;
-  final data;
+  final Data? data;
 
   factory WalletInfoResultModel.fromJson(Map<String, dynamic> json) =>
       WalletInfoResultModel(
@@ -19,7 +19,7 @@ class WalletInfoResultModel {
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : data.toJson(),
+        "data": data == null ? null : data!.toJson(),
       };
 }
 
