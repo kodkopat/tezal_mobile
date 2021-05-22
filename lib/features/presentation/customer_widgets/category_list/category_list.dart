@@ -6,19 +6,16 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../customer_pages/market_category/market_category.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
 import 'category_list_item.dart';
 
 class CategoryList extends StatelessWidget {
   const CategoryList({
     required this.marketId,
     required this.categories,
-    required this.basketNotifier,
   });
 
   final String marketId;
   final List<Category> categories;
-  final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,6 @@ class CategoryList extends StatelessWidget {
             itemBuilder: (context, index) {
               return CategoryListItem(
                 category: categories[index],
-                basketNotifier: basketNotifier,
                 onCategoryTap: () {
                   Routes.sailor.navigate(
                     MarketCategoryPage.route,

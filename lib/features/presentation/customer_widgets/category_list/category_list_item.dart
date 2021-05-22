@@ -15,15 +15,16 @@ class CategoryListItem extends StatelessWidget {
   const CategoryListItem({
     required this.category,
     required this.onCategoryTap,
-    required this.basketNotifier,
   });
 
   final Category category;
   final void Function() onCategoryTap;
-  final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
+    var basketNotifier = Get.find<BasketNotifier>();
+    var marketDetailNotifier = Get.find<MarketDetailNotifier>();
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +57,6 @@ class CategoryListItem extends StatelessWidget {
           products: category.products!,
           onItemTap: (index) {
             var productId = category.products![index].id;
-            var marketDetailNotifier = Get.find<MarketDetailNotifier>();
 
             Routes.sailor.navigate(
               ProductDetailPage.route,
@@ -77,11 +77,13 @@ class CategoryListItem extends StatelessWidget {
             basketNotifier.addToBasket(
               productId: category.products![index].id,
             );
+            // marketDetailNotifier.refresh();
           },
           onItemRemoveFromBasket: (index) {
             basketNotifier.removeFromBasket(
               productId: category.products![index].id,
             );
+            // marketDetailNotifier.refresh();
           },
         ),
       ],
