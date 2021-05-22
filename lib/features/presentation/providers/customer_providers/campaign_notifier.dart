@@ -35,4 +35,13 @@ class CampaignNotifier extends ChangeNotifier {
     campaignLoading = false;
     notifyListeners();
   }
+
+  void refresh() async {
+    campaignLoading = true;
+    campaignErrorMsg = null;
+    campaigns = null;
+    notifyListeners();
+
+    await fetchCampaigns();
+  }
 }
