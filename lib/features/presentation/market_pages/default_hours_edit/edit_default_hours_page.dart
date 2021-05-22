@@ -35,16 +35,35 @@ class _EditDefaultHoursPageState extends State<EditDefaultHoursPage> {
     super.initState();
 
     updateMarketDefaultHours = [];
-    for (int i = 1; i < 8; i++) {
-      updateMarketDefaultHours.add(
-        UpdateMarketDefaultHoursModel(
-          dayOfWeek: i,
-          startHour: 0,
-          startMinute: 0,
-          endHour: 0,
-          endMinute: 0,
-        ),
-      );
+    for (int i = 1; i <= 7; i++) {
+      MarketDefaultHour? temp;
+      for (int j = 0; j < widget.marketDefaultHours.data!.length; j++) {
+        if (widget.marketDefaultHours.data![j].dayOfWeek == i) {
+          temp = widget.marketDefaultHours.data![j];
+        }
+      }
+
+      if (temp == null) {
+        updateMarketDefaultHours.add(
+          UpdateMarketDefaultHoursModel(
+            dayOfWeek: i,
+            startHour: 08,
+            startMinute: 00,
+            endHour: 22,
+            endMinute: 00,
+          ),
+        );
+      } else {
+        updateMarketDefaultHours.add(
+          UpdateMarketDefaultHoursModel(
+            dayOfWeek: i,
+            startHour: temp.startHour,
+            startMinute: temp.startMinute,
+            endHour: temp.endHour,
+            endMinute: temp.endMinute,
+          ),
+        );
+      }
     }
   }
 

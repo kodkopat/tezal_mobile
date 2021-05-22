@@ -3,8 +3,10 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../../app_localizations.dart';
 import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
+import '../../../../data/models/market/market_default_hours_result_model.dart';
 import '../../../../data/models/market/update_market_default_hours_model.dart';
 
 class EditMarketDefaultHoursListItem extends StatelessWidget {
@@ -39,31 +41,41 @@ class EditMarketDefaultHoursListItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Txt(
-            Lang.of(context).weekDay +
-                ": " +
-                "${updateMarketDefaultHour.dayOfWeek}",
+            _generateWeekdayText(context),
             style: AppTxtStyles().body..textAlign.start(),
           ),
           SizedBox(height: 4),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Txt(Lang.of(context).from + ": ", style: AppTxtStyles().body),
+              Txt(Lang.of(context).from + " ", style: AppTxtStyles().body),
               Row(
                 textDirection: TextDirection.ltr,
                 children: [
-                  _TimeTextInput(onChanged: startHourOnChanged),
+                  _TimeTextInput(
+                    defaultValue: "${updateMarketDefaultHour.startHour}",
+                    onChanged: startHourOnChanged,
+                  ),
                   Txt(" : ", style: AppTxtStyles().body),
-                  _TimeTextInput(onChanged: startMinuteOnChanged),
+                  _TimeTextInput(
+                    defaultValue: "${updateMarketDefaultHour.startMinute}",
+                    onChanged: startMinuteOnChanged,
+                  ),
                 ],
               ),
-              Txt(Lang.of(context).to + ": ", style: AppTxtStyles().body),
+              Txt(Lang.of(context).to + " ", style: AppTxtStyles().body),
               Row(
                 textDirection: TextDirection.ltr,
                 children: [
-                  _TimeTextInput(onChanged: endHourOnChanged),
+                  _TimeTextInput(
+                    defaultValue: "${updateMarketDefaultHour.endHour}",
+                    onChanged: endHourOnChanged,
+                  ),
                   Txt(" : ", style: AppTxtStyles().body),
-                  _TimeTextInput(onChanged: endMinuteOnChanged),
+                  _TimeTextInput(
+                    defaultValue: "${updateMarketDefaultHour.endMinute}",
+                    onChanged: endMinuteOnChanged,
+                  ),
                 ],
               ),
             ],
@@ -72,11 +84,25 @@ class EditMarketDefaultHoursListItem extends StatelessWidget {
       ),
     );
   }
+
+  String _generateWeekdayText(BuildContext context) {
+    String? countryCode = AppLocalizations.of(context)!.locale.countryCode;
+
+    return countryCode!.toLowerCase() == "fa"
+        ? MarketDefaultHour
+            .persianWeekdays["${updateMarketDefaultHour.dayOfWeek}"]!
+        : MarketDefaultHour
+            .englishWeekdays["${updateMarketDefaultHour.dayOfWeek}"]!;
+  }
 }
 
 class _TimeTextInput extends StatelessWidget {
-  _TimeTextInput({required this.onChanged});
+  _TimeTextInput({
+    required this.defaultValue,
+    required this.onChanged,
+  });
 
+  final String defaultValue;
   final void Function(String) onChanged;
 
   final _outlineInputBorder = OutlineInputBorder(
@@ -98,6 +124,7 @@ class _TimeTextInput extends StatelessWidget {
       height: 36,
       alignment: Alignment.center,
       child: TextFormField(
+        initialValue: defaultValue,
         maxLines: 1,
         onChanged: onChanged,
         textAlign: TextAlign.center,
