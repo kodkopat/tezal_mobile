@@ -37,15 +37,16 @@ class MarketDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    marketCommentsNotifier = Provider.of<MarketCommentsNotifier>(
-      context,
-      listen: false,
-    );
+    marketCommentsNotifier =
+        Provider.of<MarketCommentsNotifier>(context, listen: false);
+    Get.put<MarketCommentsNotifier>(marketCommentsNotifier);
 
-    basketNotifier = Provider.of<BasketNotifier>(
-      context,
-      listen: false,
-    );
+    basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
+    Get.put<BasketNotifier>(basketNotifier);
+
+    marketDetailNotifier =
+        Provider.of<MarketDetailNotifier>(context, listen: false);
+    Get.put<MarketDetailNotifier>(marketDetailNotifier);
 
     var consumer = Consumer<MarketDetailNotifier>(
       builder: (context, provider, child) {
@@ -155,7 +156,6 @@ class MarketDetailPage extends StatelessWidget {
     return CategoryList(
       marketId: marketId,
       categories: categories,
-      basketNotifier: basketNotifier,
     );
   }
 
