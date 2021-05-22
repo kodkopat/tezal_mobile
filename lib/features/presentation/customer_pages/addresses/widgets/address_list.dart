@@ -17,9 +17,9 @@ class AddressList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       itemCount: addresses.length,
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       itemBuilder: (context, index) {
         return AddressListItem(
           address: addresses[index],
@@ -30,13 +30,6 @@ class AddressList extends StatelessWidget {
             );
           },
           addressNotifier: addressNotifier,
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          color: Colors.black12,
-          thickness: 0.5,
-          height: 16,
         );
       },
     );
