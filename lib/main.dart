@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart' as riverpod;
 import 'package:provider/provider.dart';
 
 import 'app_localizations.dart';
@@ -28,7 +29,9 @@ Future<void> main() async {
   market_routes.createMarketRoutes(Routes.sailor);
 
   runApp(
-    App(),
+    riverpod.ProviderScope(
+      child: App(),
+    ),
   );
 }
 
