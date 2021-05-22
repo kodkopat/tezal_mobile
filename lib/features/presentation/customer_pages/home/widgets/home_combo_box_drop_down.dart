@@ -1,5 +1,8 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:tezal/features/presentation/providers/customer_providers/campaign_notifier.dart';
+import 'package:tezal/features/presentation/providers/customer_providers/market_notifier.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../data/models/customer/address_model.dart';
@@ -77,17 +80,23 @@ class _HomeComboBoxDropDownState extends State<HomeComboBoxDropDown> {
                       itemCount: widget.addresses!.length + 1,
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return index != widget.addresses!.length
+                        var addresses = widget.addresses!;
+
+                        return index != addresses.length
                             ? HomeComboBoxDropDownItem(
-                                text: widget.addresses![index].name,
-                                iconPath: widget.addresses![index].isDefault
+                                text: addresses[index].name,
+                                iconPath: addresses[index].isDefault
                                     ? "assets/images/ic_location_filled.png"
                                     : "assets/images/ic_location.png",
                                 onTap: () async {
                                   await widget.addressNotifier
                                       .setAddressDefault(
-                                    addressId: widget.addresses![index].id,
+                                    addressId: addresses[index].id,
                                   );
+
+                                  Get.find<MarketNotifier>().refresh(context);
+                                  Get.find<CampaignNotifier>().refresh();
+
                                   setState(() {
                                     showAllItems = !showAllItems;
                                   });

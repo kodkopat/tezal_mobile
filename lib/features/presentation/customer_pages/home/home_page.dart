@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/languages/language.dart';
@@ -21,10 +22,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var marketNotifier = Provider.of<MarketNotifier>(
+    MarketNotifier marketNotifier = Provider.of<MarketNotifier>(
       context,
       listen: false,
     );
+    Get.put<MarketNotifier>(marketNotifier);
+
+    CampaignNotifier campaignNotifier = Provider.of<CampaignNotifier>(
+      context,
+      listen: false,
+    );
+    Get.put<CampaignNotifier>(campaignNotifier);
 
     var campaignsConsumer = Consumer<CampaignNotifier>(
       builder: (context, provider, child) {
