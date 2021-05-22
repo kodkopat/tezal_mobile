@@ -9,57 +9,29 @@ import 'comments_list_item.dart';
 class CommentsList extends StatelessWidget {
   CommentsList({
     required this.comments,
+    required this.itemAbsorbing,
     required this.onItemTap,
-    this.showAllCommentOnTap,
-    this.enableHeader,
   });
 
   final List<MarketComment> comments;
+  final bool Function(int) itemAbsorbing;
   final void Function(int) onItemTap;
-  final void Function()? showAllCommentOnTap;
-  final bool? enableHeader;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (enableHeader ?? false)
-          Padding(
-            padding: EdgeInsets.fromLTRB(0, 16, 4, 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Txt(
-                  "نظرات کاربران",
-                  style: AppTxtStyles().body..bold(),
-                ),
-                Txt(
-                  "مشاهده همه نظرات \u00BB",
-                  gesture: Gestures()..onTap(showAllCommentOnTap ?? () {}),
-                  style: AppTxtStyles().footNote
-                    ..margin(top: 2)
-                    ..padding(horizontal: 4, vertical: 2)
-                    ..borderRadius(all: 4)
-                    ..ripple(true),
-                ),
-              ],
+    return comments.isEmpty
+        ? _emptyState
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: comments.length,
+            scrollDirection: Axis.vertical,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) => CommentsListItem(
+              comment: comments[index],
+              absorbing: itemAbsorbing(index),
+              onTap: () => onItemTap(index),
             ),
-          ),
-        comments.isEmpty
-            ? _emptyState
-            : ListView.builder(
-                shrinkWrap: true,
-                itemCount: comments.length,
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) => CommentsListItem(
-                  comment: comments[index],
-                  onTap: () => onItemTap(index),
-                ),
-              ),
-      ],
-    );
+          );
   }
 
   Widget get _emptyState => Txt(

@@ -36,7 +36,7 @@ class _CommentReplyPageState extends State<CommentReplyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SimpleAppBar(context).create(
-        text: "نظر شما",
+        text: "ارسال بازخورد",
         showBackBtn: true,
       ),
       body: SingleChildScrollView(
@@ -47,11 +47,12 @@ class _CommentReplyPageState extends State<CommentReplyPage> {
             children: [
               CommentsListItem(
                 comment: widget.marketComment,
+                absorbing: true,
                 onTap: () {},
               ),
               SizedBox(height: 4),
               CustomTextInput(
-                label: "نظر کاربر",
+                label: "متن بازخورد",
                 controller: commentBoxTxtCtrl,
                 validator: AppValidators.comment,
                 keyboardType: TextInputType.text,

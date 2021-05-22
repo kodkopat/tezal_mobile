@@ -39,13 +39,18 @@ class CommentsPage extends StatelessWidget {
                       children: [
                         CommentsList(
                           comments: provider.marketComments!,
+                          itemAbsorbing: (index) {
+                            var comment = provider.marketComments![index];
+                            return comment.reply != null;
+                          },
                           onItemTap: (index) {
-                            Routes.sailor.navigate(
-                              CommentReplyPage.route,
-                              params: {
-                                "marketComment": provider.marketComments![index]
-                              },
-                            );
+                            var comment = provider.marketComments![index];
+                            if (comment.reply == null) {
+                              Routes.sailor.navigate(
+                                CommentReplyPage.route,
+                                params: {"marketComment": comment},
+                              );
+                            }
                           },
                         ),
                         if (provider.enableLoadMoreOption!)
