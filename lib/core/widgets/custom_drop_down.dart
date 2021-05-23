@@ -29,7 +29,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
       textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Txt(
+        /*  Txt(
           widget.label,
           style: TxtStyle()
             ..textAlign.right()
@@ -40,12 +40,19 @@ class _CustomDropDownState extends State<CustomDropDown> {
             ..bold(),
         ),
         SizedBox(height: 2),
+         */
+
         Parent(
           style: ParentStyle()
             ..width(MediaQuery.of(context).size.width)
-            ..padding(horizontal: 12)
+            ..padding(horizontal: 16)
             ..borderRadius(all: 8)
-            ..background.color(Color(0xffF0F0F0)),
+            ..border(
+              all: 0.5,
+              color: Colors.black.withOpacity(0.5),
+              style: BorderStyle.solid,
+            )
+          /* ..background.color(Color(0xffF0F0F0)) */,
           child: DropdownButtonHideUnderline(
             child: Directionality(
               textDirection: TextDirection.rtl,
