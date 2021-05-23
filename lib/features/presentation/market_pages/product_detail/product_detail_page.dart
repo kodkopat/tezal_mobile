@@ -37,22 +37,15 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _listOfSections(BuildContext context, ProductResultModel product) {
     return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
       child: Column(
         textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 16),
           _sectionCarouselSlider(product),
           const SizedBox(height: 8),
-          _sectionTitleAndLike(product),
-          if (product.description != null)
-            Txt(
-              "${product.description}",
-              style: AppTxtStyles().body
-                ..margin(vertical: 4)
-                ..textAlign.right(),
-            ),
+          _sectionTitleAndCommentsBtn(product),
+          const SizedBox(height: 8),
           Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,51 +63,22 @@ class ProductDetailPage extends StatelessWidget {
               _fieldDiscountedRate(product),
             ],
           ),
-          SizedBox(height: 16),
-          Parent(
-            gesture: Gestures()
-              ..onTap(() {
-                Routes.sailor.navigate(
-                  ProductCommentsPage.route,
-                  params: {"productId": product.id},
-                );
-              }),
-            style: ParentStyle()
-              ..margin(vertical: 8)
-              ..padding(right: 16, left: 4, vertical: 4)
-              ..background.color(Colors.white)
-              ..borderRadius(all: 8)
-              ..boxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: Offset(0, 3.0),
-                blur: 6,
-                spread: 0,
-              )
-              ..ripple(true),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Txt(
-                  "مشاهده نظرات کاربران",
-                  style: AppTxtStyles().body..bold(),
-                ),
-                Parent(
-                  style: ParentStyle()
-                    ..width(48)
-                    ..height(48)
-                    ..alignmentContent.center(),
-                  child: Image.asset(
-                    "assets/images/ic_comment.png",
-                    color: Colors.black12,
-                    fit: BoxFit.contain,
-                    width: 24,
-                    height: 24,
-                  ),
-                ),
-              ],
+          if (product.description != null) const SizedBox(height: 8),
+          if (product.description != null)
+            Txt(
+              "توضیحات محصول",
+              style: AppTxtStyles().body
+                ..margin(vertical: 4)
+                ..textAlign.right()
+                ..bold(),
             ),
-          ),
-          SizedBox(height: 16),
+          if (product.description != null)
+            Txt(
+              "${product.description}",
+              style: AppTxtStyles().body
+                ..margin(vertical: 4)
+                ..textAlign.right(),
+            ),
         ],
       ),
     );
@@ -139,13 +103,40 @@ class ProductDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _sectionTitleAndLike(ProductResultModel product) {
-    return Txt(
-      "${product.name}",
-      style: AppTxtStyles().heading
-        ..textOverflow(TextOverflow.ellipsis)
-        ..maxLines(1)
-        ..bold(),
+  Widget _sectionTitleAndCommentsBtn(ProductResultModel product) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Txt(
+          "${product.name}",
+          style: AppTxtStyles().heading
+            ..textOverflow(TextOverflow.ellipsis)
+            ..maxLines(1)
+            ..bold(),
+        ),
+        Parent(
+          gesture: Gestures()
+            ..onTap(() {
+              Routes.sailor.navigate(
+                ProductCommentsPage.route,
+                params: {"productId": product.id},
+              );
+            }),
+          style: ParentStyle()
+            ..width(48)
+            ..height(48)
+            ..alignmentContent.center()
+            ..borderRadius(all: 24)
+            ..ripple(true),
+          child: Image.asset(
+            "assets/images/ic_comment.png",
+            color: Colors.black12,
+            fit: BoxFit.contain,
+            width: 24,
+            height: 24,
+          ),
+        ),
+      ],
     );
   }
 

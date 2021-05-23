@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
@@ -48,10 +49,10 @@ class SubCategoryView extends StatelessWidget {
                               id: e.productId,
                               name: e.productName,
                               createDate: e.productCreateDate,
-                              description: e.productDescription,
-                              discountedPrice: e.productDiscountedPrice,
-                              onSale: e.productOnSale,
-                              originalPrice: e.productOriginalPrice,
+                              description: e.description,
+                              discountedPrice: e.discountedPrice,
+                              onSale: e.onSale,
+                              originalPrice: e.originalPrice,
                               productUnit: e.productUnit,
                               step: e.productStep,
                             ),
@@ -63,10 +64,10 @@ class SubCategoryView extends StatelessWidget {
                           id: e.productId,
                           name: e.productName,
                           createDate: e.productCreateDate,
-                          description: e.productDescription,
-                          discountedPrice: e.productDiscountedPrice,
-                          onSale: e.productOnSale,
-                          originalPrice: e.productOriginalPrice,
+                          description: e.description,
+                          discountedPrice: e.discountedPrice,
+                          onSale: e.onSale,
+                          originalPrice: e.originalPrice,
                           productUnit: e.productUnit,
                           step: e.productStep,
                         );
@@ -79,16 +80,18 @@ class SubCategoryView extends StatelessWidget {
                       onItemEditTap: (index) async {
                         var e = provider.marketProductsResult!.data![index];
                         var product = ProductResultModel(
-                          id: e.productId,
+                          id: e.id,
                           name: e.productName,
                           createDate: e.productCreateDate,
-                          description: e.productDescription,
-                          discountedPrice: e.productDiscountedPrice,
-                          onSale: e.productOnSale,
-                          originalPrice: e.productOriginalPrice,
+                          description: e.description,
+                          discountedPrice: e.discountedPrice,
+                          onSale: e.onSale,
+                          originalPrice: e.originalPrice,
                           productUnit: e.productUnit,
-                          step: e.productStep,
+                          step: e.amount,
                         );
+
+                        Get.put<SubCategoryNotifier>(provider);
 
                         Routes.sailor.navigate(
                           AddProductPage.route,

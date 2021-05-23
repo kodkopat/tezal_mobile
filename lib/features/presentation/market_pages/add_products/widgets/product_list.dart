@@ -16,11 +16,17 @@ class AddProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return GridView.builder(
       shrinkWrap: true,
       itemCount: products.length,
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.symmetric(horizontal: 8),
       physics: NeverScrollableScrollPhysics(),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 4,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
+      ),
       itemBuilder: (context, index) {
         return AddProductListItem(
           product: products[index],
