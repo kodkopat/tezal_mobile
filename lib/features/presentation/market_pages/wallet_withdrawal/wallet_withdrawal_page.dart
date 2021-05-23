@@ -31,6 +31,9 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
+  ProfileNotifier? profileNotifier;
+  WalletNotifier? walletNotifier;
+
   @override
   void initState() {
     super.initState();
@@ -41,9 +44,12 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    var profileNotifier = Provider.of<ProfileNotifier>(context, listen: false);
-    shabaCtrl =
-        TextEditingController(text: "${profileNotifier.shabaNumber ?? ""}");
+    walletNotifier ??= Provider.of<WalletNotifier>(context, listen: false);
+    profileNotifier ??= Provider.of<ProfileNotifier>(context, listen: false);
+
+    shabaCtrl = TextEditingController(
+      text: "${profileNotifier!.shabaNumber ?? ""}",
+    );
 
     var consumer = Consumer<WalletNotifier>(
       builder: (context, provider, child) {
@@ -71,46 +77,20 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
                   keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 16),
-                CustomTextInput(
-                  controller: shabaCtrl,
-                  validator: AppValidators.numeric,
-                  label: Lang.of(context).marketProfileShabaNumber,
-                  textDirection: TextDirection.rtl,
-                  keyboardType: TextInputType.number,
+                AbsorbPointer(
+                  absorbing: true,
+                  child: CustomTextInput(
+                    controller: shabaCtrl,
+                    validator: AppValidators.numeric,
+                    label: Lang.of(context).marketProfileShabaNumber,
+                    textDirection: TextDirection.ltr,
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
                 const SizedBox(height: 16),
                 ActionBtn(
                   text: Lang.of(context).submit,
-                  onTap: () async {
-                    if ((formKey!.currentState as FormState).validate()) {
-                      var prgDialog = AppProgressDialog(context).instance;
-                      prgDialog.show();
-
-                      var withdrawalReqResult =
-                          await provider.marketWalletRepo.withdrawalRequest(
-                        amount: double.parse(amountCtrl.text),
-                        description: descriptionCtrl.text,
-                      );
-
-                      prgDialog.hide();
-
-                      withdrawalReqResult.fold(
-                        (left) {
-                          setState(() {
-                            errorTxt = left.message;
-                            errorVisibility = true;
-
-                            // this method must be deleted from this section
-                            provider.refresh(context);
-                          });
-                        },
-                        (right) async {
-                          provider.refresh(context);
-                          Routes.sailor.pop();
-                        },
-                      );
-                    }
-                  },
+                  onTap: _submitOnTap,
                 ),
                 const SizedBox(height: 16),
                 Visibility(
@@ -140,5 +120,33 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
       ),
       body: consumer,
     );
+  }
+
+  void _submitOnTap() async {
+    if ((formKey!.currentState as FormState).validate()) {
+      var prgDialog = AppProgressDialog(context).instance;
+      prgDialog.show();
+
+      var withdrawalReqResult =
+          await walletNotifier!.marketWalletRepo.withdrawalRequest(
+        amount: double.parse(amountCtrl.text),
+        description: descriptionCtrl.text,
+      );
+
+      prgDialog.hide();
+
+      withdrawalReqResult.fold(
+        (left) {
+          setState(() {
+            errorTxt = left.message;
+            errorVisibility = true;
+          });
+        },
+        (right) async {
+          walletNotifier!.refresh(context);
+          Routes.sailor.pop();
+        },
+      );
+    }
   }
 }
