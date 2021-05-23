@@ -46,23 +46,23 @@ class MarketDefaultHour {
   final startMinute;
 
   static final Map<String, String> persianWeekdays = {
-    "1": "شنبه",
-    "2": "یکشنبه",
-    "3": "دوشنبه",
-    "4": "سه‌شنبه",
-    "5": "چهارشنبه",
-    "6": "پنج‌شنبه",
-    "7": "جمعه",
+    "0": "شنبه",
+    "1": "یکشنبه",
+    "2": "دوشنبه",
+    "3": "سه‌شنبه",
+    "4": "چهارشنبه",
+    "5": "پنج‌شنبه",
+    "6": "جمعه",
   };
 
   static final Map<String, String> englishWeekdays = {
-    "1": "Monday",
-    "2": "Tuesday",
-    "3": "Wednesday",
-    "4": "Thursday",
-    "5": "Friday",
-    "6": "Saturday",
-    "7": "Sunday",
+    "0": "Monday",
+    "1": "Tuesday",
+    "2": "Wednesday",
+    "3": "Thursday",
+    "4": "Friday",
+    "5": "Saturday",
+    "6": "Sunday",
   };
 
   factory MarketDefaultHour.fromJson(Map<String, dynamic> json) =>

@@ -35,7 +35,7 @@ class _EditDefaultHoursPageState extends State<EditDefaultHoursPage> {
     super.initState();
 
     updateMarketDefaultHours = [];
-    for (int i = 1; i <= 7; i++) {
+    for (int i = 0; i < 7; i++) {
       MarketDefaultHour? temp;
       for (int j = 0; j < widget.marketDefaultHours.data!.length; j++) {
         if (widget.marketDefaultHours.data![j].dayOfWeek == i) {
