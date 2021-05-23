@@ -47,11 +47,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
             textDirection: TextDirection.rtl,
             children: [
-              const SizedBox(height: 16),
               CustomTextInput(
                 controller: nameCtrl..text = widget.marketProfile.data!.name,
                 validator: AppValidators.name,
@@ -94,6 +93,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 label: Lang.of(context).marketProfileAddress,
                 textDirection: TextDirection.rtl,
                 keyboardType: TextInputType.text,
+                maxLine: 2,
               ),
               const SizedBox(height: 16),
               CustomTextInput(
