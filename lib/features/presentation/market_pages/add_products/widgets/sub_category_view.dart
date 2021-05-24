@@ -9,9 +9,9 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../providers/market_providers/sub_category_notifier.dart';
 import '../../add_product/add_product_page.dart';
+import '../../add_product_draft/add_product_draft_page.dart';
 import '../../product_detail/product_detail_page.dart';
 import 'product_list.dart';
-import 'search_box.dart';
 
 class SubCategoryView extends StatelessWidget {
   SubCategoryView({
@@ -46,19 +46,6 @@ class SubCategoryView extends StatelessWidget {
                 : SingleChildScrollView(
                     child: Column(
                       children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: SearchBox(
-                            controller: searchCtrl,
-                            onSearchTap: () {
-                              provider.fetchNotListedProducts(
-                                mainCategoryId: mainCategoryId,
-                                subCategoryId: subCategoryId,
-                                term: searchCtrl.text.trim(),
-                              );
-                            },
-                          ),
-                        ),
                         AddProductList(
                           products: provider.notListedProductsResult!.data!,
                           onItemTap: (index) {
@@ -79,6 +66,25 @@ class SubCategoryView extends StatelessWidget {
                                 "product": provider
                                     .notListedProductsResult!.data![index],
                                 "isProductExist": false,
+                              },
+                            );
+                          },
+                          onAddBtnTap: (index) {
+                            var mainCategoryName =
+                                Get.find<String>(tag: "$mainCategoryId");
+                            var subCategoryName =
+                                Get.find<String>(tag: "$subCategoryId");
+
+                            print("mainCategoryName: $mainCategoryName\n");
+                            print("subCategoryName: $subCategoryName\n");
+
+                            Routes.sailor.navigate(
+                              AddProductDraftPage.route,
+                              params: {
+                                "mainCategoryId": mainCategoryId,
+                                "mainCategoryName": mainCategoryName,
+                                "subCategoryId": subCategoryId,
+                                "subCategoryName": subCategoryName,
                               },
                             );
                           },
