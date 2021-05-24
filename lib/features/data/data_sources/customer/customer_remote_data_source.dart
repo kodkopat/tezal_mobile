@@ -25,10 +25,7 @@ abstract class CustomerRemoteDataSource {
   );
 
   @POST("$_apiUrlPrefix/ChangeCustomerProfile")
-  @Headers({
-    "Content-Type": "application/json" /* "multipart/form-data" */,
-    "Accept": "text/plain"
-  })
+  @Headers({"Content-Type": "multipart/form-data", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeCustomerProfile(
     @Header("lang") String lang,
     @Header("token") String token,

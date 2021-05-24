@@ -48,13 +48,13 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
         _setStreamType<BaseApiResultModel>(Options(
                 method: 'POST',
                 headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
+                  r'Content-Type': 'multipart/form-data',
                   r'Accept': 'text/plain',
                   r'lang': lang,
                   r'token': token
                 },
                 extra: _extra,
-                contentType: 'application/json')
+                contentType: 'multipart/form-data')
             .compose(_dio.options, 'Customer/ChangeCustomerProfile',
                 queryParameters: queryParameters, data: _data)
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
