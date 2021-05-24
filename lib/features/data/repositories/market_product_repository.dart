@@ -96,9 +96,9 @@ class MarketProductRepository {
   }
 
   Future<Either<Failure, ProductsResultModel>> getNotListedProducts({
-    required String mainCategoryId,
-    required String subCategoryId,
-    required String terms,
+    String? mainCategoryId,
+    String? subCategoryId,
+    String? terms,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));

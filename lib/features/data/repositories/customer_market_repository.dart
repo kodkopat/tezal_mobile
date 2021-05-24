@@ -42,6 +42,44 @@ class CustomerMarketRepository {
   final CustomerMarketLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
+  Future<Either<Failure, BaseApiResultModel>> like({
+    required String marketId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.like(
+        userLang,
+        userToken,
+        marketId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, BaseApiResultModel>> unLike({
+    required String marketId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.unLike(
+        userLang,
+        userToken,
+        marketId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
   Future<Either<Failure, NearByMarketsResultModel>> getNearByMarkets({
     required int maxDistance,
     required int page,
