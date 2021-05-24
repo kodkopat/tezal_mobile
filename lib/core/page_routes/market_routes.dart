@@ -12,6 +12,7 @@ import '../../features/data/models/market/product_result_model.dart';
 import '../../features/data/repositories/market_order_repository.dart';
 import '../../features/data/repositories/market_product_repository.dart';
 import '../../features/presentation/market_pages/add_product/add_product_page.dart';
+import '../../features/presentation/market_pages/add_product_draft/add_product_draft_page.dart';
 import '../../features/presentation/market_pages/add_products/add_products_page.dart';
 import '../../features/presentation/market_pages/comment_reply/comment_reply.dart';
 import '../../features/presentation/market_pages/comments/comments_page.dart';
@@ -30,6 +31,7 @@ import '../../features/presentation/market_pages/products/products_page.dart';
 import '../../features/presentation/market_pages/profile/profile_page.dart';
 import '../../features/presentation/market_pages/profile_info/profile_info_page.dart';
 import '../../features/presentation/market_pages/profile_info_edit/edit_profile_page.dart';
+import '../../features/presentation/market_pages/search_products/search_products_page.dart';
 import '../../features/presentation/market_pages/wallet/wallet_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal/wallet_withdrawal_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
@@ -63,6 +65,10 @@ void createMarketRoutes(Sailor sailor) {
       SailorRoute(
         name: ProfileInfoPage.route,
         builder: (ctx, args, map) => ProfileInfoPage(),
+      ),
+      SailorRoute(
+        name: SearchProductsPage.route,
+        builder: (ctx, args, map) => SearchProductsPage(),
       ),
       SailorRoute(
         name: ProductDetailPage.route,
@@ -273,6 +279,44 @@ void createMarketRoutes(Sailor sailor) {
           ),
           SailorParam<bool>(
             name: "isProductExist",
+            isRequired: true,
+            defaultValue: null,
+          ),
+        ],
+      ),
+      SailorRoute(
+        name: AddProductDraftPage.route,
+        builder: (ctx, args, map) {
+          final mainCategoryId = map.param<String>("mainCategoryId");
+          final mainCategoryName = map.param<String>("mainCategoryName");
+          final subCategoryId = map.param<String>("subCategoryId");
+          final subCategoryName = map.param<String>("subCategoryName");
+
+          return AddProductDraftPage(
+            mainCategoryId: mainCategoryId,
+            mainCategoryName: mainCategoryName,
+            subCategoryId: subCategoryId,
+            subCategoryName: subCategoryName,
+          );
+        },
+        params: [
+          SailorParam<String>(
+            name: "mainCategoryId",
+            isRequired: true,
+            defaultValue: null,
+          ),
+          SailorParam<String>(
+            name: "mainCategoryName",
+            isRequired: true,
+            defaultValue: null,
+          ),
+          SailorParam<String>(
+            name: "subCategoryId",
+            isRequired: true,
+            defaultValue: null,
+          ),
+          SailorParam<String>(
+            name: "subCategoryName",
             isRequired: true,
             defaultValue: null,
           ),
