@@ -14,6 +14,7 @@ import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../custom_rich_text.dart';
+import 'market_like_toggle.dart';
 
 class MarketsListItem extends StatelessWidget {
   const MarketsListItem({
@@ -77,7 +78,7 @@ class MarketsListItem extends StatelessWidget {
                         style: AppTxtStyles().body..bold(),
                       ),
                       if (market.openAt != null) _fieldWorkingTime,
-                      _fieldPhone,
+                      _fieldStatus,
                     ],
                   ),
                 ],
@@ -87,6 +88,7 @@ class MarketsListItem extends StatelessWidget {
                 thickness: 0.5,
                 height: 16,
               ),
+              _fieldPhone,
               _fieldAddress,
               Divider(
                 color: Colors.black12,
@@ -109,17 +111,19 @@ class MarketsListItem extends StatelessWidget {
             alignment: Directionality.of(context) == TextDirection.ltr
                 ? Alignment.topRight
                 : Alignment.topLeft,
-            child: Txt(
-              "${market.situation}",
-              style: TxtStyle()
-                ..width(48)
-                ..alignmentContent.center()
-                ..padding(vertical: 2)
-                ..borderRadius(all: 4)
-                ..background.color(Color(0xffEFEFEF))
-                ..textColor(Colors.black)
-                ..fontSize(12)
-                ..bold(),
+            child: MarketLikeToggle(
+              defaultValue: false,
+              onChange: (value) async {
+                if (value) {
+                  // productNotifier.likeProduct(
+                  //   productId: product.id,
+                  // );
+                } else {
+                  // productNotifier.unlikeProduct(
+                  //   productId: product.id,
+                  // );
+                }
+              },
             ),
           ),
         ],
@@ -158,6 +162,15 @@ class MarketsListItem extends StatelessWidget {
 
   String _generateWorkingTimeText() {
     return "${market.clouseAt} - ${market.openAt}";
+  }
+
+  Widget get _fieldStatus => CustomRichText(
+        title: "وضعیت" + ": ",
+        text: _generateStatusText(),
+      );
+
+  String _generateStatusText() {
+    return "${market.situation}";
   }
 
   Widget get _fieldPhone => CustomRichText(

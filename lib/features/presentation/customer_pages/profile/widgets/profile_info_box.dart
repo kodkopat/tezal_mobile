@@ -3,6 +3,7 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/utils/is_numeric.dart';
 import '../../../../data/models/customer/customer_profile_result_model.dart';
 
 class ProfileInfoBox extends StatelessWidget {
@@ -104,7 +105,9 @@ class ProfileInfoBox extends StatelessWidget {
     if (profileInfo.data!.phone == null) {
       phoneText = " ناموجود ";
     } else {
-      phoneText = " ${profileInfo.data!.phone} ";
+      phoneText = "${profileInfo.data!.phone}".isNumeric()
+          ? " ${profileInfo.data!.phone} "
+          : "-";
     }
 
     return phoneText;
