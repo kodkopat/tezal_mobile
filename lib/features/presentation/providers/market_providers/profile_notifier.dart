@@ -100,6 +100,8 @@ class ProfileNotifier extends ChangeNotifier {
       (right) => openCloseResult = right,
     );
 
+    refreshInfo();
+
     prgDialog.hide();
     notifyListeners();
   }

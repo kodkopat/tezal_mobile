@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../data/models/market/main_categories_result_model.dart';
 import '../../../data/repositories/market_product_repository.dart';
@@ -34,5 +35,12 @@ class MainCategoryNotifier extends ChangeNotifier {
 
     mainCategoriesLoading = false;
     notifyListeners();
+
+    var currentMainCategory = mainCategories![0];
+
+    var id = currentMainCategory.id;
+    var name = currentMainCategory.name;
+
+    Get.put<String>(name, tag: id);
   }
 }

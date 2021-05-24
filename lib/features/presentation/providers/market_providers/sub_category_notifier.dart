@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../data/models/market/market_products_result_model.dart';
 import '../../../data/models/market/products_result_model.dart';
@@ -33,6 +34,11 @@ class SubCategoryNotifier extends ChangeNotifier {
             subCategoryIdList.add("${element.id}");
             subCategoryNameList.add("${element.name}");
           });
+
+        Get.put<String>(
+          subCategoryNameList[subCategoryListSelectedIndex],
+          tag: "${subCategoryIdList[subCategoryListSelectedIndex]}",
+        );
       },
     );
 
@@ -114,5 +120,10 @@ class SubCategoryNotifier extends ChangeNotifier {
   void refreshSubCategoryListSelectedIndex(int index) {
     subCategoryListSelectedIndex = index;
     notifyListeners();
+
+    Get.put<String>(
+      subCategoryNameList[subCategoryListSelectedIndex],
+      tag: "${subCategoryIdList[subCategoryListSelectedIndex]}",
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../data/models/base_api_result_model.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 
@@ -68,6 +69,38 @@ class MarketNotifier extends ChangeNotifier {
     }
 
     nearByMarketsLoading = false;
+    notifyListeners();
+  }
+
+  String? likeErrorMsg;
+  BaseApiResultModel? likeResult;
+
+  Future<void> like({required String marketId}) async {
+    var result = await customerMarketRepo.like(
+      marketId: marketId,
+    );
+
+    result.fold(
+      (left) => likeErrorMsg = left.message,
+      (right) => likeResult = right,
+    );
+
+    notifyListeners();
+  }
+
+  String? unLikeErrorMsg;
+  BaseApiResultModel? unLikeResult;
+
+  Future<void> unLike({required String marketId}) async {
+    var result = await customerMarketRepo.unLike(
+      marketId: marketId,
+    );
+
+    result.fold(
+      (left) => likeErrorMsg = left.message,
+      (right) => likeResult = right,
+    );
+
     notifyListeners();
   }
 
