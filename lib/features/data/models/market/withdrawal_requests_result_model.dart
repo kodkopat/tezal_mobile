@@ -52,19 +52,27 @@ class WithdrawalRequest {
   WithdrawalRequest({
     required this.id,
     required this.description,
+    required this.amount,
+    required this.createDate,
   });
 
   final id;
   final description;
+  final amount;
+  final createDate;
 
   factory WithdrawalRequest.fromJson(Map<String, dynamic> json) =>
       WithdrawalRequest(
         id: json["id"],
         description: json["description"],
+        amount: json["amount"],
+        createDate: json["createDate"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "description": description,
+        "amount": amount,
+        "createDate": createDate,
       };
 }
