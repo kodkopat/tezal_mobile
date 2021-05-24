@@ -12,12 +12,18 @@ import 'presentation/providers/market_providers/orders_notifier.dart';
 import 'presentation/providers/market_providers/photos_notifier.dart';
 import 'presentation/providers/market_providers/products_notifier.dart';
 import 'presentation/providers/market_providers/profile_notifier.dart';
+import 'presentation/providers/market_providers/search_notifier.dart';
 import 'presentation/providers/market_providers/wallet_notifier.dart';
 
 List<SingleChildWidget> marketProviders = [
   ChangeNotifierProvider(
     create: (ctx) => OrdersNotifier(
       MarketOrderRepository(),
+    ),
+  ),
+  ChangeNotifierProvider(
+    create: (ctx) => SearchNotifier(
+      MarketProductRepository(),
     ),
   ),
   ChangeNotifierProvider(
