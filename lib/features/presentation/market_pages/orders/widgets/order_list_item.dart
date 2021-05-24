@@ -3,11 +3,14 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
+import '../../../../../core/styles/txt_styles.dart';
+import '../../../../../core/utils/is_numeric.dart';
+import '../../../../../core/utils/to_color.dart';
 import '../../../../data/models/market/orders_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import 'order_list_item_field.dart';
 
-class OrderListItem extends StatelessWidget {
+class OrderListItem extends StatefulWidget {
   OrderListItem({
     required this.marketOrder,
     required this.onTap,
@@ -19,9 +22,17 @@ class OrderListItem extends StatelessWidget {
   final bool showIcons;
 
   @override
+  _OrderListItemState createState() => _OrderListItemState();
+}
+
+class _OrderListItemState extends State<OrderListItem> {
+  bool _showCustomerInfo = false;
+  bool _showOrderInfo = false;
+
+  @override
   Widget build(BuildContext context) {
     return Parent(
-      gesture: Gestures()..onTap(onTap),
+      gesture: Gestures()..onTap(widget.onTap),
       style: ParentStyle()
         ..width(MediaQuery.of(context).size.width)
         ..margin(vertical: 8)
@@ -35,51 +46,32 @@ class OrderListItem extends StatelessWidget {
           spread: 0,
         )
         ..ripple(true),
-      child: Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          _fieldCustomerInfo,
+          if (_showCustomerInfo) _fieldCustomerName,
+          if (_showCustomerInfo) _fieldCustomerPhone,
+          if (_showCustomerInfo) _fieldCustomerAddress,
+          _divider,
+          _fieldOrderInfo,
+          if (_showOrderInfo) _fieldDeliveryTime,
+          if (_showOrderInfo) _fieldPaymentType,
+          _divider,
+          Row(
+            textDirection: TextDirection.rtl,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              _fieldCustomerName,
-              _fieldCustomerPhone,
-              _fieldCustomerAddress,
-              _divider,
-              _fieldDeliveryTime,
-              _fieldPaymentType,
-              _divider,
-              Row(
-                textDirection: TextDirection.rtl,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(flex: 1, child: _fieldTotalPrice),
-                  _verticalDivider,
-                  Expanded(flex: 1, child: _fieldTotalDiscount),
-                  _verticalDivider,
-                  Expanded(flex: 1, child: _fieldDeliveryCost),
-                ],
-              ),
+              Expanded(flex: 1, child: _fieldTotalPrice),
+              _verticalDivider,
+              Expanded(flex: 1, child: _fieldTotalDiscount),
+              _verticalDivider,
+              Expanded(flex: 1, child: _fieldDeliveryCost),
             ],
           ),
-          Align(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.topRight
-                : Alignment.topLeft,
-            child: Txt(
-              "${marketOrder.orderStatus}",
-              style: TxtStyle()
-                ..maxWidth(128)
-                ..alignmentContent.center()
-                ..padding(vertical: 2)
-                ..borderRadius(all: 4)
-                ..background.color(
-                  Color(int.parse("0xff${marketOrder.color}")),
-                )
-                ..textColor(Colors.black)
-                ..fontSize(12)
-                ..bold(),
-            ),
-          )
+          _divider,
+          _fieldStatus,
         ],
       ),
     );
@@ -89,60 +81,142 @@ class OrderListItem extends StatelessWidget {
     return Divider(
       color: Colors.black12,
       thickness: 0.5,
-      height: 0,
+      height: 16,
+    );
+  }
+
+  Widget get _fieldCustomerInfo {
+    var _gesture = Gestures()
+      ..onTap(() {
+        setState(() {
+          _showCustomerInfo = !_showCustomerInfo;
+        });
+      });
+
+    return Parent(
+      gesture: _gesture,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Txt(
+            "اطلاعات مشتری",
+            style: AppTxtStyles().body,
+          ),
+          Parent(
+            gesture: _gesture,
+            style: ParentStyle()
+              ..width(36)
+              ..height(36)
+              ..borderRadius(all: 18)
+              ..alignmentContent.center()
+              ..ripple(true),
+            child: Image.asset(
+              _showCustomerInfo
+                  ? "assets/images/ic_chevron_up.png"
+                  : "assets/images/ic_chevron_down.png",
+              fit: BoxFit.contain,
+              color: Colors.black,
+              width: 18,
+              height: 18,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget get _fieldCustomerName {
     return OrderListItemField(
       title: "نام مشتری",
-      text: "${marketOrder.customerName}",
+      text: "${widget.marketOrder.customerName}",
       iconPath: "assets/images/ic_user.png",
-      showIcon: showIcons,
+      showIcon: widget.showIcons,
     );
   }
 
   Widget get _fieldCustomerPhone {
+    if (!"${widget.marketOrder.customerPhone}".isNumeric()) {}
+
     return OrderListItemField(
       title: "شماره تماس",
-      text: "${marketOrder.customerPhone}".isNotEmpty &&
-              "${marketOrder.customerPhone}".length > 11
-          ? "${marketOrder.customerPhone}".substring(0, 11)
-          : "${marketOrder.customerPhone}",
+      text: "${widget.marketOrder.customerPhone}".isNumeric()
+          ? "${widget.marketOrder.customerPhone}"
+          : "-",
       iconPath: "assets/images/ic_call.png",
-      showIcon: showIcons,
+      showIcon: widget.showIcons,
     );
   }
 
   Widget get _fieldCustomerAddress {
     return OrderListItemField(
       title: "آدرس",
-      text: "${marketOrder.address}",
+      text: "${widget.marketOrder.address}",
       iconPath: "assets/images/ic_location.png",
-      showIcon: showIcons,
+      showIcon: widget.showIcons,
+    );
+  }
+
+  Widget get _fieldOrderInfo {
+    var _gesture = Gestures()
+      ..onTap(() {
+        setState(() {
+          _showOrderInfo = !_showOrderInfo;
+        });
+      });
+
+    return Parent(
+      gesture: _gesture,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Txt(
+            "اطلاعات سفارش",
+            style: AppTxtStyles().body,
+          ),
+          Parent(
+            gesture: _gesture,
+            style: ParentStyle()
+              ..width(36)
+              ..height(36)
+              ..borderRadius(all: 18)
+              ..alignmentContent.center()
+              ..ripple(true),
+            child: Image.asset(
+              _showCustomerInfo
+                  ? "assets/images/ic_chevron_up.png"
+                  : "assets/images/ic_chevron_down.png",
+              fit: BoxFit.contain,
+              color: Colors.black,
+              width: 18,
+              height: 18,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   Widget get _fieldDeliveryTime {
-    String text = "روز: " +
-        "${marketOrder.deliveryTime}".split(" ")[0].replaceAll(".", "/") +
-        "  ساعت: " +
-        "${marketOrder.deliveryTime}".split(" ")[1];
+    String date = "روز: " +
+        "${widget.marketOrder.deliveryTime}".split(" ")[0].replaceAll("-", "/");
+
+    String time = "ساعت: " +
+        "${widget.marketOrder.deliveryTime}".split(" ")[1].split(".")[0];
 
     return OrderListItemField(
       title: "زمان تحویل",
-      text: text,
+      text: date + "\n" + time,
       iconPath: "assets/images/ic_calendar.png",
-      showIcon: showIcons,
+      showIcon: widget.showIcons,
     );
   }
 
   Widget get _fieldPaymentType {
     return OrderListItemField(
       title: "شیوه پرداخت",
-      text: "${marketOrder.paymentType}",
+      text: "${widget.marketOrder.paymentType}",
       iconPath: "assets/images/ic_wallet.png",
-      showIcon: showIcons,
+      showIcon: widget.showIcons,
     );
   }
 
@@ -159,7 +233,7 @@ class OrderListItem extends StatelessWidget {
     return CustomRichText(
       title: "قیمت محصولات" + "\n",
       text: _generatePriceText(
-        marketOrder.totalPrice,
+        widget.marketOrder.totalPrice,
       ),
       textAlign: TextAlign.center,
     );
@@ -169,7 +243,7 @@ class OrderListItem extends StatelessWidget {
     return CustomRichText(
       title: "تخفیف محصولات" + "\n",
       text: _generatePriceText(
-        marketOrder.totalDiscount,
+        widget.marketOrder.totalDiscount,
       ),
       textAlign: TextAlign.center,
     );
@@ -179,7 +253,7 @@ class OrderListItem extends StatelessWidget {
     return CustomRichText(
       title: "هزینه ارسال" + "\n",
       text: _generatePriceText(
-        marketOrder.deliveryCost,
+        widget.marketOrder.deliveryCost,
       ),
       textAlign: TextAlign.center,
     );
@@ -204,4 +278,20 @@ class OrderListItem extends StatelessWidget {
 
     return text;
   }
+
+  Widget get _fieldStatus => Txt(
+        "${widget.marketOrder.orderStatus}",
+        style: TxtStyle()
+          ..alignmentContent.center()
+          ..padding(vertical: 4)
+          ..borderRadius(all: 4)
+          ..background.color(
+            "${widget.marketOrder.color}".toColor().withOpacity(0.1),
+          )
+          ..textColor(
+            "${widget.marketOrder.color}".toColor(),
+          )
+          ..fontSize(12)
+          ..bold(),
+      );
 }
