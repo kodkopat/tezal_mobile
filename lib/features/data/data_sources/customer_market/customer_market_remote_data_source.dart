@@ -19,6 +19,22 @@ abstract class CustomerMarketRemoteDataSource {
 
   static const _apiUrlPrefix = "Market";
 
+  @GET("$_apiUrlPrefix/Like")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> like(
+    @Header("lang") String lang,
+    @Header("token") String token,
+    @Query("marketId") String marketId,
+  );
+
+  @GET("$_apiUrlPrefix/UnLike")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> unLike(
+    @Header("lang") String lang,
+    @Header("token") String token,
+    @Query("marketId") String marketId,
+  );
+
   @GET("$_apiUrlPrefix/GetNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<NearByMarketsResultModel> getNearByMarkets(

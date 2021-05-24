@@ -17,6 +17,52 @@ class _CustomerMarketRemoteDataSource
   String? baseUrl;
 
   @override
+  Future<BaseApiResultModel> like(lang, token, marketId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'marketId': marketId};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/Like',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BaseApiResultModel> unLike(lang, token, marketId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'marketId': marketId};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/UnLike',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<NearByMarketsResultModel> getNearByMarkets(
       lang, token, latitude, longitude, maxDistance, page) async {
     const _extra = <String, dynamic>{};
