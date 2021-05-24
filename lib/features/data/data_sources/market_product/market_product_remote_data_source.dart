@@ -38,9 +38,9 @@ abstract class MarketProductRemoteDataSource {
   Future<ProductsResultModel> getNotListedProducts(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Query("mainCategoryId") String mainCategoryId,
-    @Query("subCategoryId") String subCategoryId,
-    @Query("term") String term,
+    @Query("mainCategoryId") String? mainCategoryId,
+    @Query("subCategoryId") String? subCategoryId,
+    @Query("term") String? term,
   );
 
   @GET("$_apiUrlPrefix/GetProducts")

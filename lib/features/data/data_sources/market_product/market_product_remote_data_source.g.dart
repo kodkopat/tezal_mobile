@@ -73,6 +73,7 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
       r'subCategoryId': subCategoryId,
       r'term': term
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProductsResultModel>(Options(
