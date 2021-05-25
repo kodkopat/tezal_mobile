@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:math';
+
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +16,7 @@ import '../../../data/models/photo_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/photos_notifier.dart';
 import 'widgets/modal_photo_preview.dart';
+import 'widgets/modal_photo_size_error.dart';
 import 'widgets/modal_photos_menu.dart';
 import 'widgets/photos_list.dart';
 
@@ -27,6 +31,8 @@ class _PhotosPageState extends State<PhotosPage> {
   PhotosNotifier? photosNotifier;
   bool wasPhotosOrderChanged = false;
   List<PhotoModel>? marketPhotosList;
+
+  bool errorVisibility = false;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +107,15 @@ class _PhotosPageState extends State<PhotosPage> {
             text: Lang.of(context).marketPhotosPage,
             showBackBtn: true,
           ),
-          body: consumer,
+          body: errorVisibility
+              ? PhotoSizeErrorModal(
+                  onTryAgainBtnTap: () {
+                    setState(() {
+                      errorVisibility = false;
+                    });
+                  },
+                )
+              : consumer,
         ),
         Align(
           alignment: Directionality.of(context) == TextDirection.ltr
@@ -127,8 +141,23 @@ class _PhotosPageState extends State<PhotosPage> {
                         builder: (context) => ImagePickerModal(),
                       );
 
-                      if (result != null) {
-                        photosNotifier!.addPhoto(context, imgPath: result);
+                      int bytes = await File(result!).length();
+                      var fileInKiloBytes = bytes / 1024;
+                      var fileInMegaBytes = fileInKiloBytes / 1024;
+                      fileInMegaBytes.floor();
+
+                      print("fileSize: $bytes bytes\n");
+                      print("fileSize: $fileInKiloBytes KB\n");
+                      print("fileSize: $fileInMegaBytes MB\n");
+                      print("fileSize: ${fileInMegaBytes.floor()} MB\n");
+
+                      if (fileInMegaBytes.floor() > 0) {
+                        setState(() {
+                          errorVisibility = true;
+                        });
+                      } else {
+                        var imgFile = File(result);
+                        photosNotifier!.addPhoto(context, img: imgFile);
                       }
                     },
                     reOrderPhotosOnTap: () async {
@@ -166,5 +195,18 @@ class _PhotosPageState extends State<PhotosPage> {
         ),
       ],
     );
+  }
+
+  Future<int> getFileSize(String filepath, int decimals) async {
+    var file = File(filepath);
+    int bytes = await file.length();
+    // if (bytes <= 0) return "0 B";
+    if (bytes <= 0) return 1000;
+    // const suffixes = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+    var i = (log(bytes) / log(1024)).floor();
+    return i;
+    // return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) +
+    //     ' ' +
+    //     suffixes[i];
   }
 }

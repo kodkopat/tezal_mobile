@@ -106,12 +106,12 @@ class PhotosNotifier extends ChangeNotifier {
   String? addPhotoErrorMsg;
   AddPhotoResultModel? addPhotoResult;
 
-  Future<void> addPhoto(BuildContext context, {required String imgPath}) async {
+  Future<void> addPhoto(BuildContext context, {required File img}) async {
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
 
     var result = await marketRepo.addMarketPhoto(
-      photo: File(imgPath),
+      photo: img,
     );
 
     result.fold(
