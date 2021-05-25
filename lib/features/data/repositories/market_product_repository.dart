@@ -249,4 +249,31 @@ class MarketProductRepository {
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
+
+  Future<Either<Failure, BaseApiResultModel>> addProductDraft({
+    required String name,
+    required String description,
+    required double discountedPrice,
+    required double originalPrice,
+    required String mainCategoryId,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.addProductDraft(
+        userLang,
+        userToken,
+        name,
+        description,
+        discountedPrice,
+        originalPrice,
+        mainCategoryId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
 }
