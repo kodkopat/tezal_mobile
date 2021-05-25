@@ -34,7 +34,6 @@ class SearchProductsPage extends StatelessWidget {
                   )
             : Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.only(top: 48),
                   child: SearchProductList(
                     products: provider.searchResult!.data!,
                     onItemTap: (index) {
