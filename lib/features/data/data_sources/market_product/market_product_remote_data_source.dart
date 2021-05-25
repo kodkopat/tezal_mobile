@@ -118,4 +118,16 @@ abstract class MarketProductRemoteDataSource {
     @Field() String commentId,
     @Field() String reply,
   );
+
+  @POST("$_apiUrlPrefix/AddProductDraft")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<BaseApiResultModel> addProductDraft(
+    @Header("lang") String lang,
+    @Header("token") String token,
+    @Field() String name,
+    @Field() String description,
+    @Field() double discountedPrice,
+    @Field() double originalPrice,
+    @Field() String mainCategoryId,
+  );
 }

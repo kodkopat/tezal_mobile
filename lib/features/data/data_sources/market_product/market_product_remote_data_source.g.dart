@@ -308,6 +308,36 @@ class _MarketProductRemoteDataSource implements MarketProductRemoteDataSource {
     return value;
   }
 
+  @override
+  Future<BaseApiResultModel> addProductDraft(lang, token, name, description,
+      discountedPrice, originalPrice, mainCategoryId) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {
+      'name': name,
+      'description': description,
+      'discountedPrice': discountedPrice,
+      'originalPrice': originalPrice,
+      'mainCategoryId': mainCategoryId
+    };
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'MarketProduct/AddProductDraft',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||
