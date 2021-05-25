@@ -11,9 +11,9 @@ import '../../../data/models/market/orders_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../providers/market_providers/order_notifier.dart';
 import '../order_comments/order_comments_page.dart';
-import '../orders/widgets/order_list_item.dart';
 import 'widgets/order_detail_action_box.dart';
 import 'widgets/order_detail_list.dart';
+import 'widgets/order_detail_status_timeline.dart';
 
 class OrderDetailPage extends StatelessWidget {
   static const route = "/market_order_detail";
@@ -38,12 +38,12 @@ class OrderDetailPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                OrderListItem(
+                /* OrderListItem(
                   marketOrder: marketOrder,
                   onTap: () {},
                   showIcons: true,
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 8), */
                 OrderDetailList(
                   marketOrderItems: marketOrder.items!,
                   marketOrderPhotos: data as List<String>,
@@ -93,8 +93,12 @@ class OrderDetailPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                SizedBox(height: 8),
+                OrderDetailStatusTimeLime(status: marketOrder.orderStatus),
+                SizedBox(height: 8),
                 OrderDetailActionBox(
-                  onApproveOrder: () async {
+                  marketOrder: marketOrder,
+                  /* onApproveOrder: () async {
                     await orderNotifier.approveOrder(
                       context: context,
                       orderId: marketOrder.orderId,
@@ -107,7 +111,7 @@ class OrderDetailPage extends StatelessWidget {
                       orderId: marketOrder.orderId,
                     );
                     Routes.sailor.pop();
-                  },
+                  }, */
                 ),
               ],
             ),
