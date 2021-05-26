@@ -39,6 +39,9 @@ class CustomerSearchRepository {
   final AuthRepository _authRepo;
 
   Future<Either<Failure, SearchResultModel>> search({
+    bool? distanceAscending,
+    bool? scoreAscending,
+    bool? priceAscending,
     required String term,
   }) async {
     if (!await _connectionChecker.hasConnection) {
@@ -53,6 +56,9 @@ class CustomerSearchRepository {
         userToken,
         "${position.latitude}",
         "${position.longitude}",
+        distanceAscending,
+        scoreAscending,
+        priceAscending,
         term,
       );
 
@@ -66,13 +72,10 @@ class CustomerSearchRepository {
     } else {
       final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      final position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.getSearchTerms(
         userLang,
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
@@ -85,13 +88,10 @@ class CustomerSearchRepository {
     } else {
       final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
-      final position = await LocationService.getSavedLocation();
 
       var result = await _remoteDataSource.clearSearchTerms(
         userLang,
         userToken,
-        "${position.latitude}",
-        "${position.longitude}",
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
