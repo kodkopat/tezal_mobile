@@ -162,7 +162,7 @@ class _CustomerProductRemoteDataSource
       lang, token, marketProductId, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
-      r'productId': marketProductId,
+      r'marketProductId': marketProductId,
       r'skip': skip,
       r'take': take
     };

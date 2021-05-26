@@ -71,7 +71,7 @@ abstract class CustomerProductRemoteDataSource {
   Future<CommentsResultModel> getComments(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Query("productId") String marketProductId,
+    @Query("marketProductId") String marketProductId,
     @Query("skip") int skip,
     @Query("take") int take,
   );
