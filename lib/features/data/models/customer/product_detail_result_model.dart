@@ -63,6 +63,7 @@ class Data {
   final productUnit;
   final step;
   final amount;
+
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         subCategoryName: json["subCategoryName"],
         mainCategoryName: json["mainCategoryName"],
