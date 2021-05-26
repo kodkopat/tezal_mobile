@@ -16,13 +16,13 @@ import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/models/customer/product_detail_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
+import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/product_comments_notifier.dart';
+import '../../customer_providers/product_details_notifier.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/product_list/product_counter.dart';
 import '../../customer_widgets/product_list/product_like_toggle.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../customer_providers/basket_notifier.dart';
-import '../../customer_providers/product_comments_notifier.dart';
-import '../../customer_providers/product_details_notifier.dart';
 import '../product_comments/product_comments_page.dart';
 
 // ignore: must_be_immutable
@@ -88,7 +88,7 @@ class ProductDetailPage extends StatelessWidget {
           _sectionTitleAndLike(productDetail),
           const SizedBox(height: 2),
           Txt(
-            "${productDetail.data!.description}",
+            "${productDetail.data!.description ?? ""}",
             style: AppTxtStyles().body..textAlign.right(),
           ),
           SizedBox(height: 8),
@@ -302,7 +302,6 @@ class ProductDetailPage extends StatelessWidget {
             style: AppTxtStyles().body..alignment.center(),
           ),
           (right) {
-            print("productCommentsRight: ${right.toJson()}\n");
             return CommentList(
               comments: right.data!.comments!,
               showAllCommentOnTap: () {

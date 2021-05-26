@@ -1,18 +1,12 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:dartz/dartz.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../core/exceptions/failure.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/widgets/carousel_image_slider.dart';
-import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/market/product_result_model.dart';
-import '../../../data/models/photos_result_model.dart';
-import '../../../data/repositories/shared_application_repository.dart';
+import '../../base_widgets/product_photos.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../product_comments/product_comments_page.dart';
 
@@ -42,7 +36,7 @@ class ProductDetailPage extends StatelessWidget {
         textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionCarouselSlider(product),
+          ProductPhotosWidget(productId: product.id),
           const SizedBox(height: 8),
           _sectionTitleAndCommentsBtn(product),
           const SizedBox(height: 8),
@@ -81,25 +75,6 @@ class ProductDetailPage extends StatelessWidget {
             ),
         ],
       ),
-    );
-  }
-
-  Widget _sectionCarouselSlider(ProductResultModel product) {
-    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: SharedApplicationRepository().getProductPhotos(
-        productId: product.id,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => CarouselImageSlider(images: []),
-          (right) => CarouselImageSlider(
-            images: right.data!.map((e) => "${e.photo}").toList(),
-          ),
-        );
-      },
-      errorBuilder: (context, data) {
-        return CarouselImageSlider(images: []);
-      },
     );
   }
 
