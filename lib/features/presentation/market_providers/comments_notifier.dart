@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/models/market/market_comments_result_model.dart';
-import '../../../data/repositories/market_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/models/market/market_comments_result_model.dart';
+import '../../data/repositories/market_repository.dart';
 
 class CommentsNotifier extends ChangeNotifier {
   static CommentsNotifier? _instance;

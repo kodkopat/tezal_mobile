@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/market/products_result_model.dart';
-import '../../../data/repositories/market_product_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/market/products_result_model.dart';
+import '../../data/repositories/market_product_repository.dart';
 
 class SearchNotifier extends ChangeNotifier {
   static SearchNotifier? _instance;

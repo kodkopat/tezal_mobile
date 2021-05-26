@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/repositories/market_product_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/repositories/market_product_repository.dart';
 
 class ProductsNotifier extends ChangeNotifier {
   ProductsNotifier(this.marketProductRepo);

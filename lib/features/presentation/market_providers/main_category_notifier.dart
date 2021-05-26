@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/market/main_categories_result_model.dart';
-import '../../../data/repositories/market_product_repository.dart';
+import '../../data/models/market/main_categories_result_model.dart';
+import '../../data/repositories/market_product_repository.dart';
 
 class MainCategoryNotifier extends ChangeNotifier {
   static MainCategoryNotifier? _instance;

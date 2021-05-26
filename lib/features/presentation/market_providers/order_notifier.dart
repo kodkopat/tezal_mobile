@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/repositories/market_order_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/repositories/market_order_repository.dart';
 
 class OrderNotifier extends ChangeNotifier {
   OrderNotifier(this.marketOrderRepo);

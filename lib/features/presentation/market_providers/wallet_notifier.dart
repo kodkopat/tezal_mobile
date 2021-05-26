@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/market/wallet_balance_result_model.dart';
-import '../../../data/models/market/wallet_detail_result_model.dart';
-import '../../../data/models/market/withdrawal_requests_result_model.dart';
-import '../../../data/repositories/market_wallet_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/market/wallet_balance_result_model.dart';
+import '../../data/models/market/wallet_detail_result_model.dart';
+import '../../data/models/market/withdrawal_requests_result_model.dart';
+import '../../data/repositories/market_wallet_repository.dart';
 
 class WalletNotifier extends ChangeNotifier {
   static WalletNotifier? _instance;

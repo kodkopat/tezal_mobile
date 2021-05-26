@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/models/market/market_comments_result_model.dart';
-import '../../../data/models/market/market_default_hours_result_model.dart';
-import '../../../data/models/market/update_market_default_hours_model.dart';
-import '../../../data/repositories/market_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/models/market/market_comments_result_model.dart';
+import '../../data/models/market/market_default_hours_result_model.dart';
+import '../../data/models/market/update_market_default_hours_model.dart';
+import '../../data/repositories/market_repository.dart';
 
 class DefaultHoursNotifier extends ChangeNotifier {
   static DefaultHoursNotifier? _instance;

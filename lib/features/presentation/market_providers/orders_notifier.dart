@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/market/orders_result_model.dart';
-import '../../../data/repositories/market_order_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/market/orders_result_model.dart';
+import '../../data/repositories/market_order_repository.dart';
 
 class OrdersNotifier extends ChangeNotifier {
   static OrdersNotifier? _instance;

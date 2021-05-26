@@ -2,11 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/models/market/add_photo_result_model.dart';
-import '../../../data/models/photo_model.dart';
-import '../../../data/repositories/market_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/models/market/add_photo_result_model.dart';
+import '../../data/models/photo_model.dart';
+import '../../data/repositories/market_repository.dart';
 
 class PhotosNotifier extends ChangeNotifier {
   static PhotosNotifier? _instance;

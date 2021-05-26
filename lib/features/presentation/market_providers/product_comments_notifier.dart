@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/models/base_api_result_model.dart';
-import '../../../data/models/market/product_comments_result_model.dart';
-import '../../../data/repositories/market_product_repository.dart';
+import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/base_api_result_model.dart';
+import '../../data/models/market/product_comments_result_model.dart';
+import '../../data/repositories/market_product_repository.dart';
 
 class ProductCommentsNotifier extends ChangeNotifier {
   ProductCommentsNotifier(this.marketProductRepo);
