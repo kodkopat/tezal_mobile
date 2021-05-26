@@ -14,7 +14,7 @@ import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/order_detail_result_model.dart';
 import '../../../../data/models/customer/photos_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../../providers/customer_providers/order_detail_notifier.dart';
+import '../../../customer_providers/order_detail_notifier.dart';
 import '../../product_comment/product_comment_page.dart';
 
 class OrderListItem extends StatelessWidget {

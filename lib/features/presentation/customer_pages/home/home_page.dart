@@ -9,11 +9,11 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_location_error.dart';
-import '../../../../features/presentation/providers/customer_providers/market_notifier.dart';
+import '../../../../features/presentation/customer_providers/market_notifier.dart';
 import '../../customer_widgets/market_list/markets_list.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/base_providers/location_notifier.dart';
-import '../../providers/customer_providers/campaign_notifier.dart';
+import '../../base_providers/location_notifier.dart';
+import '../../customer_providers/campaign_notifier.dart';
 import 'widgets/campaigns_slider.dart';
 import 'widgets/home_combo_box.dart';
 

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/dashed_line_painter.dart';
 import '../../../../data/models/customer/order_detail_result_model.dart';
-import '../../../providers/customer_providers/order_detail_notifier.dart';
+import '../../../customer_providers/order_detail_notifier.dart';
 import 'order_list_item.dart';
 
 class OrderList extends StatelessWidget {

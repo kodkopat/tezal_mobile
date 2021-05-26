@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../data/models/customer/address_model.dart';
-import '../../../providers/customer_providers/addresses_notifier.dart';
+import '../../../customer_providers/addresses_notifier.dart';
 
 class AddressSelectorListItem extends StatelessWidget {
   const AddressSelectorListItem({

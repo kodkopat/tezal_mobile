@@ -15,7 +15,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/app_notifier.dart';
+import '../../app_notifier.dart';
 
 class ConfirmRegistrationPage extends StatefulWidget {
   static const route = "/confirm_registration";

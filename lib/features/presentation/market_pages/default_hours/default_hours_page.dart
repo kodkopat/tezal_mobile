@@ -9,7 +9,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/default_hours_notifier.dart';
+import '../../market_providers/default_hours_notifier.dart';
 import '../default_hours_edit/edit_default_hours_page.dart';
 import 'widgets/default_hours_list.dart';
 

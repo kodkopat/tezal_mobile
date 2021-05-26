@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../data/repositories/market_product_repository.dart';
-import '../../../providers/market_providers/products_notifier.dart';
-import '../../../providers/market_providers/sub_category_notifier.dart';
+import '../../../market_providers/products_notifier.dart';
+import '../../../market_providers/sub_category_notifier.dart';
 import 'sub_category_list.dart';
 import 'sub_category_view.dart';
 

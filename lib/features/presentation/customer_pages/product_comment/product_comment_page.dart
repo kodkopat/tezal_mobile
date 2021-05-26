@@ -9,7 +9,7 @@ import '../../../../core/widgets/custom_rating_bar.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/models/customer/order_detail_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/order_detail_notifier.dart';
+import '../../customer_providers/order_detail_notifier.dart';
 import '../order_detail/widgets/order_list_item.dart';
 
 class ProductCommentPage extends StatelessWidget {

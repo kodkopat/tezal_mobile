@@ -12,7 +12,7 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/sub_category_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/category_notifier.dart';
+import '../../customer_providers/category_notifier.dart';
 import '../products/produtct_page.dart';
 import 'widgets/market_sub_category_list.dart';
 

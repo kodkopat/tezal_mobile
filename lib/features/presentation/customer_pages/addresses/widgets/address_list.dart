@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../data/models/customer/address_model.dart';
-import '../../../providers/customer_providers/addresses_notifier.dart';
+import '../../../customer_providers/addresses_notifier.dart';
 import '../../address_detail/address_detail_page.dart';
 import 'adderss_list_item.dart';
 

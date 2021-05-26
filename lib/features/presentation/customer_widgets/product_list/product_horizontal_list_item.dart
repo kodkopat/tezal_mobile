@@ -14,7 +14,7 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/models/customer/product_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
-import '../../providers/customer_providers/liked_product_notifier.dart';
+import '../../customer_providers/liked_product_notifier.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
 
@@ -133,23 +133,20 @@ class ProductHorizontalListItem extends StatelessWidget {
     );
   }
 
-  Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: _customerProductRepo.getPhoto(
-        id: product.id,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (l) => SizedBox(),
-          (r) => Image.memory(
-            base64Decode(r.data!.photos.first),
-            fit: BoxFit.fill,
-          ),
-        );
-      },
-      errorBuilder: (context, data) => SizedBox(),
-    );
-  }
+  Widget get _futureImgFile =>
+      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+        future: _customerProductRepo.getPhoto(id: product.id),
+        successBuilder: (context, data) {
+          return data!.fold(
+            (l) => SizedBox(),
+            (r) => Image.memory(
+              base64Decode(r.data!.photos.first),
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        errorBuilder: (context, data) => SizedBox(),
+      );
 
   Widget _fieldOriginalPrice() {
     return RichText(
@@ -169,22 +166,20 @@ class ProductHorizontalListItem extends StatelessWidget {
     );
   }
 
-  Widget _fieldDiscountedPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateDiscountedPrice(),
-        style: TextStyle(
-          color: Colors.green,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.bold,
-          fontSize: 12,
+  Widget _fieldDiscountedPrice() => RichText(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateDiscountedPrice(),
+          style: TextStyle(
+            color: Colors.green,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.bold,
+            fontSize: 12,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   Widget _fieldDiscountedRate() {
     if (_generateDiscountedRate().isEmpty) {

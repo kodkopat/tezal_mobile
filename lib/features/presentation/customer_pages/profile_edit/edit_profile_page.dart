@@ -4,8 +4,6 @@ import 'dart:io';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
@@ -15,8 +13,9 @@ import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/modal_image_picker.dart';
+import '../../../../core/widgets/progress_dialog.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/profile_notifier.dart';
+import '../../customer_providers/profile_notifier.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/customer_edit_profile";
@@ -35,22 +34,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   String errorTxt = "";
   bool errorVisibility = false;
-
-  ProgressDialog? prgDialog;
-
-  @override
-  void initState() {
-    super.initState();
-    prgDialog = ProgressDialog(
-      context,
-      isDismissible: false,
-      type: ProgressDialogType.Normal,
-      textDirection: TextDirection.rtl,
-    )..style(
-        message: "لطفا کمی صبر کنید",
-        textAlign: TextAlign.start,
-      );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +89,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           child: imagePath == null
                               ? Image.asset(
                                   "assets/images/img_profile_placeholder.png",
-                                  fit: BoxFit.contain,
-                                  width: 96,
-                                  height: 96,
+                                  fit: BoxFit.fill,
                                 )
                               : Image.file(
                                   File(imagePath!),
-                                  fit: BoxFit.contain,
-                                  width: 96,
-                                  height: 96,
+                                  fit: BoxFit.fill,
                                 ),
                         ),
                       ),
@@ -127,7 +106,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         textDirection: TextDirection.rtl,
                         keyboardType: TextInputType.text,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       CustomTextInput(
                         controller: emailCtrl
                           ..text = provider.customerProfile!.data!.email,
@@ -142,11 +121,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         onTap: () async {
                           if ((formKey.currentState as FormState).validate()) {
                             if (imagePath != null) {
-                              prgDialog!.show();
+                              var prgDialog =
+                                  AppProgressDialog(context).instance;
+                              prgDialog.show();
+
                               var imgFile = File(imagePath!);
-                              // String photo = "";
-                              // var imgBytes = imgFile.readAsBytesSync();
-                              // photo = base64Encode(imgBytes);
 
                               await provider.editInfo(
                                 name: nameCtrl.text,
@@ -154,7 +133,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 photo: imgFile,
                               );
 
-                              prgDialog!.hide();
+                              prgDialog.hide();
+
                               Routes.sailor.pop();
                             }
                           }

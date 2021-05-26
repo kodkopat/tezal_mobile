@@ -8,7 +8,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/product_comments_notifier.dart';
+import '../../market_providers/product_comments_notifier.dart';
 import '../product_comment_reply/product_comment_reply_page.dart';
 import 'widgets/product_comments_list.dart';
 

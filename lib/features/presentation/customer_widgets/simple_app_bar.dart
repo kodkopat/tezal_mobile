@@ -6,12 +6,12 @@ import 'package:provider/provider.dart';
 import '../../../core/page_routes/base_routes.dart';
 import '../../../core/styles/txt_styles.dart';
 import '../customer_pages/basket/basket_page.dart';
-import '../providers/customer_providers/basket_notifier.dart';
+import '../customer_providers/basket_notifier.dart';
 
 class SimpleAppBar {
-  final BuildContext context;
-
   SimpleAppBar(this.context);
+
+  final BuildContext context;
 
   AppBar create({
     required String text,

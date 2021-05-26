@@ -8,7 +8,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/order_notifier.dart';
+import '../../customer_providers/order_notifier.dart';
 import 'widgets/older_order_list.dart';
 
 class OrdersPage extends StatelessWidget {

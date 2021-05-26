@@ -8,7 +8,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/product_list/product_vertical_list_.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/products_notifier.dart';
+import '../../customer_providers/products_notifier.dart';
 import '../product_detail/product_detail_page.dart';
 
 class ProductsPage extends StatelessWidget {

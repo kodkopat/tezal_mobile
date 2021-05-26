@@ -19,9 +19,9 @@ import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/market_list/markets_list_item.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/market_comments_notifier.dart';
-import '../../providers/customer_providers/market_detail_provider.dart';
+import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/market_comments_notifier.dart';
+import '../../customer_providers/market_detail_provider.dart';
 import '../market_comments/market_comments_page.dart';
 import 'widgets/market_slider.dart';
 

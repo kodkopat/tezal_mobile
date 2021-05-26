@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/customer/main_category_result_model.dart';
-import '../../../providers/customer_providers/category_notifier.dart';
+import '../../../customer_providers/category_notifier.dart';
 import 'market_main_category_list_item.dart';
 
 class MarketMainCategoryList extends StatelessWidget {

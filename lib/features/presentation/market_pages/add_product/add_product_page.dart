@@ -12,8 +12,8 @@ import '../../../../core/widgets/custom_drop_down.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/models/market/product_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/products_notifier.dart';
-import '../../providers/market_providers/sub_category_notifier.dart';
+import '../../market_providers/products_notifier.dart';
+import '../../market_providers/sub_category_notifier.dart';
 
 class AddProductPage extends StatefulWidget {
   static const route = "/market_add_product";

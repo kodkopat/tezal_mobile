@@ -9,7 +9,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/comments_notifier.dart';
+import '../../market_providers/comments_notifier.dart';
 import '../comment_reply/comment_reply.dart';
 import 'widgets/comments_list.dart';
 

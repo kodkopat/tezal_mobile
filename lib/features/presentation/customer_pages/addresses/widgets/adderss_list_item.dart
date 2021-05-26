@@ -10,7 +10,7 @@ import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../data/models/customer/address_model.dart';
-import '../../../providers/customer_providers/addresses_notifier.dart';
+import '../../../customer_providers/addresses_notifier.dart';
 import '../../address_detail/widgets/modal_remove_address.dart';
 import '../../address_save/address_save_page.dart';
 

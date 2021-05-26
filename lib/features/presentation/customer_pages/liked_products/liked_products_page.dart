@@ -7,7 +7,7 @@ import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/liked_product_notifier.dart';
+import '../../customer_providers/liked_product_notifier.dart';
 import 'widgets/liked_product_list.dart';
 
 class LikedProductsPage extends StatelessWidget {

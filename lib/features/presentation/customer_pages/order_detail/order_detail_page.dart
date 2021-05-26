@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/order_detail_notifier.dart';
+import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/order_detail_notifier.dart';
 import 'widgets/order_actions_box.dart';
 import 'widgets/order_list.dart';
 

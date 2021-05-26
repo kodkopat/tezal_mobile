@@ -9,7 +9,7 @@ import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/market/orders_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/order_notifier.dart';
+import '../../market_providers/order_notifier.dart';
 import '../order_comments/order_comments_page.dart';
 import 'widgets/order_detail_action_box.dart';
 import 'widgets/order_detail_list.dart';

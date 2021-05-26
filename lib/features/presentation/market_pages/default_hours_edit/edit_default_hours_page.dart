@@ -10,7 +10,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../data/models/market/market_default_hours_result_model.dart';
 import '../../../data/models/market/update_market_default_hours_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/default_hours_notifier.dart';
+import '../../market_providers/default_hours_notifier.dart';
 import 'widgets/edit_default_hours_list.dart';
 
 class EditDefaultHoursPage extends StatefulWidget {

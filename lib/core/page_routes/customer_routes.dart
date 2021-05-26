@@ -31,12 +31,12 @@ import '../../features/presentation/customer_pages/profile_edit/edit_profile_pag
 import '../../features/presentation/customer_pages/search/search_page.dart';
 import '../../features/presentation/customer_pages/wallet/wallet_page.dart';
 import '../../features/presentation/customer_pages/wallet_charge/charge_wallet_page.dart';
-import '../../features/presentation/providers/customer_providers/market_comments_notifier.dart';
-import '../../features/presentation/providers/customer_providers/market_detail_provider.dart';
-import '../../features/presentation/providers/customer_providers/order_detail_notifier.dart';
-import '../../features/presentation/providers/customer_providers/product_comments_notifier.dart';
-import '../../features/presentation/providers/customer_providers/product_details_notifier.dart';
-import '../../features/presentation/providers/customer_providers/products_notifier.dart';
+import '../../features/presentation/customer_providers/market_comments_notifier.dart';
+import '../../features/presentation/customer_providers/market_detail_provider.dart';
+import '../../features/presentation/customer_providers/order_detail_notifier.dart';
+import '../../features/presentation/customer_providers/product_comments_notifier.dart';
+import '../../features/presentation/customer_providers/product_details_notifier.dart';
+import '../../features/presentation/customer_providers/products_notifier.dart';
 
 void createCustomerRoutes(Sailor sailor) {
   sailor.addRoutes(

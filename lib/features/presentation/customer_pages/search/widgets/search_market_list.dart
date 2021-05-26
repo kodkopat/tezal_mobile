@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/customer/search_result_model.dart';
-import '../../../providers/customer_providers/basket_notifier.dart';
+import '../../../customer_providers/basket_notifier.dart';
 import 'search_market_list_item.dart';
 
 class SearchMarketList extends StatelessWidget {

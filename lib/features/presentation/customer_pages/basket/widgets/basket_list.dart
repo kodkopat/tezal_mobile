@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/dashed_line_painter.dart';
 import '../../../../data/models/customer/basket_result_model.dart';
-import '../../../providers/customer_providers/basket_notifier.dart';
+import '../../../customer_providers/basket_notifier.dart';
 import 'basket_list_item.dart';
 
 class BasketList extends StatelessWidget {

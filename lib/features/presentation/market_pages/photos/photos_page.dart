@@ -14,7 +14,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_image_picker.dart';
 import '../../../data/models/photo_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/photos_notifier.dart';
+import '../../market_providers/photos_notifier.dart';
 import 'widgets/modal_photo_preview.dart';
 import 'widgets/modal_photo_size_error.dart';
 import 'widgets/modal_photos_menu.dart';

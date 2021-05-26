@@ -7,7 +7,7 @@ import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
+import '../../customer_providers/basket_notifier.dart';
 import 'widgets/basket_actions_box.dart';
 import 'widgets/basket_list.dart';
 

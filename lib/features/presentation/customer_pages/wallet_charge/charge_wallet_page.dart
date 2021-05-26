@@ -11,7 +11,7 @@ import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/wallet_notifier.dart';
+import '../../customer_providers/wallet_notifier.dart';
 
 class ChargeWalletPage extends StatefulWidget {
   static const route = "/customer_charge_wallet";

@@ -9,7 +9,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/orders_notifier.dart';
+import '../../market_providers/orders_notifier.dart';
 import '../order_detail/order_detail_page.dart';
 import 'widgets/order_drop_down_direction.dart';
 import 'widgets/order_drop_down_filter.dart';

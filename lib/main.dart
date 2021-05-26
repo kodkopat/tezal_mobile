@@ -9,12 +9,12 @@ import 'core/page_routes/base_routes.dart';
 import 'core/page_routes/customer_routes.dart' as customer_routes;
 import 'core/page_routes/delivery_routes.dart' as delivery_routes;
 import 'core/page_routes/market_routes.dart' as market_routes;
-import 'features/base_providers.dart';
-import 'features/customer_providers.dart';
+import 'features/presentation/base_providers.dart';
+import 'features/presentation/customer_providers.dart';
 import 'features/data/repositories/auth_repository.dart';
-import 'features/delivery_providers.dart';
-import 'features/market_providers.dart';
-import 'features/presentation/providers/app_notifier.dart';
+import 'features/presentation/delivery_providers.dart';
+import 'features/presentation/market_providers.dart';
+import 'features/presentation/app_notifier.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

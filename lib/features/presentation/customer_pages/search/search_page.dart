@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/search_notifier.dart';
+import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/search_notifier.dart';
 import 'widgets/search_box.dart';
 import 'widgets/search_market_list.dart';
 

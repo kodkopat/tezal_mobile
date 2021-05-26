@@ -10,7 +10,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/models/market/market_comments_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/comments_notifier.dart';
+import '../../market_providers/comments_notifier.dart';
 import '../comments/widgets/comments_list_item.dart';
 
 class CommentReplyPage extends StatefulWidget {

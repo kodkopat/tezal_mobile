@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:sailor/sailor.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
-import '../../../providers/customer_providers/addresses_notifier.dart';
+import '../../../customer_providers/addresses_notifier.dart';
 import '../../address_save/address_save_page.dart';
 import 'address_detail_actions_menu_item.dart';
 import 'modal_remove_address.dart';

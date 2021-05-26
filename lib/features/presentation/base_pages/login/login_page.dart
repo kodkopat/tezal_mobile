@@ -15,7 +15,7 @@ import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../base_widgets/agreement_text.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/app_notifier.dart';
+import '../../app_notifier.dart';
 import '../registration/registration_page.dart';
 import '../reset_password/reset_password_page.dart';
 

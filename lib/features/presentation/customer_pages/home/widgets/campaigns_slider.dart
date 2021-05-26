@@ -8,7 +8,7 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../../core/widgets/map_box.dart';
 import '../../../../data/models/customer/campaign_result_model.dart';
-import '../../../providers/customer_providers/addresses_notifier.dart';
+import '../../../customer_providers/addresses_notifier.dart';
 import 'campaign_slider_item.dart';
 
 class CampaignSlider extends StatefulWidget {

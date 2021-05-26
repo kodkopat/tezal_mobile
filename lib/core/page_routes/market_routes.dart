@@ -35,9 +35,9 @@ import '../../features/presentation/market_pages/search_products/search_products
 import '../../features/presentation/market_pages/wallet/wallet_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal/wallet_withdrawal_page.dart';
 import '../../features/presentation/market_pages/wallet_withdrawal_requests/wallet_withdrawal_requests_page.dart';
-import '../../features/presentation/providers/market_providers/order_comments_notifier.dart';
-import '../../features/presentation/providers/market_providers/order_notifier.dart';
-import '../../features/presentation/providers/market_providers/product_comments_notifier.dart';
+import '../../features/presentation/market_providers/order_comments_notifier.dart';
+import '../../features/presentation/market_providers/order_notifier.dart';
+import '../../features/presentation/market_providers/product_comments_notifier.dart';
 
 void createMarketRoutes(Sailor sailor) {
   sailor.addRoutes(

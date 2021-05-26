@@ -7,8 +7,8 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
-import '../../providers/customer_providers/addresses_notifier.dart';
-import '../../providers/customer_providers/order_notifier.dart';
+import '../../customer_providers/addresses_notifier.dart';
+import '../../customer_providers/order_notifier.dart';
 
 class PaymentMethodSelectorPage extends StatelessWidget {
   @override

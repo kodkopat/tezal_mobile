@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../providers/customer_providers/addresses_notifier.dart';
+import '../../../customer_providers/addresses_notifier.dart';
 import 'address_selector_list_item.dart';
 
 class AddressSelectorList extends StatelessWidget {

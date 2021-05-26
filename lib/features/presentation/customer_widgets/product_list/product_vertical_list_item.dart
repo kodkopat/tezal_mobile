@@ -11,12 +11,12 @@ import 'package:provider/provider.dart';
 import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
-import '../../../data/models/customer/product_result_model.dart';
 import '../../../data/models/customer/photos_result_model.dart';
+import '../../../data/models/customer/product_result_model.dart';
 import '../../customer_widgets/custom_rich_text.dart';
 import '../../customer_widgets/product_list/product_counter.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/liked_product_notifier.dart';
+import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/liked_product_notifier.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
 
@@ -169,22 +169,20 @@ class ProductVerticalListItem extends StatelessWidget {
     );
   }
 
-  Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: basketNotifier.customerProductRepo.getPhoto(
-        id: product.id,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => SizedBox(),
-          (right) => Image.memory(
-            base64Decode(right.data!.photos.first),
-          ),
-        );
-      },
-      errorBuilder: (context, data) => SizedBox(),
-    );
-  }
+  Widget get _futureImgFile =>
+      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+        future: basketNotifier.customerProductRepo.getPhoto(id: product.id),
+        successBuilder: (context, data) {
+          return data!.fold(
+            (left) => SizedBox(),
+            (right) => Image.memory(
+              base64Decode(right.data!.photos.first),
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        errorBuilder: (context, data) => SizedBox(),
+      );
 
   Widget get _verticalDivider => SizedBox(
         height: 40,
@@ -195,23 +193,21 @@ class ProductVerticalListItem extends StatelessWidget {
         ),
       );
 
-  Widget _fieldTotalPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateTotalPrice(),
-        style: TextStyle(
-          decoration: TextDecoration.lineThrough,
-          color: Colors.black54,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.w500,
-          fontSize: 10,
+  Widget _fieldTotalPrice() => RichText(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateTotalPrice(),
+          style: TextStyle(
+            decoration: TextDecoration.lineThrough,
+            color: Colors.black54,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.w500,
+            fontSize: 10,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   String _generateTotalPrice() {
     var priceTxt;
@@ -233,22 +229,20 @@ class ProductVerticalListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  Widget _fieldTotalDiscountedPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateTotalDiscountedPrice(),
-        style: TextStyle(
-          color: Colors.green,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+  Widget _fieldTotalDiscountedPrice() => RichText(
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateTotalDiscountedPrice(),
+          style: TextStyle(
+            color: Colors.green,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   String _generateTotalDiscountedPrice() {
     var priceTxt;

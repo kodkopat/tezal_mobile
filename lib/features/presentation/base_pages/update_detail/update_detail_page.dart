@@ -7,7 +7,7 @@ import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/base_providers/update_notifier.dart';
+import '../../base_providers/update_notifier.dart';
 
 class UpdateDetailPage extends StatelessWidget {
   @override

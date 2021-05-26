@@ -11,8 +11,8 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/progress_dialog.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/profile_notifier.dart';
-import '../../providers/market_providers/wallet_notifier.dart';
+import '../../market_providers/profile_notifier.dart';
+import '../../market_providers/wallet_notifier.dart';
 
 class WithdrawalWalletPage extends StatefulWidget {
   static const route = "/market_wallet_withdrawal";

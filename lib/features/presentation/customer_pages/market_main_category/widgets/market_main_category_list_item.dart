@@ -11,7 +11,7 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/main_category_result_model.dart';
 import '../../../../data/models/customer/photo_result_model.dart';
-import '../../../providers/customer_providers/category_notifier.dart';
+import '../../../customer_providers/category_notifier.dart';
 
 class MarketMainCategoryListItem extends StatelessWidget {
   MarketMainCategoryListItem({

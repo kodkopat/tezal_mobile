@@ -12,7 +12,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/cities_result_model.dart';
 import '../../../data/models/customer/provinces_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/addresses_notifier.dart';
+import '../../customer_providers/addresses_notifier.dart';
 import 'widgets/custom_location_picker.dart';
 
 class AddressSavePage extends StatefulWidget {

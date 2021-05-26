@@ -11,7 +11,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/models/market/market_profile_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/market_providers/profile_notifier.dart';
+import '../../market_providers/profile_notifier.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/market_edit_profile";

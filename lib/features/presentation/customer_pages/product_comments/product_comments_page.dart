@@ -8,7 +8,7 @@ import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/product_comments_notifier.dart';
+import '../../customer_providers/product_comments_notifier.dart';
 
 class ProductCommentsPage extends StatelessWidget {
   static const route = "/customer_product_comments";

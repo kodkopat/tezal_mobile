@@ -13,7 +13,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../base_pages/login/login_page.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../providers/customer_providers/profile_notifier.dart';
+import '../../customer_providers/profile_notifier.dart';
 import '../profile_edit/edit_profile_page.dart';
 import 'widgets/profile_info_box.dart';
 import 'widgets/profile_menu.dart';

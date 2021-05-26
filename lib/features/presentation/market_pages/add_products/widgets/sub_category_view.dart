@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/loading.dart';
-import '../../../providers/market_providers/sub_category_notifier.dart';
+import '../../../market_providers/sub_category_notifier.dart';
 import '../../add_product/add_product_page.dart';
 import '../../add_product_draft/add_product_draft_page.dart';
 import '../../product_detail/product_detail_page.dart';

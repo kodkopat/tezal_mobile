@@ -7,8 +7,8 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../customer_pages/product_detail/product_detail_page.dart';
-import '../../providers/customer_providers/basket_notifier.dart';
-import '../../providers/customer_providers/market_detail_provider.dart';
+import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/market_detail_provider.dart';
 import '../product_list/product_horizontal_list.dart';
 
 class CategoryListItem extends StatelessWidget {
