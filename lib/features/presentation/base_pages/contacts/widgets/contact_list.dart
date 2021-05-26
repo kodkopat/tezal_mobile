@@ -1,5 +1,4 @@
 // ignore: import_of_legacy_library_into_null_safe
-// import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_contacts/flutter_contacts.dart';
 
@@ -17,7 +16,9 @@ class ContactList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      shrinkWrap: true,
       itemCount: contacts.length,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         var contact = contacts[index];
         return ContactListItem(
