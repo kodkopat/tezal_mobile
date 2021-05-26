@@ -189,6 +189,8 @@ class CustomerProductRepository {
         take,
       );
 
+      print("productComments: ${result.toJson()}\n");
+
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
