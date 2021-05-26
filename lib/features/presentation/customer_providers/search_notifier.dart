@@ -54,16 +54,52 @@ class SearchNotifier extends ChangeNotifier {
     );
   }
 
+  int? sortListIndex;
+  List<String> sortList = [
+    "بر اساس فاصله", // distance,
+    "بر اساس امتیاز", // score,
+    "بر اساس قیمت", // price,
+  ];
+
+  int? directionListIndex = 1;
+  List<String> directionList = [
+    "صعودی", // acsending,
+    "نزولی", // descending,
+  ];
+
   String? searchErrorMsg;
   List<Market>? searchResultList;
 
-  Future<void> search(BuildContext context, {required String term}) async {
+  Future<void> search(
+    BuildContext context, {
+    required String term,
+    int? sortListIndex,
+    int? directionListIndex,
+  }) async {
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
 
-    notifyListeners();
+    bool? distanceAscending;
+    if (sortListIndex != null && sortListIndex == 0) {
+      distanceAscending = directionListIndex == 0;
+    }
 
-    var result = await customerSearchRepo.search(term: term);
+    bool? scoreAscescending;
+    if (sortListIndex != null && sortListIndex == 1) {
+      scoreAscescending = directionListIndex == 0;
+    }
+
+    bool? priceAscending;
+    if (sortListIndex != null && sortListIndex == 2) {
+      priceAscending = directionListIndex == 0;
+    }
+
+    var result = await customerSearchRepo.search(
+      distanceAscending: distanceAscending,
+      scoreAscending: scoreAscescending,
+      priceAscending: priceAscending,
+      term: term,
+    );
 
     result.fold(
       (left) => searchErrorMsg = left.message,

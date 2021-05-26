@@ -27,6 +27,8 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBoxState extends State<SearchBox> {
+  final focusNode = FocusNode();
+
   final _divider = Divider(
     color: Colors.black12,
     thickness: 0.5,
@@ -48,7 +50,6 @@ class _SearchBoxState extends State<SearchBox> {
   );
 
   bool searchBoxIsEmpty = true;
-  FocusNode focus = FocusNode();
 
   @override
   void initState() {
@@ -63,13 +64,12 @@ class _SearchBoxState extends State<SearchBox> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
           maxLines: 1,
           enabled: true,
-          focusNode: focus,
+          focusNode: focusNode,
           controller: widget.controller,
           textDirection: widget.textDirection ?? TextDirection.rtl,
           style: _textStyle,
@@ -80,7 +80,7 @@ class _SearchBoxState extends State<SearchBox> {
           },
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.transparent,
+            fillColor: Colors.white,
             border: InputBorder.none,
             enabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,
@@ -107,7 +107,7 @@ class _SearchBoxState extends State<SearchBox> {
           ),
         ),
         _divider,
-        if (focus.hasFocus)
+        if (focusNode.hasFocus)
           if (widget.terms.isNotEmpty)
             _SearchSuggestionList(
               terms: widget.terms,

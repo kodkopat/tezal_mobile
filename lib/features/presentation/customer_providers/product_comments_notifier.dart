@@ -24,8 +24,10 @@ class ProductCommentsNotifier extends ChangeNotifier {
 
   List<Comment>? comments;
 
-  Future<void> fetchComments(BuildContext context,
-      {required String productId}) async {
+  Future<void> fetchComments(
+    BuildContext context, {
+    required String productId,
+  }) async {
     if (!wasFetchCommentsCalled) {
       wasFetchCommentsCalled = true;
       notifyListeners();
@@ -70,6 +72,7 @@ class ProductCommentsNotifier extends ChangeNotifier {
         },
       );
 
+      print("commentsListLength: ${comments!.length}\n");
       prgDialog.hide();
     }
 
