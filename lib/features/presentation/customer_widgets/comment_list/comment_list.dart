@@ -20,7 +20,6 @@ class CommentList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      textDirection: TextDirection.rtl,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (enableHeader ?? false)

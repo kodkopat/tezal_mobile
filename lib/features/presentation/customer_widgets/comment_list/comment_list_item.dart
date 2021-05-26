@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../data/models/customer/comments_result_model.dart';
 
 class CommentListItem extends StatelessWidget {
-  const CommentListItem({
+  CommentListItem({
     required this.comment,
     required this.onTap,
   });
@@ -28,11 +28,9 @@ class CommentListItem extends StatelessWidget {
           spread: 0,
         ),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _fieldUserName,
@@ -69,8 +67,7 @@ class CommentListItem extends StatelessWidget {
     }
 
     return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
+      textAlign: TextAlign.start,
       text: TextSpan(
         children: [
           TextSpan(
@@ -106,8 +103,7 @@ class CommentListItem extends StatelessWidget {
     }
 
     return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
+      textAlign: TextAlign.start,
       text: TextSpan(
         children: [
           TextSpan(
@@ -143,8 +139,7 @@ class CommentListItem extends StatelessWidget {
     }
 
     return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
+      textAlign: TextAlign.start,
       text: TextSpan(
         children: [
           TextSpan(
@@ -180,8 +175,7 @@ class CommentListItem extends StatelessWidget {
     }
 
     return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
+      textAlign: TextAlign.start,
       text: TextSpan(text: commentTxt, style: txtStyle),
     );
   }
