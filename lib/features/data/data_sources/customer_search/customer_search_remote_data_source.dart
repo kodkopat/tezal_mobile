@@ -20,8 +20,11 @@ abstract class CustomerSearchRemoteDataSource {
   Future<SearchResultModel> search(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
+    @Header("latitude") String? latitude,
+    @Header("longitude") String? longitude,
+    @Query("distanceAscending") bool? distanceAscending,
+    @Query("scoreAscending") bool? scoreAscending,
+    @Query("priceAscending") bool? priceAscending,
     @Query("Term") String term,
   );
 
@@ -30,8 +33,6 @@ abstract class CustomerSearchRemoteDataSource {
   Future<SearchTermsResultModel> getSearchTerms(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 
   @GET("$_apiUrlPrefix/ClearSearchTerms")
@@ -39,7 +40,5 @@ abstract class CustomerSearchRemoteDataSource {
   Future<BaseApiResultModel> clearSearchTerms(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Header("latitude") String latitude,
-    @Header("longitude") String longitude,
   );
 }

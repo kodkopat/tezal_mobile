@@ -17,10 +17,16 @@ class _CustomerSearchRemoteDataSource
   String? baseUrl;
 
   @override
-  Future<SearchResultModel> search(
-      lang, token, latitude, longitude, term) async {
+  Future<SearchResultModel> search(lang, token, latitude, longitude,
+      distanceAscending, scoreAscending, priceAscending, term) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Term': term};
+    final queryParameters = <String, dynamic>{
+      r'distanceAscending': distanceAscending,
+      r'scoreAscending': scoreAscending,
+      r'priceAscending': priceAscending,
+      r'Term': term
+    };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SearchResultModel>(Options(
@@ -43,8 +49,7 @@ class _CustomerSearchRemoteDataSource
   }
 
   @override
-  Future<SearchTermsResultModel> getSearchTerms(
-      lang, token, latitude, longitude) async {
+  Future<SearchTermsResultModel> getSearchTerms(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -55,9 +60,7 @@ class _CustomerSearchRemoteDataSource
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
                   r'lang': lang,
-                  r'token': token,
-                  r'latitude': latitude,
-                  r'longitude': longitude
+                  r'token': token
                 },
                 extra: _extra,
                 contentType: 'application/json')
@@ -69,8 +72,7 @@ class _CustomerSearchRemoteDataSource
   }
 
   @override
-  Future<BaseApiResultModel> clearSearchTerms(
-      lang, token, latitude, longitude) async {
+  Future<BaseApiResultModel> clearSearchTerms(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -81,9 +83,7 @@ class _CustomerSearchRemoteDataSource
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
                   r'lang': lang,
-                  r'token': token,
-                  r'latitude': latitude,
-                  r'longitude': longitude
+                  r'token': token
                 },
                 extra: _extra,
                 contentType: 'application/json')
