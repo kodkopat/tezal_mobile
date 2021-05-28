@@ -15,13 +15,13 @@ import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/models/customer/photos_result_model.dart';
-import '../../customer_widgets/category_list/category_list.dart';
-import '../../customer_widgets/comment_list/comment_list.dart';
-import '../../customer_widgets/market_list/markets_list_item.dart';
-import '../../customer_widgets/simple_app_bar.dart';
+import '../../customer_pages/home/widgets/markets_list_item.dart';
 import '../../customer_providers/basket_notifier.dart';
 import '../../customer_providers/market_comments_notifier.dart';
 import '../../customer_providers/market_detail_provider.dart';
+import '../../customer_widgets/category_list/category_list.dart';
+import '../../customer_widgets/comment_list/comment_list.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import '../market_comments/market_comments_page.dart';
 import 'widgets/market_slider.dart';
 
@@ -146,7 +146,6 @@ class MarketDetailPage extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: MarketsListItem(
         market: market,
-        repository: marketCommentsNotifier.customerMarketRepo,
         onTap: () {},
       ),
     );

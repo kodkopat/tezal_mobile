@@ -6,32 +6,23 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_location_error.dart';
 import '../../../../features/presentation/customer_providers/market_notifier.dart';
-import '../../customer_widgets/market_list/markets_list.dart';
-import '../../customer_widgets/simple_app_bar.dart';
 import '../../base_providers/location_notifier.dart';
 import '../../customer_providers/campaign_notifier.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/campaigns_slider.dart';
-import 'widgets/home_combo_box.dart';
+import 'widgets/combo_box.dart';
+import 'widgets/markets.dart';
 
 class HomePage extends StatelessWidget {
   static const route = "/customer_home";
 
   @override
   Widget build(BuildContext context) {
-    MarketNotifier marketNotifier = Provider.of<MarketNotifier>(
-      context,
-      listen: false,
-    );
-    Get.put<MarketNotifier>(marketNotifier);
-
-    CampaignNotifier campaignNotifier = Provider.of<CampaignNotifier>(
-      context,
-      listen: false,
-    );
+    CampaignNotifier campaignNotifier =
+        Provider.of<CampaignNotifier>(context, listen: false);
     Get.put<CampaignNotifier>(campaignNotifier);
 
     var campaignsConsumer = Consumer<CampaignNotifier>(
@@ -52,6 +43,10 @@ class HomePage extends StatelessWidget {
       },
     );
 
+    MarketNotifier marketNotifier =
+        Provider.of<MarketNotifier>(context, listen: false);
+    Get.put<MarketNotifier>(marketNotifier);
+
     var marketsConsumer = Consumer<MarketNotifier>(
       builder: (context, provider, child) {
         if (provider.nearByMarkets == null) {
@@ -66,20 +61,7 @@ class HomePage extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                     : Txt(provider.nearByMarketsErrorMsg!,
                         style: AppTxtStyles().body..alignment.center())
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      MarketsList(
-                        markets: provider.nearByMarkets!,
-                        repository: provider.customerMarketRepo,
-                      ),
-                      SizedBox(height: 8),
-                      if (provider.enableLoadMoreData!)
-                        LoadMoreBtn(onTap: () {
-                          provider.fetchNearbyMarkets(context);
-                        })
-                    ],
-                  );
+                : HomeMarketsWidget(marketsList: provider.nearByMarkets!);
       },
     );
 
@@ -111,14 +93,14 @@ class HomePage extends StatelessWidget {
                       },
                       child: Stack(
                         children: [
-                          SingleChildScrollView(
-                            padding: EdgeInsets.only(top: 48),
-                            child: Column(
-                              children: [
-                                campaignsConsumer,
-                                marketsConsumer,
-                              ],
-                            ),
+                          Column(
+                            children: [
+                              const SizedBox(height: 40),
+                              campaignsConsumer,
+                              Expanded(
+                                child: marketsConsumer,
+                              ),
+                            ],
                           ),
                           HomeComboBox(),
                         ],

@@ -17,6 +17,7 @@ class MarketsList extends StatelessWidget {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: markets.length,
+      scrollDirection: Axis.vertical,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
