@@ -13,7 +13,7 @@ class SearchBox extends StatefulWidget {
   });
 
   final TextEditingController controller;
-  final void Function() onSearchTap;
+  final VoidCallback onSearchTap;
   final TextDirection? textDirection;
 
   @override

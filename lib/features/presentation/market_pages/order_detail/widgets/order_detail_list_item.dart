@@ -18,7 +18,7 @@ class OrderDetailListItem extends StatelessWidget {
 
   final MarketOrderItem marketOrderItem;
   final String marketOrderPhoto;
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

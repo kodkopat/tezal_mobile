@@ -24,7 +24,7 @@ class MarketsListItem extends StatelessWidget {
   });
 
   final Market market;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final CustomerMarketRepository repository;
 
   @override

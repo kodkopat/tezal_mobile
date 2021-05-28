@@ -15,7 +15,7 @@ class CommentsListItem extends StatelessWidget {
 
   final MarketComment comment;
   final bool absorbing;
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

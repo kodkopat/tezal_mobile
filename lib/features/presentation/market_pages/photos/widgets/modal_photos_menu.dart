@@ -12,8 +12,8 @@ class PhotosMenuModal extends StatelessWidget {
     required this.reOrderPhotosOnTap,
   });
 
-  final void Function() addPhotoOnTap;
-  final void Function() reOrderPhotosOnTap;
+  final VoidCallback addPhotoOnTap;
+  final VoidCallback reOrderPhotosOnTap;
 
   @override
   Widget build(BuildContext context) {

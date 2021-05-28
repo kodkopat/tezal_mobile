@@ -11,8 +11,8 @@ class LogOutModal extends StatelessWidget {
     required this.onDiscard,
   });
 
-  final void Function() onAccept;
-  final void Function() onDiscard;
+  final VoidCallback onAccept;
+  final VoidCallback onDiscard;
 
   @override
   Widget build(BuildContext context) {

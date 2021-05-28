@@ -24,8 +24,8 @@ class SearchProductListItem extends StatelessWidget {
   });
 
   final ProductResultModel product;
-  final void Function() onTap;
-  final void Function() onEditTap;
+  final VoidCallback onTap;
+  final VoidCallback onEditTap;
 
   @override
   Widget build(BuildContext context) {

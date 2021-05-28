@@ -15,7 +15,7 @@ class OlderOrderListItem extends StatelessWidget {
   });
 
   final Order order;
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

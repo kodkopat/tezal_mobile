@@ -13,7 +13,7 @@ class ProfileInfoBox extends StatelessWidget {
   });
 
   final CustomerProfileResultModel profileInfo;
-  final void Function() onEditBtnTap;
+  final VoidCallback onEditBtnTap;
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import '../languages/language.dart';
 class LoadMoreBtn extends StatelessWidget {
   LoadMoreBtn({required this.onTap});
 
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

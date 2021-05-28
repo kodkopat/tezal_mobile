@@ -7,7 +7,7 @@ import '../../../../../core/styles/txt_styles.dart';
 class AddProductListItemAdd extends StatelessWidget {
   AddProductListItemAdd({required this.onTap});
 
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

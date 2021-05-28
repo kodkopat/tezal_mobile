@@ -15,7 +15,7 @@ class AddressSelectorListItem extends StatelessWidget {
   });
 
   final Address address;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final AddressesNotifier addressNotifier;
 
   @override

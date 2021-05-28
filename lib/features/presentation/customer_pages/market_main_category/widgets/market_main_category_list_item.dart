@@ -21,7 +21,7 @@ class MarketMainCategoryListItem extends StatelessWidget {
   });
 
   final MainCategory mainCategory;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final CategoryNotifier categoryNotifier;
 
   @override

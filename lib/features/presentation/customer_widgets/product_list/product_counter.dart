@@ -20,8 +20,8 @@ class ProductListItemCounter extends StatefulWidget {
   final num defaultValue;
   final num step;
   final String unit;
-  final void Function() onIncrease;
-  final void Function() onDecrease;
+  final VoidCallback onIncrease;
+  final VoidCallback onDecrease;
   final double hieght;
 
   @override
@@ -131,7 +131,7 @@ class _CounterIcon extends StatelessWidget {
   });
 
   final IconData iconData;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final double height;
   final double iconSize;
 

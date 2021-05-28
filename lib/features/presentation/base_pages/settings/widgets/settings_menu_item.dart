@@ -14,7 +14,7 @@ class SettingsMenuItem extends StatelessWidget {
 
   final String text;
   final String iconPath;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final bool? showChevron;
 
   @override

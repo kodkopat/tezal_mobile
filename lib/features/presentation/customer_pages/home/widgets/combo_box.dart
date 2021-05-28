@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/widgets/loading.dart';
 import '../../../customer_providers/addresses_notifier.dart';
-import 'home_combo_box_drop_down.dart';
+import 'combo_box_drop_down.dart';
 
 class HomeComboBox extends StatelessWidget {
   @override

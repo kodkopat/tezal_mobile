@@ -18,7 +18,7 @@ class OrderListItem extends StatefulWidget {
   });
 
   final MarketOrder marketOrder;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final bool showIcons;
 
   @override

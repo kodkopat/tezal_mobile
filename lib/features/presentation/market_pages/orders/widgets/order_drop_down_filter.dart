@@ -17,7 +17,7 @@ class OrderDropDownFilter extends StatefulWidget {
   final String labelText;
   final void Function(int) onIndexChanged;
   final List<String> textList;
-  final void Function() clearFilterOnTap;
+  final VoidCallback clearFilterOnTap;
   final int? defaultListIndex;
 
   @override

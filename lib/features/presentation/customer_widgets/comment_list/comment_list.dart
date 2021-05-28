@@ -14,7 +14,7 @@ class CommentList extends StatelessWidget {
   });
 
   final List<Comment> comments;
-  final void Function()? showAllCommentOnTap;
+  final VoidCallback? showAllCommentOnTap;
   final bool? enableHeader;
 
   @override

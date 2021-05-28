@@ -27,9 +27,9 @@ class ProductHorizontalListItem extends StatelessWidget {
   });
 
   final ProductResultModel product;
-  final void Function() onTap;
-  final void Function() onAddToBasket;
-  final void Function() onRemoveFromBasket;
+  final VoidCallback onTap;
+  final VoidCallback onAddToBasket;
+  final VoidCallback onRemoveFromBasket;
   final _customerProductRepo = CustomerProductRepository();
 
   @override

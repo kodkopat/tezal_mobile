@@ -17,8 +17,8 @@ class SearchBox extends StatefulWidget {
   });
 
   final TextEditingController controller;
-  final void Function() onSearchTap;
-  final void Function() onClearSearchTermsTap;
+  final VoidCallback onSearchTap;
+  final VoidCallback onClearSearchTermsTap;
   final List<String> terms;
   final TextDirection? textDirection;
 
@@ -132,7 +132,7 @@ class _SearchSuggestionList extends StatelessWidget {
 
   final List<String> terms;
   final void Function(String) onTermSelected;
-  final void Function() onClearSearchTerms;
+  final VoidCallback onClearSearchTerms;
 
   @override
   Widget build(BuildContext context) {

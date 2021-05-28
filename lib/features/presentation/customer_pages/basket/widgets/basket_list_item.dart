@@ -26,9 +26,9 @@ class BasketListItem extends StatelessWidget {
   });
 
   final BasketItem basketItem;
-  final void Function() onAddToBasket;
-  final void Function() onRemoveFromBasket;
-  final void Function() onRemoveItem;
+  final VoidCallback onAddToBasket;
+  final VoidCallback onRemoveFromBasket;
+  final VoidCallback onRemoveItem;
   final BasketNotifier basketNotifier;
   final productCounterKey = GlobalKey<ProductListItemCounterState>();
 

@@ -16,7 +16,7 @@ class PhotoPreviewModal extends StatelessWidget {
   });
 
   final PhotoModel marketPhoto;
-  final void Function() onRemoveBtnTap;
+  final VoidCallback onRemoveBtnTap;
 
   @override
   Widget build(BuildContext context) {

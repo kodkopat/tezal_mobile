@@ -7,7 +7,7 @@ import '../../../../../core/styles/txt_styles.dart';
 class PhotoSizeErrorModal extends StatelessWidget {
   PhotoSizeErrorModal({required this.onTryAgainBtnTap});
 
-  final void Function() onTryAgainBtnTap;
+  final VoidCallback onTryAgainBtnTap;
 
   @override
   Widget build(BuildContext context) {

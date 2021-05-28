@@ -16,7 +16,7 @@ class ProductCommentsList extends StatelessWidget {
 
   final List<ProductComment> comments;
   final void Function(int) onItemTap;
-  final void Function()? showAllCommentOnTap;
+  final VoidCallback? showAllCommentOnTap;
   final bool? enableHeader;
 
   @override

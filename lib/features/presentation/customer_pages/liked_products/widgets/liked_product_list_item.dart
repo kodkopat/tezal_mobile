@@ -22,7 +22,7 @@ class LikedProductListItem extends StatelessWidget {
   });
 
   final LikedProduct likedProduct;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final LikedProductNotifier productNotifier;
 
   @override

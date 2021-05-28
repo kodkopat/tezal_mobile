@@ -36,8 +36,8 @@ class ProductDetailPage extends StatelessWidget {
   });
 
   final String productId;
-  final void Function() onAddToBasket;
-  final void Function() onRemoveFromBasket;
+  final VoidCallback onAddToBasket;
+  final VoidCallback onRemoveFromBasket;
 
   final _customerProductRepo = CustomerProductRepository();
   BasketNotifier? basketNotifier;

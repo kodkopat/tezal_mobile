@@ -11,7 +11,7 @@ class CommentListItem extends StatelessWidget {
   });
 
   final Comment comment;
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {

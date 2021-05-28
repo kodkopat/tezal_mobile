@@ -14,7 +14,7 @@ class AddressDetailActionsMenuItem extends StatelessWidget {
 
   final String text;
   final IconData iconData;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final Color? color;
 
   @override

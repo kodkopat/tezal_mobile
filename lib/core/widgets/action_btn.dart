@@ -14,7 +14,7 @@ class ActionBtn extends StatelessWidget {
   });
 
   final String text;
-  final void Function() onTap;
+  final VoidCallback onTap;
   final Color? background;
   final Color? textColor;
   final double? height;

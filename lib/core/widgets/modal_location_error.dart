@@ -10,7 +10,7 @@ class LocationErrorModal extends StatelessWidget {
     required this.onTryAgainBtnTap,
   });
 
-  final void Function() onTryAgainBtnTap;
+  final VoidCallback onTryAgainBtnTap;
 
   @override
   Widget build(BuildContext context) {

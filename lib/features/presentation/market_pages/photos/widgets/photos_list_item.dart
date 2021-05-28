@@ -13,7 +13,7 @@ class PhotosListItem extends StatelessWidget {
   });
 
   final PhotoModel marketPhoto;
-  final void Function() onTap;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
