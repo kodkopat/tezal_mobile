@@ -2,8 +2,8 @@
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
-class MarketLikeToggle extends StatefulWidget {
-  MarketLikeToggle({
+class MarketsLikeToggle extends StatefulWidget {
+  MarketsLikeToggle({
     required this.defaultValue,
     required this.onChange,
   });
@@ -12,11 +12,11 @@ class MarketLikeToggle extends StatefulWidget {
   final void Function(bool) onChange;
 
   @override
-  _MarketLikeToggleState createState() => _MarketLikeToggleState();
+  _MarketsLikeToggleState createState() => _MarketsLikeToggleState();
 }
 
-class _MarketLikeToggleState extends State<MarketLikeToggle>
-    with AutomaticKeepAliveClientMixin<MarketLikeToggle> {
+class _MarketsLikeToggleState extends State<MarketsLikeToggle>
+    with AutomaticKeepAliveClientMixin<MarketsLikeToggle> {
   bool value = false;
 
   @override
