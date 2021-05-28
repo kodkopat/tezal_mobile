@@ -75,85 +75,82 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
       ),
       body: Form(
         key: formKey,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: KeyboardAvoider(
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 16),
-                        AbsorbPointer(
-                          absorbing: true,
-                          child: CustomTextInput(
-                            controller: phoneCtrl,
-                            validator: AppValidators.phone,
-                            label: "شماره موبایل",
-                            maxLength: 11,
-                            textDirection: TextDirection.ltr,
-                            keyboardType: TextInputType.number,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        CustomTextInput(
-                          controller: pinCodeCtrl,
-                          validator: AppValidators.pass,
-                          label: "کد تایید یکبار مصرف",
-                          maxLength: 4,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: KeyboardAvoider(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      AbsorbPointer(
+                        absorbing: true,
+                        child: CustomTextInput(
+                          controller: phoneCtrl,
+                          validator: AppValidators.phone,
+                          label: "شماره موبایل",
+                          maxLength: 11,
                           textDirection: TextDirection.ltr,
                           keyboardType: TextInputType.number,
                         ),
-                        const SizedBox(height: 8),
-                        CustomTextInput(
-                          controller: newPassCtrl,
-                          validator: AppValidators.pass,
-                          label: "رمز عبور جدید",
-                          maxLength: 4,
-                          textDirection: TextDirection.ltr,
-                          keyboardType: TextInputType.number,
-                          obscureText: true,
+                      ),
+                      const SizedBox(height: 16),
+                      CustomTextInput(
+                        controller: pinCodeCtrl,
+                        validator: AppValidators.pass,
+                        label: "کد تایید یکبار مصرف",
+                        maxLength: 4,
+                        textDirection: TextDirection.ltr,
+                        keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(height: 16),
+                      CustomTextInput(
+                        controller: newPassCtrl,
+                        validator: AppValidators.pass,
+                        label: "رمز عبور جدید",
+                        maxLength: 4,
+                        textDirection: TextDirection.ltr,
+                        keyboardType: TextInputType.number,
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 16),
+                      CustomTextInput(
+                        controller: newPassRepeatCtrl,
+                        validator: AppValidators.pass,
+                        label: "تکرار رمز جدید",
+                        maxLength: 4,
+                        textDirection: TextDirection.ltr,
+                        keyboardType: TextInputType.number,
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 16),
+                      ActionBtn(
+                        text: "ثبت",
+                        onTap: onSubmitBtnTap,
+                        background: Theme.of(context).primaryColor,
+                      ),
+                      const SizedBox(height: 16),
+                      Visibility(
+                        visible: errorVisibility,
+                        child: Txt(
+                          errorTxt,
+                          style: AppTxtStyles().footNote.clone()
+                            ..textColor(Theme.of(context).errorColor)
+                            ..alignmentContent.center()
+                            ..height(24)
+                            ..borderRadius(all: 2)
+                            ..padding(horizontal: 4)
+                            ..ripple(true),
                         ),
-                        CustomTextInput(
-                          controller: newPassRepeatCtrl,
-                          validator: AppValidators.pass,
-                          label: "تکرار رمز جدید",
-                          maxLength: 4,
-                          textDirection: TextDirection.ltr,
-                          keyboardType: TextInputType.number,
-                          obscureText: true,
-                        ),
-                        const SizedBox(height: 24),
-                        ActionBtn(
-                          text: "ثبت",
-                          onTap: onSubmitBtnTap,
-                          background: Theme.of(context).primaryColor,
-                        ),
-                        const SizedBox(height: 16),
-                        Visibility(
-                          visible: errorVisibility,
-                          child: Txt(
-                            errorTxt,
-                            style: AppTxtStyles().footNote.clone()
-                              ..textColor(Theme.of(context).errorColor)
-                              ..alignmentContent.center()
-                              ..height(24)
-                              ..borderRadius(all: 2)
-                              ..padding(horizontal: 4)
-                              ..ripple(true),
-                          ),
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

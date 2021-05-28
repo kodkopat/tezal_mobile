@@ -1,8 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
@@ -12,10 +10,11 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
+import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/repositories/auth_repository.dart';
+import '../../app_notifier.dart';
 import '../../base_widgets/agreement_text.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../app_notifier.dart';
 import '../registration/registration_page.dart';
 import '../reset_password/reset_password_page.dart';
 
@@ -35,8 +34,6 @@ class _LoginPageState extends State<LoginPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProgressDialog? prgDialog;
-
   var textStyle = TextStyle(
     color: Colors.black,
     letterSpacing: 0.5,
@@ -46,31 +43,14 @@ class _LoginPageState extends State<LoginPage> {
   );
 
   @override
-  void initState() {
-    super.initState();
-    prgDialog = ProgressDialog(
-      context,
-      isDismissible: false,
-      type: ProgressDialogType.Normal,
-      textDirection: TextDirection.rtl,
-    )..style(
-        message: "لطفا کمی صبر کنید",
-        textAlign: TextAlign.start,
-      );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: SimpleAppBar(context).create(
-        text: "ورود به حساب کاربری",
-        showBackBtn: true,
-      ),
+      appBar: SimpleAppBar(context).create(text: "ورود به حساب کاربری"),
       body: Form(
         key: formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -86,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                         textDirection: TextDirection.ltr,
                         keyboardType: TextInputType.number,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       CustomTextInput(
                         controller: passCtrl,
                         validator: AppValidators.pass,
@@ -95,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                         textDirection: TextDirection.ltr,
                         keyboardType: TextInputType.number,
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       ActionBtn(
                         text: "ورود به حساب کاربری",
                         onTap: onLoginBtnTap,
@@ -155,24 +135,39 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> onLoginBtnTap() async {
     if (((formKey.currentState as FormState)).validate()) {
-      prgDialog!.show();
+      var prgDialog = AppProgressDialog(context).instance;
+      prgDialog.show();
+
       var result = await repository.login(
         username: phoneCtrl.text,
         password: passCtrl.text,
       );
 
       result.fold(
-        (l) {
-          prgDialog!.hide();
+        (left) {
+          prgDialog.hide();
 
           (formKey.currentState as FormState).reset();
+
+          FocusScope.of(context).requestFocus(FocusNode());
+
           setState(() {
-            errorTxt = l.message;
+            errorTxt = left.message;
             errorVisibility = true;
           });
+
+          // SnackBar(
+          //   content: Txt(
+          //     '${left.message}',
+          //     style: AppTxtStyles().body..textColor(Colors.white),
+          //   ),
+          //   backgroundColor: Colors.red,
+          //   behavior: SnackBarBehavior.floating,
+          //   duration: Duration(seconds: 5),
+          // ).show(context);
         },
-        (r) {
-          prgDialog!.hide();
+        (right) {
+          prgDialog.hide();
 
           Provider.of<AppNotifier>(context, listen: false).refresh();
 

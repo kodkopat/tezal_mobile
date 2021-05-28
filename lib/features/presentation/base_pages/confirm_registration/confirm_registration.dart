@@ -77,7 +77,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
         showBackBtn: true,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -92,7 +92,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
                         ..alignment.center()
                         ..textAlign.right(),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     Center(
                       child: PinCodeTextField(
                         autofocus: true,
@@ -138,7 +138,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
                         style: AppTxtStyles().footNote,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     Visibility(
                       visible: errorVisibility,
                       child: Txt(
@@ -148,7 +148,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
                           ..textAlign.right(),
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     ActionBtn(
                       text: "تایید",
                       onTap: onSubmitBtnTap,

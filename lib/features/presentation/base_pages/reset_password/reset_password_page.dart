@@ -63,7 +63,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       body: Form(
         key: formKey,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,7 +79,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         textDirection: TextDirection.ltr,
                         keyboardType: TextInputType.number,
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       ActionBtn(
                         text: "ثبت درخواست",
                         onTap: onSubmitBtnTap,
