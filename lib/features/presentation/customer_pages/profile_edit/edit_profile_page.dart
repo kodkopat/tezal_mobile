@@ -14,8 +14,8 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/modal_image_picker.dart';
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../customer_widgets/simple_app_bar.dart';
 import '../../customer_providers/profile_notifier.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 
 class EditProfilePage extends StatefulWidget {
   static const route = "/customer_edit_profile";
@@ -52,10 +52,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             : Form(
                 key: formKey,
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 16,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Column(
                     children: [
                       Parent(
@@ -79,12 +76,12 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         style: ParentStyle()
                           ..width(96)
                           ..height(96)
-                          ..borderRadius(all: 48)
+                          ..borderRadius(all: 8)
                           ..alignmentContent.center()
                           ..ripple(true),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(48),
+                            Radius.circular(8),
                           ),
                           child: imagePath == null
                               ? Image.asset(
@@ -97,7 +94,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 ),
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
                       CustomTextInput(
                         controller: nameCtrl
                           ..text = provider.customerProfile!.data!.name,
@@ -115,7 +112,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         textDirection: TextDirection.ltr,
                         keyboardType: TextInputType.emailAddress,
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 16),
                       ActionBtn(
                         text: "ثبت",
                         onTap: () async {
