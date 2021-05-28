@@ -77,6 +77,8 @@ dependencies:
   build: ^2.0.0
   # used to: reOrder Photos
   drag_and_drop_gridview: ^1.0.8
+  # used to: premade snackbar
+  snack: ^1.0.5
 
 dependency_overrides:
   tuple: ^1.0.2
