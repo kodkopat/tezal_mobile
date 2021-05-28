@@ -25,7 +25,7 @@ class HomeComboBoxDropDownItem extends StatelessWidget {
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
-        ..height(48)
+        ..height(40)
         ..padding(horizontal: 16)
         ..ripple(true),
       child: Row(
@@ -42,7 +42,7 @@ class HomeComboBoxDropDownItem extends StatelessWidget {
                   width: 24,
                   height: 24,
                 ),
-                SizedBox(width: 16),
+                const SizedBox(width: 8),
                 Expanded(
                   child: Txt(
                     text,
