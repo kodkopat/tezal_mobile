@@ -32,18 +32,14 @@ class Data {
 
   final page;
   final total;
-  final List<Market>? markets;
-
+  final List<Markets>? markets;
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         page: json["page"],
         total: json["total"],
         markets: json["markets"] == null
             ? null
-            : List<Market>.from(
-                json["markets"].map(
-                  (x) => Market.fromJson(x),
-                ),
-              ),
+            : List<Markets>.from(
+                json["markets"].map((x) => Markets.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -51,11 +47,31 @@ class Data {
         "total": total,
         "markets": markets == null
             ? null
-            : List<dynamic>.from(
-                markets!.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(markets!.map((x) => x.toJson())),
+      };
+}
+
+class Markets {
+  Markets({
+    required this.categoryname,
+    required this.markets,
+  });
+
+  final categoryname;
+  final List<Market>? markets;
+
+  factory Markets.fromJson(Map<String, dynamic> json) => Markets(
+        categoryname: json["categoryname"],
+        markets: json["markets"] == null
+            ? null
+            : List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "categoryname": categoryname,
+        "markets": markets == null
+            ? null
+            : List<dynamic>.from(markets!.map((x) => x.toJson())),
       };
 }
 
