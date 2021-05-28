@@ -27,7 +27,7 @@ class MarketNotifier extends ChangeNotifier {
   bool? enableLoadMoreData;
   int? nearyByMarketsTotalCount;
   int? latestPageIndex;
-  List<Market>? nearByMarkets;
+  List<Markets>? nearByMarkets;
 
   Future<void> fetchNearbyMarkets(BuildContext context) async {
     if (nearyByMarketsTotalCount == null) {
