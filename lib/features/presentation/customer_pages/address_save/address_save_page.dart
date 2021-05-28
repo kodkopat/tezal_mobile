@@ -59,7 +59,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
   late String citiesDropDownDefaultValue;
   late void Function(dynamic) citiesDropDownOnChange;
 
-  late void Function() submitBtnOnTap;
+  late VoidCallback submitBtnOnTap;
   bool loading = true;
 
   void initializeState(BuildContext context) async {
@@ -207,7 +207,7 @@ class _AddressSavePageState extends State<AddressSavePage> {
           : Form(
               key: formKey,
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                 child: Column(
                   textDirection: TextDirection.rtl,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,28 +218,28 @@ class _AddressSavePageState extends State<AddressSavePage> {
                       label: "عنوان",
                       textDirection: TextDirection.rtl,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     CustomTextInput(
                       controller: addressCtrl,
                       validator: AppValidators.address,
                       label: "آدرس",
                       textDirection: TextDirection.rtl,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     CustomTextInput(
                       controller: descCtrl,
                       validator: AppValidators.description,
                       label: "توضیحات",
                       textDirection: TextDirection.rtl,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     CustomDropDown(
                       label: "استان",
                       defaultValue: provincesDropDownDefaultValue,
                       values: provincesDropDownValues,
                       onChange: provincesDropDownOnChange,
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 16),
                     CustomDropDown(
                       label: "شهر",
                       defaultValue: citiesDropDownDefaultValue,
