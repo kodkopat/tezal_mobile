@@ -12,7 +12,7 @@ import '../../../customer_providers/addresses_notifier.dart';
 import 'campaign_slider_item.dart';
 
 class CampaignSlider extends StatefulWidget {
-  const CampaignSlider({required this.campaigns});
+  CampaignSlider({required this.campaigns});
 
   final List<Campaign> campaigns;
 
@@ -21,10 +21,12 @@ class CampaignSlider extends StatefulWidget {
 }
 
 class _CampaignSliderState extends State<CampaignSlider> {
+  final double boxHeight = 200;
+
   int selectedImage = 0;
-  double boxHeight = 200;
-  late Widget mapBox;
   bool loading = true;
+
+  late Widget mapBox;
 
   void initializeState() async {
     var position = await LocationService.getSavedLocation();
@@ -96,6 +98,7 @@ class _CampaignSliderState extends State<CampaignSlider> {
                     ? consumer
                     : CampaignSliderItem(
                         campaign: widget.campaigns[index],
+                        onTap: () {},
                         height: boxHeight,
                       );
               },

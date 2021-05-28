@@ -13,25 +13,29 @@ import '../../../../data/models/customer/campaign_result_model.dart';
 import '../../../../data/models/customer/photos_result_model.dart';
 import '../../../customer_providers/campaign_notifier.dart';
 
+// ignore: must_be_immutable
 class CampaignSliderItem extends StatelessWidget {
-  const CampaignSliderItem({
+  CampaignSliderItem({
     required this.campaign,
+    required this.onTap,
     required this.height,
   });
 
   final Campaign campaign;
+  final VoidCallback onTap;
   final double height;
+
+  late CampaignNotifier? _campaignNotifier;
 
   @override
   Widget build(BuildContext context) {
-    var campaignNotifier =
-        Provider.of<CampaignNotifier>(context, listen: false);
+    _campaignNotifier = Provider.of<CampaignNotifier>(
+      context,
+      listen: false,
+    );
 
     return Parent(
-      gesture: Gestures()
-        ..onTap(() {
-          // onTap section
-        }),
+      gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..width(MediaQuery.of(context).size.width)
         ..height(height)
@@ -40,8 +44,13 @@ class CampaignSliderItem extends StatelessWidget {
           path: "assets/images/img_placeholder.jpg",
           fit: BoxFit.fill,
         ),
-      child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: campaignNotifier.customerCampaignRepo.getPhoto(
+      child: _futurePhoto,
+    );
+  }
+
+  Widget get _futurePhoto =>
+      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+        future: _campaignNotifier!.customerCampaignRepo.getPhoto(
           campaignId: campaign.id,
         ),
         successBuilder: (context, data) {
@@ -54,7 +63,5 @@ class CampaignSliderItem extends StatelessWidget {
           );
         },
         errorBuilder: (context, data) => SizedBox(),
-      ),
-    );
-  }
+      );
 }
