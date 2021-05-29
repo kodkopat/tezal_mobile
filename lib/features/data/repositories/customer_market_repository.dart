@@ -11,6 +11,7 @@ import '../../../core/services/location.dart';
 import '../../data/data_sources/customer_market/customer_market_local_data_source.dart';
 import '../../data/data_sources/customer_market/customer_market_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
+import '../models/customer/add_edit_comment_rate_result_model.dart';
 import '../models/customer/comments_result_model.dart';
 import '../models/customer/main_category_detail_result_model.dart';
 import '../models/customer/market_detail_result_model.dart';
@@ -198,7 +199,7 @@ class CustomerMarketRepository {
     }
   }
 
-  Future<Either<Failure, dynamic>> addEditCommentRate({
+  Future<Either<Failure, AddEditCommentRateResultModel>> addEditCommentRate({
     required String comment,
     required String orderId,
     required int rate,
@@ -217,7 +218,7 @@ class CustomerMarketRepository {
         rate,
       );
 
-      return result != null ? Right(result) : Left(ApiFailure("failed to add"));
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
 
