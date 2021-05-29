@@ -18,8 +18,6 @@ import '../../features/presentation/customer_pages/market_category/market_catego
 import '../../features/presentation/customer_pages/market_comment/market_comment_page.dart';
 import '../../features/presentation/customer_pages/market_comments/market_comments_page.dart';
 import '../../features/presentation/customer_pages/market_detail/market_detail_page.dart';
-import '../../features/presentation/customer_pages/market_main_category/market_main_category.dart';
-import '../../features/presentation/customer_pages/market_sub_category/market_sub_category.dart';
 import '../../features/presentation/customer_pages/order_detail/order_detail_page.dart';
 import '../../features/presentation/customer_pages/orders/orders_page.dart';
 import '../../features/presentation/customer_pages/product_comment/product_comment_page.dart';
@@ -116,47 +114,6 @@ void createCustomerRoutes(Sailor sailor) {
             name: "marketCategories",
             isRequired: true,
             defaultValue: [],
-          ),
-        ],
-      ),
-      SailorRoute(
-        name: MarketMainCategoryPage.route,
-        builder: (ctx, args, map) {
-          final marketId = map.param<String>("marketId");
-
-          return MarketMainCategoryPage(
-            marketId: marketId,
-          );
-        },
-        params: [
-          SailorParam<String>(
-            name: "marketId",
-            isRequired: true,
-            defaultValue: "",
-          ),
-        ],
-      ),
-      SailorRoute(
-        name: MarketSubCategoryPage.route,
-        builder: (ctx, args, map) {
-          final marketId = map.param<String>("marketId");
-          final mainCategoryId = map.param<String>("mainCategoryId");
-
-          return MarketSubCategoryPage(
-            marketId: marketId,
-            mainCategoryId: mainCategoryId,
-          );
-        },
-        params: [
-          SailorParam<String>(
-            name: "marketId",
-            isRequired: true,
-            defaultValue: "",
-          ),
-          SailorParam<String>(
-            name: "mainCategoryId",
-            isRequired: true,
-            defaultValue: "",
           ),
         ],
       ),
