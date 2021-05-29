@@ -9,12 +9,15 @@ import 'core/page_routes/base_routes.dart';
 import 'core/page_routes/customer_routes.dart' as customer_routes;
 import 'core/page_routes/delivery_routes.dart' as delivery_routes;
 import 'core/page_routes/market_routes.dart' as market_routes;
+import 'features/data/repositories/auth_repository.dart';
+import 'features/presentation/app_notifier.dart';
 import 'features/presentation/base_providers.dart';
 import 'features/presentation/customer_providers.dart';
-import 'features/data/repositories/auth_repository.dart';
 import 'features/presentation/delivery_providers.dart';
 import 'features/presentation/market_providers.dart';
-import 'features/presentation/app_notifier.dart';
+import 'injection_container_customer_global_providers.dart';
+import 'injection_container_market_global_providers.dart';
+import 'injection_container_repositories.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +26,16 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
   ]); // prevent application rotation
 
+  // routers
   createBaseRoutes(Routes.sailor);
   customer_routes.createCustomerRoutes(Routes.sailor);
   delivery_routes.createDeliveryRoutes(Routes.sailor);
   market_routes.createMarketRoutes(Routes.sailor);
+
+  // injection containers
+  initRepositories();
+  initCustomerProviders();
+  initMarketProviders();
 
   runApp(
     riverpod.ProviderScope(
