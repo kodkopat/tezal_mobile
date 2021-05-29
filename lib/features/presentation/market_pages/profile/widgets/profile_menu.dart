@@ -6,11 +6,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/languages/language.dart';
 import '../../../../../core/page_routes/base_routes.dart';
+import '../../../app_notifier.dart';
 import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../base_widgets/modal_log_out.dart';
-import '../../../app_notifier.dart';
 import '../../comments/comments_page.dart';
 import '../../default_hours/default_hours_page.dart';
 import '../../photos/photos_page.dart';

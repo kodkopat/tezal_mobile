@@ -11,8 +11,8 @@ import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../customer_widgets/simple_app_bar.dart';
 import '../../app_notifier.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/language_selector_list.dart';
 
 class LanguagesSelectorPage extends StatefulWidget {

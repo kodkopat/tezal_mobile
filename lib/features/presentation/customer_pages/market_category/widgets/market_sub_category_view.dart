@@ -12,9 +12,9 @@ import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../data/models/customer/products_result_model.dart';
 import '../../../../data/repositories/customer_product_repository.dart';
-import '../../../customer_widgets/product_list/product_vertical_list_.dart';
 import '../../../customer_providers/basket_notifier.dart';
 import '../../../customer_providers/market_detail_provider.dart';
+import '../../../customer_widgets/product_list/product_vertical_list_.dart';
 import '../../product_detail/product_detail_page.dart';
 
 class MarketSubCategoryView extends StatelessWidget {

@@ -13,10 +13,10 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/models/customer/product_result_model.dart';
-import '../../customer_widgets/custom_rich_text.dart';
-import '../../customer_widgets/product_list/product_counter.dart';
 import '../../customer_providers/basket_notifier.dart';
 import '../../customer_providers/liked_product_notifier.dart';
+import '../../customer_widgets/custom_rich_text.dart';
+import '../../customer_widgets/product_list/product_counter.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
 

@@ -7,11 +7,11 @@ import 'package:provider/provider.dart';
 
 import '../../../../../core/languages/language.dart';
 import '../../../../../core/page_routes/base_routes.dart';
+import '../../../app_notifier.dart';
 import '../../../base_pages/about_us/about_us_page.dart';
 import '../../../base_pages/contacts/contacts_page.dart';
 import '../../../base_pages/settings/settings_page.dart';
 import '../../../base_widgets/modal_log_out.dart';
-import '../../../app_notifier.dart';
 import '../../../customer_providers/basket_notifier.dart';
 import '../../addresses/addresses_page.dart';
 import '../../liked_products/liked_products_page.dart';

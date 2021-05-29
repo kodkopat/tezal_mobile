@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
+import '../../customer_providers/market_comments_notifier.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../customer_providers/market_comments_notifier.dart';
 
 class MarketCommentsPage extends StatelessWidget {
   static const route = "/customer_market_comments";

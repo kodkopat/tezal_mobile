@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
-import '../../customer_widgets/simple_app_bar.dart';
 import '../../customer_providers/basket_notifier.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/market_main_category_tab_bar.dart';
 import 'widgets/market_main_category_tab_bar_view.dart';
 
