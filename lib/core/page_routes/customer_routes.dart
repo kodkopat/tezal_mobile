@@ -216,22 +216,12 @@ void createCustomerRoutes(Sailor sailor) {
         name: ProductCommentPage.route,
         builder: (ctx, args, map) {
           final orderItem = map.param<OrderItem>("orderItem");
-          final orderDetailNotifier =
-              map.param<OrderDetailNotifier>("orderDetailNotifier");
 
-          return ProductCommentPage(
-            orderItem: orderItem,
-            orderDetailNotifier: orderDetailNotifier,
-          );
+          return ProductCommentPage(orderItem: orderItem);
         },
         params: [
           SailorParam<OrderItem>(
             name: "orderItem",
-            isRequired: true,
-            defaultValue: null,
-          ),
-          SailorParam<OrderDetailNotifier>(
-            name: "orderDetailNotifier",
             isRequired: true,
             defaultValue: null,
           ),
@@ -261,12 +251,21 @@ void createCustomerRoutes(Sailor sailor) {
         name: MarketCommentPage.route,
         builder: (ctx, args, map) {
           final marketName = map.param<String>("marketName");
+          final orderId = map.param<String>("orderId");
 
-          return MarketCommentPage(marketName: marketName);
+          return MarketCommentPage(
+            marketName: marketName,
+            orderId: orderId,
+          );
         },
         params: [
           SailorParam<String>(
             name: "marketName",
+            isRequired: true,
+            defaultValue: "",
+          ),
+          SailorParam<String>(
+            name: "orderId",
             isRequired: true,
             defaultValue: "",
           ),
