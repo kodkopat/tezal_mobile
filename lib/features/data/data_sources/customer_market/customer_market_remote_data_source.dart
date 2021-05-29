@@ -3,6 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
+import '../../models/customer/add_edit_comment_rate_result_model.dart';
 import '../../models/customer/comments_result_model.dart';
 import '../../models/customer/main_category_detail_result_model.dart';
 import '../../models/customer/market_detail_result_model.dart';
@@ -79,9 +80,9 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("take") int take,
   );
 
-  @GET("$_apiUrlPrefix/AddEditCommentRate")
+  @POST("$_apiUrlPrefix/AddEditCommentRate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> addEditCommentRate(
+  Future<AddEditCommentRateResultModel> addEditCommentRate(
     @Header("lang") String lang,
     @Header("token") String token,
     @Field() String comment,
