@@ -12,7 +12,7 @@ import 'address_detail_actions_menu_item.dart';
 import 'modal_remove_address.dart';
 
 class AddressDetailActionsMenu extends StatelessWidget {
-  const AddressDetailActionsMenu({required this.addressId});
+  AddressDetailActionsMenu({required this.addressId});
 
   final String addressId;
 

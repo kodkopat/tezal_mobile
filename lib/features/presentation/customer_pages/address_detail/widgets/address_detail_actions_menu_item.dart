@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../core/styles/txt_styles.dart';
 
 class AddressDetailActionsMenuItem extends StatelessWidget {
-  const AddressDetailActionsMenuItem({
+  AddressDetailActionsMenuItem({
     required this.text,
     required this.iconData,
     required this.onTap,
