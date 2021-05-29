@@ -22,7 +22,7 @@ class ChargeWalletPage extends StatefulWidget {
 
 class _ChargeWalletPageState extends State<ChargeWalletPage> {
   GlobalKey? formKey = GlobalKey<FormState>();
-  WalletNotifier? walletNotifier;
+  CustomerWalletNotifier? walletNotifier;
   TextEditingController amountCtrl = TextEditingController();
   String errorTxt = "";
   bool errorVisibility = false;
@@ -45,7 +45,8 @@ class _ChargeWalletPageState extends State<ChargeWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    walletNotifier ??= Provider.of<WalletNotifier>(context, listen: false);
+    walletNotifier ??=
+        Provider.of<CustomerWalletNotifier>(context, listen: false);
 
     return Scaffold(
       appBar: SimpleAppBar(context).create(

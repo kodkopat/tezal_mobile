@@ -14,7 +14,7 @@ import 'features/presentation/market_providers/search_notifier.dart';
 import 'features/presentation/market_providers/wallet_notifier.dart';
 
 // put market global providers to Get Service Locator
-void initMarketProviders() {
+Future<void> initMarketProviders() async {
   Get.put<CommentsNotifier>(
     CommentsNotifier(
       Get.find<MarketRepository>(),
@@ -45,20 +45,20 @@ void initMarketProviders() {
     ),
   );
 
-  Get.put<ProfileNotifier>(
-    ProfileNotifier(
+  Get.put<MarketProfileNotifier>(
+    MarketProfileNotifier(
       Get.find<MarketRepository>(),
     ),
   );
 
-  Get.put<SearchNotifier>(
-    SearchNotifier(
+  Get.put<MarketSearchNotifier>(
+    MarketSearchNotifier(
       Get.find<MarketProductRepository>(),
     ),
   );
 
-  Get.put<WalletNotifier>(
-    WalletNotifier(
+  Get.put<MarketWalletNotifier>(
+    MarketWalletNotifier(
       Get.find<MarketWalletRepository>(),
     ),
   );

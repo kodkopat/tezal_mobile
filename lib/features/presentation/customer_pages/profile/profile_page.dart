@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var authRepo = AuthRepository();
 
-    var consumer = Consumer<ProfileNotifier>(
+    var consumer = Consumer<CustomerProfileNotifier>(
       builder: (context, provider, child) {
         if (provider.customerProfile == null) {
           provider.fetchInfo();

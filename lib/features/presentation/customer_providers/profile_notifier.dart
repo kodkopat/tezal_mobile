@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import '../../data/models/customer/customer_profile_result_model.dart';
 import '../../data/repositories/customer_repository.dart';
 
-class ProfileNotifier extends ChangeNotifier {
-  static ProfileNotifier? _instance;
+class CustomerProfileNotifier extends ChangeNotifier {
+  static CustomerProfileNotifier? _instance;
 
-  factory ProfileNotifier(
+  factory CustomerProfileNotifier(
     CustomerRepository customerRepo,
   ) {
     if (_instance == null) {
-      _instance = ProfileNotifier._privateConstructor(customerRepo);
+      _instance = CustomerProfileNotifier._privateConstructor(customerRepo);
     }
 
     return _instance!;
   }
 
-  ProfileNotifier._privateConstructor(this.customerRepo);
+  CustomerProfileNotifier._privateConstructor(this.customerRepo);
 
   final CustomerRepository customerRepo;
 

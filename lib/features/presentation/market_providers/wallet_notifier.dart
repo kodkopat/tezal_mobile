@@ -6,20 +6,20 @@ import '../../data/models/market/wallet_detail_result_model.dart';
 import '../../data/models/market/withdrawal_requests_result_model.dart';
 import '../../data/repositories/market_wallet_repository.dart';
 
-class WalletNotifier extends ChangeNotifier {
-  static WalletNotifier? _instance;
+class MarketWalletNotifier extends ChangeNotifier {
+  static MarketWalletNotifier? _instance;
 
-  factory WalletNotifier(
+  factory MarketWalletNotifier(
     MarketWalletRepository marketWalletRepo,
   ) {
     if (_instance == null) {
-      _instance = WalletNotifier._privateConstructor(marketWalletRepo);
+      _instance = MarketWalletNotifier._privateConstructor(marketWalletRepo);
     }
 
     return _instance!;
   }
 
-  WalletNotifier._privateConstructor(this.marketWalletRepo);
+  MarketWalletNotifier._privateConstructor(this.marketWalletRepo);
 
   final MarketWalletRepository marketWalletRepo;
 

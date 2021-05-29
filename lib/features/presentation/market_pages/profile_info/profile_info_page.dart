@@ -25,7 +25,7 @@ class _ProfileInfoPageState extends State<ProfileInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<ProfileNotifier>(
+    var consumer = Consumer<MarketProfileNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchInfoCalled) {
           provider.fetchInfo();

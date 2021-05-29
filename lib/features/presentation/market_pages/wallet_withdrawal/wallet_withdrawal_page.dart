@@ -31,8 +31,8 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
   String errorTxt = "";
   bool errorVisibility = false;
 
-  ProfileNotifier? profileNotifier;
-  WalletNotifier? walletNotifier;
+  MarketProfileNotifier? profileNotifier;
+  MarketWalletNotifier? walletNotifier;
 
   @override
   void initState() {
@@ -44,14 +44,16 @@ class _WithdrawalWalletPageState extends State<WithdrawalWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    walletNotifier ??= Provider.of<WalletNotifier>(context, listen: false);
-    profileNotifier ??= Provider.of<ProfileNotifier>(context, listen: false);
+    walletNotifier ??=
+        Provider.of<MarketWalletNotifier>(context, listen: false);
+    profileNotifier ??=
+        Provider.of<MarketProfileNotifier>(context, listen: false);
 
     shabaCtrl = TextEditingController(
       text: "${profileNotifier!.shabaNumber ?? ""}",
     );
 
-    var consumer = Consumer<WalletNotifier>(
+    var consumer = Consumer<MarketWalletNotifier>(
       builder: (context, provider, child) {
         return Form(
           key: formKey,

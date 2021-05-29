@@ -4,20 +4,21 @@ import '../../data/models/customer/wallet_detail_result_model.dart';
 import '../../data/models/customer/wallet_info_result_model.dart';
 import '../../data/repositories/customer_wallet_repository.dart';
 
-class WalletNotifier extends ChangeNotifier {
-  static WalletNotifier? _instance;
+class CustomerWalletNotifier extends ChangeNotifier {
+  static CustomerWalletNotifier? _instance;
 
-  factory WalletNotifier(
+  factory CustomerWalletNotifier(
     CustomerWalletRepository customerWalletRepo,
   ) {
     if (_instance == null) {
-      _instance = WalletNotifier._privateConstructor(customerWalletRepo);
+      _instance =
+          CustomerWalletNotifier._privateConstructor(customerWalletRepo);
     }
 
     return _instance!;
   }
 
-  WalletNotifier._privateConstructor(this.customerWalletRepo);
+  CustomerWalletNotifier._privateConstructor(this.customerWalletRepo);
 
   final CustomerWalletRepository customerWalletRepo;
 

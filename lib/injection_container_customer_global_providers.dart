@@ -20,7 +20,7 @@ import 'features/presentation/customer_providers/search_notifier.dart';
 import 'features/presentation/customer_providers/wallet_notifier.dart';
 
 // put customer global providers to Get Service Locator
-void initCustomerProviders() {
+Future<void> initCustomerProviders() async {
   Get.put<AddressesNotifier>(
     AddressesNotifier(
       Get.find<CustomerAddressRepository>(),
@@ -59,20 +59,20 @@ void initCustomerProviders() {
     ),
   );
 
-  Get.put<ProfileNotifier>(
-    ProfileNotifier(
+  Get.put<CustomerProfileNotifier>(
+    CustomerProfileNotifier(
       Get.find<CustomerRepository>(),
     ),
   );
 
-  Get.put<SearchNotifier>(
-    SearchNotifier(
+  Get.put<CustomerSearchNotifier>(
+    CustomerSearchNotifier(
       Get.find<CustomerSearchRepository>(),
     ),
   );
 
-  Get.put<WalletNotifier>(
-    WalletNotifier(
+  Get.put<CustomerWalletNotifier>(
+    CustomerWalletNotifier(
       Get.find<CustomerWalletRepository>(),
     ),
   );

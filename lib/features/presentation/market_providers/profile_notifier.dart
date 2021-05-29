@@ -5,20 +5,20 @@ import '../../data/models/base_api_result_model.dart';
 import '../../data/models/market/market_profile_result_model.dart';
 import '../../data/repositories/market_repository.dart';
 
-class ProfileNotifier extends ChangeNotifier {
-  static ProfileNotifier? _instance;
+class MarketProfileNotifier extends ChangeNotifier {
+  static MarketProfileNotifier? _instance;
 
-  factory ProfileNotifier(
+  factory MarketProfileNotifier(
     MarketRepository marketRepo,
   ) {
     if (_instance == null) {
-      _instance = ProfileNotifier._privateConstructor(marketRepo);
+      _instance = MarketProfileNotifier._privateConstructor(marketRepo);
     }
 
     return _instance!;
   }
 
-  ProfileNotifier._privateConstructor(this.marketRepo);
+  MarketProfileNotifier._privateConstructor(this.marketRepo);
 
   final MarketRepository marketRepo;
 

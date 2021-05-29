@@ -37,7 +37,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<ProfileNotifier>(
+    var consumer = Consumer<CustomerProfileNotifier>(
       builder: (context, provider, child) {
         if (provider.customerProfile == null) {
           provider.fetchInfo();

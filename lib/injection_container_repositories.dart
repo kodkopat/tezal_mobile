@@ -18,7 +18,7 @@ import 'features/data/repositories/market_wallet_repository.dart';
 import 'features/data/repositories/shared_application_repository.dart';
 
 // put repositories to Get Service Locator
-void initRepositories() {
+Future<void> initRepositories() async {
   Get.put<AuthRepository>(
     AuthRepository(),
   );

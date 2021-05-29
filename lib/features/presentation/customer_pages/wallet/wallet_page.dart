@@ -20,10 +20,11 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var walletNotifier = Provider.of<WalletNotifier>(context, listen: false);
+    var walletNotifier =
+        Provider.of<CustomerWalletNotifier>(context, listen: false);
     walletNotifier.fetchWalletInfo();
 
-    var walltInfoConsumer = Consumer<WalletNotifier>(
+    var walltInfoConsumer = Consumer<CustomerWalletNotifier>(
       builder: (context, provider, child) {
         return provider.infoLoading
             ? AppLoading()
@@ -64,7 +65,7 @@ class WalletPage extends StatelessWidget {
 
     walletNotifier.walletDetail();
 
-    var walltDetailConsumer = Consumer<WalletNotifier>(
+    var walltDetailConsumer = Consumer<CustomerWalletNotifier>(
       builder: (context, provider, child) {
         return provider.detailLoading
             ? AppLoading()

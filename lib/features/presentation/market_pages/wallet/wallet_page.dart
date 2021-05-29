@@ -22,7 +22,7 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var balanceConsumer = Consumer<WalletNotifier>(
+    var balanceConsumer = Consumer<MarketWalletNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchBalanceCalled) {
           provider.fetchBalance();
@@ -53,7 +53,7 @@ class WalletPage extends StatelessWidget {
                             ..alignment.center(),
                         ),
                         SizedBox(height: 8),
-                        Consumer<ProfileNotifier>(
+                        Consumer<MarketProfileNotifier>(
                           builder: (context, provider, child) {
                             if (!provider.wasFetchInfoCalled) {
                               provider.fetchInfo();
@@ -102,7 +102,7 @@ class WalletPage extends StatelessWidget {
       },
     );
 
-    var detailsConsumer = Consumer<WalletNotifier>(
+    var detailsConsumer = Consumer<MarketWalletNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchDetailsCalled) {
           provider.fetchDetails(context);

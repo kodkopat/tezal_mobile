@@ -22,7 +22,7 @@ class SearchPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
 
-    var consumer = Consumer<SearchNotifier>(
+    var consumer = Consumer<CustomerSearchNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchSearchTermsCalled) {
           provider.fetchSearchTerms();

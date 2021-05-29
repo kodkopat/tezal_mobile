@@ -33,9 +33,9 @@ Future<void> main() async {
   market_routes.createMarketRoutes(Routes.sailor);
 
   // injection containers
-  initRepositories();
-  initCustomerProviders();
-  initMarketProviders();
+  await initRepositories();
+  await initCustomerProviders();
+  await initMarketProviders();
 
   runApp(
     riverpod.ProviderScope(

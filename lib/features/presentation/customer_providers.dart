@@ -32,7 +32,7 @@ List<SingleChildWidget> customerProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => ProfileNotifier(
+    create: (ctx) => CustomerProfileNotifier(
       CustomerRepository(),
     ),
   ),
@@ -42,12 +42,12 @@ List<SingleChildWidget> customerProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => WalletNotifier(
+    create: (ctx) => CustomerWalletNotifier(
       CustomerWalletRepository(),
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => SearchNotifier(
+    create: (ctx) => CustomerSearchNotifier(
       CustomerSearchRepository(),
     ),
   ),

@@ -19,8 +19,9 @@ class SearchProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var searchProvider = Provider.of<SearchNotifier>(context, listen: false);
-    var searchConsumer = Consumer<SearchNotifier>(
+    var searchProvider =
+        Provider.of<MarketSearchNotifier>(context, listen: false);
+    var searchConsumer = Consumer<MarketSearchNotifier>(
       builder: (context, provider, child) {
         return provider.searchResult == null
             ? provider.errorMsg == null

@@ -4,20 +4,20 @@ import '../../../core/widgets/progress_dialog.dart';
 import '../../data/models/market/products_result_model.dart';
 import '../../data/repositories/market_product_repository.dart';
 
-class SearchNotifier extends ChangeNotifier {
-  static SearchNotifier? _instance;
+class MarketSearchNotifier extends ChangeNotifier {
+  static MarketSearchNotifier? _instance;
 
-  factory SearchNotifier(
+  factory MarketSearchNotifier(
     MarketProductRepository marketProductRepo,
   ) {
     if (_instance == null) {
-      _instance = SearchNotifier._privateConstructor(marketProductRepo);
+      _instance = MarketSearchNotifier._privateConstructor(marketProductRepo);
     }
 
     return _instance!;
   }
 
-  SearchNotifier._privateConstructor(this.marketProductRepo);
+  MarketSearchNotifier._privateConstructor(this.marketProductRepo);
 
   final MarketProductRepository marketProductRepo;
 

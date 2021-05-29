@@ -110,8 +110,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 onTap: () async {
                   if ((formKey.currentState as FormState).validate()) {
                     var profileInfo = widget.marketProfile.data!;
-                    var profileNotifier =
-                        Provider.of<ProfileNotifier>(context, listen: false);
+                    var profileNotifier = Provider.of<MarketProfileNotifier>(
+                        context,
+                        listen: false);
 
                     await profileNotifier.updateInfo(
                       context,

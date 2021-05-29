@@ -4,20 +4,21 @@ import '../../../core/widgets/progress_dialog.dart';
 import '../../data/models/customer/search_result_model.dart';
 import '../../data/repositories/customer_search_repository.dart';
 
-class SearchNotifier extends ChangeNotifier {
-  static SearchNotifier? _instance;
+class CustomerSearchNotifier extends ChangeNotifier {
+  static CustomerSearchNotifier? _instance;
 
-  factory SearchNotifier(
+  factory CustomerSearchNotifier(
     CustomerSearchRepository customerSearchRepo,
   ) {
     if (_instance == null) {
-      _instance = SearchNotifier._privateConstructor(customerSearchRepo);
+      _instance =
+          CustomerSearchNotifier._privateConstructor(customerSearchRepo);
     }
 
     return _instance!;
   }
 
-  SearchNotifier._privateConstructor(this.customerSearchRepo);
+  CustomerSearchNotifier._privateConstructor(this.customerSearchRepo);
 
   final CustomerSearchRepository customerSearchRepo;
 

@@ -22,7 +22,7 @@ List<SingleChildWidget> marketProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => SearchNotifier(
+    create: (ctx) => MarketSearchNotifier(
       MarketProductRepository(),
     ),
   ),
@@ -37,12 +37,12 @@ List<SingleChildWidget> marketProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => WalletNotifier(
+    create: (ctx) => MarketWalletNotifier(
       MarketWalletRepository(),
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => ProfileNotifier(
+    create: (ctx) => MarketProfileNotifier(
       MarketRepository(),
     ),
   ),

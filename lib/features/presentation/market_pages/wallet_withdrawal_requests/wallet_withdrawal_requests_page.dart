@@ -16,7 +16,7 @@ class WalletWithdrawalRequestsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<WalletNotifier>(
+    var consumer = Consumer<MarketWalletNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchWithDrawalRequestsCalled) {
           provider.fetchWithDrawalRequests(context);
