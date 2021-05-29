@@ -15,6 +15,7 @@ import 'features/presentation/base_providers.dart';
 import 'features/presentation/customer_providers.dart';
 import 'features/presentation/delivery_providers.dart';
 import 'features/presentation/market_providers.dart';
+import 'injection_container_base_global_providers.dart';
 import 'injection_container_customer_global_providers.dart';
 import 'injection_container_market_global_providers.dart';
 import 'injection_container_repositories.dart';
@@ -34,8 +35,10 @@ Future<void> main() async {
 
   // injection containers
   await initRepositories();
+  await initBaseProviders();
   await initCustomerProviders();
   await initMarketProviders();
+  // await initDeliveryProviders();
 
   runApp(
     riverpod.ProviderScope(
