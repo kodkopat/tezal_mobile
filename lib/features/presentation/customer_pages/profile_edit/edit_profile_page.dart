@@ -27,7 +27,7 @@ class EditProfilePage extends StatefulWidget {
 class _EditProfilePageState extends State<EditProfilePage> {
   final formKey = GlobalKey<FormState>();
 
-  String? imagePath;
+  File? imgFile;
 
   final nameCtrl = TextEditingController();
   final emailCtrl = TextEditingController();
@@ -67,10 +67,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               builder: (context) => ImagePickerModal(),
                             );
 
+                            var prgDialog = AppProgressDialog(context).instance;
+                            await prgDialog.show();
+
                             if (result != null) {
-                              setState(() {
-                                imagePath = result as String;
-                              });
+                              var imagePath = result as String;
+                              imgFile = File(imagePath);
+
+                              await prgDialog.hide();
+
+                              setState(() {});
                             }
                           }),
                         style: ParentStyle()
@@ -83,13 +89,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           borderRadius: BorderRadius.all(
                             Radius.circular(8),
                           ),
-                          child: imagePath == null
+                          child: imgFile == null
                               ? Image.asset(
                                   "assets/images/img_profile_placeholder.png",
                                   fit: BoxFit.fill,
                                 )
                               : Image.file(
-                                  File(imagePath!),
+                                  imgFile!,
                                   fit: BoxFit.fill,
                                 ),
                         ),
@@ -117,17 +123,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         text: "ثبت",
                         onTap: () async {
                           if ((formKey.currentState as FormState).validate()) {
-                            if (imagePath != null) {
+                            if (imgFile != null) {
                               var prgDialog =
                                   AppProgressDialog(context).instance;
                               prgDialog.show();
 
-                              var imgFile = File(imagePath!);
-
                               await provider.editInfo(
                                 name: nameCtrl.text,
                                 email: emailCtrl.text,
-                                photo: imgFile,
+                                photo: imgFile!,
                               );
 
                               prgDialog.hide();
