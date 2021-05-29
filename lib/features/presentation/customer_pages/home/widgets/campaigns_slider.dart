@@ -21,7 +21,7 @@ class CampaignSlider extends StatefulWidget {
 }
 
 class _CampaignSliderState extends State<CampaignSlider> {
-  final double boxHeight = 200;
+  final double boxHeight = 160;
 
   int selectedImage = 0;
   bool loading = true;

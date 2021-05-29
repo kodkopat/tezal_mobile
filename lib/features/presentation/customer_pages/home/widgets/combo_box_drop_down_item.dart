@@ -26,7 +26,7 @@ class HomeComboBoxDropDownItem extends StatelessWidget {
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
         ..height(40)
-        ..padding(horizontal: 16)
+        ..padding(horizontal: 8)
         ..ripple(true),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

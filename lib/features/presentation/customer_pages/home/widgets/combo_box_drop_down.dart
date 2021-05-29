@@ -119,7 +119,7 @@ class _HomeComboBoxDropDownState extends State<HomeComboBoxDropDown> {
                       separatorBuilder: (context, index) {
                         return Divider(
                           color: Colors.black12,
-                          indent: 16 + 24 + 8,
+                          indent: 8 + 24 + 8,
                           thickness: 0.5,
                           height: 0,
                         );
