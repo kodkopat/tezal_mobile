@@ -37,7 +37,6 @@ class OrderList extends StatelessWidget {
         itemBuilder: (context, index) {
           return OrderListItem(
             orderItem: orderItems[index],
-            orderDetailNotifier: orderDetailNotifier,
             showCommentOption: true,
           );
         },

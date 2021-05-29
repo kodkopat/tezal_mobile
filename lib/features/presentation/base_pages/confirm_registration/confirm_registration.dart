@@ -3,9 +3,8 @@ import 'dart:async';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
@@ -13,9 +12,10 @@ import 'package:sailor/sailor.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
+import '../../../../core/widgets/global_snack_bar.dart';
 import '../../../data/repositories/auth_repository.dart';
-import '../../customer_widgets/simple_app_bar.dart';
 import '../../app_notifier.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 
 class ConfirmRegistrationPage extends StatefulWidget {
   static const route = "/confirm_registration";
@@ -26,13 +26,7 @@ class ConfirmRegistrationPage extends StatefulWidget {
 }
 
 class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
-  final repository = AuthRepository();
   String? smsCode;
-
-  String errorTxt = "";
-  bool errorVisibility = false;
-
-  ProgressDialog? prgDialog;
 
   Timer? timer;
   int? timerSeconds;
@@ -57,15 +51,6 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
   void initState() {
     super.initState();
     startTimer();
-    prgDialog = ProgressDialog(
-      context,
-      isDismissible: false,
-      type: ProgressDialogType.Normal,
-      textDirection: TextDirection.rtl,
-    )..style(
-        message: "لطفا کمی صبر کنید",
-        textAlign: TextAlign.start,
-      );
   }
 
   @override
@@ -139,32 +124,9 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    Visibility(
-                      visible: errorVisibility,
-                      child: Txt(
-                        errorTxt,
-                        style: AppTxtStyles().body
-                          ..margin(vertical: 4)
-                          ..textAlign.right(),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
                     ActionBtn(
                       text: "تایید",
-                      onTap: onSubmitBtnTap,
-                    ),
-                    Visibility(
-                      visible: errorVisibility,
-                      child: Txt(
-                        errorTxt,
-                        style: AppTxtStyles().footNote.clone()
-                          ..textColor(Theme.of(context).errorColor)
-                          ..alignmentContent.center()
-                          ..height(24)
-                          ..borderRadius(all: 2)
-                          ..padding(horizontal: 4)
-                          ..ripple(true),
-                      ),
+                      onTap: () => onSubmitBtnTap(context),
                     ),
                   ],
                 ),
@@ -176,17 +138,16 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
     );
   }
 
-  void onSubmitBtnTap() async {
-    print("onTap\n");
-    var result = await repository.confirmRegistration(sms: smsCode!);
+  void onSubmitBtnTap(BuildContext context) async {
+    var result = await Get.find<AuthRepository>().confirmRegistration(
+      sms: smsCode!,
+    );
 
-    result.fold((l) {
-      setState(() {
-        errorTxt = l.message;
-        errorVisibility = true;
-      });
-    }, (r) {
-      // App.restart(context);
+    result.fold((left) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        GlobalSnackBar(text: left.message),
+      );
+    }, (right) {
       timer!.cancel();
 
       var appNotifier = Provider.of<AppNotifier>(context, listen: false);

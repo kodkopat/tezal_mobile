@@ -9,19 +9,14 @@ import '../../../../core/widgets/custom_rating_bar.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../data/models/customer/order_detail_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import '../../customer_providers/order_detail_notifier.dart';
 import '../order_detail/widgets/order_list_item.dart';
 
 class ProductCommentPage extends StatelessWidget {
   static const route = "customer_product_comment";
 
-  ProductCommentPage({
-    required this.orderItem,
-    required this.orderDetailNotifier,
-  });
+  ProductCommentPage({required this.orderItem});
 
   final OrderItem orderItem;
-  final OrderDetailNotifier orderDetailNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +47,6 @@ class ProductCommentPage extends StatelessWidget {
                 ),
               child: OrderListItem(
                 orderItem: orderItem,
-                orderDetailNotifier: orderDetailNotifier,
                 showCommentOption: false,
               ),
             ),
@@ -74,7 +68,7 @@ class ProductCommentPage extends StatelessWidget {
                     labelText: "امتیاز محصول",
                     textCtrl: ratingBarTxtCtrl,
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   CustomTextInput(
                     label: "نظر کاربر",
                     controller: commentBoxTxtCtrl,
@@ -83,14 +77,14 @@ class ProductCommentPage extends StatelessWidget {
                     textDirection: TextDirection.rtl,
                     maxLine: 3,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   ActionBtn(
                     text: "ثبت بازخورد",
                     onTap: () {},
                     background: AppTheme.customerPrimary,
                     textColor: Colors.white,
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),

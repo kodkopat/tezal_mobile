@@ -1,69 +1,32 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:keyboard_avoider/keyboard_avoider.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:progress_dialog/progress_dialog.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
-import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
+import '../../../../core/widgets/global_snack_bar.dart';
+import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 
-class ConfirmResetPasswordPage extends StatefulWidget {
+class ConfirmResetPasswordPage extends StatelessWidget {
   static const route = "/confirm_reset_password";
 
-  const ConfirmResetPasswordPage({required this.phone});
+  ConfirmResetPasswordPage({required this.phone});
 
   final String phone;
 
-  @override
-  _ConfirmResetPasswordPageState createState() =>
-      _ConfirmResetPasswordPageState();
-}
+  final _formKey = GlobalKey<FormState>();
+  final _scrollController = ScrollController();
 
-class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
-  final repository = AuthRepository();
-  final formKey = GlobalKey<FormState>();
-  final scrollController = ScrollController();
-  var phoneCtrl;
-  final pinCodeCtrl = TextEditingController();
-  final newPassCtrl = TextEditingController();
-  final newPassRepeatCtrl = TextEditingController();
-
-  String errorTxt = "";
-  bool errorVisibility = false;
-
-  ProgressDialog? prgDialog;
-
-  var textStyle = TextStyle(
-    color: Colors.black,
-    letterSpacing: 0.5,
-    fontFamily: 'Yekan',
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-
-    phoneCtrl = TextEditingController(text: widget.phone);
-
-    prgDialog = ProgressDialog(
-      context,
-      isDismissible: false,
-      type: ProgressDialogType.Normal,
-      textDirection: TextDirection.rtl,
-    )..style(
-        message: "لطفا کمی صبر کنید",
-        textAlign: TextAlign.start,
-      );
-  }
+  final _phoneCtrl = TextEditingController();
+  final _pinCodeCtrl = TextEditingController();
+  final _newPassCtrl = TextEditingController();
+  final _newPassRepeatCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -74,21 +37,21 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
         showBackBtn: true,
       ),
       body: Form(
-        key: formKey,
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: KeyboardAvoider(
                 child: SingleChildScrollView(
-                  controller: scrollController,
+                  controller: _scrollController,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
                     children: [
                       AbsorbPointer(
                         absorbing: true,
                         child: CustomTextInput(
-                          controller: phoneCtrl,
+                          controller: _phoneCtrl..text = phone,
                           validator: AppValidators.phone,
                           label: "شماره موبایل",
                           maxLength: 11,
@@ -98,7 +61,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
                       ),
                       const SizedBox(height: 16),
                       CustomTextInput(
-                        controller: pinCodeCtrl,
+                        controller: _pinCodeCtrl,
                         validator: AppValidators.pass,
                         label: "کد تایید یکبار مصرف",
                         maxLength: 4,
@@ -107,7 +70,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
                       ),
                       const SizedBox(height: 16),
                       CustomTextInput(
-                        controller: newPassCtrl,
+                        controller: _newPassCtrl,
                         validator: AppValidators.pass,
                         label: "رمز عبور جدید",
                         maxLength: 4,
@@ -117,7 +80,7 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
                       ),
                       const SizedBox(height: 16),
                       CustomTextInput(
-                        controller: newPassRepeatCtrl,
+                        controller: _newPassRepeatCtrl,
                         validator: AppValidators.pass,
                         label: "تکرار رمز جدید",
                         maxLength: 4,
@@ -128,22 +91,8 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
                       const SizedBox(height: 16),
                       ActionBtn(
                         text: "ثبت",
-                        onTap: onSubmitBtnTap,
+                        onTap: () => onSubmitBtnTap(context),
                         background: Theme.of(context).primaryColor,
-                      ),
-                      const SizedBox(height: 16),
-                      Visibility(
-                        visible: errorVisibility,
-                        child: Txt(
-                          errorTxt,
-                          style: AppTxtStyles().footNote.clone()
-                            ..textColor(Theme.of(context).errorColor)
-                            ..alignmentContent.center()
-                            ..height(24)
-                            ..borderRadius(all: 2)
-                            ..padding(horizontal: 4)
-                            ..ripple(true),
-                        ),
                       ),
                     ],
                   ),
@@ -156,28 +105,30 @@ class _ConfirmResetPasswordPageState extends State<ConfirmResetPasswordPage> {
     );
   }
 
-  void onSubmitBtnTap() async {
-    if (((formKey.currentState as FormState)).validate()) {
-      prgDialog!.show();
-      var result = await repository.resetPassword(
-        phone: phoneCtrl.text,
-        sms: pinCodeCtrl.text,
-        password: newPassCtrl.text,
-        passwordRepeat: newPassRepeatCtrl.text,
+  void onSubmitBtnTap(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      var prgDialog = AppProgressDialog(context).instance;
+      prgDialog.show();
+
+      var result = await Get.find<AuthRepository>().resetPassword(
+        phone: _phoneCtrl.text,
+        sms: _pinCodeCtrl.text,
+        password: _newPassCtrl.text,
+        passwordRepeat: _newPassRepeatCtrl.text,
       );
 
       result.fold(
-        (l) {
-          prgDialog!.hide();
+        (left) {
+          prgDialog.hide();
 
-          (formKey.currentState as FormState).reset();
-          setState(() {
-            errorTxt = l.message;
-            errorVisibility = true;
-          });
+          (_formKey.currentState as FormState).reset();
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            GlobalSnackBar(text: left.message),
+          );
         },
-        (r) {
-          prgDialog!.hide();
+        (right) {
+          prgDialog.hide();
           Routes.sailor.pop();
           Routes.sailor.pop();
         },

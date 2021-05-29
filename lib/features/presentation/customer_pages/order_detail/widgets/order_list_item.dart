@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/exceptions/failure.dart';
@@ -13,19 +14,17 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/order_detail_result_model.dart';
 import '../../../../data/models/customer/photos_result_model.dart';
+import '../../../../data/repositories/customer_product_repository.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../../customer_providers/order_detail_notifier.dart';
 import '../../product_comment/product_comment_page.dart';
 
 class OrderListItem extends StatelessWidget {
   OrderListItem({
     required this.orderItem,
-    required this.orderDetailNotifier,
     required this.showCommentOption,
   });
 
   final OrderItem orderItem;
-  final OrderDetailNotifier orderDetailNotifier;
   final bool showCommentOption;
 
   @override
@@ -54,7 +53,7 @@ class OrderListItem extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
                   ),
-                  child: _futureImgFile,
+                  child: _futurePhoto,
                 ),
               ),
               SizedBox(width: 8),
@@ -78,10 +77,7 @@ class OrderListItem extends StatelessWidget {
                               ..onTap(() {
                                 Routes.sailor.navigate(
                                   ProductCommentPage.route,
-                                  params: {
-                                    "orderItem": orderItem,
-                                    "orderDetailNotifier": orderDetailNotifier,
-                                  },
+                                  params: {"orderItem": orderItem},
                                 );
                               }),
                             style: ParentStyle()
@@ -124,7 +120,7 @@ class OrderListItem extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,48 +133,28 @@ class OrderListItem extends StatelessWidget {
               _fieldTotalDiscount,
             ],
           ),
-          SizedBox(height: 12),
-          /* ProductListItemCounter(
-            hieght: 32,
-            defaultValue: orderItem.amount * orderItem.step,
-            unit: "${orderItem.productUnit}",
-            step: orderItem.step,
-            onIncrease: (value) async {
-              await basketNotifier.addToBasket(
-                context,
-                productId: orderItem.id,
-                amount: 1,
-              );
-            },
-            onDecrease: (value) async {
-              await basketNotifier.removeFromBasket(
-                context,
-                productId: orderItem.id,
-                amount: 1,
-              );
-            },
-          ), */
+          const SizedBox(height: 12),
         ],
       ),
     );
   }
 
-  Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: orderDetailNotifier.customerProductRepo.getPhoto(
-        id: orderItem.id,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => SizedBox(),
-          (right) => Image.memory(
-            base64Decode(right.data!.photos.first),
-          ),
-        );
-      },
-      errorBuilder: (context, data) => SizedBox(),
-    );
-  }
+  Widget get _futurePhoto =>
+      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+        future: Get.find<CustomerProductRepository>().getPhoto(
+          id: orderItem.id,
+        ),
+        successBuilder: (context, data) {
+          return data!.fold(
+            (left) => SizedBox(),
+            (right) => Image.memory(
+              base64Decode(right.data!.photos.first),
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        errorBuilder: (context, data) => SizedBox(),
+      );
 
   Widget get _verticalDivider => SizedBox(
         height: 40,

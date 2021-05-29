@@ -1,107 +1,50 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:progress_dialog/progress_dialog.dart';
+import 'package:get/get.dart';
 
 import '../../../../core/page_routes/base_routes.dart';
-import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
+import '../../../../core/widgets/global_snack_bar.dart';
+import '../../../../core/widgets/progress_dialog.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../confirm_reset_password/confirm_reset_password.dart';
 
-class ResetPasswordPage extends StatefulWidget {
+class ResetPasswordPage extends StatelessWidget {
   static const route = "/reset_password";
 
-  @override
-  _ResetPasswordPageState createState() => _ResetPasswordPageState();
-}
+  final _formKey = GlobalKey<FormState>();
 
-class _ResetPasswordPageState extends State<ResetPasswordPage> {
-  final repository = AuthRepository();
-  final formKey = GlobalKey<FormState>();
-  final phoneCtrl = TextEditingController();
-
-  String errorTxt = "";
-  bool errorVisibility = false;
-
-  ProgressDialog? prgDialog;
-
-  var textStyle = TextStyle(
-    color: Colors.black,
-    letterSpacing: 0.5,
-    fontFamily: 'Yekan',
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
-  );
-
-  @override
-  void initState() {
-    super.initState();
-    prgDialog = ProgressDialog(
-      context,
-      isDismissible: false,
-      type: ProgressDialogType.Normal,
-      textDirection: TextDirection.rtl,
-    )..style(
-        message: "لطفا کمی صبر کنید",
-        textAlign: TextAlign.start,
-      );
-  }
+  final _phoneCtrl = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: SimpleAppBar(context).create(
         text: "درخواست تغییر رمز عبور",
         showBackBtn: true,
       ),
       body: Form(
-        key: formKey,
-        child: Padding(
+        key: _formKey,
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      CustomTextInput(
-                        controller: phoneCtrl,
-                        validator: AppValidators.phone,
-                        label: "شماره موبایل",
-                        maxLength: 11,
-                        textDirection: TextDirection.ltr,
-                        keyboardType: TextInputType.number,
-                      ),
-                      const SizedBox(height: 16),
-                      ActionBtn(
-                        text: "ثبت درخواست",
-                        onTap: onSubmitBtnTap,
-                        background: Theme.of(context).primaryColor,
-                      ),
-                      const SizedBox(height: 16),
-                      Visibility(
-                        visible: errorVisibility,
-                        child: Txt(
-                          errorTxt,
-                          style: AppTxtStyles().footNote.clone()
-                            ..textColor(Theme.of(context).errorColor)
-                            ..alignmentContent.center()
-                            ..height(24)
-                            ..borderRadius(all: 2)
-                            ..padding(horizontal: 4)
-                            ..ripple(true),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              CustomTextInput(
+                controller: _phoneCtrl,
+                validator: AppValidators.phone,
+                label: "شماره موبایل",
+                maxLength: 11,
+                textDirection: TextDirection.ltr,
+                keyboardType: TextInputType.number,
+              ),
+              const SizedBox(height: 16),
+              ActionBtn(
+                text: "ثبت درخواست",
+                onTap: () => onSubmitBtnTap(context),
+                background: Theme.of(context).primaryColor,
               ),
             ],
           ),
@@ -110,28 +53,31 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-  void onSubmitBtnTap() async {
-    if ((formKey.currentState as FormState).validate()) {
-      prgDialog!.show();
-      var result = await repository.resetPasswordRequest(
-        phone: phoneCtrl.text,
+  void onSubmitBtnTap(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {
+      var prgDialog = AppProgressDialog(context).instance;
+      prgDialog.show();
+
+      var result = await Get.find<AuthRepository>().resetPasswordRequest(
+        phone: _phoneCtrl.text,
       );
 
       result.fold(
-        (l) {
-          prgDialog!.hide();
+        (left) {
+          prgDialog.hide();
 
-          (formKey.currentState as FormState).reset();
-          setState(() {
-            errorTxt = l.message;
-            errorVisibility = true;
-          });
+          (_formKey.currentState as FormState).reset();
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            GlobalSnackBar(text: left.message),
+          );
         },
-        (r) {
-          prgDialog!.hide();
+        (right) {
+          prgDialog.hide();
+
           Routes.sailor.navigate(
             ConfirmResetPasswordPage.route,
-            params: {"phone": phoneCtrl.text},
+            params: {"phone": _phoneCtrl.text},
           );
         },
       );

@@ -1,6 +1,7 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/page_routes/base_routes.dart';
@@ -8,21 +9,19 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/action_btn.dart';
 import '../../../../data/models/customer/order_detail_result_model.dart';
-import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../customer_providers/basket_notifier.dart';
 import '../../../customer_providers/order_detail_notifier.dart';
+import '../../../customer_widgets/custom_rich_text.dart';
 import '../../market_comment/market_comment_page.dart';
 
 class OrderActionsBox extends StatelessWidget {
-  const OrderActionsBox({
+  OrderActionsBox({
     required this.orderDetail,
     required this.orderDetailNotifier,
-    required this.basketNotifier,
   });
 
   final OrderDetailResultModel orderDetail;
   final OrderDetailNotifier orderDetailNotifier;
-  final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -40,21 +39,17 @@ class OrderActionsBox extends StatelessWidget {
           spread: 0,
         ),
       child: Column(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
-                textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Txt(
@@ -77,7 +72,10 @@ class OrderActionsBox extends StatelessWidget {
                   ..onTap(() {
                     Routes.sailor.navigate(
                       MarketCommentPage.route,
-                      params: {"marketName": "${orderDetail.data!.marketName}"},
+                      params: {
+                        "marketName": "${orderDetail.data!.marketName}",
+                        "orderId": "${orderDetail.data!.id}",
+                      },
                     );
                   }),
                 style: ParentStyle()
@@ -96,24 +94,32 @@ class OrderActionsBox extends StatelessWidget {
               ),
             ],
           ),
-          Divider(
+          const Divider(
             color: Colors.black12,
             thickness: 0.5,
             height: 24,
           ),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(flex: 1, child: _fieldTotalPrice),
+              Expanded(
+                flex: 1,
+                child: _fieldTotalPrice,
+              ),
               _verticalDivider,
-              Expanded(flex: 1, child: _fieldTotalDiscount),
+              Expanded(
+                flex: 1,
+                child: _fieldTotalDiscount,
+              ),
               _verticalDivider,
-              Expanded(flex: 1, child: _fieldPaymentType),
+              Expanded(
+                flex: 1,
+                child: _fieldPaymentType,
+              ),
             ],
           ),
-          Divider(
+          const Divider(
             color: Colors.black12,
             thickness: 0.5,
             height: 24,
@@ -129,7 +135,8 @@ class OrderActionsBox extends StatelessWidget {
                 orderId: orderDetail.data!.id,
               );
 
-              basketNotifier.refresh();
+              Get.find<BasketNotifier>().refresh();
+
               Routes.sailor.pop();
               Routes.sailor.pop();
             },
@@ -148,44 +155,31 @@ class OrderActionsBox extends StatelessWidget {
         ),
       );
 
-  Widget get _fieldTotalPrice {
-    return CustomRichText(
-      title: "قیمت محصولات" + "\n",
-      text: _generatePriceText(
-        orderDetail.data!.totalPrice,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
+  Widget get _fieldTotalPrice => CustomRichText(
+        title: "قیمت محصولات" + "\n",
+        text: _generatePriceText(orderDetail.data!.totalPrice),
+        textAlign: TextAlign.center,
+      );
 
-  Widget get _fieldTotalDiscount {
-    return CustomRichText(
-      title: "تخفیف محصولات" + "\n",
-      text: _generatePriceText(
-        orderDetail.data!.totalPrice - orderDetail.data!.totalDiscount,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
+  Widget get _fieldTotalDiscount => CustomRichText(
+        title: "تخفیف محصولات" + "\n",
+        text: _generatePriceText(
+            orderDetail.data!.totalPrice - orderDetail.data!.totalDiscount),
+        textAlign: TextAlign.center,
+      );
 
-  Widget get _fieldDeliveryCost {
-    return CustomRichText(
-      title: "هزینه ارسال",
-      text: _generatePriceText(
-        orderDetail.data!.deliveryCost,
-      ),
-    );
-  }
+  Widget get _fieldDeliveryCost => CustomRichText(
+        title: "هزینه ارسال",
+        text: _generatePriceText(orderDetail.data!.deliveryCost),
+      );
 
-  Widget get _fieldPaymentType {
-    return CustomRichText(
-      title: "شیوه پرداخت" + "\n",
-      text: orderDetail.data!.paymentType,
-      textAlign: TextAlign.center,
-    );
-  }
+  Widget get _fieldPaymentType => CustomRichText(
+        title: "شیوه پرداخت" + "\n",
+        text: orderDetail.data!.paymentType,
+        textAlign: TextAlign.center,
+      );
 
-  String _generatePriceText(int price) {
+  String _generatePriceText(int? price) {
     var text;
     if (price == null) {
       text = " ذکر نشده ";

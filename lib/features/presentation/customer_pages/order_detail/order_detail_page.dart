@@ -5,23 +5,20 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../customer_widgets/simple_app_bar.dart';
-import '../../customer_providers/basket_notifier.dart';
 import '../../customer_providers/order_detail_notifier.dart';
+import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/order_actions_box.dart';
 import 'widgets/order_list.dart';
 
 class OrderDetailPage extends StatelessWidget {
   static const route = "/customer_order_detail";
 
-  const OrderDetailPage({required this.orderId});
+  OrderDetailPage({required this.orderId});
 
   final String orderId;
 
   @override
   Widget build(BuildContext context) {
-    var basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
-
     var consumer = Consumer<OrderDetailNotifier>(
       builder: (context, provider, child) {
         if (provider.orderDetailResultModel == null) {
@@ -47,7 +44,6 @@ class OrderDetailPage extends StatelessWidget {
                         OrderActionsBox(
                           orderDetail: provider.orderDetailResultModel!,
                           orderDetailNotifier: provider,
-                          basketNotifier: basketNotifier,
                         ),
                       ],
                     ),

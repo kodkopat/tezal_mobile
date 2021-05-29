@@ -122,7 +122,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ActionBtn(
                         text: "ثبت",
                         onTap: () async {
-                          if ((formKey.currentState as FormState).validate()) {
+                          if (formKey.currentState!.validate()) {
                             if (imgFile != null) {
                               var prgDialog =
                                   AppProgressDialog(context).instance;
