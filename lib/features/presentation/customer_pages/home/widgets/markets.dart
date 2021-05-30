@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/models/customer/nearby_markets_result_model.dart';
+import '../../../../data/models/customer/market_categories_result_model.dart';
 import 'category_tab_bar.dart';
 import 'category_tab_bar_view.dart';
 
 class HomeMarketsWidget extends StatefulWidget {
-  HomeMarketsWidget({required this.marketsList});
+  HomeMarketsWidget({required this.marketCategories});
 
-  final List<Markets> marketsList;
+  final List<MarketCategory> marketCategories;
 
   @override
   _HomeMarketsWidgetState createState() => _HomeMarketsWidgetState();
@@ -23,16 +23,16 @@ class _HomeMarketsWidgetState extends State<HomeMarketsWidget>
       children: [
         CategoryTabBar(
           controller: tabController = TabController(
-            length: widget.marketsList.length,
+            length: widget.marketCategories.length,
             vsync: this,
           ),
-          textList: widget.marketsList.map((e) => "${e.categoryname}").toList(),
+          textList: widget.marketCategories.map((e) => "${e.name}").toList(),
         ),
         Expanded(
           child: TabBarView(
             controller: tabController,
-            children: widget.marketsList
-                .map((e) => CategoryTabBarView(markets: e.markets!))
+            children: widget.marketCategories
+                .map((e) => CategoryTabBarView(marketCategoryId: e.id))
                 .toList(),
           ),
         ),

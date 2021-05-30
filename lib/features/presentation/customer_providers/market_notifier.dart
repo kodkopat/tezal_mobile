@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../data/models/base_api_result_model.dart';
+import '../../data/models/customer/market_categories_result_model.dart';
 import '../../data/models/customer/nearby_markets_result_model.dart';
 import '../../data/repositories/customer_market_repository.dart';
 
@@ -21,20 +22,43 @@ class MarketNotifier extends ChangeNotifier {
 
   final CustomerMarketRepository customerMarketRepo;
 
+  bool marketCategoriesLoading = true;
+  String? marketCategoriesErrorMsg;
+  List<MarketCategory>? marketCategories;
+
+  Future<void> fetchMarketCategories() async {
+    var result = await customerMarketRepo.getMarketCategories();
+
+    result.fold(
+      (left) => marketCategoriesErrorMsg = left.message,
+      (right) => marketCategories = right.data,
+    );
+
+    marketCategoriesLoading = false;
+    notifyListeners();
+  }
+
   bool nearByMarketsLoading = true;
   String? nearByMarketsErrorMsg;
+  String? marketCategoryId;
 
   bool? enableLoadMoreData;
   int? nearyByMarketsTotalCount;
   int? latestPageIndex;
   List<Markets>? nearByMarkets;
 
-  Future<void> fetchNearbyMarkets(BuildContext context) async {
+  Future<void> fetchNearbyMarkets(
+    BuildContext context, {
+    required String marketCategoryId,
+  }) async {
     if (nearyByMarketsTotalCount == null) {
       var result = await customerMarketRepo.getNearByMarkets(
+        marketCategoryId: marketCategoryId,
         maxDistance: 10,
         page: 1,
       );
+
+      this.marketCategoryId = marketCategoryId;
 
       result.fold(
         (left) => nearByMarketsErrorMsg = left.message,
@@ -51,6 +75,7 @@ class MarketNotifier extends ChangeNotifier {
       if (nearyByMarketsTotalCount == 0) return;
 
       var result = await customerMarketRepo.getNearByMarkets(
+        marketCategoryId: marketCategoryId,
         maxDistance: 10,
         page: latestPageIndex! + 1,
       );
@@ -113,6 +138,9 @@ class MarketNotifier extends ChangeNotifier {
     latestPageIndex = null;
     nearByMarkets = null;
 
-    await fetchNearbyMarkets(context);
+    await fetchNearbyMarkets(
+      context,
+      marketCategoryId: marketCategoryId!,
+    );
   }
 }

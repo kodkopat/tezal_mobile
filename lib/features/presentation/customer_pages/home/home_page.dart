@@ -49,19 +49,20 @@ class HomePage extends StatelessWidget {
 
     var marketsConsumer = Consumer<MarketNotifier>(
       builder: (context, provider, child) {
-        if (provider.nearByMarkets == null) {
-          provider.fetchNearbyMarkets(context);
+        if (provider.marketCategories == null) {
+          provider.fetchMarketCategories();
         }
 
-        return provider.nearByMarketsLoading
+        return provider.marketCategoriesLoading
             ? AppLoading()
-            : provider.nearByMarkets == null
-                ? provider.nearByMarketsErrorMsg == null
+            : provider.marketCategories == null
+                ? provider.marketCategoriesErrorMsg == null
                     ? Txt("خطای بارگذاری لیست",
                         style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.nearByMarketsErrorMsg!,
+                    : Txt(provider.marketCategoriesErrorMsg,
                         style: AppTxtStyles().body..alignment.center())
-                : HomeMarketsWidget(marketsList: provider.nearByMarkets!);
+                : HomeMarketsWidget(
+                    marketCategories: provider.marketCategories!);
       },
     );
 
