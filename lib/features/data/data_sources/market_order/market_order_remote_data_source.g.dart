@@ -8,7 +8,7 @@ part of 'market_order_remote_data_source.dart';
 
 class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   _MarketOrderRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.192/market/';
+    baseUrl ??= 'http://185.116.162.30/market/';
   }
 
   final Dio _dio;

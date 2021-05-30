@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
@@ -6,6 +8,7 @@ import '../../models/base_api_result_model.dart';
 import '../../models/customer/add_edit_comment_rate_result_model.dart';
 import '../../models/customer/comments_result_model.dart';
 import '../../models/customer/main_category_detail_result_model.dart';
+import '../../models/customer/market_categories_result_model.dart';
 import '../../models/customer/market_detail_result_model.dart';
 import '../../models/customer/nearby_markets_result_model.dart';
 import '../../models/customer/photos_result_model.dart';
@@ -36,6 +39,21 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("marketId") String marketId,
   );
 
+  @GET("$_apiUrlPrefix/GetMarketCategories")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<MarketCategoriesResultModel> getMarketCategories(
+    @Header("lang") String lang,
+    @Header("token") String token,
+  );
+
+  @GET("$_apiUrlPrefix/GetMarketCategoryPhoto")
+  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  Future<List<int>> getMarketCategoryPhoto(
+    @Header("lang") String lang,
+    @Header("token") String token,
+    @Query("MarketCategoryId") String marketCategoryId,
+  );
+
   @GET("$_apiUrlPrefix/GetNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<NearByMarketsResultModel> getNearByMarkets(
@@ -43,6 +61,7 @@ abstract class CustomerMarketRemoteDataSource {
     @Header("token") String token,
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,
+    @Query("MarketCategoryId") String marketCategoryId,
     @Query("maxDistance") int maxDistance,
     @Query("page") int page,
   );

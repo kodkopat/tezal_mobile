@@ -9,7 +9,7 @@ part of 'customer_market_remote_data_source.dart';
 class _CustomerMarketRemoteDataSource
     implements CustomerMarketRemoteDataSource {
   _CustomerMarketRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.192/customer/';
+    baseUrl ??= 'http://185.116.162.30/customer/';
   }
 
   final Dio _dio;
@@ -63,10 +63,60 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<NearByMarketsResultModel> getNearByMarkets(
-      lang, token, latitude, longitude, maxDistance, page) async {
+  Future<MarketCategoriesResultModel> getMarketCategories(lang, token) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<MarketCategoriesResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/GetMarketCategories',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = MarketCategoriesResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<List<int>> getMarketCategoryPhoto(
+      lang, token, marketCategoryId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
+      r'MarketCategoryId': marketCategoryId
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<List<dynamic>>(_setStreamType<List<int>>(
+        Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Market/GetMarketCategoryPhoto',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!.cast<int>();
+    return value;
+  }
+
+  @override
+  Future<NearByMarketsResultModel> getNearByMarkets(lang, token, latitude,
+      longitude, marketCategoryId, maxDistance, page) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'MarketCategoryId': marketCategoryId,
       r'maxDistance': maxDistance,
       r'page': page
     };

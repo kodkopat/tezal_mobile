@@ -9,7 +9,7 @@ part of 'customer_wallet_remote_data_source.dart';
 class _CustomerWalletRemoteDataSource
     implements CustomerWalletRemoteDataSource {
   _CustomerWalletRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.192/customer/';
+    baseUrl ??= 'http://185.116.162.30/customer/';
   }
 
   final Dio _dio;

@@ -9,7 +9,7 @@ part of 'customer_campaign_remote_data_source.dart';
 class _CustomerCampaignRemoteDataSource
     implements CustomerCampaignRemoteDataSource {
   _CustomerCampaignRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.192/customer/';
+    baseUrl ??= 'http://185.116.162.30/customer/';
   }
 
   final Dio _dio;
