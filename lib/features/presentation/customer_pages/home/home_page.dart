@@ -8,9 +8,10 @@ import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_location_error.dart';
-import '../../../../features/presentation/customer_providers/market_notifier.dart';
+import '../../../data/repositories/customer_market_repository.dart';
 import '../../base_providers/location_notifier.dart';
 import '../../customer_providers/campaign_notifier.dart';
+import '../../customer_providers/market_category_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/campaigns_slider.dart';
 import 'widgets/combo_box.dart';
@@ -21,10 +22,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CampaignNotifier campaignNotifier =
-        Provider.of<CampaignNotifier>(context, listen: false);
-    Get.put<CampaignNotifier>(campaignNotifier);
-
     var campaignsConsumer = Consumer<CampaignNotifier>(
       builder: (context, provider, child) {
         if (provider.campaigns == null) {
@@ -43,11 +40,7 @@ class HomePage extends StatelessWidget {
       },
     );
 
-    MarketNotifier marketNotifier =
-        Provider.of<MarketNotifier>(context, listen: false);
-    Get.put<MarketNotifier>(marketNotifier);
-
-    var marketsConsumer = Consumer<MarketNotifier>(
+    var marketCategoriesConsumer = Consumer<MarketCategoryNotifier>(
       builder: (context, provider, child) {
         if (provider.marketCategories == null) {
           provider.fetchMarketCategories();
@@ -62,7 +55,8 @@ class HomePage extends StatelessWidget {
                     : Txt(provider.marketCategoriesErrorMsg,
                         style: AppTxtStyles().body..alignment.center())
                 : HomeMarketsWidget(
-                    marketCategories: provider.marketCategories!);
+                    marketCategories: provider.marketCategories!,
+                  );
       },
     );
 
@@ -88,20 +82,20 @@ class HomePage extends StatelessWidget {
                     body: RefreshIndicator(
                       onRefresh: () async {
                         provider.fetechLocation(context);
-                        await marketNotifier.customerMarketRepo
+                        await Get.find<CustomerMarketRepository>()
                             .updateNearByMarkets();
                         return Future<void>.value();
                       },
                       child: Stack(
                         children: [
-                          Column(
-                            children: [
-                              const SizedBox(height: 40),
-                              campaignsConsumer,
-                              Expanded(
-                                child: marketsConsumer,
-                              ),
-                            ],
+                          SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 40),
+                                campaignsConsumer,
+                                marketCategoriesConsumer,
+                              ],
+                            ),
                           ),
                           HomeComboBox(),
                         ],

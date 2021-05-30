@@ -6,12 +6,14 @@ import 'category_tab_bar_item.dart';
 
 class CategoryTabBar extends StatelessWidget {
   CategoryTabBar({
-    required this.controller,
     required this.textList,
+    required this.selectedIndex,
+    required this.onItemTap,
   });
 
-  final TabController controller;
   final List<String> textList;
+  final int selectedIndex;
+  final void Function(int) onItemTap;
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +21,24 @@ class CategoryTabBar extends StatelessWidget {
       style: ParentStyle()
         ..width(MediaQuery.of(context).size.width)
         ..height(48)
-        ..background.color(Theme.of(context).primaryColor),
-      child: TabBar(
-        controller: controller,
-        isScrollable: true,
-        labelColor: Colors.white,
-        indicatorWeight: 2,
-        indicatorColor: Theme.of(context).accentColor,
-        indicatorSize: TabBarIndicatorSize.tab,
-        unselectedLabelColor: Colors.white,
-        tabs: textList.map((title) => CategoryTabBarItem(text: title)).toList(),
+        ..padding(horizontal: 8, vertical: 8)
+        ..background.color(Theme.of(context).primaryColor)
+        ..boxShadow(
+          color: Colors.black12,
+          offset: Offset(0, 3.0),
+          blur: 6,
+          spread: 0,
+        ),
+      child: ListView.builder(
+        itemCount: textList.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return CategoryTabBarItem(
+            text: textList[index],
+            selected: selectedIndex == index,
+            onTap: () => onItemTap(index),
+          );
+        },
       ),
     );
   }

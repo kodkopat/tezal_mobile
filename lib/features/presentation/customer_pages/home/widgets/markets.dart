@@ -13,28 +13,25 @@ class HomeMarketsWidget extends StatefulWidget {
   _HomeMarketsWidgetState createState() => _HomeMarketsWidgetState();
 }
 
-class _HomeMarketsWidgetState extends State<HomeMarketsWidget>
-    with TickerProviderStateMixin {
-  late TabController tabController;
+class _HomeMarketsWidgetState extends State<HomeMarketsWidget> {
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CategoryTabBar(
-          controller: tabController = TabController(
-            length: widget.marketCategories.length,
-            vsync: this,
-          ),
           textList: widget.marketCategories.map((e) => "${e.name}").toList(),
+          selectedIndex: selectedIndex,
+          onItemTap: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
         ),
-        Expanded(
-          child: TabBarView(
-            controller: tabController,
-            children: widget.marketCategories
-                .map((e) => CategoryTabBarView(marketCategoryId: e.id))
-                .toList(),
-          ),
+        CategoryTabBarView(
+          key: GlobalKey(),
+          marketCategoryId: widget.marketCategories[selectedIndex].id,
         ),
       ],
     );
