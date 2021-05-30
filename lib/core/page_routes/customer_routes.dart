@@ -215,11 +215,20 @@ void createCustomerRoutes(Sailor sailor) {
       SailorRoute(
         name: ProductCommentPage.route,
         builder: (ctx, args, map) {
+          final orderId = map.param<String>("orderId");
           final orderItem = map.param<OrderItem>("orderItem");
 
-          return ProductCommentPage(orderItem: orderItem);
+          return ProductCommentPage(
+            orderId: orderId,
+            orderItem: orderItem,
+          );
         },
         params: [
+          SailorParam<String>(
+            name: "orderId",
+            isRequired: true,
+            defaultValue: null,
+          ),
           SailorParam<OrderItem>(
             name: "orderItem",
             isRequired: true,
