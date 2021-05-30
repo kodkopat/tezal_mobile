@@ -10,6 +10,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../data/data_sources/customer_product/customer_product_local_data_source.dart';
 import '../../data/data_sources/customer_product/customer_product_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
+import '../models/customer/add_edit_comment_rate_result_model.dart';
 import '../models/customer/comments_result_model.dart';
 import '../models/customer/liked_products_result_model.dart';
 import '../models/customer/photos_result_model.dart';
@@ -190,6 +191,31 @@ class CustomerProductRepository {
       );
 
       print("productComments: ${result.toJson()}\n");
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, AddEditCommentRateResultModel>> addEditCommentRate({
+    required String comment,
+    required String marketProductId,
+    required String orderId,
+    required int rate,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.addEditCommentRateProduct(
+        userLang,
+        userToken,
+        comment,
+        marketProductId,
+        orderId,
+        rate,
+      );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
