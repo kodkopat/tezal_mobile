@@ -186,7 +186,7 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<dynamic> addEditCommentRateProduct(
+  Future<AddEditCommentRateResultModel> addEditCommentRateProduct(
       lang, token, comment, marketProductId, orderId, rate) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -196,20 +196,21 @@ class _CustomerProductRemoteDataSource
       'orderId': orderId,
       'rate': rate
     };
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'lang': lang,
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Product/AddEditCommentRateProduct',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<AddEditCommentRateResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Product/AddEditCommentRateProduct',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AddEditCommentRateResultModel.fromJson(_result.data!);
     return value;
   }
 
