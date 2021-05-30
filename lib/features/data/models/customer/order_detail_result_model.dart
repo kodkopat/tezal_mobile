@@ -58,10 +58,7 @@ class Data {
         items: json["items"] == null
             ? null
             : List<OrderItem>.from(
-                json["items"].map(
-                  (x) => OrderItem.fromJson(x),
-                ),
-              ),
+                json["items"].map((x) => OrderItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -75,11 +72,7 @@ class Data {
         "totalPrice": totalPrice,
         "items": items == null
             ? null
-            : List<dynamic>.from(
-                items.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(items.map((x) => x.toJson())),
       };
 }
 
