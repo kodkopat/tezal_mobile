@@ -7,7 +7,6 @@ import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/market/orders_result_model.dart';
-import '../../../customer_widgets/custom_rich_text.dart';
 
 class OrderDetailListItem extends StatelessWidget {
   OrderDetailListItem({
@@ -37,7 +36,6 @@ class OrderDetailListItem extends StatelessWidget {
         )
         ..ripple(true),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -69,17 +67,15 @@ class OrderDetailListItem extends StatelessWidget {
               ..maxLines(1),
           ),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
-                textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _fieldTotalPrice(),
-                  _fieldTotalDiscountedPrice(),
+                  _fieldTotalPrice,
+                  _fieldTotalDiscountedPrice,
                 ],
               ),
               _fieldDiscountedRate(),
@@ -90,23 +86,20 @@ class OrderDetailListItem extends StatelessWidget {
     );
   }
 
-  Widget _fieldTotalPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateTotalPrice(),
-        style: TextStyle(
-          decoration: TextDecoration.lineThrough,
-          color: Colors.black54,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.w500,
-          fontSize: 10,
+  Widget get _fieldTotalPrice => RichText(
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateTotalPrice(),
+          style: TextStyle(
+            decoration: TextDecoration.lineThrough,
+            color: Colors.black54,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.w500,
+            fontSize: 10,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   String _generateTotalPrice() {
     var priceTxt;
@@ -128,22 +121,19 @@ class OrderDetailListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  Widget _fieldTotalDiscountedPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateTotalDiscountedPrice(),
-        style: TextStyle(
-          color: Colors.green,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+  Widget get _fieldTotalDiscountedPrice => RichText(
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateTotalDiscountedPrice(),
+          style: TextStyle(
+            color: Colors.green,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   String _generateTotalDiscountedPrice() {
     var priceTxt;
@@ -196,82 +186,5 @@ class OrderDetailListItem extends StatelessWidget {
       else
         return "${discountRate.toStringAsFixed(1)}٪";
     }
-  }
-
-  Widget get _fieldOriginalPrice => CustomRichText(
-        title: "قیمت هر واحد" + "\n",
-        text: _generateOriginalPrice(),
-        textAlign: TextAlign.center,
-      );
-
-  String _generateOriginalPrice() {
-    var priceTxt;
-    if (marketOrderItem.originalPrice == null) {
-      priceTxt = "-";
-    } else {
-      var temp;
-      if ("${marketOrderItem.originalPrice}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(marketOrderItem.originalPrice);
-      } else {
-        temp = "${marketOrderItem.originalPrice}";
-      }
-
-      priceTxt = " $temp " + "تومان";
-    }
-
-    return priceTxt;
-  }
-
-  Widget get _fieldDiscountedPrice => CustomRichText(
-        title: "تخفیف هر واحد" + "\n",
-        text: _generateDiscountedPrice(),
-        textAlign: TextAlign.center,
-      );
-
-  String _generateDiscountedPrice() {
-    var priceTxt;
-    if (marketOrderItem.originalPrice == null ||
-        marketOrderItem.discountedPrice == null) {
-      priceTxt = "-";
-    } else {
-      var temp;
-      if ("${marketOrderItem.originalPrice - marketOrderItem.discountedPrice}"
-              .length >=
-          3) {
-        temp = intl.NumberFormat("#,000").format(
-            marketOrderItem.originalPrice - marketOrderItem.discountedPrice);
-      } else {
-        temp =
-            "${marketOrderItem.originalPrice - marketOrderItem.discountedPrice}";
-      }
-
-      priceTxt = " $temp " + "تومان";
-    }
-
-    return priceTxt;
-  }
-
-  Widget get _fieldTotalDiscount => CustomRichText(
-        title: "سود کل خرید" + "\n",
-        text: _generateTotalDiscount(),
-        textAlign: TextAlign.center,
-      );
-
-  String _generateTotalDiscount() {
-    var priceTxt;
-    if (marketOrderItem.totalDiscount == null) {
-      priceTxt = "-";
-    } else {
-      var temp;
-      if ("${marketOrderItem.totalDiscount}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(marketOrderItem.totalDiscount);
-      } else {
-        temp = "${marketOrderItem.totalDiscount}";
-      }
-
-      priceTxt = " $temp " + "تومان";
-    }
-
-    return priceTxt;
   }
 }
