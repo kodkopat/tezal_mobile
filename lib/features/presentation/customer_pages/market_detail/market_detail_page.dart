@@ -41,9 +41,6 @@ class MarketDetailPage extends StatelessWidget {
         Provider.of<MarketCommentsNotifier>(context, listen: false);
     Get.put<MarketCommentsNotifier>(marketCommentsNotifier);
 
-    basketNotifier = Provider.of<BasketNotifier>(context, listen: false);
-    Get.put<BasketNotifier>(basketNotifier);
-
     marketDetailNotifier =
         Provider.of<MarketDetailNotifier>(context, listen: false);
     Get.put<MarketDetailNotifier>(marketDetailNotifier);
@@ -99,7 +96,6 @@ class MarketDetailPage extends StatelessWidget {
     );
 
     return SingleChildScrollView(
-      // padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           const SizedBox(height: 16),

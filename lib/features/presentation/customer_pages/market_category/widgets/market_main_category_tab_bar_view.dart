@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../../core/widgets/loading.dart';
 import '../../../../data/models/customer/sub_category_result_model.dart';
 import '../../../../data/repositories/customer_category_repository.dart';
-import '../../../customer_providers/basket_notifier.dart';
 import 'market_sub_category_list.dart';
 import 'market_sub_category_view.dart';
 
@@ -12,12 +11,10 @@ class MarketMainCategoryTabBarView extends StatefulWidget {
   MarketMainCategoryTabBarView({
     required this.marketId,
     required this.mainCategoryId,
-    required this.basketNotifier,
   });
 
   final String marketId;
   final String mainCategoryId;
-  final BasketNotifier basketNotifier;
 
   @override
   _MarketMainCategoryTabBarViewState createState() =>
@@ -86,7 +83,6 @@ class _MarketMainCategoryTabBarViewState
                   marketId: widget.marketId,
                   subCategoryId:
                       subCategoryIdList[subCategoryListSelectedIndex],
-                  basketNotifier: widget.basketNotifier,
                 ),
               ),
             ],

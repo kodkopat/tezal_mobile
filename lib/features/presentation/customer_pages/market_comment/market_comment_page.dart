@@ -3,15 +3,14 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:tezal/core/page_routes/base_routes.dart';
-import 'package:tezal/core/widgets/global_snack_bar.dart';
 
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/validators/validators.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_rating_bar.dart';
 import '../../../../core/widgets/custom_text_input.dart';
+import '../../../../core/widgets/global_snack_bar.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_providers/market_comments_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -40,13 +39,13 @@ class MarketCommentPage extends StatelessWidget {
         showBackBtn: true,
       ),
       body: ChangeNotifierProvider(
-        create: (ctx) => MarketCommentsNotifier(
+        create: (context) => MarketCommentsNotifier(
           Get.find<CustomerMarketRepository>(),
         ),
         child: Consumer<MarketCommentsNotifier>(
           builder: (context, provider, child) {
             return SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Parent(
                 style: ParentStyle()
                   ..margin(vertical: 8)
@@ -62,7 +61,7 @@ class MarketCommentPage extends StatelessWidget {
                 child: Form(
                   key: formKey,
                   child: Column(
-                    textDirection: TextDirection.rtl,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Txt(
                         marketName,
@@ -110,8 +109,6 @@ class MarketCommentPage extends StatelessWidget {
                             }
                           }
                         },
-                        background: AppTheme.customerPrimary,
-                        textColor: Colors.white,
                       ),
                       const SizedBox(height: 16),
                     ],

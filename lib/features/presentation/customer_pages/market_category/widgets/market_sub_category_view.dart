@@ -21,19 +21,18 @@ class MarketSubCategoryView extends StatelessWidget {
   MarketSubCategoryView({
     required this.marketId,
     required this.subCategoryId,
-    required this.basketNotifier,
   });
 
   final String marketId;
   final String subCategoryId;
-  final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    var customerProductRep = CustomerProductRepository();
+    var basketNotifier = Get.find<BasketNotifier>();
+    var marketDetailNotifier = Get.find<MarketDetailNotifier>();
 
     return CustomFutureBuilder(
-      future: customerProductRep.getProductsInSubCategory(
+      future: Get.find<CustomerProductRepository>().getProductsInSubCategory(
         marketId: marketId,
         categoryId: subCategoryId,
       ),
@@ -50,7 +49,6 @@ class MarketSubCategoryView extends StatelessWidget {
               products: right.data!,
               onItemTap: (index) {
                 var productId = right.data![index].id;
-                var marketDetailNotifier = Get.find<MarketDetailNotifier>();
 
                 Routes.sailor.navigate(
                   ProductDetailPage.route,
@@ -71,14 +69,14 @@ class MarketSubCategoryView extends StatelessWidget {
                 basketNotifier.addToBasket(
                   productId: right.data![index].id,
                 );
-                var marketDetailNotifier = Get.find<MarketDetailNotifier>();
+
                 marketDetailNotifier.refresh();
               },
               onItemRemoveFromBasket: (index) {
                 basketNotifier.removeFromBasket(
                   productId: right.data![index].id,
                 );
-                var marketDetailNotifier = Get.find<MarketDetailNotifier>();
+
                 marketDetailNotifier.refresh();
               },
             ),

@@ -37,11 +37,9 @@ class BasketListItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Parent(
@@ -64,12 +62,10 @@ class BasketListItem extends StatelessWidget {
               SizedBox(width: 8),
               Expanded(
                 child: Column(
-                  textDirection: TextDirection.rtl,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Txt(
@@ -96,18 +92,16 @@ class BasketListItem extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
-                          textDirection: TextDirection.rtl,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             if (_generateDiscountedRate().isNotEmpty)
-                              _fieldTotalPrice(),
-                            _fieldTotalDiscountedPrice(),
+                              _fieldTotalPrice,
+                            _fieldTotalDiscountedPrice,
                           ],
                         ),
                         _fieldDiscountedRate(),
@@ -120,7 +114,6 @@ class BasketListItem extends StatelessWidget {
           ),
           SizedBox(height: 12),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -145,22 +138,22 @@ class BasketListItem extends StatelessWidget {
     );
   }
 
-  Widget get _futureImgFile {
-    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: basketNotifier.customerProductRepo.getPhoto(
-        id: basketItem.id,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => SizedBox(),
-          (right) => Image.memory(
-            base64Decode(right.data!.photos.first),
-          ),
-        );
-      },
-      errorBuilder: (context, data) => SizedBox(),
-    );
-  }
+  Widget get _futureImgFile =>
+      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
+        future: basketNotifier.customerProductRepo.getPhoto(
+          id: basketItem.id,
+        ),
+        successBuilder: (context, data) {
+          return data!.fold(
+            (left) => SizedBox(),
+            (right) => Image.memory(
+              base64Decode(right.data!.photos.first),
+              fit: BoxFit.fill,
+            ),
+          );
+        },
+        errorBuilder: (context, data) => SizedBox(),
+      );
 
   Widget get _verticalDivider => SizedBox(
         height: 40,
@@ -171,23 +164,20 @@ class BasketListItem extends StatelessWidget {
         ),
       );
 
-  Widget _fieldTotalPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateTotalPrice(),
-        style: TextStyle(
-          decoration: TextDecoration.lineThrough,
-          color: Colors.black54,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.w500,
-          fontSize: 10,
+  Widget get _fieldTotalPrice => RichText(
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateTotalPrice(),
+          style: TextStyle(
+            decoration: TextDecoration.lineThrough,
+            color: Colors.black54,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.w500,
+            fontSize: 10,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   String _generateTotalPrice() {
     var priceTxt;
@@ -209,22 +199,19 @@ class BasketListItem extends StatelessWidget {
     return priceTxt;
   }
 
-  Widget _fieldTotalDiscountedPrice() {
-    return RichText(
-      textDirection: TextDirection.rtl,
-      textAlign: TextAlign.right,
-      text: TextSpan(
-        text: _generateTotalDiscountedPrice(),
-        style: TextStyle(
-          color: Colors.green,
-          letterSpacing: 0.5,
-          fontFamily: 'Yekan',
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
+  Widget get _fieldTotalDiscountedPrice => RichText(
+        textAlign: TextAlign.right,
+        text: TextSpan(
+          text: _generateTotalDiscountedPrice(),
+          style: TextStyle(
+            color: Colors.green,
+            letterSpacing: 0.5,
+            fontFamily: 'Yekan',
+            fontWeight: FontWeight.bold,
+            fontSize: 14,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   String _generateTotalDiscountedPrice() {
     var priceTxt;
