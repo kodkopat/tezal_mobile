@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
+import 'package:tezal/features/data/models/customer/market_categories_result_model.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -81,7 +82,45 @@ class CustomerMarketRepository {
     }
   }
 
+  Future<Either<Failure, MarketCategoriesResultModel>>
+      getMarketCategories() async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getMarketCategories(
+        userLang,
+        userToken,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, List<int>>> getMarketCategoryPhoto(
+      {required String marketCategoryId}) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getMarketCategoryPhoto(
+        userLang,
+        userToken,
+        marketCategoryId,
+      );
+
+      return result.isNotEmpty
+          ? Right(result)
+          : Left(ApiFailure("failed to load image"));
+    }
+  }
+
   Future<Either<Failure, NearByMarketsResultModel>> getNearByMarkets({
+    required String marketCategoryId,
     required int maxDistance,
     required int page,
   }) async {
@@ -97,6 +136,7 @@ class CustomerMarketRepository {
         userToken,
         "${position.latitude}",
         "${position.longitude}",
+        marketCategoryId,
         maxDistance,
         page,
       );

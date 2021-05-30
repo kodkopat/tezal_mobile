@@ -7,7 +7,7 @@ class MarketCategoriesResultModel {
 
   final success;
   final message;
-  final data;
+  final List<MarketCategory>? data;
 
   factory MarketCategoriesResultModel.fromJson(Map<String, dynamic> json) =>
       MarketCategoriesResultModel(
@@ -24,34 +24,26 @@ class MarketCategoriesResultModel {
         "message": message,
         "data": data == null
             ? null
-            : List<dynamic>.from(data.map((x) => x.toJson())),
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
 class MarketCategory {
   MarketCategory({
-    required this.categoryId,
-    required this.marketId,
+    required this.id,
     required this.name,
-    required this.photo,
   });
 
-  final categoryId;
-  final marketId;
-  final name;
-  final photo;
+  final String id;
+  final String name;
 
   factory MarketCategory.fromJson(Map<String, dynamic> json) => MarketCategory(
-        categoryId: json["categoryId"],
-        marketId: json["marketId"],
+        id: json["id"],
         name: json["name"],
-        photo: json["photo"],
       );
 
   Map<String, dynamic> toJson() => {
-        "categoryId": categoryId,
-        "marketId": marketId,
+        "id": id,
         "name": name,
-        "photo": photo,
       };
 }
