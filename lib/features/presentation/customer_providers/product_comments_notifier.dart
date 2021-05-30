@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/progress_dialog.dart';
+import '../../data/models/customer/add_edit_comment_rate_result_model.dart';
 import '../../data/models/customer/comments_result_model.dart';
 import '../../data/repositories/customer_product_repository.dart';
 
@@ -75,6 +76,36 @@ class ProductCommentsNotifier extends ChangeNotifier {
       print("commentsListLength: ${comments!.length}\n");
       prgDialog.hide();
     }
+
+    notifyListeners();
+  }
+
+  String? addEditCommentRateErrorMsg;
+  AddEditCommentRateResultModel? addEditCommentRateResult;
+
+  Future<void> addEditCommentRate(
+    BuildContext context, {
+    required String comment,
+    required String marketProductId,
+    required String orderId,
+    required int rate,
+  }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await customerProductRepo.addEditCommentRate(
+      comment: comment,
+      marketProductId: marketProductId,
+      orderId: orderId,
+      rate: rate,
+    );
+
+    result.fold(
+      (left) => addEditCommentRateErrorMsg = left.message,
+      (right) => addEditCommentRateResult = right,
+    );
+
+    prgDialog.hide();
 
     notifyListeners();
   }

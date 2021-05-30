@@ -14,7 +14,7 @@ import 'customer_providers/addresses_notifier.dart';
 import 'customer_providers/basket_notifier.dart';
 import 'customer_providers/campaign_notifier.dart';
 import 'customer_providers/liked_product_notifier.dart';
-import 'customer_providers/market_notifier.dart';
+import 'customer_providers/market_category_notifier.dart';
 import 'customer_providers/order_notifier.dart';
 import 'customer_providers/profile_notifier.dart';
 import 'customer_providers/search_notifier.dart';
@@ -27,7 +27,7 @@ List<SingleChildWidget> customerProviders = [
     ),
   ),
   ChangeNotifierProvider(
-    create: (ctx) => MarketNotifier(
+    create: (ctx) => MarketCategoryNotifier(
       CustomerMarketRepository(),
     ),
   ),

@@ -1,42 +1,13 @@
 import 'package:flutter/material.dart';
 
 import '../../data/models/base_api_result_model.dart';
-import '../../data/models/customer/market_categories_result_model.dart';
 import '../../data/models/customer/nearby_markets_result_model.dart';
 import '../../data/repositories/customer_market_repository.dart';
 
 class MarketNotifier extends ChangeNotifier {
-  static MarketNotifier? _instance;
-
-  factory MarketNotifier(
-    CustomerMarketRepository customerMarketRepo,
-  ) {
-    if (_instance == null) {
-      _instance = MarketNotifier._privateConstructor(customerMarketRepo);
-    }
-
-    return _instance!;
-  }
-
-  MarketNotifier._privateConstructor(this.customerMarketRepo);
+  MarketNotifier(this.customerMarketRepo);
 
   final CustomerMarketRepository customerMarketRepo;
-
-  bool marketCategoriesLoading = true;
-  String? marketCategoriesErrorMsg;
-  List<MarketCategory>? marketCategories;
-
-  Future<void> fetchMarketCategories() async {
-    var result = await customerMarketRepo.getMarketCategories();
-
-    result.fold(
-      (left) => marketCategoriesErrorMsg = left.message,
-      (right) => marketCategories = right.data,
-    );
-
-    marketCategoriesLoading = false;
-    notifyListeners();
-  }
 
   bool nearByMarketsLoading = true;
   String? nearByMarketsErrorMsg;
@@ -45,7 +16,7 @@ class MarketNotifier extends ChangeNotifier {
   bool? enableLoadMoreData;
   int? nearyByMarketsTotalCount;
   int? latestPageIndex;
-  List<Markets>? nearByMarkets;
+  List<Market>? nearByMarkets;
 
   Future<void> fetchNearbyMarkets(
     BuildContext context, {
@@ -63,6 +34,7 @@ class MarketNotifier extends ChangeNotifier {
       result.fold(
         (left) => nearByMarketsErrorMsg = left.message,
         (right) {
+          print("nearByMarkets: ${right.toJson()}\n");
           NearByMarketsResultModel model = right;
           nearyByMarketsTotalCount = model.data!.total;
           latestPageIndex = right.data!.page;
