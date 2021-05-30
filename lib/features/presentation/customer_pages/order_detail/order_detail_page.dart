@@ -3,10 +3,12 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_providers/order_detail_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
+import '../product_comment/product_comment_page.dart';
 import 'widgets/order_actions_box.dart';
 import 'widgets/order_list.dart';
 
@@ -39,6 +41,16 @@ class OrderDetailPage extends StatelessWidget {
                         OrderList(
                           orderItems:
                               provider.orderDetailResultModel!.data?.items,
+                          onItemCommentTap: (index) {
+                            Routes.sailor.navigate(
+                              ProductCommentPage.route,
+                              params: {
+                                "orderId": orderId,
+                                "orderItem": provider
+                                    .orderDetailResultModel!.data?.items[index],
+                              },
+                            );
+                          },
                           orderDetailNotifier: provider,
                         ),
                         OrderActionsBox(

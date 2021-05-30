@@ -11,10 +11,12 @@ class OrderList extends StatelessWidget {
   const OrderList({
     required this.orderItems,
     required this.orderDetailNotifier,
+    required this.onItemCommentTap,
   });
 
   final List<OrderItem> orderItems;
   final OrderDetailNotifier orderDetailNotifier;
+  final void Function(int) onItemCommentTap;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,7 @@ class OrderList extends StatelessWidget {
           return OrderListItem(
             orderItem: orderItems[index],
             showCommentOption: true,
+            onCommentTap: () => onItemCommentTap(index),
           );
         },
         separatorBuilder: (context, index) {

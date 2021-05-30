@@ -9,23 +9,23 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/exceptions/failure.dart';
-import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/order_detail_result_model.dart';
 import '../../../../data/models/customer/photos_result_model.dart';
 import '../../../../data/repositories/customer_product_repository.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
-import '../../product_comment/product_comment_page.dart';
 
 class OrderListItem extends StatelessWidget {
   OrderListItem({
     required this.orderItem,
     required this.showCommentOption,
+    required this.onCommentTap,
   });
 
   final OrderItem orderItem;
   final bool showCommentOption;
+  final VoidCallback onCommentTap;
 
   @override
   Widget build(BuildContext context) {
@@ -73,13 +73,7 @@ class OrderListItem extends StatelessWidget {
                         ),
                         if (showCommentOption)
                           Parent(
-                            gesture: Gestures()
-                              ..onTap(() {
-                                Routes.sailor.navigate(
-                                  ProductCommentPage.route,
-                                  params: {"orderItem": orderItem},
-                                );
-                              }),
+                            gesture: Gestures()..onTap(onCommentTap),
                             style: ParentStyle()
                               ..width(48)
                               ..height(48)
