@@ -12,81 +12,73 @@ import '../../customer_providers/market_detail_notifier.dart';
 import '../product_list/product_horizontal_list.dart';
 
 class CategoryListItem extends StatelessWidget {
-  const CategoryListItem({
+  CategoryListItem({
     required this.category,
     required this.onCategoryTap,
+    required this.marketDetailNotifier,
   });
 
   final Category category;
   final VoidCallback onCategoryTap;
+  final MarketDetailNotifier marketDetailNotifier;
 
   @override
   Widget build(BuildContext context) {
     var basketNotifier = Get.find<BasketNotifier>();
-    var marketDetailNotifier = Get.find<MarketDetailNotifier>();
+    var products = category.products!;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Txt(
-              "${category.name}",
-              gesture: Gestures()..onTap(onCategoryTap),
-              style: AppTxtStyles().body
-                ..margin(right: 20, top: 16, bottom: 8)
-                ..padding(all: 4)
-                ..borderRadius(all: 4)
-                ..ripple(true)
-                ..bold(),
-            ),
-            Txt(
-              "مشاهده محصولات دسته‌بندی \u00BB",
-              gesture: Gestures()..onTap(onCategoryTap),
-              style: AppTxtStyles().footNote
-                ..margin(left: 16, top: 18, bottom: 8)
-                ..padding(all: 4)
-                ..borderRadius(all: 4)
-                ..ripple(true),
-            ),
-          ],
-        ),
+        _header,
         ProductHorizontalList(
-          products: category.products!,
+          products: products,
           onItemTap: (index) {
-            var productId = category.products![index].id;
-
+            var productId = products[index].id;
             Routes.sailor.navigate(
               ProductDetailPage.route,
               params: {
                 "productId": productId,
-                "onAddToBasket": () {
-                  basketNotifier.addToBasket(productId: productId);
-                  marketDetailNotifier.refresh();
-                },
-                "onRemoveFromBasket": () {
-                  basketNotifier.removeFromBasket(productId: productId);
-                  marketDetailNotifier.refresh();
-                },
+                "marketDetailNotifier": marketDetailNotifier,
               },
             );
           },
           onItemAddToBasket: (index) {
-            basketNotifier.addToBasket(
-              productId: category.products![index].id,
-            );
-            // marketDetailNotifier.refresh();
+            var productId = products[index].id;
+            basketNotifier.addToBasket(productId: productId);
           },
           onItemRemoveFromBasket: (index) {
-            basketNotifier.removeFromBasket(
-              productId: category.products![index].id,
-            );
-            // marketDetailNotifier.refresh();
+            var productId = products[index].id;
+            basketNotifier.removeFromBasket(productId: productId);
           },
         ),
       ],
     );
   }
+
+  Widget get _header => Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Txt(
+            "${category.name}",
+            gesture: Gestures()..onTap(onCategoryTap),
+            style: AppTxtStyles().body
+              ..margin(right: 20, top: 16, bottom: 8)
+              ..padding(all: 4)
+              ..borderRadius(all: 4)
+              ..ripple(true)
+              ..bold(),
+          ),
+          Txt(
+            "جزئیات دسته‌بندی \u00BB",
+            gesture: Gestures()..onTap(onCategoryTap),
+            style: AppTxtStyles().footNote
+              ..margin(left: 16, top: 18, bottom: 8)
+              ..padding(all: 4)
+              ..borderRadius(all: 4)
+              ..ripple(true),
+          ),
+        ],
+      );
 }
