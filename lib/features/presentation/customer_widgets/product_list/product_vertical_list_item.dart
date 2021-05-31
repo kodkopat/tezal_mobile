@@ -33,6 +33,7 @@ class ProductVerticalListItem extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onAddToBasket;
   final VoidCallback onRemoveFromBasket;
+
   late LikedProductNotifier productNotifier;
   late BasketNotifier basketNotifier;
 
@@ -63,11 +64,9 @@ class ProductVerticalListItem extends StatelessWidget {
         )
         ..ripple(true),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Parent(
@@ -87,15 +86,13 @@ class ProductVerticalListItem extends StatelessWidget {
                   child: _futureImgFile,
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: Column(
-                  textDirection: TextDirection.rtl,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Txt(
@@ -106,26 +103,24 @@ class ProductVerticalListItem extends StatelessWidget {
                           defaultValue: product.liked,
                           onChange: (value) async {
                             if (value) {
-                              // productNotifier.likeProduct(
-                              //   productId: product.id,
-                              // );
+                              productNotifier.likeProduct(
+                                productId: product.id,
+                              );
                             } else {
-                              // productNotifier.unlikeProduct(
-                              //   productId: product.id,
-                              // );
+                              productNotifier.unlikeProduct(
+                                productId: product.id,
+                              );
                             }
                           },
                         ),
                       ],
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
-                          textDirection: TextDirection.rtl,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -142,9 +137,8 @@ class ProductVerticalListItem extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -155,7 +149,8 @@ class ProductVerticalListItem extends StatelessWidget {
               _fieldTotalDiscount,
             ],
           ),
-          SizedBox(height: 12),
+          const SizedBox(height: 12),
+          // if (product.onSale ?? false)
           ProductListItemCounter(
             hieght: 32,
             defaultValue: product.amount * product.step,
@@ -194,7 +189,6 @@ class ProductVerticalListItem extends StatelessWidget {
       );
 
   Widget _fieldTotalPrice() => RichText(
-        textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         text: TextSpan(
           text: _generateTotalPrice(),
@@ -230,7 +224,6 @@ class ProductVerticalListItem extends StatelessWidget {
   }
 
   Widget _fieldTotalDiscountedPrice() => RichText(
-        textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         text: TextSpan(
           text: _generateTotalDiscountedPrice(),

@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
@@ -30,7 +31,6 @@ class ProductHorizontalListItem extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback onAddToBasket;
   final VoidCallback onRemoveFromBasket;
-  final _customerProductRepo = CustomerProductRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,6 @@ class ProductHorizontalListItem extends StatelessWidget {
       child: Stack(
         children: [
           Column(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -84,12 +83,10 @@ class ProductHorizontalListItem extends StatelessWidget {
                   ..maxLines(1),
               ),
               Row(
-                textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Column(
-                    textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -100,6 +97,7 @@ class ProductHorizontalListItem extends StatelessWidget {
                   _fieldDiscountedRate(),
                 ],
               ),
+              // if (product.onSale ?? false)
               ProductListItemCounter(
                 hieght: 28,
                 defaultValue: product.amount * product.step,
@@ -135,12 +133,12 @@ class ProductHorizontalListItem extends StatelessWidget {
 
   Widget get _futureImgFile =>
       CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: _customerProductRepo.getPhoto(id: product.id),
+        future: Get.find<CustomerProductRepository>().getPhoto(id: product.id),
         successBuilder: (context, data) {
           return data!.fold(
-            (l) => SizedBox(),
-            (r) => Image.memory(
-              base64Decode(r.data!.photos.first),
+            (left) => SizedBox(),
+            (right) => Image.memory(
+              base64Decode(right.data!.photos.first),
               fit: BoxFit.fill,
             ),
           );
@@ -150,7 +148,6 @@ class ProductHorizontalListItem extends StatelessWidget {
 
   Widget _fieldOriginalPrice() {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateOriginalPrice(),
@@ -167,7 +164,6 @@ class ProductHorizontalListItem extends StatelessWidget {
   }
 
   Widget _fieldDiscountedPrice() => RichText(
-        textDirection: TextDirection.rtl,
         textAlign: TextAlign.right,
         text: TextSpan(
           text: _generateDiscountedPrice(),
