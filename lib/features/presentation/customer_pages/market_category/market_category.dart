@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/market_detail_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/market_main_category_tab_bar.dart';
 import 'widgets/market_main_category_tab_bar_view.dart';
@@ -15,10 +16,12 @@ class MarketCategoryPage extends StatefulWidget {
   MarketCategoryPage({
     required this.marketId,
     required this.categories,
+    required this.marketDetailNotifier,
   });
 
   final String marketId;
   final List<Category> categories;
+  final MarketDetailNotifier marketDetailNotifier;
 
   @override
   _MarketCategoryPageState createState() => _MarketCategoryPageState();
@@ -85,6 +88,7 @@ class _MarketCategoryPageState extends State<MarketCategoryPage>
                       return MarketMainCategoryTabBarView(
                         marketId: widget.marketId,
                         mainCategoryId: category.id,
+                        marketDetailNotifier: widget.marketDetailNotifier,
                       );
                     }).toList(),
                   ),

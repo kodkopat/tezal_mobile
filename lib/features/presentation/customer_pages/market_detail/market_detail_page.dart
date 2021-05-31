@@ -15,9 +15,8 @@ import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../data/models/customer/photos_result_model.dart';
+import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_pages/home/widgets/markets_list_item.dart';
-import '../../customer_providers/basket_notifier.dart';
-import '../../customer_providers/market_comments_notifier.dart';
 import '../../customer_providers/market_detail_notifier.dart';
 import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
@@ -31,25 +30,15 @@ class MarketDetailPage extends StatelessWidget {
   MarketDetailPage({required this.marketId});
 
   final String marketId;
-  late final MarketCommentsNotifier marketCommentsNotifier;
-  late final MarketDetailNotifier marketDetailNotifier;
-  late final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
-    marketCommentsNotifier =
-        Provider.of<MarketCommentsNotifier>(context, listen: false);
-    Get.put<MarketCommentsNotifier>(marketCommentsNotifier);
-
-    marketDetailNotifier =
-        Provider.of<MarketDetailNotifier>(context, listen: false);
-    Get.put<MarketDetailNotifier>(marketDetailNotifier);
-
     var consumer = Consumer<MarketDetailNotifier>(
       builder: (context, provider, child) {
+        Get.put<MarketDetailNotifier>(provider);
+
         if (provider.marketDetail == null) {
           provider.fetchMarketDetail(marketId: marketId);
-          Get.put<MarketDetailNotifier>(provider);
         }
 
         return provider.marketDetailLoading
@@ -60,7 +49,11 @@ class MarketDetailPage extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                     : Txt(provider.marketDetailErrorMsg,
                         style: AppTxtStyles().body..alignment.center())
-                : _listOfSections(context, provider.marketDetail!);
+                : _listOfSections(
+                    context,
+                    provider.marketDetail!,
+                    provider,
+                  );
       },
     );
 
@@ -77,6 +70,7 @@ class MarketDetailPage extends StatelessWidget {
   Widget _listOfSections(
     BuildContext context,
     MarketDetailResultModel marketDetail,
+    MarketDetailNotifier notifier,
   ) {
     var categories = marketDetail.data!.categories;
 
@@ -102,8 +96,8 @@ class MarketDetailPage extends StatelessWidget {
           const SizedBox(height: 16),
           _sectionCarouselSlider(marketDetail),
           const SizedBox(height: 16),
-          _sectionDetailsBox(market),
-          _sectionCategories(categories!),
+          _sectionDetailsBox(market, notifier),
+          _sectionCategories(categories!, notifier),
           _sectionComments(context),
           const SizedBox(height: 16),
         ],
@@ -115,8 +109,8 @@ class MarketDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: marketCommentsNotifier.customerMarketRepo
-            .getPhotos(marketId: marketId),
+        future:
+            Get.find<CustomerMarketRepository>().getPhotos(marketId: marketId),
         successBuilder: (context, data) {
           return data!.fold(
             (left) => MarketSlider(images: []),
@@ -138,23 +132,27 @@ class MarketDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _sectionDetailsBox(Market market) {
+  Widget _sectionDetailsBox(Market market, MarketDetailNotifier notifier) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: MarketsListItem(
         market: market,
         onTap: () {},
         onLikeStatusChanged: () {
-          marketDetailNotifier.like(marketId: market.id);
+          notifier.like(marketId: market.id);
         },
       ),
     );
   }
 
-  Widget _sectionCategories(List<Category> categories) {
+  Widget _sectionCategories(
+    List<Category> categories,
+    MarketDetailNotifier marketDetailNotifier,
+  ) {
     return CategoryList(
       marketId: marketId,
       categories: categories,
+      marketDetailNotifier: marketDetailNotifier,
     );
   }
 
@@ -162,7 +160,7 @@ class MarketDetailPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: CustomFutureBuilder<Either<Failure, CommentsResultModel>>(
-        future: marketCommentsNotifier.customerMarketRepo.getComments(
+        future: Get.find<CustomerMarketRepository>().getComments(
           marketId: marketId,
           skip: 0,
           take: 3,

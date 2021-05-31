@@ -21,15 +21,16 @@ class MarketSubCategoryView extends StatelessWidget {
   MarketSubCategoryView({
     required this.marketId,
     required this.subCategoryId,
+    required this.marketDetailNotifier,
   });
 
   final String marketId;
   final String subCategoryId;
+  final MarketDetailNotifier marketDetailNotifier;
 
   @override
   Widget build(BuildContext context) {
     var basketNotifier = Get.find<BasketNotifier>();
-    var marketDetailNotifier = Get.find<MarketDetailNotifier>();
 
     return CustomFutureBuilder(
       future: Get.find<CustomerProductRepository>().getProductsInSubCategory(
@@ -54,29 +55,18 @@ class MarketSubCategoryView extends StatelessWidget {
                   ProductDetailPage.route,
                   params: {
                     "productId": productId,
-                    "onAddToBasket": () {
-                      basketNotifier.addToBasket(productId: productId);
-                      marketDetailNotifier.refresh();
-                    },
-                    "onRemoveFromBasket": () {
-                      basketNotifier.removeFromBasket(productId: productId);
-                      marketDetailNotifier.refresh();
-                    },
+                    "marketDetailNotifier": marketDetailNotifier,
                   },
                 );
               },
               onItemAddToBasket: (index) {
-                basketNotifier.addToBasket(
-                  productId: right.data![index].id,
-                );
-
+                var product = right.data![index];
+                basketNotifier.addToBasket(productId: product.id);
                 marketDetailNotifier.refresh();
               },
               onItemRemoveFromBasket: (index) {
-                basketNotifier.removeFromBasket(
-                  productId: right.data![index].id,
-                );
-
+                var product = right.data![index];
+                basketNotifier.removeFromBasket(productId: product.id);
                 marketDetailNotifier.refresh();
               },
             ),

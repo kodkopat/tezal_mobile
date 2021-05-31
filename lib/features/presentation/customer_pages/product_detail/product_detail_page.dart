@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
@@ -17,8 +18,10 @@ import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/models/customer/product_detail_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../customer_providers/basket_notifier.dart';
+import '../../customer_providers/market_detail_notifier.dart';
 import '../../customer_providers/product_comments_notifier.dart';
 import '../../customer_providers/product_details_notifier.dart';
+import '../../customer_providers/search_notifier.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/product_list/product_counter.dart';
 import '../../customer_widgets/product_list/product_like_toggle.dart';
@@ -31,21 +34,14 @@ class ProductDetailPage extends StatelessWidget {
 
   ProductDetailPage({
     required this.productId,
-    required this.onAddToBasket,
-    required this.onRemoveFromBasket,
+    required this.marketDetailNotifier,
   });
 
   final String productId;
-  final VoidCallback onAddToBasket;
-  final VoidCallback onRemoveFromBasket;
-
-  final _customerProductRepo = CustomerProductRepository();
-  BasketNotifier? basketNotifier;
+  final MarketDetailNotifier marketDetailNotifier;
 
   @override
   Widget build(BuildContext context) {
-    basketNotifier ??= Provider.of<BasketNotifier>(context, listen: false);
-
     var consumer = Consumer<ProductDetailNotifier>(
       builder: (context, provider, child) {
         if (provider.productDetails == null) {
@@ -79,7 +75,6 @@ class ProductDetailPage extends StatelessWidget {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16),
@@ -87,18 +82,16 @@ class ProductDetailPage extends StatelessWidget {
           const SizedBox(height: 8),
           _sectionTitleAndLike(productDetail),
           const SizedBox(height: 2),
-          Txt(
+          /* Txt(
             "${productDetail.data!.description ?? ""}",
             style: AppTxtStyles().body..textAlign.right(),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 8), */
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
-                textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -109,17 +102,39 @@ class ProductDetailPage extends StatelessWidget {
               _fieldDiscountedRate(productDetail),
             ],
           ),
-          SizedBox(height: 16),
-          ProductListItemCounter(
-            hieght: 36,
-            defaultValue: productDetail.data!.amount * productDetail.data!.step,
-            step: productDetail.data!.step,
-            unit: "${productDetail.data!.productUnit}",
-            onIncrease: onAddToBasket,
-            onDecrease: onRemoveFromBasket,
-          ),
+          const SizedBox(height: 16),
+          if (productDetail.data!.onSale ?? false)
+            ProductListItemCounter(
+              hieght: 36,
+              defaultValue:
+                  productDetail.data!.amount * productDetail.data!.step,
+              step: productDetail.data!.step,
+              unit: "${productDetail.data!.productUnit}",
+              onIncrease: () async {
+                var basketNotifier = Get.find<BasketNotifier>();
+                var customerSearchNotifier = Get.find<CustomerSearchNotifier>();
+
+                await basketNotifier.addToBasket(
+                  productId: productDetail.data!.id,
+                );
+
+                marketDetailNotifier.refresh();
+                customerSearchNotifier.refresh(context);
+              },
+              onDecrease: () async {
+                var basketNotifier = Get.find<BasketNotifier>();
+                var customerSearchNotifier = Get.find<CustomerSearchNotifier>();
+
+                await basketNotifier.removeFromBasket(
+                  productId: productDetail.data!.id,
+                );
+
+                marketDetailNotifier.refresh();
+                customerSearchNotifier.refresh(context);
+              },
+            ),
           _sectionComments(context, productDetail),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -127,7 +142,7 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _sectionCarouselSlider(ProductDetailResultModel productDetail) {
     return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: _customerProductRepo.getPhotos(
+      future: Get.find<CustomerProductRepository>().getPhotos(
         id: productDetail.data!.id,
       ),
       successBuilder: (context, data) {
@@ -144,7 +159,6 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _sectionTitleAndLike(ProductDetailResultModel productDetail) {
     return Row(
-      textDirection: TextDirection.rtl,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Txt(
@@ -158,11 +172,11 @@ class ProductDetailPage extends StatelessWidget {
           defaultValue: productDetail.data!.liked,
           onChange: (value) {
             if (value) {
-              _customerProductRepo.like(
+              Get.find<CustomerProductRepository>().like(
                 id: productDetail.data!.id,
               );
             } else {
-              _customerProductRepo.unlike(
+              Get.find<CustomerProductRepository>().unlike(
                 id: productDetail.data!.id,
               );
             }
@@ -174,7 +188,6 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _fieldOriginalPrice(ProductDetailResultModel productDetail) {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateOriginalPrice(productDetail),
@@ -192,7 +205,6 @@ class ProductDetailPage extends StatelessWidget {
 
   Widget _fieldDiscountedPrice(ProductDetailResultModel productDetail) {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateDiscountedPrice(productDetail),
