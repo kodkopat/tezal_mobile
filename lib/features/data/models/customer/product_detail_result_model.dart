@@ -25,84 +25,88 @@ class ProductDetailResultModel {
 
 class Data {
   Data({
-    required this.subCategoryName,
-    required this.mainCategoryName,
-    required this.subCategoryId,
-    required this.mainCategoryId,
-    required this.marketName,
-    required this.marketAddress,
-    required this.basketCount,
-    required this.liked,
-    required this.description,
-    required this.id,
-    required this.name,
-    required this.originalPrice,
-    required this.discountedPrice,
-    required this.totalDiscount,
-    required this.discountRate,
-    required this.productUnit,
-    required this.step,
-    required this.amount,
+    this.id,
+    this.mainCategoryId,
+    this.subCategoryId,
+    this.mainCategoryName,
+    this.subCategoryName,
+    this.name,
+    this.originalPrice,
+    this.discountedPrice,
+    this.totalDiscount,
+    this.totalDiscountedPrice,
+    this.totalPrice,
+    this.payablePrice,
+    this.liked,
+    this.discountRate,
+    this.productUnit,
+    this.step,
+    this.rate,
+    this.amount,
+    this.onSale,
   });
 
-  final subCategoryName;
-  final mainCategoryName;
-  final subCategoryId;
-  final mainCategoryId;
-  final marketName;
-  final marketAddress;
-  final basketCount;
-  final liked;
-  final description;
   final id;
+  final mainCategoryId;
+  final subCategoryId;
+  final mainCategoryName;
+  final subCategoryName;
   final name;
   final originalPrice;
   final discountedPrice;
   final totalDiscount;
+  final totalDiscountedPrice;
+  final totalPrice;
+  final payablePrice;
+  final liked;
   final discountRate;
   final productUnit;
   final step;
+  final rate;
   final amount;
+  final onSale;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        subCategoryName: json["subCategoryName"],
-        mainCategoryName: json["mainCategoryName"],
-        subCategoryId: json["subCategoryId"],
-        mainCategoryId: json["mainCategoryId"],
-        marketName: json["marketName"],
-        marketAddress: json["marketAddress"],
-        basketCount: json["basketCount"],
-        liked: json["liked"],
-        description: json["description"],
         id: json["id"],
+        mainCategoryId: json["mainCategoryId"],
+        subCategoryId: json["subCategoryId"],
+        mainCategoryName: json["mainCategoryName"],
+        subCategoryName: json["subCategoryName"],
         name: json["name"],
         originalPrice: json["originalPrice"],
         discountedPrice: json["discountedPrice"],
         totalDiscount: json["totalDiscount"],
+        totalDiscountedPrice: json["totalDiscountedPrice"],
+        totalPrice: json["totalPrice"],
+        payablePrice: json["payablePrice"],
+        liked: json["liked"],
         discountRate: json["discountRate"],
         productUnit: json["productUnit"],
         step: json["step"],
+        rate: json["rate"],
         amount: json["amount"],
+        onSale: json["onSale"],
       );
 
   Map<String, dynamic> toJson() => {
-        "subCategoryName": subCategoryName,
-        "mainCategoryName": mainCategoryName,
-        "subCategoryId": subCategoryId,
-        "mainCategoryId": mainCategoryId,
-        "marketName": marketName,
-        "marketAddress": marketAddress,
-        "basketCount": basketCount,
-        "liked": liked,
-        "description": description,
         "id": id,
+        "mainCategoryId": mainCategoryId,
+        "subCategoryId": subCategoryId,
+        "mainCategoryName": mainCategoryName,
+        "subCategoryName": subCategoryName,
         "name": name,
         "originalPrice": originalPrice,
         "discountedPrice": discountedPrice,
         "totalDiscount": totalDiscount,
+        "totalDiscountedPrice": totalDiscountedPrice,
+        "totalPrice": totalPrice,
+        "payablePrice": payablePrice,
+        "liked": liked,
         "discountRate": discountRate,
         "productUnit": productUnit,
         "step": step,
+        "rate": rate,
         "amount": amount,
+        "onSale": onSale,
       };
 }

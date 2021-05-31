@@ -18,6 +18,7 @@ class ProductResultModel {
     required this.step,
     required this.rate,
     required this.amount,
+    required this.onSale,
   });
 
   final id;
@@ -38,6 +39,7 @@ class ProductResultModel {
   final step;
   final rate;
   final amount;
+  final onSale;
 
   factory ProductResultModel.fromJson(Map<String, dynamic> json) =>
       ProductResultModel(
@@ -59,6 +61,7 @@ class ProductResultModel {
         step: json["step"],
         rate: json["rate"],
         amount: json["amount"],
+        onSale: json["onSale"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -80,5 +83,6 @@ class ProductResultModel {
         "step": step,
         "rate": rate,
         "amount": amount,
+        "onSale": onSale,
       };
 }
