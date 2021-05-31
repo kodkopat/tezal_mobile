@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../../data/models/customer/search_result_model.dart';
-import '../../../customer_providers/basket_notifier.dart';
 import 'search_market_list_item.dart';
 
 class SearchMarketList extends StatelessWidget {
-  SearchMarketList({
-    required this.markets,
-    required this.basketNotifier,
-  });
+  SearchMarketList({required this.markets});
 
   final List<Market> markets;
-  final BasketNotifier basketNotifier;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +16,7 @@ class SearchMarketList extends StatelessWidget {
       scrollDirection: Axis.vertical,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return SearchMarketListItem(
-          market: markets[index],
-          basketNotifier: basketNotifier,
-        );
+        return SearchMarketListItem(market: markets[index]);
       },
     );
   }

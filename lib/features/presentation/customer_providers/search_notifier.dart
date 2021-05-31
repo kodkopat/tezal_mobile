@@ -68,6 +68,7 @@ class CustomerSearchNotifier extends ChangeNotifier {
     "نزولی", // descending,
   ];
 
+  String? term;
   String? searchErrorMsg;
   List<Market>? searchResultList;
 
@@ -77,6 +78,8 @@ class CustomerSearchNotifier extends ChangeNotifier {
     int? sortListIndex,
     int? directionListIndex,
   }) async {
+    this.term = term;
+
     var prgDialog = AppProgressDialog(context).instance;
     prgDialog.show();
 
@@ -111,5 +114,9 @@ class CustomerSearchNotifier extends ChangeNotifier {
 
     prgDialog.hide();
     notifyListeners();
+  }
+
+  Future<void> refresh(BuildContext context) async {
+    await search(context, term: this.term ?? "");
   }
 }

@@ -1,12 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/languages/language.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../customer_providers/basket_notifier.dart';
 import '../../customer_providers/search_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/search_box.dart';
@@ -21,8 +19,6 @@ class SearchPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var basketNotifier = Get.find<BasketNotifier>();
-
     var consumer = Consumer<CustomerSearchNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchSearchTermsCalled) {
@@ -46,7 +42,6 @@ class SearchPage extends StatelessWidget {
                       padding: EdgeInsets.only(top: 98),
                       child: SearchMarketList(
                         markets: provider.searchResultList!,
-                        basketNotifier: basketNotifier,
                       ),
                     ),
                   ),
