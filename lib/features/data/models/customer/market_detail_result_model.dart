@@ -40,6 +40,7 @@ class Data {
     required this.distance,
     required this.categories,
     required this.basketCount,
+    required this.liked,
   });
 
   final id;
@@ -55,6 +56,7 @@ class Data {
   final distance;
   final List<Category>? categories;
   final basketCount;
+  final liked;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -76,6 +78,7 @@ class Data {
                 ),
               ),
         basketCount: json["basketCount"],
+        liked: json["liked"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -98,6 +101,7 @@ class Data {
                 ),
               ),
         "basketCount": basketCount,
+        "liked": liked,
       };
 }
 

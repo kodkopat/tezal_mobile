@@ -7,10 +7,12 @@ class MarketsList extends StatelessWidget {
   MarketsList({
     required this.markets,
     required this.onItemTap,
+    required this.onItemLikeStatusChanged,
   });
 
   final List<Market> markets;
   final void Function(int) onItemTap;
+  final void Function(int) onItemLikeStatusChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class MarketsList extends StatelessWidget {
         return MarketsListItem(
           market: markets[index],
           onTap: () => onItemTap(index),
+          onLikeStatusChanged: () => onItemLikeStatusChanged(index),
         );
       },
     );

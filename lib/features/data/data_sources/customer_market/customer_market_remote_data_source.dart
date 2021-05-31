@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
@@ -26,14 +24,6 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
-    @Header("lang") String lang,
-    @Header("token") String token,
-    @Query("marketId") String marketId,
-  );
-
-  @GET("$_apiUrlPrefix/UnLike")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> unLike(
     @Header("lang") String lang,
     @Header("token") String token,
     @Query("marketId") String marketId,

@@ -20,10 +20,12 @@ class MarketsListItem extends StatelessWidget {
   const MarketsListItem({
     required this.market,
     required this.onTap,
+    required this.onLikeStatusChanged,
   });
 
   final Market market;
   final VoidCallback onTap;
+  final VoidCallback onLikeStatusChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +68,7 @@ class MarketsListItem extends StatelessWidget {
                       child: _futurePhoto,
                     ),
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,14 +83,14 @@ class MarketsListItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Divider(
+              const Divider(
                 color: Colors.black12,
                 thickness: 0.5,
                 height: 16,
               ),
               _fieldPhone,
               _fieldAddress,
-              Divider(
+              const Divider(
                 color: Colors.black12,
                 thickness: 0.5,
                 height: 16,
@@ -110,17 +112,10 @@ class MarketsListItem extends StatelessWidget {
                 ? Alignment.topRight
                 : Alignment.topLeft,
             child: MarketsLikeToggle(
-              defaultValue: false,
+              defaultValue: market.isLiked ?? false,
               onChange: (value) async {
-                if (value) {
-                  // productNotifier.likeProduct(
-                  //   productId: product.id,
-                  // );
-                } else {
-                  // productNotifier.unlikeProduct(
-                  //   productId: product.id,
-                  // );
-                }
+                // do not need check onChange's value
+                onLikeStatusChanged();
               },
             ),
           ),

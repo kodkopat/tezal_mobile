@@ -85,22 +85,6 @@ class MarketNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? unLikeErrorMsg;
-  BaseApiResultModel? unLikeResult;
-
-  Future<void> unLike({required String marketId}) async {
-    var result = await customerMarketRepo.unLike(
-      marketId: marketId,
-    );
-
-    result.fold(
-      (left) => likeErrorMsg = left.message,
-      (right) => likeResult = right,
-    );
-
-    notifyListeners();
-  }
-
   void refresh(BuildContext context) async {
     nearByMarketsLoading = true;
     notifyListeners();

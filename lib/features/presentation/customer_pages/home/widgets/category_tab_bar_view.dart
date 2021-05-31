@@ -48,15 +48,20 @@ class CategoryTabBarView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         MarketsList(
-                            markets: provider.nearByMarkets!,
-                            onItemTap: (index) {
-                              Routes.sailor.navigate(
-                                MarketDetailPage.route,
-                                params: {
-                                  "marketId": provider.nearByMarkets![index].id
-                                },
-                              );
-                            }),
+                          markets: provider.nearByMarkets!,
+                          onItemTap: (index) {
+                            Routes.sailor.navigate(
+                              MarketDetailPage.route,
+                              params: {
+                                "marketId": provider.nearByMarkets![index].id
+                              },
+                            );
+                          },
+                          onItemLikeStatusChanged: (index) {
+                            var marketId = provider.nearByMarkets![index].id;
+                            provider.like(marketId: marketId);
+                          },
+                        ),
                         if (provider.enableLoadMoreData!)
                           LoadMoreBtn(onTap: () {
                             provider.fetchNearbyMarkets(

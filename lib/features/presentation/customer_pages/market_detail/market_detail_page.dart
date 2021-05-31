@@ -18,7 +18,7 @@ import '../../../data/models/customer/photos_result_model.dart';
 import '../../customer_pages/home/widgets/markets_list_item.dart';
 import '../../customer_providers/basket_notifier.dart';
 import '../../customer_providers/market_comments_notifier.dart';
-import '../../customer_providers/market_detail_provider.dart';
+import '../../customer_providers/market_detail_notifier.dart';
 import '../../customer_widgets/category_list/category_list.dart';
 import '../../customer_widgets/comment_list/comment_list.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -93,6 +93,7 @@ class MarketDetailPage extends StatelessWidget {
       clouseAt: data.clouseAt,
       openAt: data.openAt,
       situation: data.situation,
+      isLiked: data.liked,
     );
 
     return SingleChildScrollView(
@@ -143,6 +144,9 @@ class MarketDetailPage extends StatelessWidget {
       child: MarketsListItem(
         market: market,
         onTap: () {},
+        onLikeStatusChanged: () {
+          marketDetailNotifier.like(marketId: market.id);
+        },
       ),
     );
   }

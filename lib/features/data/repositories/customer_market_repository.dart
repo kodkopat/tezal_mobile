@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:dio/dio.dart';
-import 'package:tezal/features/data/models/customer/market_categories_result_model.dart';
 
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
@@ -15,6 +14,7 @@ import '../models/base_api_result_model.dart';
 import '../models/customer/add_edit_comment_rate_result_model.dart';
 import '../models/customer/comments_result_model.dart';
 import '../models/customer/main_category_detail_result_model.dart';
+import '../models/customer/market_categories_result_model.dart';
 import '../models/customer/market_detail_result_model.dart';
 import '../models/customer/nearby_markets_result_model.dart';
 import '../models/customer/photos_result_model.dart';
@@ -44,9 +44,8 @@ class CustomerMarketRepository {
   final CustomerMarketLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, BaseApiResultModel>> like({
-    required String marketId,
-  }) async {
+  Future<Either<Failure, BaseApiResultModel>> like(
+      {required String marketId}) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -54,25 +53,6 @@ class CustomerMarketRepository {
       final userToken = await _authRepo.userToken;
 
       var result = await _remoteDataSource.like(
-        userLang,
-        userToken,
-        marketId,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, BaseApiResultModel>> unLike({
-    required String marketId,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.unLike(
         userLang,
         userToken,
         marketId,

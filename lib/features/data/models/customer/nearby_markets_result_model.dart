@@ -63,6 +63,7 @@ class Market {
     required this.situation,
     required this.deliveryCost,
     required this.distance,
+    required this.isLiked,
   });
 
   final id;
@@ -76,6 +77,7 @@ class Market {
   final situation;
   final deliveryCost;
   final distance;
+  final isLiked;
 
   factory Market.fromJson(Map<String, dynamic> json) => Market(
         id: json["id"],
@@ -89,6 +91,7 @@ class Market {
         situation: json["situation"],
         deliveryCost: json["deliveryCost"],
         distance: json["distance"],
+        isLiked: json["isLiked"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -103,5 +106,6 @@ class Market {
         "situation": situation,
         "deliveryCost": deliveryCost,
         "distance": distance,
+        "isLiked": isLiked,
       };
 }
