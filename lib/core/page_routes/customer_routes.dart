@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
@@ -72,12 +73,12 @@ void createCustomerRoutes(Sailor sailor) {
             providers: [
               ChangeNotifierProvider(
                 create: (ctx) => MarketDetailNotifier(
-                  CustomerMarketRepository(),
+                  Get.find<CustomerMarketRepository>(),
                 ),
               ),
               ChangeNotifierProvider(
                 create: (ctx) => MarketCommentsNotifier(
-                  CustomerMarketRepository(),
+                  Get.find<CustomerMarketRepository>(),
                 ),
               )
             ],
@@ -98,10 +99,13 @@ void createCustomerRoutes(Sailor sailor) {
           final marketId = map.param<String>("marketId");
           final marketCategories =
               map.param<List<Category>>("marketCategories");
+          final marketDetailNotifier =
+              map.param<MarketDetailNotifier>("marketDetailNotifier");
 
           return MarketCategoryPage(
             marketId: marketId,
             categories: marketCategories,
+            marketDetailNotifier: marketDetailNotifier,
           );
         },
         params: [
@@ -114,6 +118,11 @@ void createCustomerRoutes(Sailor sailor) {
             name: "marketCategories",
             isRequired: true,
             defaultValue: [],
+          ),
+          SailorParam<MarketDetailNotifier>(
+            name: "marketDetailNotifier",
+            isRequired: true,
+            defaultValue: null,
           ),
         ],
       ),
@@ -149,28 +158,23 @@ void createCustomerRoutes(Sailor sailor) {
       SailorRoute(
         name: ProductDetailPage.route,
         builder: (ctx, args, map) {
+          final repo = Get.find<CustomerProductRepository>();
           final productId = map.param<String>("productId");
-          final onAddToBasket = map.param<void Function()>("onAddToBasket");
-          final onRemoveFromBasket =
-              map.param<void Function()>("onRemoveFromBasket");
+          final marketDetailNotifier =
+              map.param<MarketDetailNotifier>("marketDetailNotifier");
 
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
-                create: (ctx) => ProductCommentsNotifier(
-                  CustomerProductRepository(),
-                ),
+                create: (ctx) => ProductCommentsNotifier(repo),
               ),
               ChangeNotifierProvider(
-                create: (ctx) => ProductDetailNotifier(
-                  CustomerProductRepository(),
-                ),
+                create: (ctx) => ProductDetailNotifier(repo),
               ),
             ],
             child: ProductDetailPage(
               productId: productId,
-              onAddToBasket: onAddToBasket,
-              onRemoveFromBasket: onRemoveFromBasket,
+              marketDetailNotifier: marketDetailNotifier,
             ),
           );
         },
@@ -180,15 +184,10 @@ void createCustomerRoutes(Sailor sailor) {
             isRequired: true,
             defaultValue: "",
           ),
-          SailorParam<void Function()>(
-            name: "onAddToBasket",
+          SailorParam<MarketDetailNotifier>(
+            name: "marketDetailNotifier",
             isRequired: true,
-            defaultValue: () {},
-          ),
-          SailorParam<void Function()>(
-            name: "onRemoveFromBasket",
-            isRequired: true,
-            defaultValue: () {},
+            defaultValue: null,
           ),
         ],
       ),
