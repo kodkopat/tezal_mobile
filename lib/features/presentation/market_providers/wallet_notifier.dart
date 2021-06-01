@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/widgets/progress_dialog.dart';
-import '../../data/models/market/wallet_balance_result_model.dart';
-import '../../data/models/market/wallet_detail_result_model.dart';
-import '../../data/models/market/withdrawal_requests_result_model.dart';
+import '../../data/models/wallet_balance_result_model.dart';
+import '../../data/models/wallet_detail_result_model.dart';
+import '../../data/models/withdrawal_requests_result_model.dart';
 import '../../data/repositories/market_wallet_repository.dart';
 
 class MarketWalletNotifier extends ChangeNotifier {

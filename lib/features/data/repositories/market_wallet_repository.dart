@@ -10,9 +10,9 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/market_wallet/market_wallet_local_data_source.dart';
 import '../data_sources/market_wallet/market_wallet_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
-import '../models/market/wallet_balance_result_model.dart';
-import '../models/market/wallet_detail_result_model.dart';
-import '../models/market/withdrawal_requests_result_model.dart';
+import '../models/wallet_balance_result_model.dart';
+import '../models/wallet_detail_result_model.dart';
+import '../models/withdrawal_requests_result_model.dart';
 import 'auth_repository.dart';
 
 class MarketWalletRepository {

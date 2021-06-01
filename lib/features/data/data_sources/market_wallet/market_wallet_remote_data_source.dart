@@ -3,9 +3,9 @@ import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
-import '../../models/market/wallet_balance_result_model.dart';
-import '../../models/market/wallet_detail_result_model.dart';
-import '../../models/market/withdrawal_requests_result_model.dart';
+import '../../models/wallet_balance_result_model.dart';
+import '../../models/wallet_detail_result_model.dart';
+import '../../models/withdrawal_requests_result_model.dart';
 
 part 'market_wallet_remote_data_source.g.dart';
 
