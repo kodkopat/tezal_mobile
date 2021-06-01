@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
@@ -53,6 +55,30 @@ class CustomerProfileNotifier extends ChangeNotifier {
       (left) => null,
       (right) => refresh(),
     );
+  }
+
+  Uint8List? profilePhoto;
+
+  Future<void> getPhoto() async {
+    var result = await customerRepo.getPhoto();
+
+    result.fold(
+      (left) => null,
+      (right) {
+        try {
+          List<int> list = utf8.encode(right);
+          Uint8List bytes = Uint8List.fromList(list);
+          String outcome = utf8.decode(bytes);
+          print("profilePhoto: $bytes\n");
+
+          profilePhoto = base64Decode(outcome);
+        } catch (error) {
+          print("profilePhotoError: $error\n");
+        }
+      },
+    );
+
+    notifyListeners();
   }
 
   void refresh() async {

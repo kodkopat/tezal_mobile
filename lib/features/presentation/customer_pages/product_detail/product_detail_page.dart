@@ -103,36 +103,35 @@ class ProductDetailPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          if (productDetail.data!.onSale ?? false)
-            ProductListItemCounter(
-              hieght: 36,
-              defaultValue:
-                  productDetail.data!.amount * productDetail.data!.step,
-              step: productDetail.data!.step,
-              unit: "${productDetail.data!.productUnit}",
-              onIncrease: () async {
-                var basketNotifier = Get.find<BasketNotifier>();
-                var customerSearchNotifier = Get.find<CustomerSearchNotifier>();
+          // if (productDetail.data!.onSale ?? false)
+          ProductListItemCounter(
+            hieght: 36,
+            defaultValue: productDetail.data!.amount * productDetail.data!.step,
+            step: productDetail.data!.step,
+            unit: "${productDetail.data!.productUnit}",
+            onIncrease: () async {
+              var basketNotifier = Get.find<BasketNotifier>();
+              var customerSearchNotifier = Get.find<CustomerSearchNotifier>();
 
-                await basketNotifier.addToBasket(
-                  productId: productDetail.data!.id,
-                );
+              await basketNotifier.addToBasket(
+                productId: productDetail.data!.id,
+              );
 
-                marketDetailNotifier.refresh();
-                customerSearchNotifier.refresh(context);
-              },
-              onDecrease: () async {
-                var basketNotifier = Get.find<BasketNotifier>();
-                var customerSearchNotifier = Get.find<CustomerSearchNotifier>();
+              marketDetailNotifier.refresh();
+              customerSearchNotifier.refresh(context);
+            },
+            onDecrease: () async {
+              var basketNotifier = Get.find<BasketNotifier>();
+              var customerSearchNotifier = Get.find<CustomerSearchNotifier>();
 
-                await basketNotifier.removeFromBasket(
-                  productId: productDetail.data!.id,
-                );
+              await basketNotifier.removeFromBasket(
+                productId: productDetail.data!.id,
+              );
 
-                marketDetailNotifier.refresh();
-                customerSearchNotifier.refresh(context);
-              },
-            ),
+              marketDetailNotifier.refresh();
+              customerSearchNotifier.refresh(context);
+            },
+          ),
           _sectionComments(context, productDetail),
           const SizedBox(height: 16),
         ],

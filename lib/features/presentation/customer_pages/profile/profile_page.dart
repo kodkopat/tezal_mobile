@@ -39,7 +39,8 @@ class ProfilePage extends StatelessWidget {
                     : Txt("${provider.errorMsg!}", style: AppTxtStyles().body)
                 : ProfileInfoBox(
                     profileInfo: provider.customerProfile!,
-                    onEditBtnTap: () {
+                    onEditBtnTap: () async {
+                      await provider.getPhoto();
                       Routes.sailor(EditProfilePage.route);
                     },
                   );

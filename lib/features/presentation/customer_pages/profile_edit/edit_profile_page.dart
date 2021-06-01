@@ -90,10 +90,15 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             Radius.circular(8),
                           ),
                           child: imgFile == null
-                              ? Image.asset(
-                                  "assets/images/img_profile_placeholder.png",
-                                  fit: BoxFit.fill,
-                                )
+                              ? provider.profilePhoto == null
+                                  ? Image.asset(
+                                      "assets/images/img_profile_placeholder.png",
+                                      fit: BoxFit.fill,
+                                    )
+                                  : Image.memory(
+                                      provider.profilePhoto!,
+                                      fit: BoxFit.fill,
+                                    )
                               : Image.file(
                                   imgFile!,
                                   fit: BoxFit.fill,
