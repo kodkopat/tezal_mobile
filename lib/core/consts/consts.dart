@@ -1,6 +1,7 @@
 const String sharedBaseApiUrl = "http://185.116.162.30/shared/";
 const String customerBaseApiUrl = "http://185.116.162.30/customer/";
 const String marketBaseApiUrl = "http://185.116.162.30/market/";
+const String deliveryBaseApiUrl = "http://185.116.162.30/delivery/";
 
 const String storageKeyUserId = "USER_ID_STORAGE_KEY";
 const String storageKeyUserToken = "USER_TOKEN_STORAGE_KEY";

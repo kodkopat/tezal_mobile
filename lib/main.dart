@@ -17,6 +17,7 @@ import 'features/presentation/delivery_providers.dart';
 import 'features/presentation/market_providers.dart';
 import 'injection_container_base_global_providers.dart';
 import 'injection_container_customer_global_providers.dart';
+import 'injection_container_delivery_global_providers.dart';
 import 'injection_container_market_global_providers.dart';
 import 'injection_container_repositories.dart';
 
@@ -30,15 +31,15 @@ Future<void> main() async {
   // routers
   createBaseRoutes(Routes.sailor);
   customer_routes.createCustomerRoutes(Routes.sailor);
-  delivery_routes.createDeliveryRoutes(Routes.sailor);
   market_routes.createMarketRoutes(Routes.sailor);
+  delivery_routes.createDeliveryRoutes(Routes.sailor);
 
   // injection containers
   await initRepositories();
   await initBaseProviders();
   await initCustomerProviders();
   await initMarketProviders();
-  // await initDeliveryProviders();
+  await initDeliveryProviders();
 
   runApp(
     riverpod.ProviderScope(

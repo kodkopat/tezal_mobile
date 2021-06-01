@@ -11,6 +11,9 @@ import 'features/data/repositories/customer_product_repository.dart';
 import 'features/data/repositories/customer_repository.dart';
 import 'features/data/repositories/customer_search_repository.dart';
 import 'features/data/repositories/customer_wallet_repository.dart';
+import 'features/data/repositories/delivery_order_repository.dart';
+import 'features/data/repositories/delivery_repository.dart';
+import 'features/data/repositories/delivery_wallet_repository.dart';
 import 'features/data/repositories/market_order_repository.dart';
 import 'features/data/repositories/market_product_repository.dart';
 import 'features/data/repositories/market_repository.dart';
@@ -19,9 +22,13 @@ import 'features/data/repositories/shared_application_repository.dart';
 
 // put repositories to Get Service Locator
 Future<void> initRepositories() async {
+  // auth repository
+
   Get.put<AuthRepository>(
     AuthRepository(),
   );
+
+  // customer repositories
 
   Get.put<CustomerAddressRepository>(
     CustomerAddressRepository(),
@@ -63,6 +70,22 @@ Future<void> initRepositories() async {
     CustomerWalletRepository(),
   );
 
+  // delivery repositories
+
+  Get.put<DeliveryOrderRepository>(
+    DeliveryOrderRepository(),
+  );
+
+  Get.put<DeliveryRepository>(
+    DeliveryRepository(),
+  );
+
+  Get.put<DeliveryWalletRepository>(
+    DeliveryWalletRepository(),
+  );
+
+  // market repositories
+
   Get.put<MarketOrderRepository>(
     MarketOrderRepository(),
   );
@@ -78,6 +101,8 @@ Future<void> initRepositories() async {
   Get.put<MarketWalletRepository>(
     MarketWalletRepository(),
   );
+
+  // shared repository
 
   Get.put<SharedApplicationRepository>(
     SharedApplicationRepository(),

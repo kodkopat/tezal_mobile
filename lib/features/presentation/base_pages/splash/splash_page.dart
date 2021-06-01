@@ -9,6 +9,7 @@ import '../../../../features/presentation/base_pages/encourage_login/encourage_l
 import '../../../data/models/app_user_type.dart';
 import '../../../data/repositories/auth_repository.dart';
 import '../../customer_pages/dashboard/dashboard_page.dart' as customer;
+import '../../delivery_pages/dashboard/dashboard_page.dart' as delivery;
 import '../../market_pages/dashboard/dashboard_page.dart' as market;
 
 class SplashPage extends StatefulWidget {
@@ -49,7 +50,7 @@ class _SplashPageState extends State<SplashPage> {
         navigationDestination = market.DashBoardPage.route;
         break;
       case AppUserType.Delivery:
-        // navigationDestination = DashBoardPage.route;
+        navigationDestination = delivery.DashBoardPage.route;
         break;
       default:
         navigationDestination = EncourageLoginPage.route;
