@@ -63,25 +63,24 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
   }
 
   @override
-  Future<PhotoResultModel> getPhoto(lang, token, id) async {
+  Future<String> getPhoto(lang, token) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
+    final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PhotoResultModel>(Options(
-                method: 'GET',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'lang': lang,
-                  r'token': token
-                },
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, 'Customer/getphoto',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PhotoResultModel.fromJson(_result.data!);
+    final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
+            method: 'GET',
+            headers: <String, dynamic>{
+              r'Content-Type': 'application/json',
+              r'Accept': 'text/plain',
+              r'lang': lang,
+              r'token': token
+            },
+            extra: _extra,
+            contentType: 'application/json')
+        .compose(_dio.options, 'Customer/getphoto',
+            queryParameters: queryParameters, data: _data)
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
     return value;
   }
 

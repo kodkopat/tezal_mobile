@@ -6,7 +6,6 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
 import '../../models/customer/customer_profile_result_model.dart';
-import '../../models/customer/photo_result_model.dart';
 
 part 'customer_remote_data_source.g.dart';
 
@@ -36,9 +35,8 @@ abstract class CustomerRemoteDataSource {
 
   @GET("$_apiUrlPrefix/getphoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotoResultModel> getPhoto(
+  Future<String> getPhoto(
     @Header("lang") String lang,
     @Header("token") String token,
-    @Query("Id") String id,
   );
 }
