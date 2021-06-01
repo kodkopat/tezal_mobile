@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/dashed_line_painter.dart';
-import '../../../../data/models/market/wallet_detail_result_model.dart';
+import '../../../../data/models/wallet_detail_result_model.dart';
 import 'widgets/../transaction_list_item.dart';
 
 class TransactionList extends StatelessWidget {

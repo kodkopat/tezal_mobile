@@ -5,7 +5,7 @@ import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/languages/language.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../data/models/market/wallet_detail_result_model.dart';
+import '../../../../data/models/wallet_detail_result_model.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 
 class TransactionListItem extends StatelessWidget {

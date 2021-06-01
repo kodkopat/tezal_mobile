@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../core/widgets/dashed_line_painter.dart';
-import '../../../../data/models/market/withdrawal_requests_result_model.dart';
+import '../../../../data/models/withdrawal_requests_result_model.dart';
 import 'withdrawal_request_list_item.dart';
 
 class WithdrawalRequestList extends StatelessWidget {
