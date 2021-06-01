@@ -13,7 +13,6 @@ import '../data_sources/customer/customer_local_data_source.dart';
 import '../data_sources/customer/customer_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/customer/customer_profile_result_model.dart';
-import '../models/customer/photo_result_model.dart';
 import 'auth_repository.dart';
 
 class CustomerRepository {
@@ -79,9 +78,7 @@ class CustomerRepository {
     }
   }
 
-  Future<Either<Failure, PhotoResultModel>> getPhoto({
-    required String id,
-  }) async {
+  Future<Either<Failure, String>> getPhoto() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
@@ -91,10 +88,11 @@ class CustomerRepository {
       var result = await _remoteDataSource.getPhoto(
         userLang,
         userToken,
-        id,
       );
 
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
+      return result != null
+          ? Right(result)
+          : Left(ApiFailure("Failed to Load Profile Photo!"));
     }
   }
 }
