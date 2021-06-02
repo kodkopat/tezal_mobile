@@ -1,23 +1,19 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/utils/is_numeric.dart';
-import '../../../../../core/utils/to_color.dart';
-import '../../../../data/models/market/orders_result_model.dart';
-import '../../../customer_widgets/custom_rich_text.dart';
+import '../../../../data/models/delivery/orders_result_model.dart';
 import 'order_list_item_field.dart';
 
 class OrderListItem extends StatefulWidget {
   OrderListItem({
-    required this.marketOrder,
+    required this.orderItem,
     required this.onTap,
     required this.showIcons,
   });
 
-  final MarketOrder marketOrder;
+  final OrderItem orderItem;
   final VoidCallback onTap;
   final bool showIcons;
 
@@ -51,14 +47,15 @@ class _OrderListItemState extends State<OrderListItem> {
         children: [
           _fieldCustomerInfo,
           if (_showCustomerInfo) _fieldCustomerName,
-          if (_showCustomerInfo) _fieldCustomerPhone,
+          if (_showCustomerInfo) _fieldCustomerLocation,
           if (_showCustomerInfo) _fieldCustomerAddress,
           _divider,
-          _fieldOrderInfo,
-          if (_showOrderInfo) _fieldDeliveryTime,
-          if (_showOrderInfo) _fieldPaymentType,
+          _fieldMarketInfo,
+          if (_showOrderInfo) _fieldMarketName,
+          if (_showOrderInfo) _fieldMarketLocation,
+          if (_showOrderInfo) _fieldMarketAddress,
           _divider,
-          Row(
+          /* Row(
             textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -69,7 +66,7 @@ class _OrderListItemState extends State<OrderListItem> {
               _verticalDivider,
               Expanded(flex: 1, child: _fieldDeliveryCost),
             ],
-          ),
+          ), */
           _divider,
           _fieldStatus,
         ],
@@ -128,35 +125,31 @@ class _OrderListItemState extends State<OrderListItem> {
   Widget get _fieldCustomerName {
     return OrderListItemField(
       title: "نام مشتری",
-      text: "${widget.marketOrder.customerName}",
+      text: "${widget.orderItem.customerName}",
       iconPath: "assets/images/ic_user.png",
       showIcon: widget.showIcons,
     );
   }
 
-  Widget get _fieldCustomerPhone {
-    if (!"${widget.marketOrder.customerPhone}".isNumeric()) {}
-
+  Widget get _fieldCustomerLocation {
     return OrderListItemField(
-      title: "شماره تماس",
-      text: "${widget.marketOrder.customerPhone}".isNumeric()
-          ? "${widget.marketOrder.customerPhone}"
-          : "-",
-      iconPath: "assets/images/ic_call.png",
+      title: "مختصات مشتری",
+      text: "${widget.orderItem.customerLocation}",
+      iconPath: "assets/images/ic_location.png",
       showIcon: widget.showIcons,
     );
   }
 
   Widget get _fieldCustomerAddress {
     return OrderListItemField(
-      title: "آدرس",
-      text: "${widget.marketOrder.address}",
+      title: "آدرس مشتری",
+      text: "${widget.orderItem.customerAdress}",
       iconPath: "assets/images/ic_location.png",
       showIcon: widget.showIcons,
     );
   }
 
-  Widget get _fieldOrderInfo {
+  Widget get _fieldMarketInfo {
     var _gesture = Gestures()
       ..onTap(() {
         setState(() {
@@ -196,26 +189,29 @@ class _OrderListItemState extends State<OrderListItem> {
     );
   }
 
-  Widget get _fieldDeliveryTime {
-    String date = "روز: " +
-        "${widget.marketOrder.deliveryTime}".split(" ")[0].replaceAll("-", "/");
-
-    String time = "ساعت: " +
-        "${widget.marketOrder.deliveryTime}".split(" ")[1].split(".")[0];
-
+  Widget get _fieldMarketName {
     return OrderListItemField(
-      title: "زمان تحویل",
-      text: date + "\n" + time,
-      iconPath: "assets/images/ic_calendar.png",
+      title: "نام فروشگاه",
+      text: "${widget.orderItem.marketName}",
+      iconPath: "assets/images/ic_user.png",
       showIcon: widget.showIcons,
     );
   }
 
-  Widget get _fieldPaymentType {
+  Widget get _fieldMarketLocation {
     return OrderListItemField(
-      title: "شیوه پرداخت",
-      text: "${widget.marketOrder.paymentType}",
-      iconPath: "assets/images/ic_wallet.png",
+      title: "مختصات فروشگاه",
+      text: "${widget.orderItem.marketLocation}",
+      iconPath: "assets/images/ic_location.png",
+      showIcon: widget.showIcons,
+    );
+  }
+
+  Widget get _fieldMarketAddress {
+    return OrderListItemField(
+      title: "آدرس فروشگاه",
+      text: "${widget.orderItem.marketAdress}",
+      iconPath: "assets/images/ic_location.png",
       showIcon: widget.showIcons,
     );
   }
@@ -229,68 +225,14 @@ class _OrderListItemState extends State<OrderListItem> {
         ),
       );
 
-  Widget get _fieldTotalPrice {
-    return CustomRichText(
-      title: "قیمت محصولات" + "\n",
-      text: _generatePriceText(
-        widget.marketOrder.totalPrice,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  Widget get _fieldTotalDiscount {
-    return CustomRichText(
-      title: "تخفیف محصولات" + "\n",
-      text: _generatePriceText(
-        widget.marketOrder.totalDiscount,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  Widget get _fieldDeliveryCost {
-    return CustomRichText(
-      title: "هزینه ارسال" + "\n",
-      text: _generatePriceText(
-        widget.marketOrder.deliveryCost,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
-
-  String _generatePriceText(int price) {
-    var text;
-    if (price == null) {
-      text = " ذکر نشده ";
-    } else if (price == 0) {
-      text = " رایگان ";
-    } else {
-      var temp;
-      if ("$price".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(price);
-      } else {
-        temp = "$price";
-      }
-
-      text = " $temp " + "تومان";
-    }
-
-    return text;
-  }
-
   Widget get _fieldStatus => Txt(
-        "${widget.marketOrder.orderStatus}",
+        "${widget.orderItem.status}",
         style: TxtStyle()
           ..alignmentContent.center()
           ..padding(vertical: 4)
           ..borderRadius(all: 4)
-          ..background.color(
-            "${widget.marketOrder.color}".toColor().withOpacity(0.1),
-          )
-          ..textColor(
-            "${widget.marketOrder.color}".toColor(),
-          )
+          ..background.color(Color(0xffEFEFEF))
+          ..textColor(Colors.black)
           ..fontSize(12)
           ..bold(),
       );
