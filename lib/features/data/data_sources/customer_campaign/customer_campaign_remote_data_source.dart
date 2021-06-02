@@ -18,7 +18,7 @@ abstract class CustomerCampaignRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CampaignResultModel> getall(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetPhoto")

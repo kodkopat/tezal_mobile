@@ -64,6 +64,7 @@ class _SharedApplicationRemoteDataSource
   Future<BaseApiResultModel> share(lang, token, contactNumbers) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = contactNumbers;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -91,6 +92,7 @@ class _SharedApplicationRemoteDataSource
       r'productId': productId,
       r'preview': preview
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotoResultModel>(Options(
@@ -118,6 +120,7 @@ class _SharedApplicationRemoteDataSource
       r'productId': productId,
       r'preview': preview
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotosResultModel>(Options(

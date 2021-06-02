@@ -20,6 +20,7 @@ class _CustomerWalletRemoteDataSource
   Future<WalletInfoResultModel> getWalletInfo(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletInfoResultModel>(Options(
@@ -43,6 +44,7 @@ class _CustomerWalletRemoteDataSource
   Future<WalletDetailResultModel> getWalletDetail(lang, token, page) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'page': page};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletDetailResultModel>(Options(
@@ -66,6 +68,7 @@ class _CustomerWalletRemoteDataSource
   Future<WalletLoadBalanceResultModel> loadBalance(lang, token, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'amount': amount};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletLoadBalanceResultModel>(Options(
@@ -90,6 +93,7 @@ class _CustomerWalletRemoteDataSource
       lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletLoadBalanceResultModel>(Options(

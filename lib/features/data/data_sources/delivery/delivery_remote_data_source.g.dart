@@ -19,6 +19,7 @@ class _DeliveryRemoteDataSource implements DeliveryRemoteDataSource {
   Future<dynamic> setAvailablity(lang, token, available) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'available': available};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -41,6 +42,7 @@ class _DeliveryRemoteDataSource implements DeliveryRemoteDataSource {
   Future<dynamic> setLocation(lang, token, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -70,6 +72,7 @@ class _DeliveryRemoteDataSource implements DeliveryRemoteDataSource {
       r'Page': page,
       r'OrderBy': orderBy
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',

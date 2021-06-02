@@ -68,6 +68,7 @@ class _CustomerCategoryRemoteDataSource
   Future<PhotoResultModel> getMainCategoryPhoto(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotoResultModel>(Options(
@@ -91,6 +92,7 @@ class _CustomerCategoryRemoteDataSource
   Future<PhotoResultModel> getSubCategoryPhoto(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotoResultModel>(Options(

@@ -19,6 +19,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
   Future<WalletBalanceResultModel> getBalance(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletBalanceResultModel>(Options(
@@ -43,6 +44,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
       lang, token, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WalletDetailResultModel>(Options(
@@ -67,6 +69,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
       lang, token, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<WithdrawalRequestsResultModel>(Options(
@@ -91,6 +94,7 @@ class _MarketWalletRemoteDataSource implements MarketWalletRemoteDataSource {
       lang, token, amount, description) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'amount': amount, 'description': description};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(

@@ -19,7 +19,7 @@ abstract class CustomerSearchRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SearchResultModel> search(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Header("latitude") String? latitude,
     @Header("longitude") String? longitude,
     @Query("distanceAscending") bool? distanceAscending,
@@ -32,13 +32,13 @@ abstract class CustomerSearchRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SearchTermsResultModel> getSearchTerms(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/ClearSearchTerms")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> clearSearchTerms(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 }

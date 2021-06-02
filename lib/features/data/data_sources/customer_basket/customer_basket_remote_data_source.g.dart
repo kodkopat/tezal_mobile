@@ -20,6 +20,7 @@ class _CustomerBasketRemoteDataSource
   Future<BaseApiResultModel> emptyBasket(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -43,6 +44,7 @@ class _CustomerBasketRemoteDataSource
   Future<BasketResultModel> getBasket(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BasketResultModel>(Options(
@@ -66,6 +68,7 @@ class _CustomerBasketRemoteDataSource
   Future<PaymentInfoResultModel> getPaymentInfo(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PaymentInfoResultModel>(Options(
@@ -89,6 +92,7 @@ class _CustomerBasketRemoteDataSource
   Future<BaseApiResultModel> selectAddress(lang, token, addressId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': addressId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -112,6 +116,7 @@ class _CustomerBasketRemoteDataSource
   Future<BaseApiResultModel> addProductToBasket(lang, token, id, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'id': id, 'amount': amount};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -136,6 +141,7 @@ class _CustomerBasketRemoteDataSource
       lang, token, id, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'id': id, 'amount': amount};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -159,6 +165,7 @@ class _CustomerBasketRemoteDataSource
   Future<BaseApiResultModel> getBasketCount(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -182,6 +189,7 @@ class _CustomerBasketRemoteDataSource
   Future<BaseApiResultModel> updateBasket(lang, token, note) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Note': note};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(

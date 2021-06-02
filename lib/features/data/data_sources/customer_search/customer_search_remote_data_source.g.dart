@@ -52,6 +52,7 @@ class _CustomerSearchRemoteDataSource
   Future<SearchTermsResultModel> getSearchTerms(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SearchTermsResultModel>(Options(
@@ -75,6 +76,7 @@ class _CustomerSearchRemoteDataSource
   Future<BaseApiResultModel> clearSearchTerms(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(

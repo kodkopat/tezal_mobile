@@ -24,6 +24,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
       r'AddressId': addressId,
       r'deliveryTime': deliveryTime
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrderResultModel>(Options(
@@ -47,6 +48,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<BaseApiResultModel> cancel(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -70,6 +72,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<dynamic> returned(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -92,6 +95,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<dynamic> rate(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -114,6 +118,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<OlderOrdersResultModel> getOlderOrders(lang, token, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'skip': skip, r'take': take};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OlderOrdersResultModel>(Options(
@@ -137,6 +142,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<OrderDetailResultModel> getDetail(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrderDetailResultModel>(Options(
@@ -160,6 +166,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<dynamic> getPayment(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -182,6 +189,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   Future<BaseApiResultModel> addToBasket(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(

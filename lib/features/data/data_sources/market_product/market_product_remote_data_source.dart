@@ -22,14 +22,14 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MainCategoriesResultModel> getMainCategories(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetCategoriesOfCategory")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoriesResultModel> getCategoriesOfCategory(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("mainCategoryId") String mainCategoryId,
   );
 
@@ -37,7 +37,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getNotListedProducts(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("mainCategoryId") String? mainCategoryId,
     @Query("subCategoryId") String? subCategoryId,
     @Query("term") String? term,
@@ -47,7 +47,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getProducts(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("mainCategoryId") String mainCategoryId,
     @Query("subCategoryId") String subCategoryId,
   );
@@ -56,7 +56,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketProductsResultModel> getMarketProducts(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("mainCategoryId") String mainCategoryId,
     @Query("subCategoryId") String subCategoryId,
   );
@@ -65,7 +65,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> addToProductMarket(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String productId,
     @Field() double amount,
     @Field() double discountRate,
@@ -79,7 +79,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeMarketProduct(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("marketProductId") String marketProductId,
   );
 
@@ -87,7 +87,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeProductMarketAmount(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String unknown,
   );
 
@@ -95,7 +95,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> setOnSale(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("marketProductId") String marketProductId,
     @Query("onSale") bool onSale,
   );
@@ -104,7 +104,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductCommentsResultModel> getProductComments(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("marketProductId") String marketProductId,
     @Query("skip") int skip,
     @Query("take") int take,
@@ -114,7 +114,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> replyProductComments(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String commentId,
     @Field() String reply,
   );
@@ -123,7 +123,7 @@ abstract class MarketProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> addProductDraft(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String name,
     @Field() String description,
     @Field() double discountedPrice,

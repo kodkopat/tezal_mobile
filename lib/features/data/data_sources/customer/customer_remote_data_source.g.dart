@@ -19,6 +19,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
   Future<CustomerProfileResultModel> getCustomerProfile(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CustomerProfileResultModel>(Options(
@@ -43,6 +44,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
       lang, token, name, email, photo) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = Stream.fromIterable(photo.readAsBytesSync().map((i) => [i]));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -66,6 +68,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
   Future<String> getPhoto(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
             method: 'GET',

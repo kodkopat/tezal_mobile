@@ -21,7 +21,7 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> setdefaultAddress(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -29,7 +29,7 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> save(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String address,
     @Field() String description,
     @Field() bool isDefault,
@@ -43,7 +43,7 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> edit(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String id,
     @Field() String address,
     @Field() String description,
@@ -58,14 +58,14 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressesResultModel> getAddresses(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/getAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressResultModel> getAddress(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -73,7 +73,7 @@ abstract class CustomerAddressRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeAddress(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 

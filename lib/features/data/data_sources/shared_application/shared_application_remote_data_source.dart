@@ -33,7 +33,7 @@ abstract class SharedApplicationRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> share(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Body() List<String> contactNumbers,
   );
 
@@ -41,7 +41,7 @@ abstract class SharedApplicationRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getProductPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("productId") String productId,
     @Query("preview") bool preview,
   );
@@ -50,7 +50,7 @@ abstract class SharedApplicationRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getProductPhotos(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("productId") String productId,
     @Query("preview") bool preview,
   );

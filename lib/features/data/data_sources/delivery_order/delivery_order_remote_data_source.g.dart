@@ -16,7 +16,7 @@ class _DeliveryOrderRemoteDataSource implements DeliveryOrderRemoteDataSource {
   String? baseUrl;
 
   @override
-  Future<dynamic> getDeliveryOrders(lang, token, orderStatus,
+  Future<OrdersResultModel> getDeliveryOrders(lang, token, orderStatus,
       orderbyDistanceDescending, orderbyCreateDate, skip, take) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -26,21 +26,23 @@ class _DeliveryOrderRemoteDataSource implements DeliveryOrderRemoteDataSource {
       r'skip': skip,
       r'take': take
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-            method: 'GET',
-            headers: <String, dynamic>{
-              r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
-              r'lang': lang,
-              r'token': token
-            },
-            extra: _extra,
-            contentType: 'application/json')
-        .compose(_dio.options, 'Order/getDeliveryOrders',
-            queryParameters: queryParameters, data: _data)
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = _result.data!;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<OrdersResultModel>(Options(
+                method: 'GET',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'application/json',
+                  r'Accept': 'text/plain',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'application/json')
+            .compose(_dio.options, 'Order/getDeliveryOrders',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = OrdersResultModel.fromJson(_result.data!);
     return value;
   }
 
@@ -48,6 +50,7 @@ class _DeliveryOrderRemoteDataSource implements DeliveryOrderRemoteDataSource {
   Future<dynamic> takeOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -70,6 +73,7 @@ class _DeliveryOrderRemoteDataSource implements DeliveryOrderRemoteDataSource {
   Future<dynamic> deliverOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',

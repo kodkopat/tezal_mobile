@@ -26,14 +26,14 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketProfileResultModel> getMarketProfile(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @POST("$_apiUrlPrefix/ChangeMarketProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> changeMarketProfile(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String? id,
     @Field() String? name,
     @Field() String? phone,
@@ -48,14 +48,14 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> openCloseMarket(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @POST("$_apiUrlPrefix/UpdateMarketDefaultHours")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> updateMarketDefaultHours(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Body() List<UpdateMarketDefaultHoursModel> defaultHours,
   );
 
@@ -63,14 +63,14 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketDefaultHoursResultModel> getMarketDefaultHours(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @POST("$_apiUrlPrefix/GetMarketPhotos")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketPhotosResultModel> getMarketPhotos(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("skip") int skip,
     @Query("take") int take,
   );
@@ -79,7 +79,7 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getMarketPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("photoId") String photoId,
   );
 
@@ -87,7 +87,7 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "multipart/form-data", "Accept": "text/plain"})
   Future<AddPhotoResultModel> addMarketPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Part() File photo,
   );
 
@@ -95,7 +95,7 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeMarketPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("photoId") String photoId,
   );
 
@@ -103,7 +103,7 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> reOrderMarketPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Body() Map<String, int> photosList,
   );
 
@@ -111,7 +111,7 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketCommentsResultModel> getMarketComments(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     /* @Query("orderId") String orderId, */
     @Query("skip") int skip,
     @Query("take") int take,
@@ -121,7 +121,7 @@ abstract class MarketRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> replyMarketComment(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field("commentId") String commentId,
     @Field("reply") String reply,
   );

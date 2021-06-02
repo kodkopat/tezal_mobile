@@ -51,6 +51,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<BaseApiResultModel> approveOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -74,6 +75,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<BaseApiResultModel> cancelOrderApprove(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -97,6 +99,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<OrderPhotosResultModel> getOrderPhotos(lang, token, orderId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'orderId': orderId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrderPhotosResultModel>(Options(
@@ -120,6 +123,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<dynamic> getOrderSummary(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -142,6 +146,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<dynamic> getPostOrderSummary(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -164,6 +169,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<dynamic> getOrderDetail(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
             method: 'GET',
@@ -186,6 +192,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<BaseApiResultModel> rejectOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -209,6 +216,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<BaseApiResultModel> prepareOrder(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -232,6 +240,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
   Future<BaseApiResultModel> returnedOrderApprove(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -260,6 +269,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
       r'skip': skip,
       r'take': take
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<OrderCommentsResultModel>(Options(
@@ -284,6 +294,7 @@ class _MarketOrderRemoteDataSource implements MarketOrderRemoteDataSource {
       lang, token, commentId, reply) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'commentId': commentId, 'reply': reply};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(

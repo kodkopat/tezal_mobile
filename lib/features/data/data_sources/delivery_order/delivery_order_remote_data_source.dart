@@ -2,6 +2,7 @@ import 'package:dio/dio.dart' hide Headers;
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/consts/consts.dart';
+import '../../models/delivery/orders_result_model.dart';
 
 part 'delivery_order_remote_data_source.g.dart';
 
@@ -14,12 +15,12 @@ abstract class DeliveryOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/getDeliveryOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<dynamic> getDeliveryOrders(
+  Future<OrdersResultModel> getDeliveryOrders(
     @Header("lang") String lang,
-    @Header("token") String token,
-    @Query("orderStatus") int orderStatus,
-    @Query("orderbyDistanceDescending") bool orderbyDistanceDescending,
-    @Query("orderbyCreateDate") bool orderbyCreateDate,
+    @Header("token") String? token,
+    @Query("orderStatus") String? orderStatus,
+    @Query("orderbyDistanceDescending") bool? orderbyDistanceDescending,
+    @Query("orderbyCreateDate") bool? orderbyCreateDate,
     @Query("skip") int skip,
     @Query("take") int take,
   );
@@ -28,7 +29,7 @@ abstract class DeliveryOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> takeOrder(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -36,7 +37,7 @@ abstract class DeliveryOrderRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> deliverOrder(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 }

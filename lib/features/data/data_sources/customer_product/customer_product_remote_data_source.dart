@@ -23,7 +23,7 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductsResultModel> getProductsInSubCategory(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("MarketId") String marketId,
     @Query("CategoryId") String categoryId,
   );
@@ -32,7 +32,7 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProductDetailResultModel> getDetail(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -48,7 +48,7 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -56,7 +56,7 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> unlike(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -64,14 +64,14 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<LikedProductsResultModel> getLikedProducts(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("marketProductId") String marketProductId,
     @Query("skip") int skip,
     @Query("take") int take,
@@ -81,7 +81,7 @@ abstract class CustomerProductRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddEditCommentRateResultModel> addEditCommentRateProduct(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Field() String comment,
     @Field() String marketProductId,
     @Field() String orderId,

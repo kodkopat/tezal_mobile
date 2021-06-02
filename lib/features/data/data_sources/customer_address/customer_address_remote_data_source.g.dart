@@ -20,6 +20,7 @@ class _CustomerAddressRemoteDataSource
   Future<BaseApiResultModel> setdefaultAddress(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -44,6 +45,7 @@ class _CustomerAddressRemoteDataSource
       cityId, name, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {
       'address': address,
       'description': description,
@@ -76,6 +78,7 @@ class _CustomerAddressRemoteDataSource
       isDefault, cityId, name, latitude, longitude) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {
       'id': id,
       'address': address,
@@ -108,6 +111,7 @@ class _CustomerAddressRemoteDataSource
   Future<AddressesResultModel> getAddresses(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AddressesResultModel>(Options(
@@ -131,6 +135,7 @@ class _CustomerAddressRemoteDataSource
   Future<AddressResultModel> getAddress(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AddressResultModel>(Options(
@@ -154,6 +159,7 @@ class _CustomerAddressRemoteDataSource
   Future<BaseApiResultModel> removeAddress(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(

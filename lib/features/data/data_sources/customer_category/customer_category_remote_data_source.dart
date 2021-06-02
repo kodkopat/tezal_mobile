@@ -34,7 +34,7 @@ abstract class CustomerCategoryRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getMainCategoryPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 
@@ -42,7 +42,7 @@ abstract class CustomerCategoryRemoteDataSource {
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotoResultModel> getSubCategoryPhoto(
     @Header("lang") String lang,
-    @Header("token") String token,
+    @Header("token") String? token,
     @Query("Id") String id,
   );
 }
