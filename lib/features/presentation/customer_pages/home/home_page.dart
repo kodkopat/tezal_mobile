@@ -10,11 +10,10 @@ import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_location_error.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../base_providers/location_notifier.dart';
-import '../../customer_providers/campaign_notifier.dart';
 import '../../customer_providers/market_category_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
-import 'widgets/campaigns_slider.dart';
 import 'widgets/combo_box.dart';
+import 'widgets/map_and_campaigns_slider.dart';
 import 'widgets/markets.dart';
 
 class HomePage extends StatelessWidget {
@@ -22,24 +21,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var campaignsConsumer = Consumer<CampaignNotifier>(
-      builder: (context, provider, child) {
-        if (provider.campaigns == null) {
-          provider.fetchCampaigns();
-        }
-
-        return provider.campaignLoading
-            ? AppLoading()
-            : provider.campaigns == null
-                ? provider.campaignErrorMsg == null
-                    ? Txt("خطای بارگذاری لیست",
-                        style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.campaignErrorMsg!,
-                        style: AppTxtStyles().body..alignment.center())
-                : CampaignSlider(campaigns: provider.campaigns!);
-      },
-    );
-
     var marketCategoriesConsumer = Consumer<MarketCategoryNotifier>(
       builder: (context, provider, child) {
         if (provider.marketCategories == null) {
@@ -91,8 +72,7 @@ class HomePage extends StatelessWidget {
                           SingleChildScrollView(
                             child: Column(
                               children: [
-                                const SizedBox(height: 40),
-                                campaignsConsumer,
+                                MapAndCampaignSlider(),
                                 marketCategoriesConsumer,
                               ],
                             ),

@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/exceptions/failure.dart';
@@ -13,6 +14,7 @@ import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../../../data/models/customer/photos_result_model.dart';
 import '../../../../data/repositories/customer_market_repository.dart';
+import '../../../app_notifier.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import 'markets_like_toggle.dart';
 
@@ -29,6 +31,8 @@ class MarketsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isUserLoggedIn = Get.find<AppNotifier>().userToken != null;
+
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
@@ -107,18 +111,19 @@ class MarketsListItem extends StatelessWidget {
               ),
             ],
           ),
-          Align(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.topRight
-                : Alignment.topLeft,
-            child: MarketsLikeToggle(
-              defaultValue: market.isLiked ?? false,
-              onChange: (value) async {
-                // do not need check onChange's value
-                onLikeStatusChanged();
-              },
+          if (isUserLoggedIn)
+            Align(
+              alignment: Directionality.of(context) == TextDirection.ltr
+                  ? Alignment.topRight
+                  : Alignment.topLeft,
+              child: MarketsLikeToggle(
+                defaultValue: market.isLiked ?? false,
+                onChange: (value) async {
+                  // do not need check onChange's value
+                  onLikeStatusChanged();
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
