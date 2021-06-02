@@ -259,7 +259,7 @@ class _OrderListItemState extends State<OrderListItem> {
     );
   }
 
-  String _generatePriceText(int price) {
+  String _generatePriceText(int? price) {
     var text;
     if (price == null) {
       text = " ذکر نشده ";

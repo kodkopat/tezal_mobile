@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
       appBar: SimpleAppBar(context).create(
         text: Lang.of(context).profilePage,
       ),
-      body: CustomFutureBuilder<String>(
+      body: CustomFutureBuilder<String?>(
         future: authRepo.userToken,
         successBuilder: (context, data) {
           print("userToken= $data\n");

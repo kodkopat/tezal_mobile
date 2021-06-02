@@ -39,9 +39,8 @@ class LocationService {
 
   static Future<Position> getSavedLocation() async {
     var secureStorage = FlutterSecureStorage();
-    String? p = await secureStorage.read(
-      key: storageKeyUserLocation,
-    ); // p stands for current position
+    // p stands for current position
+    String? p = await secureStorage.read(key: storageKeyUserLocation) ?? null;
 
     if (p == null) {
       await setSavedLocation();

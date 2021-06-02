@@ -19,11 +19,9 @@ import 'widgets/order_list.dart';
 class OrdersPage extends StatelessWidget {
   static const route = "/market_orders";
 
-  late final OrdersNotifier orderNotifier;
-
   @override
   Widget build(BuildContext context) {
-    var consumer = Consumer<OrdersNotifier>(
+    var consumer = Consumer<MarketOrdersNotifier>(
       builder: (context, provider, child) {
         if (!provider.wasFetchOrdersCalled) {
           provider.fetchOrders(context);

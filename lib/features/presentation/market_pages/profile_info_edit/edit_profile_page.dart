@@ -123,7 +123,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       email: emailCtrl.text,
                       address: addressCtrl.text,
                       shabaNumber: shabaCtrl.text,
-                      // TODO: this parameter must be connect to switch widget
                       isOpen: true,
                     );
 

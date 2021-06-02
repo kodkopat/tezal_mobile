@@ -51,7 +51,7 @@ class ProfilePage extends StatelessWidget {
       appBar: SimpleAppBar(context).create(
         text: Lang.of(context).profilePage,
       ),
-      body: CustomFutureBuilder<String>(
+      body: CustomFutureBuilder<String?>(
         future: authRepo.userToken,
         successBuilder: (context, data) {
           print("userToken= $data\n");
@@ -96,7 +96,7 @@ class ProfilePage extends StatelessWidget {
           Txt(
             "برای دسترسی به اطلاعات حساب کاربری،\n"
             " ابتدا وارد شوید",
-            style: AppTxtStyles().footNote..alignment.center(),
+            style: AppTxtStyles().footNote..textAlign.center(),
           ),
           SizedBox(height: 16),
           ActionBtn(
