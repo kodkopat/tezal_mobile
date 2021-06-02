@@ -33,8 +33,8 @@ Future<void> initMarketProviders() async {
     ),
   );
 
-  Get.put<OrdersNotifier>(
-    OrdersNotifier(
+  Get.put<MarketOrdersNotifier>(
+    MarketOrdersNotifier(
       Get.find<MarketOrderRepository>(),
     ),
   );
