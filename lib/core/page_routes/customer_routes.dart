@@ -336,12 +336,10 @@ void createCustomerRoutes(Sailor sailor) {
         builder: (ctx, args, map) {
           var id, name, address, description;
 
-          if (map != null) {
-            id = map.param<String>("id");
-            name = map.param<String>("name");
-            address = map.param<String>("address");
-            description = map.param<String>("description");
-          }
+          id = map.param<String>("id");
+          name = map.param<String>("name");
+          address = map.param<String>("address");
+          description = map.param<String>("description");
 
           return AddressSavePage(
             id: id,
