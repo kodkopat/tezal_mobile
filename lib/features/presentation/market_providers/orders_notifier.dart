@@ -4,20 +4,20 @@ import '../../../core/widgets/progress_dialog.dart';
 import '../../data/models/market/orders_result_model.dart';
 import '../../data/repositories/market_order_repository.dart';
 
-class OrdersNotifier extends ChangeNotifier {
-  static OrdersNotifier? _instance;
+class MarketOrdersNotifier extends ChangeNotifier {
+  static MarketOrdersNotifier? _instance;
 
-  factory OrdersNotifier(
+  factory MarketOrdersNotifier(
     MarketOrderRepository marketOrderRepo,
   ) {
     if (_instance == null) {
-      _instance = OrdersNotifier._privateConstructor(marketOrderRepo);
+      _instance = MarketOrdersNotifier._privateConstructor(marketOrderRepo);
     }
 
     return _instance!;
   }
 
-  OrdersNotifier._privateConstructor(this.marketOrderRepo);
+  MarketOrdersNotifier._privateConstructor(this.marketOrderRepo);
 
   final MarketOrderRepository marketOrderRepo;
 

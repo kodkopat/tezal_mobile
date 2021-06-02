@@ -17,7 +17,7 @@ import 'market_providers/wallet_notifier.dart';
 
 List<SingleChildWidget> marketProviders = [
   ChangeNotifierProvider(
-    create: (ctx) => OrdersNotifier(
+    create: (ctx) => MarketOrdersNotifier(
       MarketOrderRepository(),
     ),
   ),

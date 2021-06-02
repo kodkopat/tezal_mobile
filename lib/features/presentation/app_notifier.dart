@@ -26,6 +26,9 @@ class AppNotifier extends ChangeNotifier {
 
   bool loading = true;
 
+  String? userId;
+  String? userToken;
+
   AppUserType? userType;
   Locale? locale;
   String? fontFamily;
@@ -34,6 +37,9 @@ class AppNotifier extends ChangeNotifier {
 
   Future<void> initialize() async {
     LocationService.setSavedLocation();
+
+    userId = await authRepo.userId;
+    userToken = await authRepo.userToken;
 
     var fetchUserTypeResult = await authRepo.userType;
     if (fetchUserTypeResult != null && fetchUserTypeResult.isNotEmpty) {
