@@ -79,6 +79,7 @@ class AuthRepository {
 
       if (result.success) {
         final userId = result.data.userId;
+
         await _localDataSource.saveUserId(userId);
 
         return Right(userId);
@@ -95,7 +96,8 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final lang = await userLang;
-      var userId = await this.userId;
+      final userId = await this.userId;
+
       var result = await _remoteDataSource.confirmRegistration(
         lang,
         userId,
@@ -104,6 +106,7 @@ class AuthRepository {
 
       if (result.success) {
         final userToken = result.data.token;
+
         await _localDataSource.saveUserToken(userToken);
 
         return Right(userToken);
@@ -143,6 +146,7 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final lang = await userLang;
+
       var result = await _remoteDataSource.resetPasswordRequest(lang, phone);
 
       return (result.success)
@@ -161,6 +165,7 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final lang = await userLang;
+
       var result = await _remoteDataSource.resetPassword(
         lang,
         phone,
@@ -180,6 +185,7 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final lang = await userLang;
+
       var result = await _remoteDataSource.getRulesText(lang);
 
       return (result.success)
@@ -193,6 +199,7 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final lang = await userLang;
+
       var result = await _remoteDataSource.getPrivacyText(lang);
 
       return (result.success)
@@ -205,11 +212,11 @@ class AuthRepository {
     return await _localDataSource.userId;
   }
 
-  Future<String> get userToken async {
+  Future<String?> get userToken async {
     return await _localDataSource.userToken;
   }
 
-  Future<String> get userType async {
+  Future<String?> get userType async {
     return await _localDataSource.userType;
   }
 

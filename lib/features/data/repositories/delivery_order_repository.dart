@@ -9,6 +9,7 @@ import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
 import '../data_sources/delivery_order/delivery_order_local_data_source.dart';
 import '../data_sources/delivery_order/delivery_order_remote_data_source.dart';
+import '../models/delivery/orders_result_model.dart';
 import 'auth_repository.dart';
 
 class DeliveryOrderRepository {
@@ -34,10 +35,10 @@ class DeliveryOrderRepository {
   final DeliveryOrderLocalDataSource _localDataSource;
   final AuthRepository _authRepo;
 
-  Future<Either<Failure, dynamic>> getDeliveryOrders({
-    required int orderStatus,
-    required bool orderbyDistanceDescending,
-    required bool orderbyCreateDate,
+  Future<Either<Failure, OrdersResultModel>> getDeliveryOrders({
+    required String? orderStatus,
+    required bool? orderbyDistanceDescending,
+    required bool? orderbyCreateDate,
     required int skip,
     required int take,
   }) async {
