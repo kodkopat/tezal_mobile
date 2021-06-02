@@ -14,8 +14,8 @@ import '../../../../data/models/customer/photos_result_model.dart';
 import '../../../customer_providers/campaign_notifier.dart';
 
 // ignore: must_be_immutable
-class CampaignSliderItem extends StatelessWidget {
-  CampaignSliderItem({
+class MapAndCampaignSliderItem extends StatelessWidget {
+  MapAndCampaignSliderItem({
     required this.campaign,
     required this.onTap,
     required this.height,
