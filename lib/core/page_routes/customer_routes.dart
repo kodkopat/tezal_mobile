@@ -62,7 +62,27 @@ void createCustomerRoutes(Sailor sailor) {
       ),
       SailorRoute(
         name: EditProfilePage.route,
-        builder: (ctx, args, map) => EditProfilePage(),
+        builder: (ctx, args, map) {
+          final name = map.param<String>("name");
+          final email = map.param<String>("email");
+
+          return EditProfilePage(
+            name: name,
+            email: email,
+          );
+        },
+        params: [
+          SailorParam<String>(
+            name: "name",
+            isRequired: true,
+            defaultValue: "",
+          ),
+          SailorParam<String>(
+            name: "email",
+            isRequired: true,
+            defaultValue: "",
+          ),
+        ],
       ),
       SailorRoute(
         name: MarketDetailPage.route,
