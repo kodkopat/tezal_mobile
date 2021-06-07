@@ -59,7 +59,7 @@ dependencies:
   # used to: pin code fields
   pin_code_text_field: ^1.7.1
   # used to: cache images in offline mode
-  cached_network_image: ^2.5.1
+  cached_network_image: ^3.0.0
   # used to: loading
   progress_dialog: ^1.2.4
   flutter_spinkit: ^4.1.2+1
