@@ -43,13 +43,21 @@ class CustomerProfileNotifier extends ChangeNotifier {
   Future<void> editInfo({
     required String name,
     required String email,
-    required File photo,
+    required File? photo,
   }) async {
-    var result = await customerRepo.changeCustomerProfile(
-      name: name,
-      email: email,
-      photo: photo,
-    );
+    var result;
+    if (photo == null) {
+      result = await customerRepo.changeCustomerProfileWithoutPhoto(
+        name: name,
+        email: email,
+      );
+    } else {
+      result = await customerRepo.changeCustomerProfile(
+        name: name,
+        email: email,
+        photo: photo,
+      );
+    }
 
     result.fold(
       (left) => null,
@@ -68,9 +76,6 @@ class CustomerProfileNotifier extends ChangeNotifier {
         try {
           List<int> list = utf8.encode(right);
           Uint8List bytes = Uint8List.fromList(list);
-
-
-
 
           String outcome = utf8.decode(bytes);
           print("profilePhoto: $bytes\n");

@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../../../core/languages/language.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/themes/app_theme.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
@@ -39,9 +38,16 @@ class ProfilePage extends StatelessWidget {
                     : Txt("${provider.errorMsg!}", style: AppTxtStyles().body)
                 : ProfileInfoBox(
                     profileInfo: provider.customerProfile!,
-                    onEditBtnTap: () async {
-                      await provider.getPhoto();
-                      Routes.sailor(EditProfilePage.route);
+                    onEditBtnTap: () {
+                      var customerData = provider.customerProfile!.data!;
+
+                      Routes.sailor.navigate(
+                        EditProfilePage.route,
+                        params: {
+                          "name": "${customerData.name}",
+                          "email": "${customerData.email}",
+                        },
+                      );
                     },
                   );
       },
@@ -101,11 +107,7 @@ class ProfilePage extends StatelessWidget {
           SizedBox(height: 16),
           ActionBtn(
             text: "ورود به حساب کاربری",
-            onTap: () async {
-              Routes.sailor(LoginPage.route);
-            },
-            background: AppTheme.customerPrimary,
-            textColor: Colors.white,
+            onTap: () => Routes.sailor(LoginPage.route),
           ),
         ],
       ),
