@@ -85,7 +85,7 @@ class OrderDetailActionBox extends StatelessWidget {
               _verticalDivider,
               Expanded(flex: 1, child: _fieldTotalDiscount),
               _verticalDivider,
-              Expanded(flex: 1, child: _fieldDeliveryCost),
+              Expanded(flex: 1, child: SizedBox() /* _fieldDeliveryCost */),
             ],
           ),
           Divider(
@@ -171,7 +171,7 @@ class OrderDetailActionBox extends StatelessWidget {
     );
   }
 
-  Widget get _fieldDeliveryCost {
+  /* Widget get _fieldDeliveryCost {
     return CustomRichText(
       title: "هزینه ارسال" + "\n",
       text: _generatePriceText(
@@ -179,7 +179,7 @@ class OrderDetailActionBox extends StatelessWidget {
       ),
       textAlign: TextAlign.center,
     );
-  }
+  } */
 
   String _generatePriceText(num price) {
     var text;

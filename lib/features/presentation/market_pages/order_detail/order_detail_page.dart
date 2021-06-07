@@ -35,7 +35,7 @@ class OrderDetailPage extends StatelessWidget {
         future: orderNotifier.fetchPhotos(orderId: marketOrder.orderId),
         successBuilder: (context, data) {
           return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               children: [
                 /* OrderListItem(
@@ -93,9 +93,11 @@ class OrderDetailPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 8),
-                OrderDetailStatusTimeLime(status: marketOrder.orderStatus),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
+                OrderDetailStatusTimeLime(
+                  orderStatusKey: marketOrder.orderStatusKey,
+                ),
+                const SizedBox(height: 8),
                 OrderDetailActionBox(
                   marketOrder: marketOrder,
                   /* onApproveOrder: () async {

@@ -29,20 +29,17 @@ class OrderDetailList extends StatelessWidget {
             ..padding(all: 4)
             ..bold(),
         ),
-        SizedBox(
-          height: 224,
-          child: ListView.separated(
-            itemCount: marketOrderItems.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              return OrderDetailListItem(
-                marketOrderItem: marketOrderItems[index],
-                marketOrderPhoto: marketOrderPhotos[index],
-                onTap: () => onItemTap(index),
-              );
-            },
-            separatorBuilder: (context, index) => SizedBox(width: 16),
-          ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: marketOrderItems.length,
+          physics: NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return OrderDetailListItem(
+              marketOrderItem: marketOrderItems[index],
+              marketOrderPhoto: marketOrderPhotos[index],
+              onTap: () => onItemTap(index),
+            );
+          },
         ),
       ],
     );

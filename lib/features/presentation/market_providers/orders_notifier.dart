@@ -27,7 +27,7 @@ class MarketOrdersNotifier extends ChangeNotifier {
     "سفارشات تایید شده", // approved,
     "سفارشات تایید نشده", // rejected,
     "سفارشات در حال آماده‌سازی", // preparing,
-    "سفارشات در حال تحویل", // ondelivery,
+    "سفارشات در حال تحویل", // on_delivery,
     "سفارشات تحویل شده", // delivered,
     "سفارشات لغو شده", // canceled,
     "سفارشات بازگشتی", // returned

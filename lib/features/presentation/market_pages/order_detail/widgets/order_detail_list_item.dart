@@ -24,8 +24,8 @@ class OrderDetailListItem extends StatelessWidget {
     return Parent(
       gesture: Gestures()..onTap(onTap),
       style: ParentStyle()
-        ..width(144)
-        ..padding(horizontal: 4, vertical: 4)
+        ..margin(vertical: 4)
+        ..padding(horizontal: 8, vertical: 8)
         ..background.color(Colors.white)
         ..borderRadius(all: 8)
         ..boxShadow(
@@ -35,14 +35,12 @@ class OrderDetailListItem extends StatelessWidget {
           spread: 0,
         )
         ..ripple(true),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      child: Row(
         children: [
           Parent(
             style: ParentStyle()
-              ..width(144)
-              ..height(112)
+              ..width(72)
+              ..height(72)
               ..borderRadius(all: 6)
               ..background.image(
                 alignment: Alignment.center,
@@ -59,26 +57,31 @@ class OrderDetailListItem extends StatelessWidget {
               ),
             ),
           ),
-          Txt(
-            "${marketOrderItem.productName}",
-            style: AppTxtStyles().body
-              ..padding(right: 4)
-              ..textOverflow(TextOverflow.ellipsis)
-              ..maxLines(1),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Txt(
+                "${marketOrderItem.productName}",
+                style: AppTxtStyles().body
+                  ..padding(right: 4)
+                  ..textOverflow(TextOverflow.ellipsis)
+                  ..maxLines(1),
+              ),
+              const SizedBox(height: 4),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _fieldTotalPrice,
+                  Row(
+                    children: [
+                      _fieldTotalOriginalPrice,
+                      const SizedBox(width: 4),
+                      _fieldDiscountedRate,
+                    ],
+                  ),
                   _fieldTotalDiscountedPrice,
                 ],
               ),
-              _fieldDiscountedRate(),
             ],
           ),
         ],
@@ -86,33 +89,66 @@ class OrderDetailListItem extends StatelessWidget {
     );
   }
 
-  Widget get _fieldTotalPrice => RichText(
+  Widget get _fieldDiscountedRate {
+    if (_generateDiscountedRate().isEmpty) {
+      return SizedBox();
+    }
+
+    return RichText(
+      textAlign: TextAlign.right,
+      text: TextSpan(
+        text: _generateDiscountedRate(),
+        style: TextStyle(
+          color: Colors.red,
+          letterSpacing: 0.5,
+          fontFamily: 'Yekan',
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
+    );
+  }
+
+  String _generateDiscountedRate() {
+    var op = marketOrderItem.originalPrice;
+    var dp = marketOrderItem.discountedPrice;
+
+    if (op == null || dp == null) {
+      return "10٪";
+    }
+
+    num discountRateTxt = (dp / op) * 100;
+    if (discountRateTxt < 1)
+      return "";
+    else
+      return "${discountRateTxt.toStringAsFixed(1)}٪";
+  }
+
+  Widget get _fieldTotalOriginalPrice => RichText(
         textAlign: TextAlign.right,
         text: TextSpan(
-          text: _generateTotalPrice(),
+          text: _generateTotalOriginalPrice(),
           style: TextStyle(
-            decoration: TextDecoration.lineThrough,
-            color: Colors.black54,
+            color: Colors.black.withOpacity(0.5),
             letterSpacing: 0.5,
             fontFamily: 'Yekan',
-            fontWeight: FontWeight.w500,
+            decoration: TextDecoration.lineThrough,
             fontSize: 10,
           ),
         ),
       );
 
-  String _generateTotalPrice() {
+  String _generateTotalOriginalPrice() {
     var priceTxt;
-    if (marketOrderItem.totalPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (marketOrderItem.totalPrice == 0) {
-      priceTxt = " رایگان ";
+    if (marketOrderItem.originalPrice == null) {
+      // priceTxt = "-";
+      return " 500 " + "تومان";
     } else {
       var temp;
-      if ("${marketOrderItem.totalPrice}".length >= 3) {
-        temp = intl.NumberFormat("#,000").format(marketOrderItem.totalPrice);
+      if ("${marketOrderItem.originalPrice}".length >= 3) {
+        temp = intl.NumberFormat("#,000").format(marketOrderItem.originalPrice);
       } else {
-        temp = "${marketOrderItem.totalPrice}";
+        temp = "${marketOrderItem.originalPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
@@ -130,61 +166,32 @@ class OrderDetailListItem extends StatelessWidget {
             letterSpacing: 0.5,
             fontFamily: 'Yekan',
             fontWeight: FontWeight.bold,
-            fontSize: 14,
+            fontSize: 12,
           ),
         ),
       );
 
   String _generateTotalDiscountedPrice() {
     var priceTxt;
-    if (marketOrderItem.discountedPrice == null) {
-      priceTxt = " ذکر نشده ";
-    } else if (marketOrderItem.discountedPrice == 0) {
-      priceTxt = " رایگان ";
+    if (marketOrderItem.originalPrice == null ||
+        marketOrderItem.discountedPrice == null) {
+      // priceTxt = "-";
+      return " 450 " + "تومان";
     } else {
       var temp;
-      if ("${marketOrderItem.discountedPrice}".length >= 3) {
-        temp =
-            intl.NumberFormat("#,000").format(marketOrderItem.discountedPrice);
+      if ("${marketOrderItem.originalPrice - marketOrderItem.discountedPrice}"
+              .length >=
+          3) {
+        temp = intl.NumberFormat("#,000").format(
+            marketOrderItem.originalPrice - marketOrderItem.discountedPrice);
       } else {
-        temp = "${marketOrderItem.discountedPrice}";
+        temp =
+            "${marketOrderItem.originalPrice - marketOrderItem.discountedPrice}";
       }
 
       priceTxt = " $temp " + "تومان";
     }
 
     return priceTxt;
-  }
-
-  Widget _fieldDiscountedRate() {
-    if (_generateDiscountedRate().isEmpty) {
-      return SizedBox();
-    }
-
-    return Txt(
-      _generateDiscountedRate(),
-      style: AppTxtStyles().subHeading
-        ..bold()
-        ..textDirection(TextDirection.ltr)
-        ..textColor(Colors.red)
-        ..background.color(Colors.red.withOpacity(0.1))
-        ..borderRadius(topLeft: 4, bottomLeft: 4, topRight: 24, bottomRight: 24)
-        ..padding(horizontal: 12, vertical: 8),
-    );
-  }
-
-  String _generateDiscountedRate() {
-    var td = marketOrderItem.totalDiscount;
-    var tp = marketOrderItem.totalPrice;
-
-    if (td == null || td == 0) {
-      return "";
-    } else {
-      num discountRate = (td / tp) * 100;
-      if (discountRate < 1)
-        return "";
-      else
-        return "${discountRate.toStringAsFixed(1)}٪";
-    }
   }
 }

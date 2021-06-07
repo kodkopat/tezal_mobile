@@ -6,9 +6,9 @@ import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/dashed_line_painter.dart';
 
 class OrderDetailStatusTimeLime extends StatelessWidget {
-  OrderDetailStatusTimeLime({required this.status});
+  OrderDetailStatusTimeLime({required this.orderStatusKey});
 
-  final String status;
+  final String orderStatusKey;
 
   final List<String> _orderStatusList = [
     "سفارش جدید", // new_order,
@@ -21,11 +21,19 @@ class OrderDetailStatusTimeLime extends StatelessWidget {
     "سفارش بازگشتی", // returned
   ];
 
+  final List<String> _orderStatusKeys = [
+    "new_order",
+    "approved",
+    "rejected",
+    "preparing",
+    "on_delivery",
+    "delivered",
+    "canceled",
+    "returned",
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // final statusIndex = _orderStatusList.indexOf(status);
-    final statusIndex = 4;
-
     return Parent(
       style: ParentStyle()
         ..padding(vertical: 16)
@@ -48,14 +56,18 @@ class OrderDetailStatusTimeLime extends StatelessWidget {
               ..alignmentContent.centerRight()
               ..bold(),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              iconList(statusIndex),
+              iconList(
+                _orderStatusKeys.indexOf(orderStatusKey),
+              ),
               Expanded(
                 flex: 1,
-                child: descriptionList(statusIndex),
+                child: descriptionList(
+                  _orderStatusKeys.indexOf(orderStatusKey),
+                ),
               ),
             ],
           )
