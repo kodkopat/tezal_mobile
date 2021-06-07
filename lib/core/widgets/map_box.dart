@@ -21,8 +21,8 @@ class MapBox extends StatefulWidget {
   });
 
   final double height;
-  final String? latitude;
-  final String? longitude;
+  final double? latitude;
+  final double? longitude;
 
   @override
   State<MapBox> createState() => _MapBoxState();
@@ -53,8 +53,8 @@ class _MapBoxState extends State<MapBox> {
       icon: markerIcon,
       markerId: MarkerId("marketId"),
       position: LatLng(
-        double.parse(widget.latitude!),
-        double.parse(widget.longitude!),
+        widget.latitude!,
+        widget.longitude!,
       ),
     );
 
@@ -63,8 +63,8 @@ class _MapBoxState extends State<MapBox> {
       position = await LocationService.getSavedLocation();
     } else {
       position = Position(
-        latitude: double.parse(widget.latitude!),
-        longitude: double.parse(widget.longitude!),
+        latitude: widget.latitude!,
+        longitude: widget.longitude!,
       );
     }
 
@@ -80,7 +80,7 @@ class _MapBoxState extends State<MapBox> {
 
     initialLocation = CameraPosition(
       zoom: 16,
-      bearing: 32,
+      bearing: 0.0,
       target: pinPosition,
     );
 
