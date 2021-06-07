@@ -24,17 +24,26 @@ abstract class CustomerRemoteDataSource {
   );
 
   @POST("$_apiUrlPrefix/ChangeCustomerProfile")
-  @Headers({"Content-Type": "multipart/form-data", "Accept": "text/plain"})
+  @Headers({"Content-Type": "multipart/form-data", "Accept": "*/*"})
   Future<BaseApiResultModel> changeCustomerProfile(
     @Header("lang") String lang,
     @Header("token") String? token,
-    @Field() String name,
-    @Field() String email,
-    @Body() File photo,
+    @Part() String name,
+    @Part() String email,
+    @Part() File photo,
+  );
+
+  @POST("$_apiUrlPrefix/ChangeCustomerProfile")
+  @Headers({"Content-Type": "multipart/form-data", "Accept": "*/*"})
+  Future<BaseApiResultModel> changeCustomerProfileWithoutPhoto(
+    @Header("lang") String lang,
+    @Header("token") String? token,
+    @Part() String name,
+    @Part() String email,
   );
 
   @GET("$_apiUrlPrefix/getphoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
+  @Headers({"Content-Type": "application/json", "Accept": "*/*"})
   Future<String> getPhoto(
     @Header("lang") String lang,
     @Header("token") String? token,

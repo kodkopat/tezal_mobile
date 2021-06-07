@@ -45,13 +45,46 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
-    final _data = Stream.fromIterable(photo.readAsBytesSync().map((i) => [i]));
+    final _data = FormData();
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('email', email));
+    _data.files.add(MapEntry(
+        'photo',
+        MultipartFile.fromFileSync(photo.path,
+            filename: photo.path.split(Platform.pathSeparator).last)));
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
                 method: 'POST',
                 headers: <String, dynamic>{
                   r'Content-Type': 'multipart/form-data',
-                  r'Accept': 'text/plain',
+                  r'Accept': '*/*',
+                  r'lang': lang,
+                  r'token': token
+                },
+                extra: _extra,
+                contentType: 'multipart/form-data')
+            .compose(_dio.options, 'Customer/ChangeCustomerProfile',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = BaseApiResultModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
+  Future<BaseApiResultModel> changeCustomerProfileWithoutPhoto(
+      lang, token, name, email) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _data = FormData();
+    _data.fields.add(MapEntry('name', name));
+    _data.fields.add(MapEntry('email', email));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<BaseApiResultModel>(Options(
+                method: 'POST',
+                headers: <String, dynamic>{
+                  r'Content-Type': 'multipart/form-data',
+                  r'Accept': '*/*',
                   r'lang': lang,
                   r'token': token
                 },
@@ -74,7 +107,7 @@ class _CustomerRemoteDataSource implements CustomerRemoteDataSource {
             method: 'GET',
             headers: <String, dynamic>{
               r'Content-Type': 'application/json',
-              r'Accept': 'text/plain',
+              r'Accept': '*/*',
               r'lang': lang,
               r'token': token
             },
