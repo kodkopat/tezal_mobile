@@ -216,14 +216,14 @@ class _OrderListItemState extends State<OrderListItem> {
     );
   }
 
-  Widget get _verticalDivider => SizedBox(
+  /* Widget get _verticalDivider => SizedBox(
         height: 40,
         child: VerticalDivider(
           color: Colors.black12,
           thickness: 0.5,
           width: 0.5,
         ),
-      );
+      ); */
 
   Widget get _fieldStatus => Txt(
         "${widget.orderItem.status}",

@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/languages/language.dart';
+import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/load_more_btn.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../../delivery_providers/orders_notifier.dart';
+import '../order_detail/order_detail_page.dart';
 import 'widgets/order_drop_down_direction.dart';
 import 'widgets/order_drop_down_filter.dart';
 import 'widgets/order_drop_down_sort.dart';
@@ -42,12 +44,11 @@ class OrdersPage extends StatelessWidget {
                             OrderList(
                               orderItems: provider.orderItems!,
                               onItemTap: (index) {
-                                /* Routes.sailor.navigate(
+                                var orderItem = provider.orderItems![index];
+                                Routes.sailor.navigate(
                                   OrderDetailPage.route,
-                                  params: {
-                                    "marketOrder": provider.orderItems![index]
-                                  },
-                                ); */
+                                  params: {"orderItem": orderItem},
+                                );
                               },
                             ),
                             if (provider.enableLoadMoreOption!)

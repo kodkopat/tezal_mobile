@@ -52,7 +52,9 @@ class MarketOrder {
   MarketOrder({
     required this.deliveryTime,
     required this.paymentType,
+    required this.color,
     required this.orderStatus,
+    required this.orderStatusKey,
     required this.address,
     required this.totalPrice,
     required this.totalDiscount,
@@ -62,12 +64,13 @@ class MarketOrder {
     required this.items,
     required this.orderId,
     required this.orderNumber,
-    required this.color,
   });
 
   final deliveryTime;
   final paymentType;
+  final color;
   final orderStatus;
+  final orderStatusKey;
   final address;
   final totalPrice;
   final totalDiscount;
@@ -76,13 +79,14 @@ class MarketOrder {
   final deliveryCost;
   final orderId;
   final orderNumber;
-  final color;
   final List<MarketOrderItem>? items;
 
   factory MarketOrder.fromJson(Map<String, dynamic> json) => MarketOrder(
         deliveryTime: json["deliveryTime"],
         paymentType: json["paymentType"],
+        color: json["color"],
         orderStatus: json["orderStatus"],
+        orderStatusKey: json["orderStatusKey"],
         address: json["address"],
         totalPrice: json["totalPrice"],
         totalDiscount: json["totalDiscount"],
@@ -91,7 +95,6 @@ class MarketOrder {
         deliveryCost: json["deliveryCost"],
         orderId: json["orderId"],
         orderNumber: json["orderNumber"],
-        color: json["color"],
         items: json["items"] == null
             ? null
             : List<MarketOrderItem>.from(
@@ -101,7 +104,9 @@ class MarketOrder {
   Map<String, dynamic> toJson() => {
         "deliveryTime": deliveryTime,
         "paymentType": paymentType,
+        "color": color,
         "orderStatus": orderStatus,
+        "orderStatusKey": orderStatusKey,
         "address": address,
         "totalPrice": totalPrice,
         "totalDiscount": totalDiscount,
@@ -110,7 +115,6 @@ class MarketOrder {
         "deliveryCost": deliveryCost,
         "orderId": orderId,
         "orderNumber": orderNumber,
-        "color": color,
         "items": items == null
             ? null
             : List<dynamic>.from(items!.map((x) => x.toJson())),
