@@ -100,20 +100,7 @@ class OrderDetailPage extends StatelessWidget {
                 const SizedBox(height: 8),
                 OrderDetailActionBox(
                   marketOrder: marketOrder,
-                  /* onApproveOrder: () async {
-                    await orderNotifier.approveOrder(
-                      context: context,
-                      orderId: marketOrder.orderId,
-                    );
-                    Routes.sailor.pop();
-                  },
-                  onRejectOrder: () async {
-                    await orderNotifier.rejectOrder(
-                      context: context,
-                      orderId: marketOrder.orderId,
-                    );
-                    Routes.sailor.pop();
-                  }, */
+                  orderNotifier: orderNotifier,
                 ),
               ],
             ),

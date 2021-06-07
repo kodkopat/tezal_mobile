@@ -30,8 +30,8 @@ class OrderNotifier extends ChangeNotifier {
   String? approveOrderErrorMsg;
   BaseApiResultModel? approveOrderResult;
 
-  Future<void> approveOrder({
-    required BuildContext context,
+  Future<void> approveOrder(
+    BuildContext context, {
     required String orderId,
   }) async {
     var prgDialog = AppProgressDialog(context).instance;
@@ -51,8 +51,8 @@ class OrderNotifier extends ChangeNotifier {
   String? rejectOrderErrorMsg;
   BaseApiResultModel? rejectOrderResult;
 
-  Future<void> rejectOrder({
-    required BuildContext context,
+  Future<void> rejectOrder(
+    BuildContext context, {
     required String orderId,
   }) async {
     var prgDialog = AppProgressDialog(context).instance;
@@ -63,6 +63,48 @@ class OrderNotifier extends ChangeNotifier {
     result.fold(
       (left) => rejectOrderErrorMsg = left.message,
       (right) => rejectOrderResult = right,
+    );
+
+    prgDialog.hide();
+    notifyListeners();
+  }
+
+  String? prepareOrderErrorMsg;
+  BaseApiResultModel? prepareOrderResult;
+
+  Future<void> prepareOrder(
+    BuildContext context, {
+    required String orderId,
+  }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketOrderRepo.prepareOrder(id: orderId);
+
+    result.fold(
+      (left) => prepareOrderErrorMsg = left.message,
+      (right) => prepareOrderResult = right,
+    );
+
+    prgDialog.hide();
+    notifyListeners();
+  }
+
+  String? cancelOrderErrorMsg;
+  BaseApiResultModel? cancelOrderResult;
+
+  Future<void> cancelOrder(
+    BuildContext context, {
+    required String orderId,
+  }) async {
+    var prgDialog = AppProgressDialog(context).instance;
+    prgDialog.show();
+
+    var result = await marketOrderRepo.cancelOrderApprove(id: orderId);
+
+    result.fold(
+      (left) => cancelOrderErrorMsg = left.message,
+      (right) => cancelOrderResult = right,
     );
 
     prgDialog.hide();
