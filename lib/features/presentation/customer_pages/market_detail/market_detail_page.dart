@@ -115,12 +115,15 @@ class MarketDetailPage extends StatelessWidget {
           return data!.fold(
             (left) => MarketSlider(images: []),
             (right) {
-              var latitude = "${marketDetail.data!.location}".split("-")[0];
-              var longitude = "${marketDetail.data!.location}".split("-")[1];
+              // spl stands for, splited market location
+              List<String> spl = "${marketDetail.data!.location}".split("-");
+              var latitude = spl[0];
+              var longitude = spl[1];
+
               return MarketSlider(
                 images: right.data!.photos,
-                marketLatitude: latitude,
-                marketLongitude: longitude,
+                marketLatitude: double.parse(latitude),
+                marketLongitude: double.parse(longitude),
               );
             },
           );

@@ -68,6 +68,10 @@ class CustomerProfileNotifier extends ChangeNotifier {
         try {
           List<int> list = utf8.encode(right);
           Uint8List bytes = Uint8List.fromList(list);
+
+
+
+
           String outcome = utf8.decode(bytes);
           print("profilePhoto: $bytes\n");
 

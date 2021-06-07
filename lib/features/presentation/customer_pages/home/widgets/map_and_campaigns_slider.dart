@@ -33,14 +33,14 @@ class _MapAndCampaignSliderState extends State<MapAndCampaignSlider> {
 
       pageViewWidgets.add(MapBox(
         height: boxHeight,
-        latitude: "${position.latitude}",
-        longitude: "${position.longitude}",
+        latitude: double.parse("${position.latitude}"),
+        longitude: double.parse("${position.longitude}"),
       ));
     } else {
       pageViewWidgets.add(MapBox(
         height: boxHeight,
-        latitude: "${defaultAddress.latitude}",
-        longitude: "${defaultAddress.longitude}",
+        latitude: double.parse("${defaultAddress.latitude}"),
+        longitude: double.parse("${defaultAddress.longitude}"),
       ));
     }
 

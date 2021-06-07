@@ -16,8 +16,8 @@ class MarketSlider extends StatefulWidget {
   });
 
   final List<String> images;
-  final String? marketLatitude;
-  final String? marketLongitude;
+  final double? marketLatitude;
+  final double? marketLongitude;
 
   @override
   _MarketSliderState createState() => _MarketSliderState();
