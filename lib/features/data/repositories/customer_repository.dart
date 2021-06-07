@@ -78,6 +78,28 @@ class CustomerRepository {
     }
   }
 
+  Future<Either<Failure, BaseApiResultModel>>
+      changeCustomerProfileWithoutPhoto({
+    required String name,
+    required String email,
+  }) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.changeCustomerProfileWithoutPhoto(
+        userLang,
+        userToken,
+        name,
+        email,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
   Future<Either<Failure, String>> getPhoto() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
