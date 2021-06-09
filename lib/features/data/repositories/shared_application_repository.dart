@@ -12,7 +12,7 @@ import '../data_sources/shared_application/shared_application_remote_data_source
 import '../models/base_api_result_model.dart';
 import '../models/photo_result_model.dart';
 import '../models/photos_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class SharedApplicationRepository {
   static SharedApplicationRepository? _instance;
@@ -28,7 +28,7 @@ class SharedApplicationRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = SharedApplicationRemoteDataSource(Dio()),
         _localDataSource = SharedApplicationLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
@@ -36,7 +36,7 @@ class SharedApplicationRepository {
   // ignore: unused_field
   final SharedApplicationLocalDataSource _localDataSource;
   // ignore: unused_field
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, BaseApiResultModel>> hasUpdate(
       {required String version}) async {

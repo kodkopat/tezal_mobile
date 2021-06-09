@@ -13,7 +13,7 @@ import '../models/base_api_result_model.dart';
 import '../models/wallet_balance_result_model.dart';
 import '../models/wallet_detail_result_model.dart';
 import '../models/withdrawal_requests_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class MarketWalletRepository {
   static MarketWalletRepository? _instance;
@@ -29,14 +29,14 @@ class MarketWalletRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = MarketWalletRemoteDataSource(Dio()),
         _localDataSource = MarketWalletLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final MarketWalletRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final MarketWalletLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, WalletBalanceResultModel>> getBalance() async {
     if (!await _connectionChecker.hasConnection) {

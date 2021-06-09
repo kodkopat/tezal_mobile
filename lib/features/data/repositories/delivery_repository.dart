@@ -10,7 +10,7 @@ import '../../../core/exceptions/failure.dart';
 import '../../../core/services/location.dart';
 import '../data_sources/delivery/delivery_local_data_source.dart';
 import '../data_sources/delivery/delivery_remote_data_source.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class DeliveryRepository {
   static DeliveryRepository? _instance;
@@ -26,14 +26,14 @@ class DeliveryRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = DeliveryRemoteDataSource(Dio()),
         _localDataSource = DeliveryLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final DeliveryRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final DeliveryLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, dynamic>> setAvailablity(
       {required bool available}) async {

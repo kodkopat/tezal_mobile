@@ -14,7 +14,7 @@ import '../models/customer/address_result_model.dart';
 import '../models/customer/addresses_result_model.dart';
 import '../models/customer/cities_result_model.dart';
 import '../models/customer/provinces_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerAddressRepository {
   static CustomerAddressRepository? _instance;
@@ -30,14 +30,14 @@ class CustomerAddressRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerAddressRemoteDataSource(Dio()),
         _localDataSource = CustomerAddressLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerAddressRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerAddressLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, ProvincesResultModel>> getProvince() async {
     if (!await _connectionChecker.hasConnection) {

@@ -12,7 +12,7 @@ import '../data_sources/customer_wallet/customer_wallet_remote_data_source.dart'
 import '../models/customer/wallet_detail_result_model.dart';
 import '../models/customer/wallet_info_result_model.dart';
 import '../models/customer/wallet_load_balance_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerWalletRepository {
   static CustomerWalletRepository? _instance;
@@ -28,14 +28,14 @@ class CustomerWalletRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerWalletRemoteDataSource(Dio()),
         _localDataSource = CustomerWalletLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerWalletRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerWalletLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, WalletInfoResultModel>> getWalletInfo() async {
     if (!await _connectionChecker.hasConnection) {

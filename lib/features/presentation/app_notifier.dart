@@ -7,12 +7,12 @@ import '../../core/consts/consts.dart';
 import '../../core/services/location.dart';
 import '../../core/themes/app_theme.dart';
 import '../data/models/app_user_type.dart';
-import '../data/repositories/auth_repository.dart';
+import '../data/repositories/shared_user_repository.dart';
 
 class AppNotifier extends ChangeNotifier {
   static AppNotifier? _instance;
 
-  factory AppNotifier(AuthRepository authRepository) {
+  factory AppNotifier(SharedUserRepository authRepository) {
     if (_instance == null) {
       _instance = AppNotifier._privateConstructor(authRepository);
     }
@@ -20,7 +20,7 @@ class AppNotifier extends ChangeNotifier {
     return _instance!;
   }
 
-  final AuthRepository authRepo;
+  final SharedUserRepository authRepo;
 
   AppNotifier._privateConstructor(this.authRepo);
 

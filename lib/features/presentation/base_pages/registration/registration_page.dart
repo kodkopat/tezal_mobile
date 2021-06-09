@@ -12,7 +12,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/global_snack_bar.dart';
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/shared_user_repository.dart';
 import '../../base_widgets/agreement_text.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../confirm_registration/confirm_registration.dart';
@@ -102,7 +102,7 @@ class RegistrationPage extends StatelessWidget {
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await Get.find<AuthRepository>().register(
+      var result = await Get.find<SharedUserRepository>().register(
         name: _nameCtrl.text,
         phone: _phoneCtrl.text,
         pass: _passCtrl.text,

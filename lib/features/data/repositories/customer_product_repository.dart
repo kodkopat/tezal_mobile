@@ -16,7 +16,7 @@ import '../models/customer/liked_products_result_model.dart';
 import '../models/customer/photos_result_model.dart';
 import '../models/customer/product_detail_result_model.dart';
 import '../models/customer/products_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerProductRepository {
   static CustomerProductRepository? _instance;
@@ -32,14 +32,14 @@ class CustomerProductRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerProductRemoteDataSource(Dio()),
         _localDataSource = CustomerProductLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerProductRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerProductLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, ProductsResultModel>> getProductsInSubCategory({
     required String marketId,

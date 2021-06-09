@@ -11,11 +11,11 @@ import '../../../core/styles/txt_styles.dart';
 import '../../../core/widgets/custom_future_builder.dart';
 import '../../../core/widgets/loading.dart';
 import '../../data/models/customer/agreement_result_model.dart';
-import '../../data/repositories/auth_repository.dart';
+import '../../data/repositories/shared_user_repository.dart';
 import '../customer_widgets/simple_app_bar.dart';
 
 class PrivacyModal extends StatelessWidget {
-  final repository = AuthRepository();
+  final repository = SharedUserRepository();
 
   @override
   Widget build(BuildContext context) {

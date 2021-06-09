@@ -12,7 +12,7 @@ import '../data_sources/customer_basket/customer_basket_remote_data_source.dart'
 import '../models/base_api_result_model.dart';
 import '../models/customer/basket_result_model.dart';
 import '../models/customer/payment_info_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerBasketRepository {
   static CustomerBasketRepository? _instance;
@@ -28,14 +28,14 @@ class CustomerBasketRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerBasketRemoteDataSource(Dio()),
         _localDataSource = CustomerBasketLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerBasketRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerBasketLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, BaseApiResultModel>> emptyBasket() async {
     if (!await _connectionChecker.hasConnection) {

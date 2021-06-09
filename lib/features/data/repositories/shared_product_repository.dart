@@ -7,40 +7,72 @@ import 'package:dio/dio.dart';
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
-import '../data_sources/delivery_order/delivery_order_local_data_source.dart';
-import '../data_sources/delivery_order/delivery_order_remote_data_source.dart';
-import '../models/delivery/orders_result_model.dart';
+import '../data_sources/shared_product/shared_product_local_data_source.dart';
+import '../data_sources/shared_product/shared_product_remote_data_source.dart';
+import '../models/base_api_result_model.dart';
 import 'shared_user_repository.dart';
 
-class DeliveryOrderRepository {
-  static DeliveryOrderRepository? _instance;
+class SharedProductRepository {
+  static SharedProductRepository? _instance;
 
-  factory DeliveryOrderRepository() {
+  factory SharedProductRepository() {
     if (_instance == null) {
-      _instance = DeliveryOrderRepository._privateConstructor();
+      _instance = SharedProductRepository._privateConstructor();
     }
     return _instance!;
   }
 
-  DeliveryOrderRepository._privateConstructor()
+  SharedProductRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
-        _remoteDataSource = DeliveryOrderRemoteDataSource(Dio()),
-        _localDataSource = DeliveryOrderLocalDataSource(),
+        _remoteDataSource = SharedProductRemoteDataSource(Dio()),
+        _localDataSource = SharedProductLocalDataSource(),
         _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
-  final DeliveryOrderRemoteDataSource _remoteDataSource;
+  final SharedProductRemoteDataSource _remoteDataSource;
   // ignore: unused_field
-  final DeliveryOrderLocalDataSource _localDataSource;
+  final SharedProductLocalDataSource _localDataSource;
+  // ignore: unused_field
   final SharedUserRepository _authRepo;
 
-  Future<Either<Failure, OrdersResultModel>> getDeliveryOrders({
-    required String? orderStatus,
-    required bool? orderbyDistanceDescending,
-    required bool? orderbyCreateDate,
-    required int skip,
-    required int take,
+  Future<Either<Failure, BaseApiResultModel>> hasUpdate(
+      {required String version}) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+
+      var result = await _remoteDataSource.hasUpdate(
+        userLang,
+        version,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, dynamic>> getProductPhotoList(
+      {required String productId}) async {
+    if (!await _connectionChecker.hasConnection) {
+      return Left(ConnectionFailure(connectionFailedMsg));
+    } else {
+      final userLang = await _authRepo.userLang;
+      final userToken = await _authRepo.userToken;
+
+      var result = await _remoteDataSource.getProductPhotoList(
+        userLang,
+        userToken,
+        productId,
+      );
+
+      return result.success ? Right(result) : Left(ApiFailure(result.message));
+    }
+  }
+
+  Future<Either<Failure, dynamic>> getProductPhoto({
+    required String productId,
+    required String photoId,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -48,48 +80,11 @@ class DeliveryOrderRepository {
       final userLang = await _authRepo.userLang;
       final userToken = await _authRepo.userToken;
 
-      var result = await _remoteDataSource.getDeliveryOrders(
+      var result = await _remoteDataSource.getProductPhoto(
         userLang,
         userToken,
-        orderStatus,
-        orderbyDistanceDescending,
-        orderbyCreateDate,
-        skip,
-        take,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, dynamic>> takeOrder({required String id}) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.takeOrder(
-        userLang,
-        userToken,
-        id,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, dynamic>> deliverOrder({required String id}) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.deliverOrder(
-        userLang,
-        userToken,
-        id,
+        productId,
+        photoId,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

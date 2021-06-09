@@ -13,7 +13,7 @@ import '../models/base_api_result_model.dart';
 import '../models/market/order_comments_result_model.dart';
 import '../models/market/order_photos_result_model.dart';
 import '../models/market/orders_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class MarketOrderRepository {
   static MarketOrderRepository? _instance;
@@ -29,14 +29,14 @@ class MarketOrderRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = MarketOrderRemoteDataSource(Dio()),
         _localDataSource = MarketOrderLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final MarketOrderRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final MarketOrderLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, OrdersResultModel>> getOrders({
     required int skip,

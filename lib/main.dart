@@ -9,7 +9,7 @@ import 'core/page_routes/base_routes.dart';
 import 'core/page_routes/customer_routes.dart' as customer_routes;
 import 'core/page_routes/delivery_routes.dart' as delivery_routes;
 import 'core/page_routes/market_routes.dart' as market_routes;
-import 'features/data/repositories/auth_repository.dart';
+import 'features/data/repositories/shared_user_repository.dart';
 import 'features/presentation/app_notifier.dart';
 import 'features/presentation/base_providers.dart';
 import 'features/presentation/customer_providers.dart';
@@ -52,7 +52,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => AppNotifier(AuthRepository()),
+      create: (context) => AppNotifier(SharedUserRepository()),
       child: Consumer<AppNotifier>(
         builder: (context, provider, child) {
           if (provider.textDirection == null && provider.loading) {

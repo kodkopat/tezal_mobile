@@ -9,7 +9,7 @@ import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/shared_user_repository.dart';
 import '../../base_pages/login/login_page.dart';
 import '../../customer_providers/profile_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -22,7 +22,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var authRepo = AuthRepository();
+    var authRepo = SharedUserRepository();
 
     var consumer = Consumer<CustomerProfileNotifier>(
       builder: (context, provider, child) {

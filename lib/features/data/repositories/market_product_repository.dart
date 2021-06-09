@@ -15,7 +15,7 @@ import '../models/market/market_products_result_model.dart';
 import '../models/market/product_comments_result_model.dart';
 import '../models/market/products_result_model.dart';
 import '../models/market/sub_categories_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class MarketProductRepository {
   static MarketProductRepository? _instance;
@@ -31,14 +31,14 @@ class MarketProductRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = MarketProductRemoteDataSource(Dio()),
         _localDataSource = MarketProductLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final MarketProductRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final MarketProductLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, MainCategoriesResultModel>> getMainCategories() async {
     if (!await _connectionChecker.hasConnection) {

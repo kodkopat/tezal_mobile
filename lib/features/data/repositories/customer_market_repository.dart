@@ -19,7 +19,7 @@ import '../models/customer/market_detail_result_model.dart';
 import '../models/customer/nearby_markets_result_model.dart';
 import '../models/customer/photos_result_model.dart';
 import '../models/customer/sub_category_detail_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerMarketRepository {
   static CustomerMarketRepository? _instance;
@@ -35,14 +35,14 @@ class CustomerMarketRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerMarketRemoteDataSource(Dio()),
         _localDataSource = CustomerMarketLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerMarketRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerMarketLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, BaseApiResultModel>> like(
       {required String marketId}) async {

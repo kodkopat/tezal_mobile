@@ -8,7 +8,7 @@ import 'package:video_player/video_player.dart';
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../features/presentation/base_pages/encourage_login/encourage_login_page.dart';
 import '../../../data/models/app_user_type.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/shared_user_repository.dart';
 import '../../customer_pages/dashboard/dashboard_page.dart' as customer;
 import '../../delivery_pages/dashboard/dashboard_page.dart' as delivery;
 import '../../market_pages/dashboard/dashboard_page.dart' as market;
@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
   );
 
   void initialization() async {
-    final authRepo = Get.find<AuthRepository>();
+    final authRepo = Get.find<SharedUserRepository>();
 
     final userId = await authRepo.userId;
     print("userId = $userId\n");

@@ -13,7 +13,7 @@ import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/global_snack_bar.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/shared_user_repository.dart';
 import '../../app_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 
@@ -139,7 +139,7 @@ class _ConfirmRegistrationPageState extends State<ConfirmRegistrationPage> {
   }
 
   void onSubmitBtnTap(BuildContext context) async {
-    var result = await Get.find<AuthRepository>().confirmRegistration(
+    var result = await Get.find<SharedUserRepository>().confirmRegistration(
       sms: smsCode!,
     );
 

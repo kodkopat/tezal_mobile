@@ -7,30 +7,30 @@ import 'package:dio/dio.dart';
 import '../../../core/exceptions/api_failure.dart';
 import '../../../core/exceptions/connection_failure.dart';
 import '../../../core/exceptions/failure.dart';
-import '../data_sources/auth/auth_local_data_source.dart';
-import '../data_sources/auth/auth_remote_data_source.dart';
+import '../data_sources/shared_user/shared_user_local_data_source.dart';
+import '../data_sources/shared_user/shared_user_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/customer/agreement_result_model.dart';
 
-class AuthRepository {
-  static AuthRepository? _instance;
+class SharedUserRepository {
+  static SharedUserRepository? _instance;
 
-  factory AuthRepository() {
+  factory SharedUserRepository() {
     if (_instance == null) {
-      _instance = AuthRepository._privateConstructor();
+      _instance = SharedUserRepository._privateConstructor();
     }
     return _instance!;
   }
 
-  AuthRepository._privateConstructor()
+  SharedUserRepository._privateConstructor()
       : _connectionChecker = DataConnectionChecker(),
-        _remoteDataSource = AuthRemoteDataSource(Dio()),
-        _localDataSource = AuthLocalDataSource();
+        _remoteDataSource = SharedUserRemoteDataSource(Dio()),
+        _localDataSource = SharedUserLocalDataSource();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
-  final AuthRemoteDataSource _remoteDataSource;
-  final AuthLocalDataSource _localDataSource;
+  final SharedUserRemoteDataSource _remoteDataSource;
+  final SharedUserLocalDataSource _localDataSource;
 
   Future<Either<Failure, String>> login({
     required String username,
@@ -221,6 +221,6 @@ class AuthRepository {
   }
 
   Future<String?> get userLang async {
-    return await _localDataSource.userLang;
+    return await _localDataSource.userLang ?? "fa";
   }
 }

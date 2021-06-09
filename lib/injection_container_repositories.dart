@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 
-import 'features/data/repositories/auth_repository.dart';
 import 'features/data/repositories/customer_address_repository.dart';
 import 'features/data/repositories/customer_basket_repository.dart';
 import 'features/data/repositories/customer_campaign_repository.dart';
@@ -19,13 +18,14 @@ import 'features/data/repositories/market_product_repository.dart';
 import 'features/data/repositories/market_repository.dart';
 import 'features/data/repositories/market_wallet_repository.dart';
 import 'features/data/repositories/shared_application_repository.dart';
+import 'features/data/repositories/shared_user_repository.dart';
 
 // put repositories to Get Service Locator
 Future<void> initRepositories() async {
   // auth repository
 
-  Get.put<AuthRepository>(
-    AuthRepository(),
+  Get.put<SharedUserRepository>(
+    SharedUserRepository(),
   );
 
   // customer repositories

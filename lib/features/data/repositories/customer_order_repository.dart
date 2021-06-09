@@ -13,7 +13,7 @@ import '../models/base_api_result_model.dart';
 import '../models/customer/older_orders_result_model.dart';
 import '../models/customer/order_detail_result_model.dart';
 import '../models/customer/order_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerOrderRepository {
   static CustomerOrderRepository? _instance;
@@ -29,14 +29,14 @@ class CustomerOrderRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerOrderRemoteDataSource(Dio()),
         _localDataSource = CustomerOrderLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerOrderRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerOrderLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, OrderResultModel>> save({
     required int paymentType,

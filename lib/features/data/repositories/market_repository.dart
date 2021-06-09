@@ -19,7 +19,7 @@ import '../models/market/market_photos_result_model.dart';
 import '../models/market/market_profile_result_model.dart';
 import '../models/market/update_market_default_hours_model.dart';
 import '../models/photo_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class MarketRepository {
   static MarketRepository? _instance;
@@ -35,14 +35,14 @@ class MarketRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = MarketRemoteDataSource(Dio()),
         _localDataSource = MarketLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final MarketRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final MarketLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, MarketProfileResultModel>> getMarketProfile() async {
     if (!await _connectionChecker.hasConnection) {

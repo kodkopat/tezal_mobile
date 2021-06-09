@@ -11,7 +11,7 @@ import '../data_sources/customer_campaign/customer_campaign_local_data_source.da
 import '../data_sources/customer_campaign/customer_campaign_remote_data_source.dart';
 import '../models/customer/campaign_result_model.dart';
 import '../models/customer/photos_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerCampaignRepository {
   static CustomerCampaignRepository? _instance;
@@ -27,14 +27,14 @@ class CustomerCampaignRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerCampaignRemoteDataSource(Dio()),
         _localDataSource = CustomerCampaignLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerCampaignRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerCampaignLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, CampaignResultModel>> getall() async {
     if (!await _connectionChecker.hasConnection) {

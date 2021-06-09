@@ -13,7 +13,7 @@ import '../data_sources/customer_search/customer_search_remote_data_source.dart'
 import '../models/base_api_result_model.dart';
 import '../models/customer/search_result_model.dart';
 import '../models/customer/search_terms_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerSearchRepository {
   static CustomerSearchRepository? _instance;
@@ -29,14 +29,14 @@ class CustomerSearchRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerSearchRemoteDataSource(Dio()),
         _localDataSource = CustomerSearchLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerSearchRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerSearchLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, SearchResultModel>> search({
     bool? distanceAscending,

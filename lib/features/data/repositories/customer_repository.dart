@@ -13,7 +13,7 @@ import '../data_sources/customer/customer_local_data_source.dart';
 import '../data_sources/customer/customer_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/customer/customer_profile_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerRepository {
   static CustomerRepository? _instance;
@@ -29,14 +29,14 @@ class CustomerRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerRemoteDataSource(Dio()),
         _localDataSource = CustomerLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, CustomerProfileResultModel>>
       getCustomerProfile() async {

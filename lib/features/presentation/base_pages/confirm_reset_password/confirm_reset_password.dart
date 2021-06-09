@@ -10,7 +10,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/global_snack_bar.dart';
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/shared_user_repository.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 
 class ConfirmResetPasswordPage extends StatelessWidget {
@@ -110,7 +110,7 @@ class ConfirmResetPasswordPage extends StatelessWidget {
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await Get.find<AuthRepository>().resetPassword(
+      var result = await Get.find<SharedUserRepository>().resetPassword(
         phone: _phoneCtrl.text,
         sms: _pinCodeCtrl.text,
         password: _newPassCtrl.text,

@@ -12,7 +12,7 @@ import '../../../../core/widgets/action_btn.dart';
 import '../../../../core/widgets/custom_text_input.dart';
 import '../../../../core/widgets/global_snack_bar.dart';
 import '../../../../core/widgets/progress_dialog.dart';
-import '../../../data/repositories/auth_repository.dart';
+import '../../../data/repositories/shared_user_repository.dart';
 import '../../app_notifier.dart';
 import '../../base_widgets/agreement_text.dart';
 import '../../customer_widgets/simple_app_bar.dart';
@@ -110,7 +110,7 @@ class LoginPage extends StatelessWidget {
       var prgDialog = AppProgressDialog(context).instance;
       prgDialog.show();
 
-      var result = await Get.find<AuthRepository>().login(
+      var result = await Get.find<SharedUserRepository>().login(
         username: _phoneCtrl.text,
         password: _passCtrl.text,
       );

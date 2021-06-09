@@ -12,7 +12,7 @@ import '../data_sources/customer_category/customer_category_remote_data_source.d
 import '../models/customer/main_category_result_model.dart';
 import '../models/customer/photo_result_model.dart';
 import '../models/customer/sub_category_result_model.dart';
-import 'auth_repository.dart';
+import 'shared_user_repository.dart';
 
 class CustomerCategoryRepository {
   static CustomerCategoryRepository? _instance;
@@ -28,14 +28,14 @@ class CustomerCategoryRepository {
       : _connectionChecker = DataConnectionChecker(),
         _remoteDataSource = CustomerCategoryRemoteDataSource(Dio()),
         _localDataSource = CustomerCategoryLocalDataSource(),
-        _authRepo = AuthRepository();
+        _authRepo = SharedUserRepository();
 
   final String connectionFailedMsg = "دسترسی به اینترنت امکان‌پذیر نمی‌باشد!";
   final DataConnectionChecker _connectionChecker;
   final CustomerCategoryRemoteDataSource _remoteDataSource;
   // ignore: unused_field
   final CustomerCategoryLocalDataSource _localDataSource;
-  final AuthRepository _authRepo;
+  final SharedUserRepository _authRepo;
 
   Future<Either<Failure, MainCategoryResultModel>> getMainCategories({
     required String marketId,
