@@ -10,12 +10,12 @@ import '../../models/customer/login_result_model.dart';
 import '../../models/customer/photo_result_model.dart';
 import '../../models/customer/register_result_model.dart';
 
-part 'auth_remote_data_source.g.dart';
+part 'shared_user_remote_data_source.g.dart';
 
 @RestApi(baseUrl: sharedBaseApiUrl)
-abstract class AuthRemoteDataSource {
-  factory AuthRemoteDataSource(Dio dio, {String? baseUrl}) =
-      _AuthRemoteDataSource;
+abstract class SharedUserRemoteDataSource {
+  factory SharedUserRemoteDataSource(Dio dio, {String? baseUrl}) =
+      _SharedUserRemoteDataSource;
 
   static const _apiUrlPrefix = "User";
 

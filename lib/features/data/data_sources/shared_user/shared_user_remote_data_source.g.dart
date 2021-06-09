@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_remote_data_source.dart';
+part of 'shared_user_remote_data_source.dart';
 
 // **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
-class _AuthRemoteDataSource implements AuthRemoteDataSource {
-  _AuthRemoteDataSource(this._dio, {this.baseUrl}) {
+class _SharedUserRemoteDataSource implements SharedUserRemoteDataSource {
+  _SharedUserRemoteDataSource(this._dio, {this.baseUrl}) {
     baseUrl ??= 'http://185.116.162.30/shared/';
   }
 

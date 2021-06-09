@@ -3,8 +3,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../../../core/consts/consts.dart';
 
-class AuthLocalDataSource {
-  AuthLocalDataSource() : _secureStorage = FlutterSecureStorage();
+class SharedUserLocalDataSource {
+  SharedUserLocalDataSource() : _secureStorage = FlutterSecureStorage();
 
   final FlutterSecureStorage _secureStorage;
 
