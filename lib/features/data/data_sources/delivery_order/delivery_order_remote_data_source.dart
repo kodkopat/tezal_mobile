@@ -16,7 +16,7 @@ abstract class DeliveryOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/getDeliveryOrders")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<OrdersResultModel> getDeliveryOrders(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("orderStatus") String? orderStatus,
     @Query("orderbyDistanceDescending") bool? orderbyDistanceDescending,
@@ -28,7 +28,7 @@ abstract class DeliveryOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/TakeOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> takeOrder(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );
@@ -36,7 +36,7 @@ abstract class DeliveryOrderRemoteDataSource {
   @GET("$_apiUrlPrefix/DeliverOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> deliverOrder(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );

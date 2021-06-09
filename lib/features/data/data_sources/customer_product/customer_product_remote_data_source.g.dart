@@ -72,6 +72,7 @@ class _CustomerProductRemoteDataSource
   Future<PhotosResultModel> getPhoto(lang, id, multi) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id, r'Multi': multi};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotosResultModel>(Options(

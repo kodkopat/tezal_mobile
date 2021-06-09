@@ -20,6 +20,7 @@ class _CustomerCategoryRemoteDataSource
   Future<MainCategoryResultModel> getMainCategories(lang, marketId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'MarketId': marketId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<MainCategoryResultModel>(Options(
@@ -46,6 +47,7 @@ class _CustomerCategoryRemoteDataSource
       r'MarketId': marketId,
       r'MainCategoryId': mainCategoryId
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<SubCategoryResultModel>(Options(

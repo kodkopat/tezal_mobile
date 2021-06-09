@@ -47,10 +47,10 @@ class AuthLocalDataSource {
   }
 
   Future<String?> get userType async {
-    return await _secureStorage.read(key: storageKeyUserType) ?? null;
+    return await _secureStorage.read(key: storageKeyUserType);
   }
 
-  Future<String> get userLang async {
-    return await _secureStorage.read(key: storageKeyLocalCode) ?? "fa";
+  Future<String?> get userLang async {
+    return await _secureStorage.read(key: storageKeyLocalCode);
   }
 }

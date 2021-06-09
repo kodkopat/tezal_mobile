@@ -19,14 +19,14 @@ abstract class CustomerRemoteDataSource {
   @GET("$_apiUrlPrefix/GetCustomerProfile")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CustomerProfileResultModel> getCustomerProfile(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @POST("$_apiUrlPrefix/ChangeCustomerProfile")
   @Headers({"Content-Type": "multipart/form-data", "Accept": "*/*"})
   Future<BaseApiResultModel> changeCustomerProfile(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Part() String name,
     @Part() String email,
@@ -36,7 +36,7 @@ abstract class CustomerRemoteDataSource {
   @POST("$_apiUrlPrefix/ChangeCustomerProfile")
   @Headers({"Content-Type": "multipart/form-data", "Accept": "*/*"})
   Future<BaseApiResultModel> changeCustomerProfileWithoutPhoto(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Part() String name,
     @Part() String email,
@@ -45,7 +45,7 @@ abstract class CustomerRemoteDataSource {
   @GET("$_apiUrlPrefix/getphoto")
   @Headers({"Content-Type": "application/json", "Accept": "*/*"})
   Future<String> getPhoto(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 }

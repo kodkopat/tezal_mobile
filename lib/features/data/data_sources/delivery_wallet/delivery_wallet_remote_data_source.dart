@@ -19,14 +19,14 @@ abstract class DeliveryWalletRemoteDataSource {
   @GET("$_apiUrlPrefix/GetBalance")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletBalanceResultModel> getBalance(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetWalletDetails")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletDetailResultModel> getWalletDetails(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("skip") int skip,
     @Query("take") int take,
@@ -35,7 +35,7 @@ abstract class DeliveryWalletRemoteDataSource {
   @GET("$_apiUrlPrefix/GetWithdrawalRequests")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WithdrawalRequestsResultModel> getWithdrawalRequests(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("skip") int skip,
     @Query("take") int take,
@@ -44,7 +44,7 @@ abstract class DeliveryWalletRemoteDataSource {
   @POST("$_apiUrlPrefix/WithdrawalRequest")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> withdrawalRequest(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Field() double amount,
     @Field() String description,

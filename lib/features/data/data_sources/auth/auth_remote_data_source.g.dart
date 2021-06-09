@@ -19,6 +19,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<LoginResultModel> login(lang, username, password) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'username': username, 'password': password};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<LoginResultModel>(Options(
@@ -41,6 +42,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<CheckTokenResultModel> checkToken(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'token': token};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CheckTokenResultModel>(Options(
@@ -63,6 +65,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<RegisterResultModel> register(lang, name, phone, pass) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'Name': name, 'Phone': phone, 'Password': pass};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<RegisterResultModel>(Options(
@@ -85,6 +88,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<CheckSmsResultModel> confirmRegistration(lang, id, sms) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = {'id': id, 'sms': sms};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CheckSmsResultModel>(Options(
@@ -107,6 +111,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<PhotoResultModel> getPhoto(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Token': token};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<PhotoResultModel>(Options(
@@ -129,6 +134,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<BaseApiResultModel> resetPasswordRequest(lang, phone) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Phone': phone};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -157,6 +163,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
       r'Password': password,
       r'PasswordRepeat': passwordRepeat
     };
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
@@ -179,6 +186,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<AgreementResultModel> getPrivacyText(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AgreementResultModel>(Options(
@@ -201,6 +209,7 @@ class _AuthRemoteDataSource implements AuthRemoteDataSource {
   Future<AgreementResultModel> getRulesText(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<AgreementResultModel>(Options(

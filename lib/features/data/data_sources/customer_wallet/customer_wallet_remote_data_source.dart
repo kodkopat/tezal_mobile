@@ -18,14 +18,14 @@ abstract class CustomerWalletRemoteDataSource {
   @GET("$_apiUrlPrefix/GetWalletInfo")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletInfoResultModel> getWalletInfo(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetWalletDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletDetailResultModel> getWalletDetail(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("page") int page,
   );
@@ -33,7 +33,7 @@ abstract class CustomerWalletRemoteDataSource {
   @GET("$_apiUrlPrefix/LoadBalance")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletLoadBalanceResultModel> loadBalance(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("amount") double amount,
   );
@@ -41,7 +41,7 @@ abstract class CustomerWalletRemoteDataSource {
   @GET("$_apiUrlPrefix/LoadBalanceConfirmation")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<WalletLoadBalanceResultModel> loadBalanceConfirmation(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );

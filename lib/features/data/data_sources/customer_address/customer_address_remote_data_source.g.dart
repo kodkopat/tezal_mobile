@@ -183,6 +183,7 @@ class _CustomerAddressRemoteDataSource
   Future<ProvincesResultModel> getProvince(lang) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ProvincesResultModel>(Options(
@@ -205,6 +206,7 @@ class _CustomerAddressRemoteDataSource
   Future<CitiesResultModel> getCity(lang, provinceId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'provinceId': provinceId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CitiesResultModel>(Options(

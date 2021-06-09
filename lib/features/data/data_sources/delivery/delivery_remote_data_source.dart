@@ -15,7 +15,7 @@ abstract class DeliveryRemoteDataSource {
   @GET("$_apiUrlPrefix/SetAvailablity")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> setAvailablity(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("available") bool available,
   );
@@ -23,7 +23,7 @@ abstract class DeliveryRemoteDataSource {
   @GET("$_apiUrlPrefix/SetLocation")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> setLocation(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,
@@ -32,7 +32,7 @@ abstract class DeliveryRemoteDataSource {
   @GET("DeliveryCenter/List")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<dynamic> list(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,

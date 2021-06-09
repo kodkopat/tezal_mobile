@@ -20,7 +20,7 @@ abstract class CustomerAddressRemoteDataSource {
   @GET("$_apiUrlPrefix/SetDefaultAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> setdefaultAddress(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );
@@ -28,7 +28,7 @@ abstract class CustomerAddressRemoteDataSource {
   @POST("$_apiUrlPrefix/save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> save(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Field() String address,
     @Field() String description,
@@ -42,7 +42,7 @@ abstract class CustomerAddressRemoteDataSource {
   @POST("$_apiUrlPrefix/save")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> edit(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Field() String id,
     @Field() String address,
@@ -57,14 +57,14 @@ abstract class CustomerAddressRemoteDataSource {
   @GET("$_apiUrlPrefix/getAddressess")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressesResultModel> getAddresses(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/getAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddressResultModel> getAddress(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );
@@ -72,7 +72,7 @@ abstract class CustomerAddressRemoteDataSource {
   @GET("$_apiUrlPrefix/RemoveAddress")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> removeAddress(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );
@@ -80,13 +80,13 @@ abstract class CustomerAddressRemoteDataSource {
   @GET("$_apiUrlPrefix/GetProvince")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<ProvincesResultModel> getProvince(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
   );
 
   @GET("$_apiUrlPrefix/GetCity")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CitiesResultModel> getCity(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Query("provinceId") String provinceId,
   );
 }

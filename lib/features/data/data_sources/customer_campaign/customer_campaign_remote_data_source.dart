@@ -17,14 +17,14 @@ abstract class CustomerCampaignRemoteDataSource {
   @GET("$_apiUrlPrefix/Getall")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CampaignResultModel> getall(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Query("Id") String campaignId,
   );
 }

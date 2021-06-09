@@ -24,7 +24,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("marketId") String marketId,
   );
@@ -32,14 +32,14 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetMarketCategories")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketCategoriesResultModel> getMarketCategories(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetMarketCategoryPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<List<int>> getMarketCategoryPhoto(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("MarketCategoryId") String marketCategoryId,
   );
@@ -47,7 +47,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<NearByMarketsResultModel> getNearByMarkets(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Header("latitude") String latitude,
     @Header("longitude") String longitude,
@@ -59,14 +59,14 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/UpdateNearByMarkets")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> updateNearByMarkets(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
   );
 
   @GET("$_apiUrlPrefix/GetMarketDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MarketDetailResultModel> getMarketDetail(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("Id") String id,
   );
@@ -74,7 +74,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetPhoto")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<PhotosResultModel> getPhoto(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Query("Id") String id,
     @Query("Multi") bool multi,
   );
@@ -82,7 +82,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("MarketId") String marketId,
     @Query("skip") int skip,
@@ -92,7 +92,7 @@ abstract class CustomerMarketRemoteDataSource {
   @POST("$_apiUrlPrefix/AddEditCommentRate")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<AddEditCommentRateResultModel> addEditCommentRate(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Field() String comment,
     @Field() String orderId,
@@ -102,7 +102,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetMainCategoryDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<MainCategoryDetailResultModel> getMainCategoryDetail(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("MarketId") String marketId,
     @Query("MainCategoryId") String mainCategoryId,
@@ -111,7 +111,7 @@ abstract class CustomerMarketRemoteDataSource {
   @GET("$_apiUrlPrefix/GetSubCategoryDetail")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<SubCategoryDetailResultModel> getSubCategoryDetail(
-    @Header("lang") String lang,
+    @Header("lang") String? lang,
     @Header("token") String? token,
     @Query("MarketId") String marketId,
     @Query("SubCategoryId") String subCategoryId,
