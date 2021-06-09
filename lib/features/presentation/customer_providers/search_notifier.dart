@@ -36,7 +36,7 @@ class CustomerSearchNotifier extends ChangeNotifier {
 
     result.fold(
       (left) => searchTermsErrorMsg = left.message,
-      (right) => searchTerms = right.data,
+      (right) => searchTerms = right.data!,
     );
 
     notifyListeners();

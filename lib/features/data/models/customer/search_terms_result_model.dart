@@ -7,7 +7,7 @@ class SearchTermsResultModel {
 
   final success;
   final message;
-  final data;
+  final List<String>? data;
 
   factory SearchTermsResultModel.fromJson(Map<String, dynamic> json) =>
       SearchTermsResultModel(
@@ -15,12 +15,12 @@ class SearchTermsResultModel {
         message: json["message"],
         data: json["data"] == null
             ? null
-            : List<String>.from(json["data"].map((x) => x)),
+            : List<String>.from(json["data"].map((x) => "$x")),
       );
 
   Map<String, dynamic> toJson() => {
         "success": success,
         "message": message,
-        "data": data == null ? null : List<dynamic>.from(data.map((x) => x)),
+        "data": data == null ? null : List<dynamic>.from(data!.map((x) => x)),
       };
 }
