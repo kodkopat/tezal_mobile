@@ -39,9 +39,11 @@ dependencies:
   # used to: launch urls
   url_launcher: ^5.7.10
   # used to: access location service
+  latlng: ^0.1.0
   geolocator: ^6.1.14
+  flutter_map: ^0.13.1
   google_maps_flutter: ^2.0.3
-  google_map_location_picker: ^4.1.7
+  # google_map_location_picker: ^4.1.7
   # used to: local storage
   flutter_secure_storage: ^3.3.4
   # used to: pre made icons pack
