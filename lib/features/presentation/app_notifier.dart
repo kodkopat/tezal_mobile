@@ -51,6 +51,7 @@ class AppNotifier extends ChangeNotifier {
     var currentLanguageCode =
         await FlutterSecureStorage().read(key: storageKeyLocalCode);
 
+    // ignore: unnecessary_null_comparison
     var tempLocale = currentLanguageCode == null
         ? Locale('fa')
         : Locale(currentLanguageCode);
