@@ -79,6 +79,8 @@ dependencies:
   drag_and_drop_gridview: ^1.0.8
   # used to: premade snackbar
   snack: ^1.0.5
+  # used to: push notification
+  # pushe_flutter: ^2.5.0
 
 dependency_overrides:
   tuple: ^1.0.2
