@@ -1,5 +1,6 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:sailor/sailor.dart';
 import 'package:video_player/video_player.dart';
@@ -20,22 +21,21 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  final repository = AuthRepository();
   var videoPlayerController = VideoPlayerController.asset(
     "assets/videos/tezal_splash_animation.mp4",
   );
 
-  void initializeState() async {
-    final _authRepository = AuthRepository();
-    AppUserType? userType;
+  void initialization() async {
+    final authRepo = Get.find<AuthRepository>();
 
-    final userId = await repository.userId;
+    final userId = await authRepo.userId;
     print("userId = $userId\n");
 
-    final userToken = await repository.userToken;
+    final userToken = await authRepo.userToken;
     print("userToken = $userToken\n");
 
-    final value = await _authRepository.userType;
+    AppUserType? userType;
+    final value = await authRepo.userType;
     if (value != null && value.isNotEmpty) {
       userType = AppUserTypeParser.fromString(value);
     }
@@ -74,7 +74,7 @@ class _SplashPageState extends State<SplashPage> {
     videoPlayerController.addListener(() {
       var playerValue = videoPlayerController.value;
       if (playerValue.position == playerValue.duration) {
-        initializeState();
+        initialization();
       }
     });
   }
