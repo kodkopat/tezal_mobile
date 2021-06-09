@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tezal/features/data/models/delivery/orders_result_model.dart';
 
+import '../../../../data/models/delivery/orders_result_model.dart';
 import 'order_list_item.dart';
 
 class OrderList extends StatelessWidget {
