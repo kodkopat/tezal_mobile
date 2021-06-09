@@ -8,8 +8,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../../../../core/widgets/loading.dart';
 
-class OrderDetailMap extends StatefulWidget {
-  OrderDetailMap({
+class OrderDetailGoogleMaps extends StatefulWidget {
+  OrderDetailGoogleMaps({
     required this.height,
     required this.originLat,
     required this.originLng,
@@ -24,10 +24,10 @@ class OrderDetailMap extends StatefulWidget {
   final double destinationLng;
 
   @override
-  State<OrderDetailMap> createState() => _OrderDetailMapState();
+  State<OrderDetailGoogleMaps> createState() => _OrderDetailGoogleMapsState();
 }
 
-class _OrderDetailMapState extends State<OrderDetailMap> {
+class _OrderDetailGoogleMapsState extends State<OrderDetailGoogleMaps> {
   late GoogleMapController mapController;
   late CameraPosition initialLocation;
 

@@ -1,12 +1,13 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/delivery/orders_result_model.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/order_detail_field.dart';
-import 'widgets/order_detail_map.dart';
+import 'widgets/order_detail_flutter_map.dart';
 
 class OrderDetailPage extends StatelessWidget {
   static const route = "/delivery_order_detail";
@@ -34,6 +35,8 @@ class OrderDetailPage extends StatelessWidget {
     double destinationLat = double.parse("35.699756");
     double destinationLng = double.parse("51.324863");
 
+    var mapController = MapController();
+
     return Scaffold(
       appBar: SimpleAppBar(context).create(
         text: "جزئیات سفارش",
@@ -42,7 +45,18 @@ class OrderDetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+/*
             OrderDetailMap(
+              height: 256,
+              originLat: originLat,
+              originLng: originLng,
+              destinationLat: destinationLat,
+              destinationLng: destinationLng,
+            ),
+*/
+
+            OrderDetailFlutterMaps(
+              controller: mapController,
               height: 256,
               originLat: originLat,
               originLng: originLng,
