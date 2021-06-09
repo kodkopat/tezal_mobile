@@ -96,7 +96,7 @@ class AuthRepository {
       return Left(ConnectionFailure(connectionFailedMsg));
     } else {
       final lang = await userLang;
-      final userId = await this.userId;
+      final userId = await this.userId ?? "";
 
       var result = await _remoteDataSource.confirmRegistration(
         lang,
@@ -208,7 +208,7 @@ class AuthRepository {
     }
   }
 
-  Future<String> get userId async {
+  Future<String?> get userId async {
     return await _localDataSource.userId;
   }
 
@@ -220,7 +220,7 @@ class AuthRepository {
     return await _localDataSource.userType;
   }
 
-  Future<String> get userLang async {
+  Future<String?> get userLang async {
     return await _localDataSource.userLang;
   }
 }
