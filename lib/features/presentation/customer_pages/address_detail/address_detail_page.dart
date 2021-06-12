@@ -38,20 +38,21 @@ class AddressDetailPage extends StatelessWidget {
                       provider.detailErrorMsg!,
                       style: AppTxtStyles().body..alignment.center(),
                     )
-                  : Column(
-                      textDirection: TextDirection.rtl,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AddressDetailMenu(
-                          address: provider.addressResultModel!.data,
-                        ),
-                        Divider(
-                          color: Colors.black12,
-                          thickness: 0.5,
-                          height: 0,
-                        ),
-                        AddressDetailActionsMenu(addressId: addressId),
-                      ],
+                  : SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AddressDetailMenu(
+                            address: provider.addressResultModel!.data,
+                          ),
+                          Divider(
+                            color: Colors.black12,
+                            thickness: 0.5,
+                            height: 0,
+                          ),
+                          AddressDetailActionsMenu(addressId: addressId),
+                        ],
+                      ),
                     );
         },
       ),

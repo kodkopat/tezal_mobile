@@ -60,10 +60,9 @@ class AddressesNotifier extends ChangeNotifier {
 
   Future<void> fetchAddresses() async {
     var result = await customerAddressRepo.getAddresses();
+
     result.fold(
-      (left) {
-        listErrorMsg = left.message;
-      },
+      (left) => listErrorMsg = left.message,
       (right) {
         addressesResultModel = right;
         addressList = addressesResultModel!.data;
@@ -75,6 +74,7 @@ class AddressesNotifier extends ChangeNotifier {
         });
       },
     );
+
     listLoading = false;
     notifyListeners();
   }
@@ -97,6 +97,7 @@ class AddressesNotifier extends ChangeNotifier {
       cityId: cityId,
       name: name,
     );
+
     result.fold(
       (left) => null,
       (right) => _refresh(),

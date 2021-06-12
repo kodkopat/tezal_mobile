@@ -11,59 +11,17 @@ class MarketNotifier extends ChangeNotifier {
 
   bool nearByMarketsLoading = true;
   String? nearByMarketsErrorMsg;
-  String? marketCategoryId;
+  NearByMarketsResultModel? nearByMarkets;
 
-  bool? enableLoadMoreData;
-  int? nearyByMarketsTotalCount;
-  int? latestPageIndex;
-  List<Market>? nearByMarkets;
+  Future<void> fetchNearbyMarkets() async {
+    var result = await customerMarketRepo.getNearByMarkets(
+      maxDistance: 10,
+    );
 
-  Future<void> fetchNearbyMarkets(
-    BuildContext context, {
-    required String marketCategoryId,
-  }) async {
-    if (nearyByMarketsTotalCount == null) {
-      var result = await customerMarketRepo.getNearByMarkets(
-        marketCategoryId: marketCategoryId,
-        maxDistance: 10,
-        page: 1,
-      );
-
-      this.marketCategoryId = marketCategoryId;
-
-      result.fold(
-        (left) => nearByMarketsErrorMsg = left.message,
-        (right) {
-          print("nearByMarkets: ${right.toJson()}\n");
-          NearByMarketsResultModel model = right;
-          nearyByMarketsTotalCount = model.data!.total;
-          latestPageIndex = right.data!.page;
-          nearByMarkets = right.data!.markets;
-          enableLoadMoreData =
-              nearyByMarketsTotalCount != nearByMarkets!.length;
-        },
-      );
-    } else {
-      if (nearyByMarketsTotalCount == 0) return;
-
-      var result = await customerMarketRepo.getNearByMarkets(
-        marketCategoryId: marketCategoryId,
-        maxDistance: 10,
-        page: latestPageIndex! + 1,
-      );
-
-      result.fold(
-        (left) => nearByMarketsErrorMsg = left.message,
-        (right) {
-          // nearByMarketsResultModel = right;
-          // nearyByMarketsTotalCount = right.data!.total;
-          latestPageIndex = right.data!.page;
-          nearByMarkets!.addAll(right.data!.markets!);
-          enableLoadMoreData =
-              nearyByMarketsTotalCount != nearByMarkets!.length;
-        },
-      );
-    }
+    result.fold(
+      (left) => nearByMarketsErrorMsg = left.message,
+      (right) => nearByMarkets = right,
+    );
 
     nearByMarketsLoading = false;
     notifyListeners();
@@ -85,18 +43,13 @@ class MarketNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void refresh(BuildContext context) async {
+  void refresh() async {
     nearByMarketsLoading = true;
-    notifyListeners();
-
-    enableLoadMoreData = null;
-    nearyByMarketsTotalCount = null;
-    latestPageIndex = null;
+    nearByMarketsErrorMsg = null;
     nearByMarkets = null;
 
-    await fetchNearbyMarkets(
-      context,
-      marketCategoryId: marketCategoryId!,
-    );
+    notifyListeners();
+
+    await fetchNearbyMarkets();
   }
 }

@@ -1,39 +1,45 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
-import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/widgets/load_more_btn.dart';
-import '../../../../../core/widgets/loading.dart';
-import '../../../../data/repositories/customer_market_repository.dart';
-import '../../../customer_providers/market_notifier.dart';
+import '../../../../data/models/customer/nearby_markets_result_model.dart';
 import '../../market_detail/market_detail_page.dart';
-import 'markets_list.dart';
+import 'markets_list_item.dart';
 
 class CategoryTabBarView extends StatelessWidget {
   CategoryTabBarView({
     Key? key,
-    required this.marketCategoryId,
+    required this.market,
   }) : super(key: key);
 
-  final String marketCategoryId;
+  // final String marketCategoryId;
+  final Data market;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: MarketsListItem(
+        market: market.markets!,
+        onTap: () {
+          Routes.sailor.navigate(
+            MarketDetailPage.route,
+            params: {"marketId": market.markets!.id},
+          );
+        },
+        onLikeStatusChanged: () {
+          // var marketId = provider.nearByMarkets![index].id;
+          // provider.like(marketId: marketId);
+        },
+      ),
+    ) /* ChangeNotifierProvider(
       create: (context) => MarketNotifier(
         Get.find<CustomerMarketRepository>(),
       ),
       child: Consumer<MarketNotifier>(
         builder: (context, provider, child) {
           if (provider.nearByMarkets == null) {
-            provider.fetchNearbyMarkets(
-              context,
-              marketCategoryId: marketCategoryId,
-            );
+            provider.fetchNearbyMarkets();
           }
 
           return provider.nearByMarketsLoading
@@ -73,6 +79,7 @@ class CategoryTabBarView extends StatelessWidget {
                     );
         },
       ),
-    );
+    ) */
+        ;
   }
 }

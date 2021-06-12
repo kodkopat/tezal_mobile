@@ -3,8 +3,8 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
-import 'package:tezal/core/page_routes/base_routes.dart';
 
+import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/action_btn.dart';
@@ -17,7 +17,7 @@ import '../../payment_method_selector/payment_method_selector.dart';
 import 'modal_empty_basket.dart';
 
 class BasketActionsBox extends StatelessWidget {
-  const BasketActionsBox({
+  BasketActionsBox({
     required this.basket,
     required this.basketNotifier,
   });
@@ -43,21 +43,17 @@ class BasketActionsBox extends StatelessWidget {
           spread: 0,
         ),
       child: Column(
-        textDirection: TextDirection.rtl,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
-                textDirection: TextDirection.rtl,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
-                    textDirection: TextDirection.rtl,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Txt(
@@ -118,7 +114,6 @@ class BasketActionsBox extends StatelessWidget {
             height: 24,
           ),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [

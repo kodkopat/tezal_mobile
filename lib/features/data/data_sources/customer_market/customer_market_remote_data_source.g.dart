@@ -92,14 +92,10 @@ class _CustomerMarketRemoteDataSource
   }
 
   @override
-  Future<NearByMarketsResultModel> getNearByMarkets(lang, token, latitude,
-      longitude, marketCategoryId, maxDistance, page) async {
+  Future<NearByMarketsResultModel> getNearByMarkets(
+      lang, token, latitude, longitude, maxDistance) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'MarketCategoryId': marketCategoryId,
-      r'maxDistance': maxDistance,
-      r'page': page
-    };
+    final queryParameters = <String, dynamic>{r'maxDistance': maxDistance};
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(

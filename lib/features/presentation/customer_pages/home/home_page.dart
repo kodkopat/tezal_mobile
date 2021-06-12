@@ -21,7 +21,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var marketCategoriesConsumer = Consumer<MarketCategoryNotifier>(
+    /* var marketCategoriesConsumer = Consumer<MarketCategoryNotifier>(
       builder: (context, provider, child) {
         if (provider.marketCategories == null) {
           provider.fetchMarketCategories();
@@ -37,6 +37,26 @@ class HomePage extends StatelessWidget {
                         style: AppTxtStyles().body..alignment.center())
                 : HomeMarketsWidget(
                     marketCategories: provider.marketCategories!,
+                  );
+      },
+    ); */
+
+    var marketConsumer = Consumer<MarketCategoryNotifier>(
+      builder: (context, provider, child) {
+        if (provider.nearByMarkets == null) {
+          provider.fetchNearbyMarkets();
+        }
+
+        return provider.nearByMarketsLoading
+            ? AppLoading()
+            : provider.nearByMarkets == null
+                ? provider.nearByMarketsErrorMsg == null
+                    ? Txt("خطای بارگذاری لیست",
+                        style: AppTxtStyles().body..alignment.center())
+                    : Txt(provider.nearByMarketsErrorMsg,
+                        style: AppTxtStyles().body..alignment.center())
+                : HomeMarketsWidget(
+                    marketCategories: provider.nearByMarkets!.data!,
                   );
       },
     );
@@ -73,7 +93,8 @@ class HomePage extends StatelessWidget {
                             child: Column(
                               children: [
                                 MapAndCampaignSlider(),
-                                marketCategoriesConsumer,
+                                // marketCategoriesConsumer,
+                                marketConsumer,
                               ],
                             ),
                           ),

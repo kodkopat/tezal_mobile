@@ -100,9 +100,7 @@ class CustomerMarketRepository {
   }
 
   Future<Either<Failure, NearByMarketsResultModel>> getNearByMarkets({
-    required String marketCategoryId,
     required int maxDistance,
-    required int page,
   }) async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -116,9 +114,7 @@ class CustomerMarketRepository {
         userToken,
         "${position.latitude}",
         "${position.longitude}",
-        marketCategoryId,
         maxDistance,
-        page,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

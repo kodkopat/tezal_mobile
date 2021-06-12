@@ -46,10 +46,11 @@ class BasketPage extends StatelessWidget {
                           },
                         ),
                         SizedBox(height: 8),
-                        BasketActionsBox(
-                          basket: provider.basketResultModel!,
-                          basketNotifier: provider,
-                        ),
+                        if (provider.basketItemList!.isNotEmpty)
+                          BasketActionsBox(
+                            basket: provider.basketResultModel!,
+                            basketNotifier: provider,
+                          ),
                       ],
                     ),
                   );

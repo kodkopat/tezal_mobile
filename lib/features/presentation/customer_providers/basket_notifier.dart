@@ -38,6 +38,33 @@ class BasketNotifier extends ChangeNotifier {
   List<BasketItem>? basketItemList;
   int? basketCount;
 
+  Future<void> fetchBasket() async {
+    var result = await customerBasketRepo.getBasket();
+    result.fold(
+      (left) => errorMsg = left.message,
+      (right) {
+        basketResultModel = right;
+        if (right.data == null) {
+          basketItemList = [];
+        } else {
+          basketItemList = right.data!.items;
+        }
+      },
+    );
+
+    loading = false;
+    notifyListeners();
+  }
+
+  Future<void> fetchBasketCount() async {
+    var result = await customerBasketRepo.getBasketCount();
+    result.fold(
+      (left) => null,
+      (right) => basketCount = right.data,
+    );
+    notifyListeners();
+  }
+
   Future<void> addToBasket({
     required String productId,
     int? amount,
@@ -95,29 +122,6 @@ class BasketNotifier extends ChangeNotifier {
     notifyListeners();
 
     prgDialog.hide();
-  }
-
-  Future<void> fetchBasket() async {
-    var result = await customerBasketRepo.getBasket();
-    result.fold(
-      (left) => errorMsg = left.message,
-      (right) {
-        basketResultModel = right;
-        basketItemList = right.data!.items;
-      },
-    );
-
-    loading = false;
-    notifyListeners();
-  }
-
-  Future<void> fetchBasketCount() async {
-    var result = await customerBasketRepo.getBasketCount();
-    result.fold(
-      (left) => null,
-      (right) => basketCount = right.data,
-    );
-    notifyListeners();
   }
 
   void refresh() async {
