@@ -8,7 +8,7 @@ part of 'customer_order_remote_data_source.dart';
 
 class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   _CustomerOrderRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.30/customer/';
+    baseUrl ??= 'http://185.116.162.192/customer/';
   }
 
   final Dio _dio;

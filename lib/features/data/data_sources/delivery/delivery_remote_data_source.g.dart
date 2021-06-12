@@ -8,7 +8,7 @@ part of 'delivery_remote_data_source.dart';
 
 class _DeliveryRemoteDataSource implements DeliveryRemoteDataSource {
   _DeliveryRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.30/delivery/';
+    baseUrl ??= 'http://185.116.162.192/delivery/';
   }
 
   final Dio _dio;

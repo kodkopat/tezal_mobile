@@ -8,7 +8,7 @@ part of 'shared_product_remote_data_source.dart';
 
 class _SharedProductRemoteDataSource implements SharedProductRemoteDataSource {
   _SharedProductRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.30/shared/';
+    baseUrl ??= 'http://185.116.162.192/shared/';
   }
 
   final Dio _dio;

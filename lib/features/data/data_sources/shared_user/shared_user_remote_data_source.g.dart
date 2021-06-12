@@ -8,7 +8,7 @@ part of 'shared_user_remote_data_source.dart';
 
 class _SharedUserRemoteDataSource implements SharedUserRemoteDataSource {
   _SharedUserRemoteDataSource(this._dio, {this.baseUrl}) {
-    baseUrl ??= 'http://185.116.162.30/shared/';
+    baseUrl ??= 'http://185.116.162.192/shared/';
   }
 
   final Dio _dio;
