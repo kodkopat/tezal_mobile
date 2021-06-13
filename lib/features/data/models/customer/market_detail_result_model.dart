@@ -41,6 +41,7 @@ class Data {
     required this.categories,
     required this.basketCount,
     required this.liked,
+    required this.photoList,
   });
 
   final id;
@@ -57,6 +58,7 @@ class Data {
   final List<Category>? categories;
   final basketCount;
   final liked;
+  final List<String>? photoList;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -73,12 +75,12 @@ class Data {
         categories: json["categories"] == null
             ? null
             : List<Category>.from(
-                json["categories"].map(
-                  (x) => Category.fromJson(x),
-                ),
-              ),
+                json["categories"].map((x) => Category.fromJson(x))),
         basketCount: json["basketCount"],
         liked: json["liked"],
+        photoList: json["photoList"] == null
+            ? null
+            : List<String>.from(json["photoList"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -95,13 +97,12 @@ class Data {
         "distance": distance,
         "categories": categories == null
             ? null
-            : List<dynamic>.from(
-                categories!.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(categories!.map((x) => x.toJson())),
         "basketCount": basketCount,
         "liked": liked,
+        "photoList": photoList == null
+            ? null
+            : List<dynamic>.from(photoList!.map((x) => x)),
       };
 }
 
@@ -122,10 +123,7 @@ class Category {
         products: json["products"] == null
             ? null
             : List<ProductResultModel>.from(
-                json["products"].map(
-                  (x) => ProductResultModel.fromJson(x),
-                ),
-              ),
+                json["products"].map((x) => ProductResultModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -133,10 +131,6 @@ class Category {
         "name": name,
         "products": products == null
             ? null
-            : List<dynamic>.from(
-                products!.map(
-                  (x) => x.toJson(),
-                ),
-              ),
+            : List<dynamic>.from(products!.map((x) => x.toJson())),
       };
 }

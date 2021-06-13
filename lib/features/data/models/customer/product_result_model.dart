@@ -8,10 +8,7 @@ class ProductResultModel {
     required this.name,
     required this.originalPrice,
     required this.discountedPrice,
-    required this.totalDiscount,
-    required this.totalDiscountedPrice,
     required this.totalPrice,
-    required this.payablePrice,
     required this.liked,
     required this.discountRate,
     required this.productUnit,
@@ -19,6 +16,7 @@ class ProductResultModel {
     required this.rate,
     required this.amount,
     required this.onSale,
+    required this.photo,
   });
 
   final id;
@@ -29,10 +27,7 @@ class ProductResultModel {
   final name;
   final originalPrice;
   final discountedPrice;
-  final totalDiscount;
-  final totalDiscountedPrice;
   final totalPrice;
-  final payablePrice;
   final liked;
   final discountRate;
   final productUnit;
@@ -40,6 +35,7 @@ class ProductResultModel {
   final rate;
   final amount;
   final onSale;
+  final List<String>? photo;
 
   factory ProductResultModel.fromJson(Map<String, dynamic> json) =>
       ProductResultModel(
@@ -51,10 +47,7 @@ class ProductResultModel {
         name: json["name"],
         originalPrice: json["originalPrice"],
         discountedPrice: json["discountedPrice"],
-        totalDiscount: json["totalDiscount"],
-        totalDiscountedPrice: json["totalDiscountedPrice"],
         totalPrice: json["totalPrice"],
-        payablePrice: json["payablePrice"],
         liked: json["liked"],
         discountRate: json["discountRate"],
         productUnit: json["productUnit"],
@@ -62,6 +55,9 @@ class ProductResultModel {
         rate: json["rate"],
         amount: json["amount"],
         onSale: json["onSale"],
+        photo: json["photo"] == null
+            ? null
+            : List<String>.from(json["photo"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -73,10 +69,7 @@ class ProductResultModel {
         "name": name,
         "originalPrice": originalPrice,
         "discountedPrice": discountedPrice,
-        "totalDiscount": totalDiscount,
-        "totalDiscountedPrice": totalDiscountedPrice,
         "totalPrice": totalPrice,
-        "payablePrice": payablePrice,
         "liked": liked,
         "discountRate": discountRate,
         "productUnit": productUnit,
@@ -84,5 +77,7 @@ class ProductResultModel {
         "rate": rate,
         "amount": amount,
         "onSale": onSale,
+        "photo":
+            photo == null ? null : List<dynamic>.from(photo!.map((x) => x)),
       };
 }

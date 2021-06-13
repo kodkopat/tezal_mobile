@@ -33,10 +33,7 @@ class Data {
     this.name,
     this.originalPrice,
     this.discountedPrice,
-    this.totalDiscount,
-    this.totalDiscountedPrice,
     this.totalPrice,
-    this.payablePrice,
     this.liked,
     this.discountRate,
     this.productUnit,
@@ -44,6 +41,7 @@ class Data {
     this.rate,
     this.amount,
     this.onSale,
+    this.photo,
   });
 
   final id;
@@ -54,10 +52,7 @@ class Data {
   final name;
   final originalPrice;
   final discountedPrice;
-  final totalDiscount;
-  final totalDiscountedPrice;
   final totalPrice;
-  final payablePrice;
   final liked;
   final discountRate;
   final productUnit;
@@ -65,6 +60,7 @@ class Data {
   final rate;
   final amount;
   final onSale;
+  final List<String>? photo;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         id: json["id"],
@@ -75,10 +71,7 @@ class Data {
         name: json["name"],
         originalPrice: json["originalPrice"],
         discountedPrice: json["discountedPrice"],
-        totalDiscount: json["totalDiscount"],
-        totalDiscountedPrice: json["totalDiscountedPrice"],
         totalPrice: json["totalPrice"],
-        payablePrice: json["payablePrice"],
         liked: json["liked"],
         discountRate: json["discountRate"],
         productUnit: json["productUnit"],
@@ -86,6 +79,9 @@ class Data {
         rate: json["rate"],
         amount: json["amount"],
         onSale: json["onSale"],
+        photo: json["photo"] == null
+            ? null
+            : List<String>.from(json["photo"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -97,10 +93,7 @@ class Data {
         "name": name,
         "originalPrice": originalPrice,
         "discountedPrice": discountedPrice,
-        "totalDiscount": totalDiscount,
-        "totalDiscountedPrice": totalDiscountedPrice,
         "totalPrice": totalPrice,
-        "payablePrice": payablePrice,
         "liked": liked,
         "discountRate": discountRate,
         "productUnit": productUnit,
@@ -108,5 +101,7 @@ class Data {
         "rate": rate,
         "amount": amount,
         "onSale": onSale,
+        "photo":
+            photo == null ? null : List<dynamic>.from(photo!.map((x) => x)),
       };
 }

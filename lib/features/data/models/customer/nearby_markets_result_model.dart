@@ -7,7 +7,7 @@ class NearByMarketsResultModel {
 
   final success;
   final message;
-  final List<Data>? data;
+  final List<MarketCategory>? data;
 
   factory NearByMarketsResultModel.fromJson(Map<String, dynamic> json) =>
       NearByMarketsResultModel(
@@ -15,7 +15,8 @@ class NearByMarketsResultModel {
         message: json["message"],
         data: json["data"] == null
             ? null
-            : List<Data>.from(json["data"].map((x) => Data.fromJson(x))),
+            : List<MarketCategory>.from(
+                json["data"].map((x) => MarketCategory.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -27,62 +28,39 @@ class NearByMarketsResultModel {
       };
 }
 
-class Data {
-  Data({
-    required this.category,
-    required this.categoryId,
+class MarketCategory {
+  MarketCategory({
+    required this.id,
+    required this.name,
     required this.markets,
   });
 
-  final category;
-  final categoryId;
-  final Market? markets;
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        category: json["category"],
-        categoryId: json["categoryId"],
-        markets:
-            json["markets"] == null ? null : Market.fromJson(json["markets"]),
+  final id;
+  final name;
+  final List<Market>? markets;
+
+  factory MarketCategory.fromJson(Map<String, dynamic> json) => MarketCategory(
+        id: json["id"],
+        name: json["name"],
+        markets: json["markets"] == null
+            ? null
+            : List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "category": category,
-        "categoryId": categoryId,
-        "markets": markets == null ? null : markets!.toJson(),
+        "id": id,
+        "name": name,
+        "markets": markets == null
+            ? null
+            : List<dynamic>.from(markets!.map((x) => x.toJson())),
       };
 }
-/*
-      class Data {
-        Data({
-          required this.page,
-          required this.total,
-          required this.markets,
-        });
-
-        final page;
-        final total;
-        final List<Market>? markets;
-        factory Data.fromJson(Map<String, dynamic> json) => Data(
-              page: json["page"],
-              total: json["total"],
-              markets: json["markets"] == null
-                  ? null
-                  : List<Market>.from(json["markets"].map((x) => Market.fromJson(x))),
-            );
-
-        Map<String, dynamic> toJson() => {
-              "page": page,
-              "total": total,
-              "markets": markets == null
-                  ? null
-                  : List<dynamic>.from(markets!.map((x) => x.toJson())),
-            };
-      }
-*/
 
 class Market {
   Market({
     required this.id,
     required this.address,
+    required this.owner,
     required this.location,
     required this.name,
     required this.phone,
@@ -93,10 +71,12 @@ class Market {
     required this.deliveryCost,
     required this.distance,
     required this.isLiked,
+    required this.photo,
   });
 
   final id;
   final address;
+  final owner;
   final location;
   final name;
   final phone;
@@ -107,10 +87,12 @@ class Market {
   final deliveryCost;
   final distance;
   final isLiked;
+  final List<String>? photo;
 
   factory Market.fromJson(Map<String, dynamic> json) => Market(
         id: json["id"],
         address: json["address"],
+        owner: json["owner"],
         location: json["location"],
         name: json["name"],
         phone: json["phone"],
@@ -121,11 +103,15 @@ class Market {
         deliveryCost: json["deliveryCost"],
         distance: json["distance"],
         isLiked: json["isLiked"],
+        photo: json["photo"] == null
+            ? null
+            : List<String>.from(json["photo"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "address": address,
+        "owner": owner,
         "location": location,
         "name": name,
         "phone": phone,
@@ -136,5 +122,7 @@ class Market {
         "deliveryCost": deliveryCost,
         "distance": distance,
         "isLiked": isLiked,
+        "photo":
+            photo == null ? null : List<dynamic>.from(photo!.map((x) => x)),
       };
 }
