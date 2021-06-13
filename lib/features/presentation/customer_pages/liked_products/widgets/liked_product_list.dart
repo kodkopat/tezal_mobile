@@ -7,7 +7,7 @@ import '../../product_detail/product_detail_page.dart';
 import 'liked_product_list_item.dart';
 
 class LikedProductList extends StatelessWidget {
-  const LikedProductList({
+  LikedProductList({
     required this.likedProducts,
     required this.productNotifier,
   });
