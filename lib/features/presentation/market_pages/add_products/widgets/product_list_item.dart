@@ -61,7 +61,8 @@ class AddProductListItem extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
-                child: _futureImgFile,
+                // TODO: connect this section to shared photo
+                child: SizedBox(),
               ),
             ),
           ),
@@ -109,24 +110,6 @@ class AddProductListItem extends StatelessWidget {
       ),
     );
   }
-
-  Widget get _futureImgFile =>
-      CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-        future: SharedApplicationRepository().getProductPhoto(
-          productId: product.id,
-        ),
-        successBuilder: (context, data) {
-          print("photoData: $data\n");
-          return data!.fold(
-            (left) => SizedBox(),
-            (right) => Image.memory(
-              base64Decode(right.data!.photo),
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        errorBuilder: (context, data) => SizedBox(),
-      );
 
   Widget get _fieldDiscountedRate {
     if (_generateDiscountedRate().isEmpty) {

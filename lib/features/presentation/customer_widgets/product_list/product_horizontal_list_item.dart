@@ -1,20 +1,12 @@
-import 'dart:convert';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:provider/provider.dart';
 
-import '../../../../core/exceptions/failure.dart';
 import '../../../../core/styles/txt_styles.dart';
-import '../../../../core/widgets/custom_future_builder.dart';
-import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/models/customer/product_result_model.dart';
-import '../../../data/repositories/customer_product_repository.dart';
+import '../../base_widgets/shared_photo.dart';
 import '../../customer_providers/liked_product_notifier.dart';
 import 'product_counter.dart';
 import 'product_like_toggle.dart';
@@ -72,7 +64,9 @@ class ProductHorizontalListItem extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(6),
                   ),
-                  child: _futureImgFile,
+                  child: (product.photo == null || product.photo!.isEmpty)
+                      ? SizedBox()
+                      : SharedPhoto.getProductPhoto(id: product.photo!.first),
                 ),
               ),
               Txt(
@@ -130,21 +124,6 @@ class ProductHorizontalListItem extends StatelessWidget {
       ),
     );
   }
-
-  Widget get _futureImgFile =>
-      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: Get.find<CustomerProductRepository>().getPhoto(id: product.id),
-        successBuilder: (context, data) {
-          return data!.fold(
-            (left) => SizedBox(),
-            (right) => Image.memory(
-              base64Decode(right.data!.photos.first),
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        errorBuilder: (context, data) => SizedBox(),
-      );
 
   Widget _fieldOriginalPrice() {
     return RichText(

@@ -6,7 +6,6 @@ import 'package:intl/intl.dart' as intl;
 import '../../../../core/page_routes/base_routes.dart';
 import '../../../../core/styles/txt_styles.dart';
 import '../../../data/models/market/product_result_model.dart';
-import '../../base_widgets/product_photos.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import '../product_comments/product_comments_page.dart';
 
@@ -36,7 +35,8 @@ class ProductDetailPage extends StatelessWidget {
         textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ProductPhotosWidget(productId: product.id),
+          // TODO: connect this section to shared photo
+          // ProductPhotosWidget(productId: product.id),
           const SizedBox(height: 8),
           _sectionTitleAndCommentsBtn(product),
           const SizedBox(height: 8),

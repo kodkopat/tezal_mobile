@@ -7,7 +7,6 @@ import 'package:intl/intl.dart' as intl;
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../data/models/market/product_result_model.dart';
-import '../../../base_widgets/product_photo.dart';
 
 class ProductListItem extends StatelessWidget {
   ProductListItem({
@@ -54,7 +53,8 @@ class ProductListItem extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
-                child: ProductPhotoWidget(productId: product.id),
+                // TODO: connect this section to shared photo
+                child: SizedBox(),
               ),
             ),
           ),
