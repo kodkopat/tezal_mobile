@@ -10,7 +10,7 @@ import '../../../../core/widgets/loading.dart';
 import '../../../../core/widgets/modal_location_error.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../base_providers/location_notifier.dart';
-import '../../customer_providers/market_category_notifier.dart';
+import '../../customer_providers/market_notifier.dart';
 import '../../customer_widgets/simple_app_bar.dart';
 import 'widgets/combo_box.dart';
 import 'widgets/map_and_campaigns_slider.dart';
@@ -21,27 +21,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /* var marketCategoriesConsumer = Consumer<MarketCategoryNotifier>(
-      builder: (context, provider, child) {
-        if (provider.marketCategories == null) {
-          provider.fetchMarketCategories();
-        }
-
-        return provider.marketCategoriesLoading
-            ? AppLoading()
-            : provider.marketCategories == null
-                ? provider.marketCategoriesErrorMsg == null
-                    ? Txt("خطای بارگذاری لیست",
-                        style: AppTxtStyles().body..alignment.center())
-                    : Txt(provider.marketCategoriesErrorMsg,
-                        style: AppTxtStyles().body..alignment.center())
-                : HomeMarketsWidget(
-                    marketCategories: provider.marketCategories!,
-                  );
-      },
-    ); */
-
-    var marketConsumer = Consumer<MarketCategoryNotifier>(
+    var marketConsumer = Consumer<MarketNotifier>(
       builder: (context, provider, child) {
         if (provider.nearByMarkets == null) {
           provider.fetchNearbyMarkets();

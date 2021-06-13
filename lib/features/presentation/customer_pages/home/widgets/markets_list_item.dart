@@ -1,20 +1,13 @@
-import 'dart:convert';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/nearby_markets_result_model.dart';
-import '../../../../data/models/customer/photos_result_model.dart';
-import '../../../../data/repositories/customer_market_repository.dart';
 import '../../../app_notifier.dart';
+import '../../../base_widgets/shared_photo.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import 'markets_like_toggle.dart';
 
@@ -69,7 +62,11 @@ class MarketsListItem extends StatelessWidget {
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      child: _futurePhoto,
+                      child: (market.photo == null || market.photo!.isEmpty)
+                          ? SizedBox()
+                          : SharedPhoto.getMarketPhoto(
+                              id: market.photo!.first,
+                            ),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -128,21 +125,6 @@ class MarketsListItem extends StatelessWidget {
       ),
     );
   }
-
-  Widget get _futurePhoto =>
-      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: CustomerMarketRepository().getPhoto(marketId: market.id),
-        successBuilder: (context, data) {
-          return data!.fold(
-            (l) => SizedBox(),
-            (r) => Image.memory(
-              base64Decode(r.data!.photos.first),
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        errorBuilder: (context, data) => SizedBox(),
-      );
 
   Widget get _verticalDivider => const SizedBox(
         height: 40,

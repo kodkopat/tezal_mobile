@@ -6,7 +6,7 @@ import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../data/models/customer/address_model.dart';
 import '../../../customer_providers/addresses_notifier.dart';
 import '../../../customer_providers/campaign_notifier.dart';
-import '../../../customer_providers/market_category_notifier.dart';
+import '../../../customer_providers/market_notifier.dart';
 import '../../address_save/address_save_page.dart';
 import '../../addresses/addresses_page.dart';
 import 'combo_box_drop_down_item.dart';
@@ -94,7 +94,7 @@ class _HomeComboBoxDropDownState extends State<HomeComboBoxDropDown> {
                                     addressId: addresses[index].id,
                                   );
 
-                                  Get.find<MarketCategoryNotifier>().refresh();
+                                  Get.find<MarketNotifier>().refresh();
                                   Get.find<CampaignNotifier>().refresh();
 
                                   setState(() {

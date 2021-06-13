@@ -7,8 +7,7 @@ import 'category_tab_bar_view.dart';
 class HomeMarketsWidget extends StatefulWidget {
   HomeMarketsWidget({required this.marketCategories});
 
-  // final List<MarketCategory> marketCategories;
-  final List<Data> marketCategories;
+  final List<MarketCategory> marketCategories;
 
   @override
   _HomeMarketsWidgetState createState() => _HomeMarketsWidgetState();
@@ -22,8 +21,7 @@ class _HomeMarketsWidgetState extends State<HomeMarketsWidget> {
     return Column(
       children: [
         CategoryTabBar(
-          textList:
-              widget.marketCategories.map((e) => "${e.category}").toList(),
+          textList: widget.marketCategories.map((e) => "${e.name}").toList(),
           selectedIndex: selectedIndex,
           onItemTap: (index) {
             setState(() {
@@ -33,7 +31,7 @@ class _HomeMarketsWidgetState extends State<HomeMarketsWidget> {
         ),
         CategoryTabBarView(
           key: GlobalKey(),
-          market: widget.marketCategories[selectedIndex],
+          marketCategory: widget.marketCategories[selectedIndex],
         ),
       ],
     );
