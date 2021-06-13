@@ -26,7 +26,7 @@ class BasketPage extends StatelessWidget {
             ? AppLoading()
             : provider.basketItemList == null
                 ? provider.errorMsg == null
-                    ? _basketEmptyState()
+                    ? _basketErrorState("اشکال در نمایش سبد خرید")
                     : _basketErrorState("${provider.errorMsg!}")
                 : SingleChildScrollView(
                     child: Column(
@@ -65,30 +65,6 @@ class BasketPage extends StatelessWidget {
         ),
         body: consumer,
       ),
-    );
-  }
-
-  Widget _basketEmptyState() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Parent(
-          style: ParentStyle()
-            ..width(80)
-            ..alignmentContent.center(),
-          child: AspectRatio(
-            aspectRatio: 1 / 2,
-            child: Image.asset(
-              "assets/images/img_tezal_logo.png",
-              fit: BoxFit.contain,
-            ),
-          ),
-        ),
-        Txt(
-          "هنوز کالایی را به سبد خرید خود اضافه نکرده‌اید",
-          style: AppTxtStyles().footNote..alignment.center(),
-        ),
-      ],
     );
   }
 

@@ -1,17 +1,11 @@
-import 'dart:convert';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/basket_result_model.dart';
-import '../../../../data/models/customer/photos_result_model.dart';
+import '../../../base_widgets/shared_photo.dart';
 import '../../../customer_providers/basket_notifier.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 import '../../../customer_widgets/product_list/product_counter.dart';
@@ -56,7 +50,7 @@ class BasketListItem extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
                   ),
-                  child: _futureImgFile,
+                  child: SharedPhoto.getProductPhoto(id: basketItem.id),
                 ),
               ),
               SizedBox(width: 8),
@@ -137,23 +131,6 @@ class BasketListItem extends StatelessWidget {
       ),
     );
   }
-
-  Widget get _futureImgFile =>
-      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: basketNotifier.customerProductRepo.getPhoto(
-          id: basketItem.id,
-        ),
-        successBuilder: (context, data) {
-          return data!.fold(
-            (left) => SizedBox(),
-            (right) => Image.memory(
-              base64Decode(right.data!.photos.first),
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        errorBuilder: (context, data) => SizedBox(),
-      );
 
   Widget get _verticalDivider => SizedBox(
         height: 40,
