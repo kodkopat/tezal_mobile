@@ -8,7 +8,7 @@ import '../../../customer_providers/order_detail_notifier.dart';
 import 'order_list_item.dart';
 
 class OrderList extends StatelessWidget {
-  const OrderList({
+  OrderList({
     required this.orderItems,
     required this.orderDetailNotifier,
     required this.onItemCommentTap,

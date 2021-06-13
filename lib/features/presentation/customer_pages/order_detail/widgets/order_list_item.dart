@@ -1,19 +1,11 @@
-import 'dart:convert';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/customer/order_detail_result_model.dart';
-import '../../../../data/models/customer/photos_result_model.dart';
-import '../../../../data/repositories/customer_product_repository.dart';
+import '../../../base_widgets/shared_photo.dart';
 import '../../../customer_widgets/custom_rich_text.dart';
 
 class OrderListItem extends StatelessWidget {
@@ -32,11 +24,9 @@ class OrderListItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: Column(
-        textDirection: TextDirection.rtl,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            textDirection: TextDirection.rtl,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Parent(
@@ -53,18 +43,16 @@ class OrderListItem extends StatelessWidget {
                   borderRadius: BorderRadius.all(
                     Radius.circular(8),
                   ),
-                  child: _futurePhoto,
+                  child: SharedPhoto.getProductPhoto(id: orderItem.id),
                 ),
               ),
               SizedBox(width: 8),
               Expanded(
                 child: Column(
-                  textDirection: TextDirection.rtl,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Txt(
@@ -92,12 +80,10 @@ class OrderListItem extends StatelessWidget {
                     ),
                     SizedBox(height: 16),
                     Row(
-                      textDirection: TextDirection.rtl,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Column(
-                          textDirection: TextDirection.rtl,
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -116,7 +102,6 @@ class OrderListItem extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Row(
-            textDirection: TextDirection.rtl,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -133,23 +118,6 @@ class OrderListItem extends StatelessWidget {
     );
   }
 
-  Widget get _futurePhoto =>
-      CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future: Get.find<CustomerProductRepository>().getPhoto(
-          id: orderItem.id,
-        ),
-        successBuilder: (context, data) {
-          return data!.fold(
-            (left) => SizedBox(),
-            (right) => Image.memory(
-              base64Decode(right.data!.photos.first),
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        errorBuilder: (context, data) => SizedBox(),
-      );
-
   Widget get _verticalDivider => SizedBox(
         height: 40,
         child: VerticalDivider(
@@ -161,7 +129,6 @@ class OrderListItem extends StatelessWidget {
 
   Widget _fieldTotalPrice() {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateTotalPrice(),
@@ -199,7 +166,6 @@ class OrderListItem extends StatelessWidget {
 
   Widget _fieldTotalDiscountedPrice() {
     return RichText(
-      textDirection: TextDirection.rtl,
       textAlign: TextAlign.right,
       text: TextSpan(
         text: _generateTotalDiscountedPrice(),
