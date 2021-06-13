@@ -17,7 +17,6 @@ import '../models/customer/main_category_detail_result_model.dart';
 import '../models/customer/market_categories_result_model.dart';
 import '../models/customer/market_detail_result_model.dart';
 import '../models/customer/nearby_markets_result_model.dart';
-import '../models/customer/photos_result_model.dart';
 import '../models/customer/sub_category_detail_result_model.dart';
 import 'shared_user_repository.dart';
 
@@ -150,42 +149,6 @@ class CustomerMarketRepository {
         userLang,
         userToken,
         marketId,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, PhotosResultModel>> getPhoto({
-    required String marketId,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-
-      var result = await _remoteDataSource.getPhoto(
-        userLang,
-        marketId,
-        false,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, PhotosResultModel>> getPhotos({
-    required String marketId,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-
-      var result = await _remoteDataSource.getPhoto(
-        userLang,
-        marketId,
-        true,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

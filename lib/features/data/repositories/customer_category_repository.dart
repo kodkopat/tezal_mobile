@@ -10,7 +10,6 @@ import '../../../core/exceptions/failure.dart';
 import '../data_sources/customer_category/customer_category_local_data_source.dart';
 import '../data_sources/customer_category/customer_category_remote_data_source.dart';
 import '../models/customer/main_category_result_model.dart';
-import '../models/customer/photo_result_model.dart';
 import '../models/customer/sub_category_result_model.dart';
 import 'shared_user_repository.dart';
 
@@ -67,42 +66,6 @@ class CustomerCategoryRepository {
         userLang,
         marketId,
         mainCategoryId,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, PhotoResultModel>> getMainCategoryPhoto(
-      {required String id}) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.getMainCategoryPhoto(
-        userLang,
-        userToken,
-        id,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, PhotoResultModel>> getSubCategoryPhoto(
-      {required String id}) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-      final userToken = await _authRepo.userToken;
-
-      var result = await _remoteDataSource.getSubCategoryPhoto(
-        userLang,
-        userToken,
-        id,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

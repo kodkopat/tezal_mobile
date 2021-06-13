@@ -13,7 +13,6 @@ import '../models/base_api_result_model.dart';
 import '../models/customer/add_edit_comment_rate_result_model.dart';
 import '../models/customer/comments_result_model.dart';
 import '../models/customer/liked_products_result_model.dart';
-import '../models/customer/photos_result_model.dart';
 import '../models/customer/product_detail_result_model.dart';
 import '../models/customer/products_result_model.dart';
 import 'shared_user_repository.dart';
@@ -75,42 +74,6 @@ class CustomerProductRepository {
         userLang,
         userToken,
         id,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, PhotosResultModel>> getPhoto({
-    required String id,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-
-      var result = await _remoteDataSource.getPhoto(
-        userLang,
-        id,
-        false,
-      );
-
-      return result.success ? Right(result) : Left(ApiFailure(result.message));
-    }
-  }
-
-  Future<Either<Failure, PhotosResultModel>> getPhotos({
-    required String id,
-  }) async {
-    if (!await _connectionChecker.hasConnection) {
-      return Left(ConnectionFailure(connectionFailedMsg));
-    } else {
-      final userLang = await _authRepo.userLang;
-
-      var result = await _remoteDataSource.getPhoto(
-        userLang,
-        id,
-        true,
       );
 
       return result.success ? Right(result) : Left(ApiFailure(result.message));

@@ -11,7 +11,6 @@ import '../data_sources/customer_basket/customer_basket_local_data_source.dart';
 import '../data_sources/customer_basket/customer_basket_remote_data_source.dart';
 import '../models/base_api_result_model.dart';
 import '../models/customer/basket_result_model.dart';
-import '../models/customer/payment_info_result_model.dart';
 import 'shared_user_repository.dart';
 
 class CustomerBasketRepository {
@@ -74,7 +73,7 @@ class CustomerBasketRepository {
       }
     }
   }
-
+/*
   Future<Either<Failure, PaymentInfoResultModel>> getPaymentInfo() async {
     if (!await _connectionChecker.hasConnection) {
       return Left(ConnectionFailure(connectionFailedMsg));
@@ -90,7 +89,9 @@ class CustomerBasketRepository {
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
+ */
 
+/*
   Future<Either<Failure, BaseApiResultModel>> selectAddress({
     required String addressId,
   }) async {
@@ -109,6 +110,7 @@ class CustomerBasketRepository {
       return result.success ? Right(result) : Left(ApiFailure(result.message));
     }
   }
+*/
 
   Future<Either<Failure, BaseApiResultModel>> addProductToBasket({
     required String productId,
