@@ -196,7 +196,8 @@ class BasketActionsBox extends StatelessWidget {
     return CustomRichText(
       title: "تخفیف محصولات" + "\n",
       text: _generatePriceText(
-        basket.data!.totalPrice - basket.data!.totalDiscountedPrice,
+        100
+        /* basket.data!.totalPrice - basket.data!.totalDiscountedPrice */,
       ),
       textAlign: TextAlign.center,
     );

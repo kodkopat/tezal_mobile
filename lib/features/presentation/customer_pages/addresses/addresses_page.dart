@@ -3,7 +3,6 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/languages/language.dart';
@@ -22,10 +21,7 @@ class AddressesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var consumer = Consumer<AddressesNotifier>(
       builder: (context, provider, child) {
-        Get.put<AddressesNotifier>(provider);
-
-        if (provider.addressesResultModel == null &&
-            provider.listErrorMsg == null) {
+        if (provider.addressesResultModel == null) {
           provider.fetchAddresses();
         }
 
