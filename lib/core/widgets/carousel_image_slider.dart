@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/presentation/base_widgets/shared_photo.dart';
 import '../styles/txt_styles.dart';
 import 'carousel_image_slider_modal.dart';
 
@@ -71,9 +70,8 @@ class _CarouselImageSliderState extends State<CarouselImageSlider> {
                         path: "assets/images/img_placeholder.jpg",
                         fit: BoxFit.fill,
                       ),
-                    child: Image.memory(
-                      base64Decode(widget.images[index]),
-                      fit: BoxFit.fill,
+                    child: SharedPhoto.getProductPhoto(
+                      id: widget.images[index],
                     ),
                   );
                 },

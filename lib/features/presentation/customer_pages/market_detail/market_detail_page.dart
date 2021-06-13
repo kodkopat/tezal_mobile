@@ -14,7 +14,6 @@ import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/comments_result_model.dart';
 import '../../../data/models/customer/market_detail_result_model.dart';
 import '../../../data/models/customer/nearby_markets_result_model.dart';
-import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/repositories/customer_market_repository.dart';
 import '../../customer_pages/home/widgets/markets_list_item.dart';
 import '../../customer_providers/market_detail_notifier.dart';
@@ -74,20 +73,23 @@ class MarketDetailPage extends StatelessWidget {
   ) {
     var categories = marketDetail.data!.categories;
 
-    var data = marketDetail.data;
+    // x is a container
+    var x = marketDetail.data;
     var market = Market(
-      id: data!.id,
-      name: data.name,
-      phone: data.phone,
-      address: data.address,
-      location: data.location,
-      score: data.score,
-      distance: data.distance,
-      deliveryCost: data.deliveryCost,
-      clouseAt: data.clouseAt,
-      openAt: data.openAt,
-      situation: data.situation,
-      isLiked: data.liked,
+      id: x!.id,
+      address: x.address,
+      owner: null,
+      location: x.location,
+      name: x.name,
+      phone: x.phone,
+      score: x.score,
+      openAt: x.openAt,
+      clouseAt: x.clouseAt,
+      situation: x.situation,
+      deliveryCost: x.deliveryCost,
+      distance: x.distance,
+      isLiked: x.liked,
+      photo: x.photoList,
     );
 
     return SingleChildScrollView(
@@ -106,33 +108,31 @@ class MarketDetailPage extends StatelessWidget {
   }
 
   Widget _sectionCarouselSlider(MarketDetailResultModel marketDetail) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
-      child: CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-        future:
-            Get.find<CustomerMarketRepository>().getPhotos(marketId: marketId),
-        successBuilder: (context, data) {
-          return data!.fold(
-            (left) => MarketSlider(images: []),
-            (right) {
-              // spl stands for, splited market location
-              List<String> spl = "${marketDetail.data!.location}".split("-");
-              var latitude = spl[0];
-              var longitude = spl[1];
+    // spl stands for, splited market location
+    List<String> spl = "${marketDetail.data!.location}".split("-");
+    var latitude = spl[0];
+    var longitude = spl[1];
 
-              return MarketSlider(
-                images: right.data!.photos,
-                marketLatitude: double.parse(latitude),
-                marketLongitude: double.parse(longitude),
-              );
-            },
-          );
-        },
-        errorBuilder: (context, data) {
-          return MarketSlider(images: []);
-        },
-      ),
-    );
+    if (marketDetail.data!.photoList == null ||
+        marketDetail.data!.photoList!.isEmpty) {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: MarketSlider(
+          images: [],
+          marketLatitude: double.parse(latitude),
+          marketLongitude: double.parse(longitude),
+        ),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: MarketSlider(
+          images: marketDetail.data!.photoList!,
+          marketLatitude: double.parse(latitude),
+          marketLongitude: double.parse(longitude),
+        ),
+      );
+    }
   }
 
   Widget _sectionDetailsBox(Market market, MarketDetailNotifier notifier) {

@@ -14,7 +14,6 @@ import '../../../../core/widgets/carousel_image_slider.dart';
 import '../../../../core/widgets/custom_future_builder.dart';
 import '../../../../core/widgets/loading.dart';
 import '../../../data/models/customer/comments_result_model.dart';
-import '../../../data/models/customer/photos_result_model.dart';
 import '../../../data/models/customer/product_detail_result_model.dart';
 import '../../../data/repositories/customer_product_repository.dart';
 import '../../customer_providers/basket_notifier.dart';
@@ -140,20 +139,12 @@ class ProductDetailPage extends StatelessWidget {
   }
 
   Widget _sectionCarouselSlider(ProductDetailResultModel productDetail) {
-    return CustomFutureBuilder<Either<Failure, PhotosResultModel>>(
-      future: Get.find<CustomerProductRepository>().getPhotos(
-        id: productDetail.data!.id,
-      ),
-      successBuilder: (context, data) {
-        return data!.fold(
-          (left) => CarouselImageSlider(images: []),
-          (right) => CarouselImageSlider(images: right.data!.photos),
-        );
-      },
-      errorBuilder: (context, data) {
-        return CarouselImageSlider(images: []);
-      },
-    );
+    if (productDetail.data!.photo == null ||
+        productDetail.data!.photo!.isEmpty) {
+      return CarouselImageSlider(images: []);
+    } else {
+      return CarouselImageSlider(images: productDetail.data!.photo!);
+    }
   }
 
   Widget _sectionTitleAndLike(ProductDetailResultModel productDetail) {

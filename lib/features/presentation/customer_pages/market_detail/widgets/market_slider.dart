@@ -1,12 +1,10 @@
 // ignore: import_of_legacy_library_into_null_safe
-import 'dart:convert';
-
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/styles/txt_styles.dart';
 import '../../../../../core/widgets/map_box.dart';
+import '../../../base_widgets/shared_photo.dart';
 
 class MarketSlider extends StatefulWidget {
   MarketSlider({
@@ -63,10 +61,7 @@ class _MarketSliderState extends State<MarketSlider> {
                       longitude: widget.marketLongitude,
                     );
                   } else {
-                    return Image.memory(
-                      base64Decode(widget.images[index]),
-                      fit: BoxFit.fill,
-                    );
+                    return SharedPhoto.getMarketPhoto(id: widget.images[index]);
                   }
                 },
               ),
