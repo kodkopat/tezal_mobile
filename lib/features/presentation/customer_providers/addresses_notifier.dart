@@ -59,6 +59,7 @@ class AddressesNotifier extends ChangeNotifier {
   AddressResultModel? addressResultModel;
 
   Future<void> fetchAddresses() async {
+    print("fetch addresses called! \n");
     var result = await customerAddressRepo.getAddresses();
 
     result.fold(

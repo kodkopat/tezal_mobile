@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:dartz/dartz.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:division/division.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:intl/intl.dart' as intl;
 
-import '../../../../../core/exceptions/failure.dart';
 import '../../../../../core/styles/txt_styles.dart';
-import '../../../../../core/widgets/custom_future_builder.dart';
 import '../../../../data/models/market/product_result_model.dart';
-import '../../../../data/models/photo_result_model.dart';
-import '../../../../data/repositories/shared_application_repository.dart';
 
 class SearchProductListItem extends StatelessWidget {
   SearchProductListItem({
@@ -61,7 +53,8 @@ class SearchProductListItem extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
-                child: _futureImgFile,
+                // TODO: connect this section to shared photo
+                child: SizedBox(),
               ),
             ),
           ),
@@ -109,24 +102,6 @@ class SearchProductListItem extends StatelessWidget {
       ),
     );
   }
-
-  Widget get _futureImgFile =>
-      CustomFutureBuilder<Either<Failure, PhotoResultModel>>(
-        future: SharedApplicationRepository().getProductPhoto(
-          productId: product.id,
-        ),
-        successBuilder: (context, data) {
-          print("photoData: $data\n");
-          return data!.fold(
-            (left) => SizedBox(),
-            (right) => Image.memory(
-              base64Decode(right.data!.photo),
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        errorBuilder: (context, data) => SizedBox(),
-      );
 
   Widget get _fieldDiscountedRate {
     if (_generateDiscountedRate().isEmpty) {
