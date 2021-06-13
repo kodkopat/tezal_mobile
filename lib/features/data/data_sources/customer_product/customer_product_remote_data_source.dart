@@ -36,14 +36,6 @@ abstract class CustomerProductRemoteDataSource {
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetPhoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotosResultModel> getPhoto(
-    @Header("lang") String? lang,
-    @Query("Id") String id,
-    @Query("Multi") bool multi,
-  );
-
   @GET("$_apiUrlPrefix/Like")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<BaseApiResultModel> like(

@@ -65,54 +65,6 @@ class _CustomerBasketRemoteDataSource
   }
 
   @override
-  Future<PaymentInfoResultModel> getPaymentInfo(lang, token) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PaymentInfoResultModel>(Options(
-                method: 'GET',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'lang': lang,
-                  r'token': token
-                },
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, 'Basket/GetPaymentInfo',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PaymentInfoResultModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<BaseApiResultModel> selectAddress(lang, token, addressId) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': addressId};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<BaseApiResultModel>(Options(
-                method: 'GET',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'lang': lang,
-                  r'token': token
-                },
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, 'Basket/SelectAddress',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseApiResultModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<BaseApiResultModel> addProductToBasket(lang, token, id, amount) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -120,7 +72,7 @@ class _CustomerBasketRemoteDataSource
     final _data = {'id': id, 'amount': amount};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
-                method: 'POST',
+                method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',
@@ -145,7 +97,7 @@ class _CustomerBasketRemoteDataSource
     final _data = {'id': id, 'amount': amount};
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<BaseApiResultModel>(Options(
-                method: 'POST',
+                method: 'GET',
                 headers: <String, dynamic>{
                   r'Content-Type': 'application/json',
                   r'Accept': 'text/plain',

@@ -66,54 +66,6 @@ class _CustomerCategoryRemoteDataSource
     return value;
   }
 
-  @override
-  Future<PhotoResultModel> getMainCategoryPhoto(lang, token, id) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PhotoResultModel>(Options(
-                method: 'GET',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'lang': lang,
-                  r'token': token
-                },
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, 'Category/GetMainCategoryPhoto',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PhotoResultModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<PhotoResultModel> getSubCategoryPhoto(lang, token, id) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PhotoResultModel>(Options(
-                method: 'GET',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'lang': lang,
-                  r'token': token
-                },
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, 'Category/GetSubCategoryPhoto',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PhotoResultModel.fromJson(_result.data!);
-    return value;
-  }
-
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

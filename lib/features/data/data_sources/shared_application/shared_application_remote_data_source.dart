@@ -3,8 +3,6 @@ import 'package:retrofit/http.dart';
 
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
-import '../../models/photo_result_model.dart';
-import '../../models/photos_result_model.dart';
 
 part 'shared_application_remote_data_source.g.dart';
 
@@ -35,23 +33,5 @@ abstract class SharedApplicationRemoteDataSource {
     @Header("lang") String? lang,
     @Header("token") String? token,
     @Body() List<String> contactNumbers,
-  );
-
-  @GET("$_apiUrlPrefix/GetProductPhoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotoResultModel> getProductPhoto(
-    @Header("lang") String? lang,
-    @Header("token") String? token,
-    @Query("productId") String productId,
-    @Query("preview") bool preview,
-  );
-
-  @GET("$_apiUrlPrefix/GetProductPhoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotosResultModel> getProductPhotos(
-    @Header("lang") String? lang,
-    @Header("token") String? token,
-    @Query("productId") String productId,
-    @Query("preview") bool preview,
   );
 }

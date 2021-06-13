@@ -69,14 +69,6 @@ abstract class CustomerMarketRemoteDataSource {
     @Query("Id") String id,
   );
 
-  @GET("$_apiUrlPrefix/GetPhoto")
-  @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<PhotosResultModel> getPhoto(
-    @Header("lang") String? lang,
-    @Query("Id") String id,
-    @Query("Multi") bool multi,
-  );
-
   @GET("$_apiUrlPrefix/GetComments")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
   Future<CommentsResultModel> getComments(

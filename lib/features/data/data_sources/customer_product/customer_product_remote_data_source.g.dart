@@ -69,29 +69,6 @@ class _CustomerProductRemoteDataSource
   }
 
   @override
-  Future<PhotosResultModel> getPhoto(lang, id, multi) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'Id': id, r'Multi': multi};
-    queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PhotosResultModel>(Options(
-                method: 'GET',
-                headers: <String, dynamic>{
-                  r'Content-Type': 'application/json',
-                  r'Accept': 'text/plain',
-                  r'lang': lang
-                },
-                extra: _extra,
-                contentType: 'application/json')
-            .compose(_dio.options, 'Product/GetPhoto',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PhotosResultModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
   Future<BaseApiResultModel> like(lang, token, id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'Id': id};
