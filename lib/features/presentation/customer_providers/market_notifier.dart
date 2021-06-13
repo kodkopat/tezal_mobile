@@ -5,7 +5,19 @@ import '../../data/models/customer/nearby_markets_result_model.dart';
 import '../../data/repositories/customer_market_repository.dart';
 
 class MarketNotifier extends ChangeNotifier {
-  MarketNotifier(this.customerMarketRepo);
+  static MarketNotifier? _instance;
+
+  factory MarketNotifier(
+    CustomerMarketRepository customerMarketRepo,
+  ) {
+    if (_instance == null) {
+      _instance = MarketNotifier._privateConstructor(customerMarketRepo);
+    }
+
+    return _instance!;
+  }
+
+  MarketNotifier._privateConstructor(this.customerMarketRepo);
 
   final CustomerMarketRepository customerMarketRepo;
 
