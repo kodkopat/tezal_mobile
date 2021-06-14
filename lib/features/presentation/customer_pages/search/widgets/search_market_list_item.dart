@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../../../core/page_routes/base_routes.dart';
 import '../../../../../core/styles/txt_styles.dart';
+import '../../../../data/models/customer/product_result_model.dart';
 import '../../../../data/models/customer/search_result_model.dart';
 import '../../../customer_providers/basket_notifier.dart';
 import '../../../customer_providers/search_notifier.dart';
@@ -15,7 +16,7 @@ import '../../product_detail/product_detail_page.dart';
 class SearchMarketListItem extends StatelessWidget {
   SearchMarketListItem({required this.market});
 
-  final Market market;
+  final SearchMarketResult market;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,27 @@ class SearchMarketListItem extends StatelessWidget {
       children: [
         _header,
         ProductHorizontalList(
-          products: products,
+          products: products!.map((e) {
+            return ProductResultModel(
+              id: e.id,
+              mainCategoryId: null,
+              subCategoryId: null,
+              mainCategoryName: null,
+              subCategoryName: null,
+              name: e.name,
+              originalPrice: e.originalPrice,
+              discountedPrice: e.discountedPrice,
+              totalPrice: null,
+              liked: e.liked,
+              discountRate: e.discountRate,
+              productUnit: e.productUnit,
+              step: e.step,
+              rate: null,
+              amount: e.amount,
+              onSale: null,
+              photo: e.photo,
+            );
+          }).toList(),
           onItemTap: (index) {
             var product = products[index];
             Routes.sailor.navigate(

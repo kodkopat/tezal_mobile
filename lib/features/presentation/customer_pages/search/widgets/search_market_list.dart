@@ -6,7 +6,7 @@ import 'search_market_list_item.dart';
 class SearchMarketList extends StatelessWidget {
   SearchMarketList({required this.markets});
 
-  final List<Market> markets;
+  final List<SearchMarketResult> markets;
 
   @override
   Widget build(BuildContext context) {
