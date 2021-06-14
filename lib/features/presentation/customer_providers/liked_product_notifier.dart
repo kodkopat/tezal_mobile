@@ -6,9 +6,7 @@ import '../../data/repositories/customer_product_repository.dart';
 class LikedProductNotifier extends ChangeNotifier {
   static LikedProductNotifier? _instance;
 
-  factory LikedProductNotifier(
-    CustomerProductRepository customerProductRepo,
-  ) {
+  factory LikedProductNotifier(CustomerProductRepository customerProductRepo) {
     if (_instance == null) {
       _instance = LikedProductNotifier._privateConstructor(customerProductRepo);
     }
@@ -29,10 +27,7 @@ class LikedProductNotifier extends ChangeNotifier {
 
     result.fold(
       (left) => likedProductsErrorMsg = left.message,
-      (right) {
-        print("likedProducts: ${right.toJson()}\n");
-        likedProductsResultModel = right;
-      },
+      (right) => likedProductsResultModel = right,
     );
 
     likedProductsLoading = false;

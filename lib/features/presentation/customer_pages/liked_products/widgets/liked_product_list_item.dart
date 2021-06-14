@@ -10,12 +10,12 @@ import '../../../customer_widgets/product_list/product_like_toggle.dart';
 
 class LikedProductListItem extends StatelessWidget {
   LikedProductListItem({
-    required this.likedProduct,
+    required this.product,
     required this.onTap,
     required this.productNotifier,
   });
 
-  final LikedProduct likedProduct;
+  final LikedProduct product;
   final VoidCallback onTap;
   final LikedProductNotifier productNotifier;
 
@@ -60,13 +60,15 @@ class LikedProductListItem extends StatelessWidget {
                       borderRadius: BorderRadius.all(
                         Radius.circular(8),
                       ),
-                      child: SharedPhoto.getProductPhoto(
-                        id: likedProduct.productId,
-                      ),
+                      child: (product.photo == null || product.photo!.isEmpty)
+                          ? SizedBox()
+                          : SharedPhoto.getProductPhoto(
+                              id: product.photo!.first,
+                            ),
                     ),
                   ),
                   Txt(
-                    "${likedProduct.name}",
+                    "${product.name}",
                     style: AppTxtStyles().subHeading
                       ..padding(right: 4)
                       ..textOverflow(TextOverflow.ellipsis)
@@ -74,7 +76,7 @@ class LikedProductListItem extends StatelessWidget {
                       ..bold(),
                   ),
                   Txt(
-                    " دسته: " + "${likedProduct.category}",
+                    " دسته: " + "${product.category}",
                     style: AppTxtStyles().footNote
                       ..textColor(Colors.black38)
                       ..padding(right: 4)
@@ -82,7 +84,7 @@ class LikedProductListItem extends StatelessWidget {
                       ..maxLines(1),
                   ),
                   Txt(
-                    " فروشگاه: " + "${likedProduct.market}",
+                    " فروشگاه: " + "${product.market}",
                     style: AppTxtStyles().footNote
                       ..textColor(Colors.black38)
                       ..padding(right: 4)
@@ -101,7 +103,7 @@ class LikedProductListItem extends StatelessWidget {
               defaultValue: true,
               onChange: (value) async {
                 productNotifier.unlikeProduct(
-                  productId: likedProduct.productId,
+                  productId: product.productId,
                 );
               },
             ),

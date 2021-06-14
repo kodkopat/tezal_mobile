@@ -28,7 +28,7 @@ class LikedProductList extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         return LikedProductListItem(
-          likedProduct: likedProducts[index],
+          product: likedProducts[index],
           onTap: () {
             Routes.sailor.navigate(
               ProductDetailPage.route,
