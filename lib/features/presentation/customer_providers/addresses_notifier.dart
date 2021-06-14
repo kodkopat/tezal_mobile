@@ -59,7 +59,6 @@ class AddressesNotifier extends ChangeNotifier {
   AddressResultModel? addressResultModel;
 
   Future<void> fetchAddresses() async {
-    print("fetch addresses called! \n");
     var result = await customerAddressRepo.getAddresses();
 
     result.fold(
@@ -152,13 +151,18 @@ class AddressesNotifier extends ChangeNotifier {
   }
 
   Future<void> setAddressDefault({required String addressId}) async {
+    print("set default address called!\n");
+
     var result = await customerAddressRepo.setDefaultAddress(
       addressId: addressId,
     );
 
     result.fold(
-      (left) => null,
+      (left) {
+        print("setDefaultAddressRight: $left\n");
+      },
       (right) async {
+        print("setDefaultAddressRight: ${right.toJson()}\n");
         await fetchAddresses();
       },
     );
