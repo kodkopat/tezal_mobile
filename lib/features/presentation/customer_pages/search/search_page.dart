@@ -27,7 +27,7 @@ class SearchPage extends StatelessWidget {
 
         return Stack(
           children: [
-            provider.searchResultList == null
+            provider.searchMarketResultList == null
                 ? provider.searchErrorMsg == null
                     ? Txt(
                         "نام محصول مورد نظر خود را جستجو کنید",
@@ -41,7 +41,7 @@ class SearchPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       padding: EdgeInsets.only(top: 98),
                       child: SearchMarketList(
-                        markets: provider.searchResultList!,
+                        markets: provider.searchMarketResultList!,
                       ),
                     ),
                   ),

@@ -70,7 +70,7 @@ class CustomerSearchNotifier extends ChangeNotifier {
 
   String? term;
   String? searchErrorMsg;
-  List<Market>? searchResultList;
+  List<SearchMarketResult>? searchMarketResultList;
 
   Future<void> search(
     BuildContext context, {
@@ -107,7 +107,7 @@ class CustomerSearchNotifier extends ChangeNotifier {
 
     result.fold(
       (left) => searchErrorMsg = left.message,
-      (right) => searchResultList = right.data.markets,
+      (right) => searchMarketResultList = right.data!,
     );
 
     await fetchSearchTerms();
