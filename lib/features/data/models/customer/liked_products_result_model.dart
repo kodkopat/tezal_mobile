@@ -36,6 +36,7 @@ class LikedProduct {
     required this.name,
     required this.market,
     required this.marketId,
+    required this.photo,
   });
 
   final id;
@@ -44,6 +45,7 @@ class LikedProduct {
   final name;
   final market;
   final marketId;
+  final List<String>? photo;
 
   factory LikedProduct.fromJson(Map<String, dynamic> json) => LikedProduct(
         id: json["id"],
@@ -52,6 +54,9 @@ class LikedProduct {
         name: json["name"],
         market: json["market"],
         marketId: json["marketId"],
+        photo: json["photo"] == null
+            ? null
+            : List<String>.from(json["photo"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
@@ -61,5 +66,7 @@ class LikedProduct {
         "name": name,
         "market": market,
         "marketId": marketId,
+        "photo":
+            photo == null ? null : List<dynamic>.from(photo!.map((x) => x)),
       };
 }
