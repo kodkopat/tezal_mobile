@@ -28,7 +28,7 @@ abstract class CustomerOrderRemoteDataSource {
 
   @GET("$_apiUrlPrefix/CancelOrder")
   @Headers({"Content-Type": "application/json", "Accept": "text/plain"})
-  Future<BaseApiResultModel> cancel(
+  Future<BaseApiResultModel> cancelOrder(
     @Header("lang") String? lang,
     @Header("token") String? token,
   );

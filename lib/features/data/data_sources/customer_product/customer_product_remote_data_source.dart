@@ -6,7 +6,6 @@ import '../../models/base_api_result_model.dart';
 import '../../models/customer/add_edit_comment_rate_result_model.dart';
 import '../../models/customer/comments_result_model.dart';
 import '../../models/customer/liked_products_result_model.dart';
-import '../../models/customer/photos_result_model.dart';
 import '../../models/customer/product_detail_result_model.dart';
 import '../../models/customer/products_result_model.dart';
 

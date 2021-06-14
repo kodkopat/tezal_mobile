@@ -45,7 +45,7 @@ class _CustomerOrderRemoteDataSource implements CustomerOrderRemoteDataSource {
   }
 
   @override
-  Future<BaseApiResultModel> cancel(lang, token) async {
+  Future<BaseApiResultModel> cancelOrder(lang, token) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);

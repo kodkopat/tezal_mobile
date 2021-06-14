@@ -9,7 +9,6 @@ import '../../models/customer/main_category_detail_result_model.dart';
 import '../../models/customer/market_categories_result_model.dart';
 import '../../models/customer/market_detail_result_model.dart';
 import '../../models/customer/nearby_markets_result_model.dart';
-import '../../models/customer/photos_result_model.dart';
 import '../../models/customer/sub_category_detail_result_model.dart';
 
 part 'customer_market_remote_data_source.g.dart';

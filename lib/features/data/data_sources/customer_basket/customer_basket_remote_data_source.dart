@@ -4,7 +4,6 @@ import 'package:retrofit/retrofit.dart';
 import '../../../../core/consts/consts.dart';
 import '../../models/base_api_result_model.dart';
 import '../../models/customer/basket_result_model.dart';
-import '../../models/customer/payment_info_result_model.dart';
 
 part 'customer_basket_remote_data_source.g.dart';
 
